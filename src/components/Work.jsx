@@ -142,6 +142,9 @@ export function Work() {
                 </div>
                 <div className="work-further-content">
                   <h4 className="work-further-title">{project.title}</h4>
+                  {project.summary && (
+                    <p className="work-further-summary">{project.summary}</p>
+                  )}
                   {project.metadataRow ? (
                     <p className="work-further-meta work-further-metadata-row">{project.metadataRow}</p>
                   ) : (
@@ -152,9 +155,6 @@ export function Work() {
                       </p>
                       <p className="work-further-role">{project.role}</p>
                     </>
-                  )}
-                  {project.description && (
-                    <p className="work-further-description">{project.description}</p>
                   )}
                 </div>
               </Link>

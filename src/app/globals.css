@@ -511,18 +511,18 @@ nav::after {
   text-transform: uppercase;
   color: var(--accent-dim);
 }
+.work-further-summary {
+  font-size: .7rem;
+  line-height: 1.5;
+  color: var(--fog);
+  margin-bottom: 0.5rem;
+}
 .work-further-metadata-row {
   font-size: .56rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--fog);
   margin-bottom: 0.5rem;
-}
-.work-further-description {
-  font-size: .75rem;
-  line-height: 1.6;
-  color: var(--warm);
-  margin-top: 0.5rem;
 }
 
 .project-featured {
