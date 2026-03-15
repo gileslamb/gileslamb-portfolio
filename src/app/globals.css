@@ -1509,6 +1509,104 @@ nav::after {
 }
 .visit-scotland-back a:hover { color: var(--cream); }
 
+/* FABLE LEGENDS PAGE */
+.fable-legends-page {
+  min-height: 100vh;
+  padding: 9rem 3.5rem 5rem;
+  background: var(--black);
+}
+.fable-legends-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.fable-legends-left { max-width: 600px; }
+.fable-legends-type {
+  font-size: .56rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--fog);
+  margin-bottom: 1rem;
+}
+.fable-legends-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+}
+.fable-legends-tagline {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--warm);
+  margin-bottom: 2rem;
+}
+.fable-legends-description {
+  font-size: .95rem;
+  line-height: 1.9;
+  color: var(--warm);
+  margin-bottom: 2rem;
+}
+.fable-legends-description p { margin-bottom: 1.2rem; }
+.fable-legends-awards {
+  margin-bottom: 1.5rem;
+}
+.fable-legends-award-item {
+  font-size: .7rem;
+  letter-spacing: .08em;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+.fable-legends-meta {
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.fable-legends-right { min-width: 0; }
+.fable-legends-image {
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+.fable-legends-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(30%) brightness(0.75) sepia(15%);
+  transition: filter 0.4s ease;
+}
+.fable-legends-image:hover .fable-legends-img {
+  filter: grayscale(10%) brightness(0.85) sepia(5%);
+}
+.fable-legends-video {
+  border-radius: 2px;
+  overflow: hidden;
+  filter: grayscale(30%) brightness(0.75) sepia(15%);
+}
+.fable-legends-back {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.fable-legends-back a {
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fog);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.fable-legends-back a:hover { color: var(--cream); }
+
 /* LIVE BRIDGE */
 .live-bridge {
   padding: 8rem 3.5rem; background: var(--carbon);
@@ -2016,6 +2114,11 @@ footer {
   .visit-scotland-layout { grid-template-columns: 1fr; gap: 3rem; }
   .visit-scotland-right { order: 1; }
   .visit-scotland-left { order: 2; max-width: none; }
+
+  .fable-legends-page { padding: 5rem 1.5rem 4rem; }
+  .fable-legends-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .fable-legends-right { order: 1; }
+  .fable-legends-left { order: 2; max-width: none; }
 
   /* CASE STUDY */
   .case-study { padding: 5rem 1.5rem 4rem; }
