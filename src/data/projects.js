@@ -34,10 +34,10 @@ export const FURTHER_WORK_PROJECTS = [
     client: "RSNO",
     year: "2016",
     role: "Composer",
-    summary: "Original score performed by the Royal Scottish National Orchestra for VisitScotland's Spirit of Scotland campaign.",
+    summary: "Orchestral score for VisitScotland's first global campaign. Performed by the Royal Scottish National Orchestra. Featured on Good Morning America.",
     image:
       "https://gileslamb.com/assets/images/_gridThumbSquare/Untitled-design-5_250307_144934.jpg",
-    href: "#",
+    href: "/work/visit-scotland",
   },
   {
     id: "story-trails",
