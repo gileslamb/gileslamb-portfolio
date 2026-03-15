@@ -2,8 +2,13 @@ services:
   - type: web
     name: gileslamb-portfolio
     runtime: node
-    buildCommand: npm run build
-    startCommand: npm start
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: node node_modules/.bin/next start
     envVars:
       - key: NODE_VERSION
-        value: 18
+        value: 20.11.0
+      - key: NODE_ENV
+        value: production
