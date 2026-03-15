@@ -16,26 +16,26 @@ const PROJECT = {
   role: "Composer · Producer",
   tagline:
     "Music and image built simultaneously. Neither serving the other.",
-  description: `The starting point was Calvino. Cosmicomics — stories where science becomes memory, where characters climb ladders to the moon and drift through space with longing.
+  description: `The starting point was Calvino. Cosmicomics, stories where science becomes memory, where characters climb ladders to the moon and drift through space with longing.
 
 In a stark future where Earth lies desolate, its sole remaining inhabitant undertakes a surreal ascent to the Moon. Battling inner demons, existential despair, and profound solitude, the character discovers unexpected companionship and glimpses of beauty and hope in the infinite vastness of space.
 
 Stop-motion animation inspired by early sci-fi: Fritz Lang's Metropolis, Hitchcock, Samuel Beckett, Italo Calvino's Cosmicomics. Set during the Space Race era but in a future timeline.
 
-Distance to the Moon began as musical sketches — a surrealist opera that never quite became one. Music and image built together from the start, each shaping the other. Not score to picture. A single act of composition.`,
+Distance to the Moon began as musical sketches, a surrealist opera that never quite became one. Music and image built together from the start, each shaping the other. Not score to picture. A single act of composition.`,
   awards: [
-    "Distinction Award (Short Competition) — Athens Animfest",
-    "Music Award — Athens Animfest",
-    "Best Soundtrack — Animaze",
-    "Best Original Composition in a Short Film, Finalist — Music & Sound Awards",
-    "Best International Animated Short, Shortlisted — Shark Awards",
+    "Distinction Award (Short Competition), Athens Animfest",
+    "Music Award, Athens Animfest",
+    "Best Soundtrack, Animaze",
+    "Best Original Composition in a Short Film, Finalist, Music & Sound Awards",
+    "Best International Animated Short, Shortlisted, Shark Awards",
   ],
   festivalSelections: [
     "Athens Animfest",
     "Stop-eMotion, Venice",
     "DUMBO Film Festival, NYC",
     "Edinburgh International Film Festival",
-    "Animaze — Montreal International Animation Film Festival",
+    "Animaze, Montreal International Animation Film Festival",
     "Banjaluka International Animated Film Festival",
     "POFF Shorts",
     "Trieste Science+Fiction Festival",

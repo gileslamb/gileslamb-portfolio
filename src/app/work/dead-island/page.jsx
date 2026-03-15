@@ -66,8 +66,7 @@ export default function DeadIslandPage() {
             </p>
             <p>
               Within a week, over a million people had watched it on YouTube.
-              Ten times Deep Silver&apos;s own projections.
-              ten times Deep Silver&apos;s own projections. It swept round the
+              Ten times Deep Silver&apos;s own projections. It swept round the
               world press in days. Dead Island became one of the most searched
               terms on Google, YouTube, and Twitter simultaneously. A game that had
               gone dark for four years, widely assumed cancelled, had become one

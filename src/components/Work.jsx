@@ -12,13 +12,13 @@ const CASE_STUDIES = [
     title: "Distance to the Moon",
     tagline: "Music and image built simultaneously. Neither serving the other.",
     description: [
-      "The starting point was Calvino. Cosmicomics — stories where science becomes memory. In a stark future where Earth lies desolate, its sole remaining inhabitant undertakes a surreal ascent to the Moon.",
-      "Stop-motion animation inspired by Metropolis, Hitchcock, Calvino. Distance to the Moon began as musical sketches — a surrealist opera that never quite became one. Music and image built together from the start, each shaping the other.",
+      "The starting point was Calvino. Cosmicomics, stories where science becomes memory. In a stark future where Earth lies desolate, its sole remaining inhabitant undertakes a surreal ascent to the Moon.",
+      "Stop-motion animation inspired by Metropolis, Hitchcock, Calvino. Distance to the Moon began as musical sketches, a surrealist opera that never quite became one. Music and image built together from the start, each shaping the other.",
     ],
     awards: [
-      "Distinction Award (Short Competition) — Athens Animfest",
-      "Music Award — Athens Animfest",
-      "Best Soundtrack — Animaze",
+      "Distinction Award (Short Competition), Athens Animfest",
+      "Music Award, Athens Animfest",
+      "Best Soundtrack, Animaze",
     ],
     meta: { role: "Composer · Producer", client: "Curious Dreamers / Eyebols", medium: "Original Score" },
     coverImage: `${CF}/dttm--high-res-stills-dttm-picture-lock-v06_01_01_19_12.jpg/public`,
@@ -36,12 +36,12 @@ const CASE_STUDIES = [
       "The first two thirds are joyous and euphoric. In the third act there is a sharp turn. I used live cello, piano, guitar and ambient pads. As the truth reveals itself the melancholy dominates and something sinister creeps in.",
     ],
     awards: [
-      "Sundance Film Festival — US Documentary Competition",
+      "Sundance Film Festival, US Documentary Competition",
       "Documentary Critics Choice Award",
     ],
     meta: { role: "Composer", client: "CNN Films / Netflix", director: "Will Allen" },
     coverImage: `${CF}/14535be8-678b-404a-60d3-71cb2c887300/public`,
-    coverAlt: "Holy Hell — 2016 film poster",
+    coverAlt: "Holy Hell, 2016 film poster",
   },
   {
     id: "dead-island",

@@ -13,11 +13,11 @@ const PROJECT = {
   year: "2015",
   type: "VR INSTALLATION",
   tagline: "Sound design and composition for an immersive VR installation presented at Sonica, Glasgow.",
-  description: `In the Victorian catacombs beneath Glasgow's Merchant City, visitors donned VR headsets and moved through a series of immersive digital environments. The space was mapped exactly — reality and virtual reality occupying the same physical footprint, so movement through the room corresponded precisely to movement through the virtual world. The boundary between the two dissolved.
+  description: `In the Victorian catacombs beneath Glasgow's Merchant City, visitors donned VR headsets and moved through a series of immersive digital environments. The space was mapped exactly. Reality and virtual reality occupied the same physical footprint, so movement through the room corresponded precisely to movement through the virtual world. The boundary between the two dissolved.
 
 A collaboration between Giles Lamb, ISO Design, Numbercult and The Butler Brothers, drawing on backgrounds in 3D imaging, games design, neuroscience and sound.
 
-The score presented an unusual challenge. VR was still in its early exploratory phase — before crypto, before AI consumed the conversation — and the rules were unwritten. A strong stereo soundtrack, it turned out, immediately broke the spell. The more music asserted itself, the less present the virtual environment felt. What worked was restraint: subtle scoring, real-world sound design woven into the environment, music that served immersion rather than announcing itself.`,
+The score presented an unusual challenge. VR was still in its early exploratory phase. Before crypto, before AI consumed the conversation, the rules were unwritten. A strong stereo soundtrack, it turned out, immediately broke the spell. The more music asserted itself, the less present the virtual environment felt. What worked was restraint: subtle scoring, real-world sound design woven into the environment, music that served immersion rather than announcing itself.`,
   awards: [
     "Presented at Sonica Festival, Glasgow",
     "Collaboration: Giles Lamb · ISO Design · Numbercult · The Butler Brothers",

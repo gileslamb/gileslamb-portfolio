@@ -1,7 +1,7 @@
 /* TIER 1: Full case studies (Distance to the Moon, Holy Hell, Dead Island)
    Rendered inline in Work.jsx - not from this file */
 
-/* TIER 2: Further Selected Work — checkerboard grid */
+/* TIER 2: Further Selected Work, checkerboard grid */
 export const FURTHER_WORK_PROJECTS = [
   {
     id: "siren-servers",
@@ -21,11 +21,11 @@ export const FURTHER_WORK_PROJECTS = [
     client: "IFC Films / Newmarket Films",
     director: "Nicolas Winding Refn",
     role: "Sound Design · Additional Composer",
-    description: "Nicolas Winding Refn's mythic Viking film — shot entirely in Scotland, starring Mads Mikkelsen. Refn's next film was Drive. Two days in a room with an improvising ensemble — musicians playing live to the film, recording everything. That raw material became the sound design. Conducted and performed alongside Douglas MacDougall. Released on 180g vinyl by Milan Records.",
+    description: "Nicolas Winding Refn's mythic Viking film, shot entirely in Scotland, starring Mads Mikkelsen. Refn's next film was Drive. Two days in a room with an improvising ensemble. Musicians played live to the film, recording everything. That raw material became the sound design. Conducted and performed alongside Douglas MacDougall. Released on 180g vinyl by Milan Records.",
     metadataRow: "SOUND DESIGN · ADDITIONAL COMPOSER  |  IFC FILMS  |  MILAN RECORDS",
     image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/3362dd69-35ae-4e85-f2f6-6665a03d4e00/public",
     image2: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/6deb68c1-1ec3-4787-071c-245e4eafaf00/public",
-    href: "#",
+    href: "/work/valhalla-rising",
   },
   {
     id: "visit-scotland",

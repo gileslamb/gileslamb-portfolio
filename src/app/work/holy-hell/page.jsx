@@ -18,7 +18,7 @@ const PROJECT = {
   production: "WRA Productions / Very Special Projects / Whitewater Films",
   executiveProducers: "Jared Leto, Cheryl Sanders, Julian Goldstein",
   awards: [
-    "Sundance Film Festival — US Documentary Competition",
+    "Sundance Film Festival, US Documentary Competition",
     "Documentary Critics Choice Award",
   ],
   distribution: "CNN Films · Netflix",
@@ -27,10 +27,10 @@ const PROJECT = {
 };
 
 const COPY = [
-  "In November 2015 I had an email from an old university friend — she had co-produced a feature documentary directed by Will Allen, who had recently left a cult he had been part of for more than 20 years and pieced together all the footage to make the film.",
-  "I was immediately sucked into that world. The rough edit was poignant, almost dreamlike. Will had impeccable musical taste and was passionate about music being entwined with the edit — the challenge was replacing music he was so familiar with.",
-  "The narrative arc was the key. The first two thirds are in many ways joyous and euphoric — as a viewer you get pulled into the hope and promise of something real. In the third act there is a sharp turn. My instinct was to go dark much earlier — knowing how the story pans out.",
-  "I used live cello, piano, guitar and ambient pads. The piano was perfect — percussive and celebratory, then incredibly melancholic. As the truth reveals itself the melancholy dominates and something sinister creeps in.",
+  "In November 2015 I had an email from an old university friend. She had co-produced a feature documentary directed by Will Allen, who had recently left a cult he had been part of for more than 20 years and pieced together all the footage to make the film.",
+  "I was immediately sucked into that world. The rough edit was poignant, almost dreamlike. Will had impeccable musical taste and was passionate about music being entwined with the edit. The challenge was replacing music he was so familiar with.",
+  "The narrative arc was the key. The first two thirds are in many ways joyous and euphoric. As a viewer you get pulled into the hope and promise of something real. In the third act there is a sharp turn. My instinct was to go dark much earlier. I knew how the story would end.",
+  "I used live cello, piano, guitar and ambient pads. The piano was perfect: percussive and celebratory, then incredibly melancholic. As the truth reveals itself the melancholy dominates and something sinister creeps in.",
 ];
 
 export default function HolyHellPage() {
@@ -73,7 +73,7 @@ export default function HolyHellPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={PROJECT.posterImage}
-                alt="Holy Hell — 2016 film poster"
+                alt="Holy Hell, 2016 film poster"
                 className="holy-hell-img"
               />
             </div>
