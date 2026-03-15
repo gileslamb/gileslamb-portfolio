@@ -45,9 +45,9 @@ export const FURTHER_WORK_PROJECTS = [
     client: "StoryFutures / ISO Design",
     year: "2022",
     role: "Spatial Audio",
-    summary: "Spatial audio composition for a nationwide immersive AR project across 15 UK locations, part of UNBOXED: Creativity in the UK.",
+    summary: "Original score and sound design for a cycloramic immersive cinema touring 15 UK cities. Part of UNBOXED, executive produced by David Olusoga.",
     image: "https://gileslamb.com/assets/images/_gridThumbSquare/STORY-TRAILS.jpg",
-    href: "#",
+    href: "/work/story-trails",
   },
   {
     id: "fable-legends",
