@@ -133,29 +133,31 @@ export function Work() {
         <ul className="work-further-grid">
           {FURTHER_WORK_PROJECTS.map((project, i) => (
             <li key={project.id} className={`work-further-item ${i % 2 === 0 ? "img-left" : "img-right"}`}>
-              <div className="work-further-image">
-                <img src={project.image} alt={project.title} className="work-further-img-primary" />
-                {project.image2 && (
-                  <img src={project.image2} alt="" className="work-further-img-secondary" aria-hidden />
-                )}
-              </div>
-              <div className="work-further-content">
-                <h4 className="work-further-title">{project.title}</h4>
-                {project.metadataRow ? (
-                  <p className="work-further-meta work-further-metadata-row">{project.metadataRow}</p>
-                ) : (
-                  <>
-                    <p className="work-further-client">{project.client}</p>
-                    <p className="work-further-meta">
-                      {[project.year, project.type].filter(Boolean).join(" · ") || "\u00A0"}
-                    </p>
-                    <p className="work-further-role">{project.role}</p>
-                  </>
-                )}
-                {project.description && (
-                  <p className="work-further-description">{project.description}</p>
-                )}
-              </div>
+              <Link href={project.href || "#"} className="work-further-link">
+                <div className="work-further-image">
+                  <img src={project.image} alt={project.title} className="work-further-img-primary" />
+                  {project.image2 && (
+                    <img src={project.image2} alt="" className="work-further-img-secondary" aria-hidden />
+                  )}
+                </div>
+                <div className="work-further-content">
+                  <h4 className="work-further-title">{project.title}</h4>
+                  {project.metadataRow ? (
+                    <p className="work-further-meta work-further-metadata-row">{project.metadataRow}</p>
+                  ) : (
+                    <>
+                      <p className="work-further-client">{project.client}</p>
+                      <p className="work-further-meta">
+                        {[project.year, project.type].filter(Boolean).join(" · ") || "\u00A0"}
+                      </p>
+                      <p className="work-further-role">{project.role}</p>
+                    </>
+                  )}
+                  {project.description && (
+                    <p className="work-further-description">{project.description}</p>
+                  )}
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
