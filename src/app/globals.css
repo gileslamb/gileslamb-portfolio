@@ -727,6 +727,45 @@ nav::after {
 }
 .work-more a:hover { color: var(--warm); border-color: rgba(201,169,110,.3); }
 
+/* COMING SOON (skeleton project pages) */
+.coming-soon-page {
+  min-height: 100vh;
+  padding: 9rem 3.5rem 5rem;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.coming-soon-content {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.coming-soon-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+.coming-soon-message {
+  font-size: 1rem;
+  color: var(--fog);
+}
+.coming-soon-back {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.coming-soon-back a {
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fog);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.coming-soon-back a:hover { color: var(--cream); }
+
 /* CASE STUDY PAGE */
 .case-study {
   min-height: 100vh;
@@ -2119,6 +2158,8 @@ footer {
   .fable-legends-layout { grid-template-columns: 1fr; gap: 3rem; }
   .fable-legends-right { order: 1; }
   .fable-legends-left { order: 2; max-width: none; }
+
+  .coming-soon-page { padding: 5rem 1.5rem 4rem; }
 
   /* CASE STUDY */
   .case-study { padding: 5rem 1.5rem 4rem; }
