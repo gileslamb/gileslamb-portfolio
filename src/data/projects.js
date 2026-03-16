@@ -79,7 +79,7 @@ export const FURTHER_WORK_PROJECTS = [
     role: "Composer",
     summary: "The theme that played before every Cineworld screening, in every cinema across the UK.",
     metadataRow: "COMPOSER  |  CINEWORLD  |  2012",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%231a1a1a' width='400' height='400'/%3E%3C/svg%3E",
+    image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/9ae53dfd-1b02-4624-20e2-157dafce9000/public",
     href: "/work/cineworld",
   },
   {
