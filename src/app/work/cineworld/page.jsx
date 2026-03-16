@@ -17,7 +17,7 @@ The track they found was The Eternal Descent. A piece submitted to a music libra
 
 It played before screenings across the Cineworld estate. Every film, every screen, every visit.`,
   metadataRow: "COMPOSER  |  CINEWORLD  |  2012",
-  image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%231a1a1a' width='800' height='450'/%3E%3C/svg%3E",
+  image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/9ae53dfd-1b02-4624-20e2-157dafce9000/public",
   imageAlt: "Cineworld, The Eternal Descent, 2012",
 };
 
