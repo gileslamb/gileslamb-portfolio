@@ -61,13 +61,14 @@ export const FURTHER_WORK_PROJECTS = [
   },
   {
     id: "book-of-kells",
-    title: "Book of Kells",
+    title: "Book of Kells Experience",
     client: "Trinity College Dublin / ISO Design",
     year: "",
-    role: "Composer & Sound Design",
-    summary: "Composition and sound design for an immersive exhibition at Trinity College Dublin.",
-    image:
-      "https://gileslamb.com/assets/images/_gridThumbSquare/O5AK5VBV25BRRPALMVA2FHENYQ.jpg",
+    type: "Immersive / Installation",
+    role: "Immersive Score & Sound Design",
+    summary: "Immersive score and sound design for Trinity College Dublin's 360° Book of Kells film.",
+    metadataRow: "IMMERSIVE SCORE & SOUND DESIGN  |  TRINITY COLLEGE DUBLIN / ISO DESIGN",
+    image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/229dc73b-9aa2-497a-4a02-796ec9e11600/public",
     href: "/work/book-of-kells",
   },
   {
