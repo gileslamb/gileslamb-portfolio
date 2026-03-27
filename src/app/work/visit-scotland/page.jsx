@@ -75,6 +75,8 @@ export default function VisitScotlandPage() {
                 src={PROJECT.image1}
                 alt={PROJECT.image1Alt}
                 className="visit-scotland-img"
+                decoding="async"
+                fetchPriority="high"
               />
             </div>
             <div className="visit-scotland-image">
@@ -83,6 +85,8 @@ export default function VisitScotlandPage() {
                 src={PROJECT.image2}
                 alt={PROJECT.image2Alt}
                 className="visit-scotland-img"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="visit-scotland-image">
@@ -91,6 +95,8 @@ export default function VisitScotlandPage() {
                 src={PROJECT.image3}
                 alt={PROJECT.image3Alt}
                 className="visit-scotland-img"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="visit-scotland-video">

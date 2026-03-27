@@ -13,9 +13,7 @@ export function Contact() {
           work
         </h2>
         <p className="contact-sub reveal reveal-delay-2">
-          Available for commissions across immersive installation, live
-          audiovisual performance, cinematic scoring, and generative sound work.
-          Based between London and Berlin.
+          Installation, live AV, score, generative sound. Based in Glasgow, UK.
         </p>
         <div className="contact-portrait reveal reveal-delay-2">
           {/* TODO: replace hero portrait */}
@@ -30,27 +28,25 @@ export function Contact() {
       </div>
       <div className="contact-details">
         <div className="contact-item reveal">
-          <div className="contact-item-label">General &amp; Commissions</div>
-          <a
-            href="mailto:studio@gileslamb.com"
-            className="contact-item-value"
-          >
-            studio@gileslamb.com
+          <div className="contact-item-label">
+            General &amp; creative enquiries
+          </div>
+          <a href="mailto:giles@gileslamb.com" className="contact-item-value">
+            giles@gileslamb.com
           </a>
         </div>
         <div className="contact-item reveal reveal-delay-1">
-          <div className="contact-item-label">Representation &amp; Licensing</div>
-          <a
-            href="mailto:licensing@gileslamb.com"
-            className="contact-item-value"
-          >
-            licensing@gileslamb.com
+          <div className="contact-item-label">
+            Licensing &amp; sync enquiries
+          </div>
+          <a href="mailto:info@gileslamb.com" className="contact-item-value">
+            info@gileslamb.com
           </a>
         </div>
         <div className="contact-item reveal reveal-delay-2">
           <div className="contact-item-label">Location</div>
           <span className="contact-item-value" style={{ cursor: "default" }}>
-            London · Berlin
+            Glasgow, UK
           </span>
         </div>
       </div>

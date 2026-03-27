@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FURTHER_WORK_PROJECTS } from "@/data/projects";
 
@@ -117,8 +118,13 @@ export function Work() {
               </div>
               <div className="work-case-right">
                 <div className="work-case-image">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={study.coverImage} alt={study.coverAlt} />
+                  <Image
+                    src={study.coverImage}
+                    alt={study.coverAlt}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 45vw"
+                    className="work-case-image-fill"
+                  />
                 </div>
               </div>
             </div>
@@ -135,9 +141,24 @@ export function Work() {
             <li key={project.id} className={`work-further-item ${i % 2 === 0 ? "img-left" : "img-right"}`}>
               <Link href={project.href || "#"} className="work-further-link">
                 <div className="work-further-image">
-                  <img src={project.image} alt={project.title} className="work-further-img-primary" />
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                    className="work-further-img-primary"
+                    loading="lazy"
+                  />
                   {project.image2 && (
-                    <img src={project.image2} alt="" className="work-further-img-secondary" aria-hidden />
+                    <Image
+                      src={project.image2}
+                      alt=""
+                      fill
+                      sizes="(max-width: 767px) 100vw, 50vw"
+                      className="work-further-img-secondary"
+                      aria-hidden
+                      loading="lazy"
+                    />
                   )}
                 </div>
                 <div className="work-further-content">

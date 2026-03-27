@@ -1,0 +1,10 @@
+---
+description: Deployment via Render — push to GitHub
+alwaysApply: true
+---
+
+# Render Deployment
+
+This project deploys automatically when you push to the `main` branch on GitHub. Render is connected to the repo and builds from `render.yaml`.
+
+Do not run `npx vercel --prod`. Deployment happens via Render on push to `main`.

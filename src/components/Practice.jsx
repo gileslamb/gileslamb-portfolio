@@ -9,20 +9,16 @@ export function Practice() {
         </h2>
         <div className="practice-statement reveal reveal-delay-2">
           <p>
-            The question has always been the same: how does sound shape what we
-            see, feel, and understand?
+            Same question every time: how does sound change what we see and
+            feel?
           </p>
           <p>
-            The work moves between cinematic scoring, generative systems, and
-            live audiovisual performance — improvised sound and process-based
-            composition across albums, installation, film, and the stage. Each
-            form a different angle on the same question. Narrative carried as
-            much by texture and space as by picture.
+            Scores, installation, records, live sets. Same thread, different
+            rooms. Texture and space often matter as much as the picture.
           </p>
           <p>
-            Distance to the Moon. Dead Island. A dozen albums. Live
-            audiovisual work with generative visuals. The obsession is the same.
-            Only the form changes.
+            Distance to the Moon, Dead Island, albums, generative live work.
+            The obsession stays; the format changes.
           </p>
         </div>
       </div>
@@ -33,9 +29,8 @@ export function Practice() {
           <div className="lane-content">
             <div className="lane-title">Film &amp; Television</div>
             <p className="lane-desc">
-              Trailers, features, TV series, animation, campaigns. Where the
-              investigation has played out longest. The score as the hidden
-              architecture of narrative.
+              Trailers through to series and campaigns. Longest-running lane for
+              me: score as structure under the picture.
             </p>
             <div className="lane-tags">
               <span>Cinematic Trailer</span>
@@ -51,9 +46,8 @@ export function Practice() {
           <div className="lane-content">
             <div className="lane-title">Immersive &amp; Installation</div>
             <p className="lane-desc">
-              Spatial sound, exhibition commissions, cultural institutions. Work
-              designed for environments and bodies. Spatial composition where the
-              room itself is the instrument.
+              Spatial sound and exhibition work. Built for rooms and bodies, not
+              just speakers.
             </p>
             <div className="lane-tags">
               <span>Spatial Sound</span>
@@ -68,9 +62,8 @@ export function Practice() {
           <div className="lane-content">
             <div className="lane-title">Live Audiovisual Performance</div>
             <p className="lane-desc">
-              Modular synthesis, generative visuals, live audiovisual
-              performance. Sound as the DNA from which image emerges. The
-              practice made visible in real time.
+              Modular, TouchDesigner, live in the room. Image and sound at once,
+              neither pretending to lead.
             </p>
             <div className="lane-tags">
               <span>Live AV</span>

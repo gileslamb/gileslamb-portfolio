@@ -15,7 +15,7 @@ const heroNameFont = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Giles Lamb · Composer · Immersive Sound Artist",
   description:
-    "Composer and immersive sound artist. Cinematic scoring, generative systems, and live audiovisual performance — Signal Dreams, The Quiet Room, and more.",
+    "Composer. Film, installation, live audiovisual, Glasgow, UK. Signal Dreams, The Quiet Room.",
 };
 
 export default function RootLayout({

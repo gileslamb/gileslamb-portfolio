@@ -1,6 +1,9 @@
 /* TIER 1: Full case studies (Distance to the Moon, Holy Hell, Dead Island)
    Rendered inline in Work.jsx - not from this file */
 
+/* Cloudflare Images (same account as project pages) so thumbnails load on mobile/Vercel */
+const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
+
 /* TIER 2: Further Selected Work, checkerboard grid */
 export const FURTHER_WORK_PROJECTS = [
   {
@@ -35,8 +38,7 @@ export const FURTHER_WORK_PROJECTS = [
     year: "2016",
     role: "Composer",
     summary: "Orchestral score for VisitScotland's first global campaign. Performed by the Royal Scottish National Orchestra. Featured on Good Morning America.",
-    image:
-      "https://gileslamb.com/assets/images/_gridThumbSquare/Untitled-design-5_250307_144934.jpg",
+    image: `${CF}/67d9add6-9e16-4eff-e6a3-66dc69cdcd00/public`,
     href: "/work/visit-scotland",
   },
   {
@@ -46,7 +48,7 @@ export const FURTHER_WORK_PROJECTS = [
     year: "2022",
     role: "Spatial Audio",
     summary: "Original score and sound design for a cycloramic immersive cinema touring 15 UK cities. Part of UNBOXED, executive produced by David Olusoga.",
-    image: "https://gileslamb.com/assets/images/_gridThumbSquare/STORY-TRAILS.jpg",
+    image: `${CF}/d7b9ffe0-5073-4182-1443-89c60b8b4000/public`,
     href: "/work/story-trails",
   },
   {
@@ -56,7 +58,7 @@ export const FURTHER_WORK_PROJECTS = [
     year: "2013",
     role: "Composer",
     summary: "Announcement trailer for Lionhead's final Fable game, directed by Ben Hibon. Narrated by Michael Gambon. Premiered Gamescom 2013. The game was never released.",
-    image: "https://gileslamb.com/assets/images/_gridThumbSquare/Fable-Legends.png",
+    image: `${CF}/198cfe11-01bf-43f9-dece-34662a41bd00/public`,
     href: "/work/fable-legends",
   },
   {

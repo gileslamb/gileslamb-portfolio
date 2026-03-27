@@ -112,19 +112,15 @@ export function Hero() {
       </h1>
       <div className="hero-descriptor">
         <p>
-          I&apos;m a composer and immersive sound artist. My work moves between
-          cinematic scoring, generative systems, and live audiovisual performance
-          — transforming improvised sound and process-based composition into
-          experiences that feel less like concerts and more like entering a living
-          dream.
+          Composer. Film and installation, live audiovisual, generative work.
+          I spend as much time on process and improvisation as on the final mix.
         </p>
         <p>
-          Current projects include Signal Dreams, a live immersive audiovisual
-          work, and{" "}
+          Signal Dreams is current live work.{" "}
           <Link href="/writing" className="hero-descriptor-link">
             The Quiet Room
-          </Link>
-          , an ongoing writing practice on sound, attention, and creative process.
+          </Link>{" "}
+          is writing on sound and how I work.
         </p>
       </div>
       <div className="hero-cta">
