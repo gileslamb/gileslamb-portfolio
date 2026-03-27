@@ -445,25 +445,28 @@ nav::after {
   gap: 1px;
   background: rgba(255,255,255,.04);
 }
+/* Link must not use display:contents — it breaks <a> hit targets / navigation in WebKit and others */
 .work-further-item {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.work-further-link {
   display: grid;
   grid-template-columns: 200px 1fr;
   min-height: 180px;
   background: var(--black);
   transition: background .3s ease, border-color .3s ease;
   border-left: 3px solid transparent;
+  color: inherit;
+  text-decoration: none;
 }
-.work-further-item.img-right {
+.work-further-item.img-right .work-further-link {
   grid-template-columns: 1fr 200px;
 }
 .work-further-item.img-right .work-further-image { order: 2; }
 .work-further-item.img-right .work-further-content { order: 1; text-align: right; }
-.work-further-link {
-  display: contents;
-  color: inherit;
-  text-decoration: none;
-}
-.work-further-item:hover {
+.work-further-link:hover {
   background: rgba(255,255,255,.02);
   border-left-color: var(--accent);
 }
@@ -486,10 +489,10 @@ nav::after {
   opacity: 0;
   z-index: 1;
 }
-.work-further-item:hover .work-further-image img {
+.work-further-link:hover .work-further-image img {
   filter: grayscale(10%) brightness(0.9) sepia(8%);
 }
-.work-further-item:hover .work-further-img-secondary {
+.work-further-link:hover .work-further-img-secondary {
   opacity: 1;
 }
 .work-further-content {

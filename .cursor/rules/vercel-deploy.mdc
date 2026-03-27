@@ -1,0 +1,12 @@
+---
+description: Production deployment on Vercel (Git-connected)
+alwaysApply: true
+---
+
+# Vercel deployment
+
+This Next.js app is intended to deploy on **Vercel**. Connect the GitHub repo in the Vercel dashboard, import the project, and use the default settings (framework: Next.js, `npm run build`, output handled by Vercel).
+
+Pushes to the connected branch (e.g. `main`) trigger production deploys when Git integration is enabled.
+
+If `render.yaml` is still in the repo, it is legacy from Render; **Vercel does not use it** for builds.
