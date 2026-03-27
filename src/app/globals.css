@@ -2007,14 +2007,64 @@ nav::after {
   color: var(--cream);
   border-bottom-color: rgba(201,169,110,.45);
 }
+.live-coming-soon { margin-top: 1.5rem; }
+.live-coming-soon-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+  color: var(--fog);
+}
+.live-coming-soon-sub {
+  font-size: 0.95rem;
+  opacity: 0.75;
+  margin-bottom: 1rem;
+  color: var(--fog);
+  line-height: 1.5;
+}
+.live-email-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.live-email-input {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: inherit;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 0;
+  border-radius: 2px;
+  font-family: inherit;
+}
+.live-email-input::placeholder { opacity: 0.4; }
+.live-email-input:focus {
+  outline: none;
+  border-color: rgba(201,169,110,.35);
+}
+.live-email-submit {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: inherit;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 2px;
+  font-family: inherit;
+  transition: border-color .25s ease, color .25s ease;
+}
+.live-email-submit:hover {
+  border-color: rgba(255,255,255,0.8);
+  color: var(--cream);
+}
 .live-featured-link {
   display: block;
   text-decoration: none;
   color: inherit;
   min-width: 0;
-  -webkit-tap-highlight-color: rgba(201, 169, 110, 0.12);
-  touch-action: manipulation;
-  cursor: pointer;
 }
 .live-visual {
   position: relative;

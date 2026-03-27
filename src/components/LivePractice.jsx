@@ -1,8 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
+"use client";
 
-/** Featured live / immersive credit: real project page, not a placeholder */
-const FEATURED_PROJECT_HREF = "/work/story-trails";
+import Image from "next/image";
+
 const FEATURED_IMAGE =
   "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/fcd2ca85-ab4b-4c87-597e-bd9ed2945100/public";
 
@@ -24,18 +23,28 @@ export function LivePractice() {
             synthesis and generative visuals. Sound and image at once, neither
             pretending to lead. Debuting 2026.
           </p>
-          <Link
-            href={FEATURED_PROJECT_HREF}
-            className="live-text-cta reveal reveal-delay-2"
-          >
-            Story Trails: view project
-          </Link>
+          <div className="live-coming-soon reveal reveal-delay-2">
+            <p className="live-coming-soon-label">Signal Dreams · Coming 2026</p>
+            <p className="live-coming-soon-sub">
+              A new immersive living album. Enter your email for dates.
+            </p>
+            <form
+              className="live-email-form"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="live-email-input"
+                autoComplete="email"
+              />
+              <button type="submit" className="live-email-submit">
+                Notify me
+              </button>
+            </form>
+          </div>
         </div>
-        <Link
-          href={FEATURED_PROJECT_HREF}
-          className="live-featured-link reveal reveal-delay-2"
-          aria-label="Story Trails project"
-        >
+        <div className="live-featured-link reveal reveal-delay-2">
           <div className="live-visual">
             <Image
               src={FEATURED_IMAGE}
@@ -46,7 +55,7 @@ export function LivePractice() {
               priority={false}
             />
           </div>
-        </Link>
+        </div>
       </div>
     </section>
   );
