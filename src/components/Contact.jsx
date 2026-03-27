@@ -13,11 +13,12 @@ export function Contact() {
           work
         </h2>
         <p className="contact-sub reveal reveal-delay-2">
-          Available for film and television scoring, trailer composition,
-          immersive installation, and live audiovisual performance. Based between
-          London and Berlin.
+          Available for commissions across immersive installation, live
+          audiovisual performance, cinematic scoring, and generative sound work.
+          Based between London and Berlin.
         </p>
         <div className="contact-portrait reveal reveal-delay-2">
+          {/* TODO: replace hero portrait */}
           <Image
             src="https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/unnamed.jpg/public"
             alt="Giles Lamb"

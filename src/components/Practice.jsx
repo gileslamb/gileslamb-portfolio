@@ -13,15 +13,16 @@ export function Practice() {
             see, feel, and understand?
           </p>
           <p>
-            A practice built continuously across albums, film scores, trailers,
-            animation, live performance. Each form a different angle on the same
-            question. Narrative carried as much by texture and space as by
-            picture.
+            The work moves between cinematic scoring, generative systems, and
+            live audiovisual performance — improvised sound and process-based
+            composition across albums, installation, film, and the stage. Each
+            form a different angle on the same question. Narrative carried as
+            much by texture and space as by picture.
           </p>
           <p>
-            Distance to the Moon. Dead Island. A dozen albums. Now live
-            audiovisual performance with generative visuals. The obsession is the
-            same. Only the form changes.
+            Distance to the Moon. Dead Island. A dozen albums. Live
+            audiovisual work with generative visuals. The obsession is the same.
+            Only the form changes.
           </p>
         </div>
       </div>

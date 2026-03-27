@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CustomCursor } from "@/components/CustomCursor";
+import { Cormorant_Garamond } from "next/font/google";
+
+/** Homepage hero only — load on server to avoid client-bundle font work in dev */
+const heroNameFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: "300",
+  style: "italic",
+  display: "swap",
+  variable: "--font-hero-name",
+});
 
 export const metadata: Metadata = {
-  title: "Giles Lamb · Cinematic Composer · Immersive Audiovisual Artist",
-  description: "An artist whose medium includes film scores. A practice built continuously across albums, film, trailers, animation, and live audiovisual performance.",
+  title: "Giles Lamb · Composer · Immersive Sound Artist",
+  description:
+    "Composer and immersive sound artist. Cinematic scoring, generative systems, and live audiovisual performance — Signal Dreams, The Quiet Room, and more.",
 };
 
 export default function RootLayout({
@@ -13,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={heroNameFont.variable}>
       <body>
         <CustomCursor />
         {children}

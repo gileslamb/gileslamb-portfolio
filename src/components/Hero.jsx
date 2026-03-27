@@ -104,17 +104,29 @@ export function Hero() {
           />
         </svg>
       </div>
-      <p className="hero-eyebrow">Cinematic Composer · Immersive Audiovisual Artist</p>
+      <p className="hero-eyebrow">Composer · Immersive Sound Artist</p>
       <h1 className="hero-name">
         Giles
         <br />
-        <em>Lamb</em>
+        <span className="hero-name-surname">Lamb</span>
       </h1>
-      <p className="hero-descriptor">
-        An artist whose medium includes film scores. Thirty years of work across
-        albums, film, trailers, animation, and live audiovisual performance. One
-        question underneath all of it: how does sound shape what we see and feel.
-      </p>
+      <div className="hero-descriptor">
+        <p>
+          I&apos;m a composer and immersive sound artist. My work moves between
+          cinematic scoring, generative systems, and live audiovisual performance
+          — transforming improvised sound and process-based composition into
+          experiences that feel less like concerts and more like entering a living
+          dream.
+        </p>
+        <p>
+          Current projects include Signal Dreams, a live immersive audiovisual
+          work, and{" "}
+          <Link href="/writing" className="hero-descriptor-link">
+            The Quiet Room
+          </Link>
+          , an ongoing writing practice on sound, attention, and creative process.
+        </p>
+      </div>
       <div className="hero-cta">
         <Link href="#work" className="cta-primary">
           Selected Work
