@@ -13,7 +13,7 @@ export function Contact() {
           work
         </h2>
         <p className="contact-sub reveal reveal-delay-2">
-          Installation, live AV, score, generative sound. Based in Glasgow, UK.
+          Film score, music and image, soundtrack supervision. Based in Glasgow, UK.
         </p>
         <div className="contact-portrait reveal reveal-delay-2">
           {/* TODO: replace hero portrait */}

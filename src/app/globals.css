@@ -2021,7 +2021,6 @@ nav::after {
   z-index: 2;
   width: 100%;
   aspect-ratio: 16 / 10;
-  min-height: 200px;
   overflow: hidden;
   border-radius: 2px;
   background: var(--black);
