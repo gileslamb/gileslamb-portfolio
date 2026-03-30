@@ -5,7 +5,7 @@
 const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
 /* TIER 2: Further Selected Work, checkerboard grid */
-export const FURTHER_WORK_PROJECTS = [
+export const FURTHER_WORK_PRIMARY = [
   {
     id: "siren-servers",
     title: "Siren Servers",
@@ -51,6 +51,9 @@ export const FURTHER_WORK_PROJECTS = [
     image: `${CF}/d7b9ffe0-5073-4182-1443-89c60b8b4000/public`,
     href: "/work/story-trails",
   },
+];
+
+export const FURTHER_WORK_EXTENDED = [
   {
     id: "fable-legends",
     title: "Fable Legends",
@@ -97,4 +100,9 @@ export const FURTHER_WORK_PROJECTS = [
     image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/4c4c6acf-96ad-47b3-4f2a-de7efc826a00/public",
     href: "/work/the-21",
   },
+];
+
+export const FURTHER_WORK_PROJECTS = [
+  ...FURTHER_WORK_PRIMARY,
+  ...FURTHER_WORK_EXTENDED,
 ];

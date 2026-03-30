@@ -57,6 +57,17 @@ export default function VisitScotlandPage() {
               ))}
             </div>
 
+            <p className="visit-scotland-listen">
+              <a
+                href="https://open.spotify.com/album/4SHwC028aqhTOcpd40irAx?si=4T3Jt4DUQr6O6Xu-riD5Ew"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-external-link"
+              >
+                Listen: Timeless EP on Spotify ↗
+              </a>
+            </p>
+
             <div className="visit-scotland-awards">
               {PROJECT.awards.map((award, i) => (
                 <div key={i} className="visit-scotland-award-item">

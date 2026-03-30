@@ -1,6 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FURTHER_WORK_PROJECTS } from "@/data/projects";
+import {
+  FURTHER_WORK_EXTENDED,
+  FURTHER_WORK_PRIMARY,
+} from "@/data/projects";
 
 const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
@@ -66,6 +72,12 @@ const CASE_STUDIES = [
 ];
 
 export function Work() {
+  const [showAll, setShowAll] = useState(false);
+  const furtherProjects = [
+    ...FURTHER_WORK_PRIMARY,
+    ...(showAll ? FURTHER_WORK_EXTENDED : []),
+  ];
+
   return (
     <section className="work" id="work">
       <div className="work-intro">
@@ -137,7 +149,7 @@ export function Work() {
         <h3 className="work-tier2-title">Further Selected Work</h3>
         <p className="work-tier2-subtitle">Additional credits from 30 years of practice.</p>
         <ul className="work-further-grid">
-          {FURTHER_WORK_PROJECTS.map((project, i) => (
+          {furtherProjects.map((project, i) => (
             <li key={project.id} className={`work-further-item ${i % 2 === 0 ? "img-left" : "img-right"}`}>
               <Link href={project.href || "#"} className="work-further-link">
                 <div className="work-further-image">
@@ -182,6 +194,15 @@ export function Work() {
             </li>
           ))}
         </ul>
+        {!showAll && (
+          <button
+            type="button"
+            className="work-show-more"
+            onClick={() => setShowAll(true)}
+          >
+            Show more credits
+          </button>
+        )}
       </div>
     </section>
   );
