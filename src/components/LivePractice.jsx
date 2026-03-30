@@ -1,11 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 
 const FEATURED_IMAGE =
   "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/fcd2ca85-ab4b-4c87-597e-bd9ed2945100/public";
 
 export function LivePractice() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState(null); // null | "loading" | "success" | "error"
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("loading");
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setStatus(res.ok ? "success" : "error");
+  };
+
   return (
     <section className="live-bridge" id="live">
       <div className="live-bridge-inner">
@@ -28,20 +43,35 @@ export function LivePractice() {
             <p className="live-coming-soon-sub">
               A new immersive living album. Enter your email for dates.
             </p>
-            <form
-              className="live-email-form"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="live-email-input"
-                autoComplete="email"
-              />
-              <button type="submit" className="live-email-submit">
-                Notify me
-              </button>
-            </form>
+            {status === "success" ? (
+              <p className="live-email-success">
+                You&apos;re on the list. We&apos;ll be in touch.
+              </p>
+            ) : (
+              <form className="live-email-form" onSubmit={handleSubmit}>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="live-email-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="live-email-submit"
+                  disabled={status === "loading"}
+                >
+                  {status === "loading" ? "..." : "Notify me"}
+                </button>
+                {status === "error" && (
+                  <p className="live-email-error">
+                    Something went wrong — try again.
+                  </p>
+                )}
+              </form>
+            )}
           </div>
         </div>
         <div className="live-featured-link reveal reveal-delay-2">
