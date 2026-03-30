@@ -1,18 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getPostBySlug, getAllPosts } from "@/lib/writing";
+import {
+  formatWritingDateLong,
+  getAllPosts,
+  getPostBySlug,
+} from "@/lib/writing";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -37,7 +32,7 @@ export default async function WritingPage({ params }) {
               {frontmatter.subtitle ?? frontmatter.description}
             </p>
             <time className="article-date" dateTime={frontmatter.date}>
-              {formatDate(frontmatter.date)}
+              {formatWritingDateLong(frontmatter.date)}
             </time>
           </header>
 

@@ -4,6 +4,30 @@ import matter from "gray-matter";
 
 const WRITING_DIR = path.join(process.cwd(), "content/writing");
 
+/** Parse frontmatter date (YYYY-MM-DD) as a local calendar date — avoids UTC off-by-one in display/sort. */
+export function parseWritingDate(dateStr) {
+  if (!dateStr || typeof dateStr !== "string") return new Date(NaN);
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr.trim());
+  if (!m) return new Date(dateStr);
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+}
+
+export function formatWritingDateShort(dateStr) {
+  return parseWritingDate(dateStr).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+export function formatWritingDateLong(dateStr) {
+  return parseWritingDate(dateStr).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 export function getAllPosts() {
   const files = fs.readdirSync(WRITING_DIR).filter((f) => f.endsWith(".mdx"));
   const posts = files.map((file) => {
@@ -18,7 +42,10 @@ export function getAllPosts() {
       coverImage: data.coverImage || null,
     };
   });
-  return posts.sort((a, b) => (b.date > a.date ? 1 : -1));
+  return posts.sort(
+    (a, b) =>
+      parseWritingDate(b.date).getTime() - parseWritingDate(a.date).getTime(),
+  );
 }
 
 export function getPostBySlug(slug) {

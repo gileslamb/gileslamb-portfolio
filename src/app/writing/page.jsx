@@ -1,16 +1,7 @@
 import Link from "next/link";
-import { getAllPosts } from "@/lib/writing";
+import { formatWritingDateShort, getAllPosts } from "@/lib/writing";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
 
 export default function WritingPage() {
   const posts = getAllPosts();
@@ -46,7 +37,9 @@ export default function WritingPage() {
                   )}
                 </div>
                 <div className="writing-card-content">
-                  <span className="writing-date">{formatDate(post.date)}</span>
+                  <span className="writing-date">
+                    {formatWritingDateShort(post.date)}
+                  </span>
                   <h2 className="writing-title">{post.title}</h2>
                   <p className="writing-subtitle">{post.subtitle}</p>
                 </div>
