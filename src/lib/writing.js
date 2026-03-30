@@ -13,7 +13,7 @@ export function getAllPosts() {
     return {
       slug: data.slug,
       title: data.title,
-      subtitle: data.subtitle,
+      subtitle: data.subtitle ?? data.description ?? "",
       date: data.date,
       coverImage: data.coverImage || null,
     };

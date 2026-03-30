@@ -33,7 +33,9 @@ export default async function WritingPage({ params }) {
         <article className="article-content">
           <header className="article-header">
             <h1 className="article-title">{frontmatter.title}</h1>
-            <p className="article-subtitle">{frontmatter.subtitle}</p>
+            <p className="article-subtitle">
+              {frontmatter.subtitle ?? frontmatter.description}
+            </p>
             <time className="article-date" dateTime={frontmatter.date}>
               {formatDate(frontmatter.date)}
             </time>
