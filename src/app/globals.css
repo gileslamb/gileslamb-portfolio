@@ -81,6 +81,7 @@ hr.accent {
 .reveal-delay-1 { transition-delay: .12s; }
 .reveal-delay-2 { transition-delay: .24s; }
 .reveal-delay-3 { transition-delay: .38s; }
+.reveal-delay-4 { transition-delay: .52s; }
 
 /* NAV */
 nav {
@@ -2082,6 +2083,11 @@ nav::after {
   color: var(--cream);
   border-bottom-color: rgba(201,169,110,.45);
 }
+.live-text-cta.live-text-cta-prose {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+}
 .live-coming-soon { margin-top: 1.5rem; }
 .live-coming-soon-label {
   font-size: 0.75rem;
@@ -2180,6 +2186,28 @@ nav::after {
 }
 .live-featured-link:hover .live-featured-image {
   filter: grayscale(10%) brightness(0.88) sepia(8%);
+}
+
+/* Original Projects: shared carbon band, eyebrow, stacked live-bridge promos */
+.original-projects {
+  background: var(--carbon);
+  position: relative;
+  overflow: hidden;
+}
+.original-projects-intro {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8rem 3.5rem 2rem;
+}
+.original-projects .live-bridge {
+  background: transparent;
+  padding: 0 3.5rem 6rem;
+}
+.original-projects .live-bridge::after {
+  display: none;
+}
+.original-projects .live-bridge:last-child {
+  padding-bottom: 8rem;
 }
 
 /* CONTACT */
@@ -2699,6 +2727,16 @@ footer {
     overflow: hidden;
     border-radius: 2px;
     background: var(--black);
+  }
+
+  .original-projects-intro {
+    padding: 5rem 1.5rem 1.25rem;
+  }
+  .original-projects .live-bridge {
+    padding: 0 1.5rem 4rem;
+  }
+  .original-projects .live-bridge:last-child {
+    padding-bottom: 5rem;
   }
 
   /* CONTACT */

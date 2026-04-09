@@ -78,7 +78,7 @@ export function LivePractice() {
           <div className="live-visual">
             <Image
               src={FEATURED_IMAGE}
-              alt="Dream Screens live visual"
+              alt="Signal Dreams live visual"
               fill
               sizes="(max-width: 767px) 100vw, 50vw"
               className="live-featured-image"
