@@ -1109,6 +1109,170 @@ nav::after {
   color: var(--warm);
   margin-bottom: 1.2rem;
 }
+
+/* Museum reel — standalone, no nav (/immersive/museum-reel) */
+.museum-reel {
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--warm);
+  padding: 8rem 3.5rem 5rem;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.museum-reel-header {
+  margin-bottom: 2.5rem;
+}
+.museum-reel-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  line-height: 1.35;
+}
+.museum-reel-framing {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--warm);
+  margin-bottom: 3.5rem;
+  max-width: 52rem;
+}
+.museum-reel-tracks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.museum-reel-track {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.museum-reel-track-head {
+  margin-bottom: 1.25rem;
+}
+.museum-reel-track-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+.museum-reel-track-context {
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: var(--fog);
+  max-width: 40rem;
+}
+.museum-reel-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.museum-reel-play {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  background: rgba(26, 25, 22, 0.6);
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.museum-reel-play:hover {
+  border-color: rgba(201, 169, 110, 0.55);
+  background: rgba(26, 25, 22, 0.9);
+}
+.museum-reel-play:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+.museum-reel-play::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-38%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 11px;
+  border-color: transparent transparent transparent var(--accent);
+}
+.museum-reel-play.is-playing::before {
+  width: 3px;
+  height: 13px;
+  border: none;
+  background: transparent;
+  box-shadow: 6px 0 0 var(--accent);
+  transform: translate(-55%, -50%);
+}
+.museum-reel-player-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.museum-reel-progress-hit {
+  width: 100%;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+.museum-reel-progress-hit:focus-visible .museum-reel-progress {
+  box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.4);
+}
+.museum-reel-progress {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1px;
+}
+.museum-reel-progress-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 169, 110, 0.35),
+    var(--accent)
+  );
+  border-radius: 1px;
+  pointer-events: none;
+}
+.museum-reel-times {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--smoke);
+  font-variant-numeric: tabular-nums;
+}
+.museum-reel-times-sep {
+  margin: 0 0.35rem;
+  opacity: 0.45;
+}
+.museum-reel-footer {
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.museum-reel-email {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--sand);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.22);
+  padding-bottom: 0.2rem;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.museum-reel-email:hover {
+  color: var(--cream);
+  border-bottom-color: rgba(201, 169, 110, 0.45);
+}
+
 .immersive-landing-grid.work-tier2 {
   margin-top: 0;
   padding: 3rem 0 4rem;
@@ -2188,26 +2352,33 @@ nav::after {
   filter: grayscale(10%) brightness(0.88) sepia(8%);
 }
 
-/* Original Projects: shared carbon band, eyebrow, stacked live-bridge promos */
+/* Original Projects: align with .live-bridge padding + inner max-width like Live Practice */
 .original-projects {
   background: var(--carbon);
   position: relative;
-  overflow: hidden;
+  padding: 8rem 3.5rem 0;
 }
 .original-projects-intro {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 8rem 3.5rem 2rem;
+  padding: 0 0 2rem;
 }
 .original-projects .live-bridge {
   background: transparent;
-  padding: 0 3.5rem 6rem;
+  padding: 0 0 6rem;
 }
 .original-projects .live-bridge::after {
   display: none;
 }
 .original-projects .live-bridge:last-child {
-  padding-bottom: 8rem;
+  padding-bottom: 6rem;
+}
+/* Full-bleed black under Original Projects (contrast before Contact) */
+.original-projects-endcap {
+  height: clamp(3.5rem, 8vw, 6rem);
+  background: var(--black);
+  margin: 0 -3.5rem;
+  width: calc(100% + 7rem);
 }
 
 /* CONTACT */
@@ -2729,14 +2900,21 @@ footer {
     background: var(--black);
   }
 
+  .original-projects {
+    padding: 5rem 1.5rem 0;
+  }
   .original-projects-intro {
-    padding: 5rem 1.5rem 1.25rem;
+    padding: 0 0 1.25rem;
   }
   .original-projects .live-bridge {
-    padding: 0 1.5rem 4rem;
+    padding: 0 0 4rem;
   }
   .original-projects .live-bridge:last-child {
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
+  }
+  .original-projects-endcap {
+    margin: 0 -1.5rem;
+    width: calc(100% + 3rem);
   }
 
   /* CONTACT */
@@ -2760,6 +2938,12 @@ footer {
   .dttm-stills { height: 120px; }
 
   .immersive-landing-intro { padding: 5rem 1.5rem 2rem; }
+  .museum-reel {
+    padding: 5.5rem 1.5rem 3.5rem;
+  }
+  .museum-reel-track {
+    padding: 2rem 0;
+  }
   .immersive-landing-grid.work-tier2 { padding: 2rem 0 3rem; }
 
   /* HOLY HELL PAGE */

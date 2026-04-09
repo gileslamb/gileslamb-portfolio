@@ -9,6 +9,7 @@ export function OriginalProjects() {
       </div>
       <DreamScreensPromo />
       <CuriousDreamersPromo />
+      <div className="original-projects-endcap" aria-hidden />
     </section>
   );
 }

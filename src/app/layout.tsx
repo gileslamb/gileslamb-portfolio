@@ -24,8 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={heroNameFont.variable}>
-      <body>
+    <html
+      lang="en"
+      className={heroNameFont.variable}
+      style={{ backgroundColor: "#080808" }}
+    >
+      <body
+        style={{
+          backgroundColor: "#080808",
+          color: "#d4c9b8",
+          minHeight: "100%",
+        }}
+      >
         <CustomCursor />
         {children}
       </body>
