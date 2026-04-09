@@ -67,7 +67,7 @@ export function LivePractice() {
                 </button>
                 {status === "error" && (
                   <p className="live-email-error">
-                    Something went wrong — try again.
+                    Something went wrong. Try again.
                   </p>
                 )}
               </form>

@@ -3,7 +3,7 @@ import "./globals.css";
 import { CustomCursor } from "@/components/CustomCursor";
 import { Cormorant_Garamond } from "next/font/google";
 
-/** Homepage hero only — load on server to avoid client-bundle font work in dev */
+/** Homepage hero only: load on server to avoid client-bundle font work in dev */
 const heroNameFont = Cormorant_Garamond({
   subsets: ["latin"],
   weight: "300",

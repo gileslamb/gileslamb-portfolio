@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const WRITING_DIR = path.join(process.cwd(), "content/writing");
 
-/** Parse frontmatter date (YYYY-MM-DD) as a local calendar date — avoids UTC off-by-one in display/sort. */
+/** Parse frontmatter date (YYYY-MM-DD) as a local calendar date; avoids UTC off-by-one in display/sort. */
 export function parseWritingDate(dateStr) {
   if (!dateStr || typeof dateStr !== "string") return new Date(NaN);
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr.trim());

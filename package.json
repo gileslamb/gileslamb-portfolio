@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack -p 4321",
-    "dev:turbo": "next dev -p 4321",
-    "dev:3000": "next dev --webpack",
+    "dev": "next dev --turbopack -p 4321",
+    "dev:webpack": "next dev --webpack -p 4321",
+    "dev:3000": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4321",
+    "preview": "next build && next start -p 4321",
     "lint": "eslint",
     "fetch-images": "node scripts/fetch-cover-images.js"
   },
