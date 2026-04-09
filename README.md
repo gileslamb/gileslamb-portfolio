@@ -1,11 +1,11 @@
-# Giles Lamb — Portfolio
+# Giles Lamb: Portfolio
 
 Professional portfolio site for Giles Lamb, cinematic composer and immersive audiovisual artist.
 
 ## Tech Stack
 
 - **Next.js** (App Router)
-- **Tailwind CSS** (layout/spacing only — design via CSS variables)
+- **Tailwind CSS** (layout/spacing only; design via CSS variables)
 - **Deploy target:** Render
 
 ## Setup
@@ -16,8 +16,8 @@ Professional portfolio site for Giles Lamb, cinematic composer and immersive aud
    ```
 
 2. **Add images** to `public/images/`:
-   - `Wide_studio_2026.png` — Hero background (full bleed)
-   - `unnamed.jpg` — Portrait for Contact section
+   - `Wide_studio_2026.png`: Hero background (full bleed)
+   - `unnamed.jpg`: Portrait for Contact section
 
 3. Run the development server:
    ```bash
@@ -32,6 +32,6 @@ Connect the repo to [Render](https://render.com); deployment happens automatical
 
 ## Structure
 
-- `src/components/` — Nav, Hero, Practice, Work, LivePractice, Contact, Footer
-- `src/app/globals.css` — CSS variables, typography (Cormorant Garamond + Karla), animations
+- `src/components/`: Nav, Hero, Practice, Work, LivePractice, Contact, Footer
+- `src/app/globals.css`: CSS variables, typography (Cormorant Garamond + Karla), animations
 - Single-page layout with smooth scroll anchors

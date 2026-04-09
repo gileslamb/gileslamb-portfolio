@@ -10,7 +10,7 @@ export function DreamScreensPromo() {
         <div className="live-text">
           <h2 className="live-headline reveal">Dream Screens</h2>
           <p className="live-body reveal reveal-delay-1">
-            Dream Screens is a new project in development — a narrative
+            Dream Screens is a new project in development, a narrative
             conceptual album built using AI and immersive technologies. Where
             Signal Dreams is live and performative, Dream Screens is a composed
             experience: music, image and narrative designed to be inhabited
@@ -18,8 +18,8 @@ export function DreamScreensPromo() {
           </p>
           <p className="live-body reveal reveal-delay-2">
             The project explores what an album can be when image, story and
-            sound are conceived together from the start — not a soundtrack to
-            visuals, not visuals added to music, but a single thing.
+            sound are conceived together from the start. Not a soundtrack to
+            visuals, not visuals added to music: a single thing.
           </p>
           <p className="live-body reveal reveal-delay-3">Still in development.</p>
           <a

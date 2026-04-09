@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/immersive/museum-reel",
+        destination: "/reels/museum-reel",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

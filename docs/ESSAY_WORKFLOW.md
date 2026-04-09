@@ -7,11 +7,11 @@
 
 Essays live in `content/writing/` as MDX files.
 Filename format: `YYYY-MM-DD-slug.mdx`
-The writing index at `/writing` sorts by the `date` field in frontmatter — newest first.
+The writing index at `/writing` sorts by the `date` field in frontmatter (newest first).
 
 ---
 
-## Step 1 — Get images from Substack
+## Step 1: Get images from Substack
 
 Before creating the MDX file, grab the image URLs from the Substack post.
 
@@ -25,13 +25,13 @@ Array.from(document.querySelectorAll('img'))
   .filter(src => src.includes('w_1456') || src.includes('w_1200'))
 ```
 
-This returns the full-size body images in order. Copy them — you'll need them for the MDX.
+This returns the full-size body images in order. Copy them; you will need them for the MDX.
 
 The **cover image** is usually the first `w_1456` result.
 
 ---
 
-## Step 2 — Check next.config.ts allows Substack images
+## Step 2: Check next.config.ts allows Substack images
 
 Open `next.config.ts` and confirm `substackcdn.com` is in the `images.remotePatterns` array:
 
@@ -46,7 +46,7 @@ If it's missing, add it. Only needs doing once.
 
 ---
 
-## Step 3 — Create the MDX file
+## Step 3: Create the MDX file
 
 Create `content/writing/YYYY-MM-DD-slug.mdx` with this frontmatter template:
 
@@ -70,7 +70,7 @@ substack: "https://open.substack.com/pub/gileslamb/p/your-post-slug"
 
 ---
 
-## Step 4 — Add body images
+## Step 4: Add body images
 
 Images go **after** section headings, not before. Format:
 
@@ -86,13 +86,13 @@ Place images in the same order they appear in the Substack post. Use the `w_1456
 
 ---
 
-## Step 5 — Check the essay opens cleanly
+## Step 5: Check the essay opens cleanly
 
-The essay body should start with the **first sentence of article text** — no Substack URLs, no image paths, no metadata. The essay openings cleanup has been applied to all existing essays; new ones should follow suit.
+The essay body should start with the **first sentence of article text**: no Substack URLs, no image paths, no metadata. The essay openings cleanup has been applied to all existing essays; new ones should follow suit.
 
 ---
 
-## Step 6 — Commit and push
+## Step 6: Commit and push
 
 ```bash
 git add content/writing/YYYY-MM-DD-your-slug.mdx
@@ -105,7 +105,7 @@ Vercel auto-deploys on push. The essay will be live at:
 
 ---
 
-## Step 7 — LinkedIn post
+## Step 7: LinkedIn post
 
 Once deployed, post the LinkedIn update with:
 - The Substack link for people who subscribe there
@@ -133,9 +133,9 @@ Once deployed, post the LinkedIn update with:
 | Problem | Fix |
 |---|---|
 | Essay showing wrong date | Check `date` in frontmatter matches the Substack publish date, not today |
-| Cover image showing Dream Screens image | You forgot to set `coverImage` in frontmatter — Cursor defaulted to a site image |
+| Cover image showing Dream Screens image | You forgot to set `coverImage` in frontmatter; Cursor defaulted to a site image |
 | Body images not showing | Check `substackcdn.com` is in `next.config.ts` remotePatterns |
-| Essay at wrong position in list | Date in frontmatter doesn't match — fix the `date` field |
+| Essay at wrong position in list | Date in frontmatter doesn't match. Fix the `date` field |
 | Essay starts with Substack URL or image path | Remove everything before the first sentence of article text |
 
 ---

@@ -1109,86 +1109,149 @@ nav::after {
   color: var(--warm);
   margin-bottom: 1.2rem;
 }
+.immersive-landing-body p.immersive-reel-cta {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+.immersive-reel-cta .immersive-reel-link {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--sand);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.28);
+  padding-bottom: 0.2rem;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.immersive-reel-link:hover {
+  color: var(--cream);
+  border-bottom-color: rgba(201, 169, 110, 0.48);
+}
 
-/* Museum reel — standalone, no nav (/immersive/museum-reel) */
-.museum-reel {
+/* Museum reel: editorial two-column (/reels/museum-reel) */
+.museum-reel-page {
   min-height: 100vh;
+  padding: 9rem 3.5rem 4rem;
   background: var(--black);
   color: var(--warm);
-  padding: 8rem 3.5rem 5rem;
-  max-width: 920px;
+}
+.museum-reel-editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: stretch;
+  max-width: 1400px;
   margin: 0 auto;
 }
-.museum-reel-header {
-  margin-bottom: 2.5rem;
+.museum-reel-left {
+  max-width: 620px;
+  min-width: 0;
 }
 .museum-reel-title {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-size: clamp(2rem, 3.8vw, 3.15rem);
   font-weight: 300;
-  letter-spacing: 0.06em;
+  line-height: 1.08;
   color: var(--cream);
-  line-height: 1.35;
+  margin-bottom: 2rem;
 }
 .museum-reel-framing {
   font-size: 0.95rem;
   line-height: 1.9;
   color: var(--warm);
-  margin-bottom: 3.5rem;
-  max-width: 52rem;
+  margin-bottom: 2.75rem;
 }
-.museum-reel-tracks {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+.museum-reel-player-card {
+  background: var(--carbon);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  padding: 2rem 2rem 1.75rem;
+  margin-bottom: 2rem;
 }
-.museum-reel-track {
-  padding: 2.5rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+.museum-reel-player-card audio {
+  display: none;
 }
-.museum-reel-track-head {
-  margin-bottom: 1.25rem;
+.museum-reel-now-label {
+  margin-bottom: 0.75rem;
 }
-.museum-reel-track-title {
+.museum-reel-now-num {
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+}
+.museum-reel-now-title {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-size: clamp(1.1rem, 1.85vw, 1.45rem);
   font-weight: 300;
+  line-height: 1.3;
   color: var(--cream);
-  line-height: 1.35;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.65rem;
 }
-.museum-reel-track-context {
-  font-size: 0.82rem;
+.museum-reel-now-context {
+  font-size: 0.8rem;
   line-height: 1.85;
   color: var(--fog);
-  max-width: 40rem;
+  margin-bottom: 1.75rem;
 }
-.museum-reel-player {
+.museum-reel-transport {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
 }
-.museum-reel-play {
+.museum-reel-step {
   position: relative;
-  flex-shrink: 0;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
-  border: 1px solid rgba(201, 169, 110, 0.35);
-  background: rgba(26, 25, 22, 0.6);
+  border: 1px solid rgba(201, 169, 110, 0.28);
+  background: rgba(8, 8, 8, 0.35);
   cursor: pointer;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
-.museum-reel-play:hover {
-  border-color: rgba(201, 169, 110, 0.55);
-  background: rgba(26, 25, 22, 0.9);
+.museum-reel-step:hover {
+  border-color: rgba(201, 169, 110, 0.5);
+  background: rgba(8, 8, 8, 0.55);
 }
-.museum-reel-play:focus-visible {
+.museum-reel-step::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: translate(-35%, -50%) rotate(45deg);
+}
+.museum-reel-step-next::before {
+  transform: translate(-65%, -50%) rotate(-135deg);
+}
+.museum-reel-step:focus-visible {
   outline: 1px solid var(--accent);
   outline-offset: 2px;
 }
-.museum-reel-play::before {
+.museum-reel-play-lg {
+  position: relative;
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  background: rgba(8, 8, 8, 0.5);
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.museum-reel-play-lg:hover {
+  border-color: rgba(201, 169, 110, 0.6);
+  background: rgba(8, 8, 8, 0.75);
+}
+.museum-reel-play-lg:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+.museum-reel-play-lg::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -1197,43 +1260,34 @@ nav::after {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 7px 0 7px 11px;
+  border-width: 8px 0 8px 13px;
   border-color: transparent transparent transparent var(--accent);
 }
-.museum-reel-play.is-playing::before {
-  width: 3px;
-  height: 13px;
+.museum-reel-play-lg.is-playing::before {
+  width: 4px;
+  height: 15px;
   border: none;
   background: transparent;
-  box-shadow: 6px 0 0 var(--accent);
+  box-shadow: 7px 0 0 var(--accent);
   transform: translate(-55%, -50%);
 }
-.museum-reel-player-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-.museum-reel-progress-hit {
+.museum-reel-progress-hit-lg {
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.35rem 0;
   cursor: pointer;
-  background: none;
-  border: none;
   outline: none;
 }
-.museum-reel-progress-hit:focus-visible .museum-reel-progress {
-  box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.4);
+.museum-reel-progress-hit-lg:focus-visible .museum-reel-progress-lg {
+  box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.35);
 }
-.museum-reel-progress {
+.museum-reel-progress-lg {
   display: block;
-  height: 2px;
+  height: 3px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 1px;
 }
-.museum-reel-progress-fill {
+.museum-reel-progress-fill-lg {
   display: block;
   height: 100%;
   background: linear-gradient(
@@ -1244,19 +1298,61 @@ nav::after {
   border-radius: 1px;
   pointer-events: none;
 }
-.museum-reel-times {
+.museum-reel-times-lg {
+  margin-top: 0.65rem;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   color: var(--smoke);
   font-variant-numeric: tabular-nums;
 }
-.museum-reel-times-sep {
+.museum-reel-times-sep-lg {
   margin: 0 0.35rem;
   opacity: 0.45;
 }
-.museum-reel-footer {
-  margin-top: 4rem;
-  padding-top: 2.5rem;
+.museum-reel-chapters {
+  list-style: none;
+  margin: 0 0 2.75rem;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.museum-reel-chapters li {
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.museum-reel-chapter {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 0.25rem 0.85rem 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.2s ease;
+  color: var(--fog);
+}
+.museum-reel-chapter:hover {
+  color: var(--sand);
+}
+.museum-reel-chapter.is-active {
+  color: var(--cream);
+}
+.museum-reel-chapter-num {
+  flex-shrink: 0;
+  width: 1.85rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-dim);
+  padding-top: 0.15rem;
+}
+.museum-reel-chapter-title {
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+.museum-reel-foot {
+  padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 .museum-reel-email {
@@ -1271,6 +1367,137 @@ nav::after {
 .museum-reel-email:hover {
   color: var(--cream);
   border-bottom-color: rgba(201, 169, 110, 0.45);
+}
+.museum-reel-right {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.museum-reel-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+  min-height: min(72vh, 820px);
+}
+.museum-reel-side-cell {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 140px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--carbon);
+}
+.museum-reel-side-img {
+  object-fit: cover;
+  filter: grayscale(30%) brightness(0.75) sepia(15%);
+  transition: filter 0.4s ease;
+}
+.museum-reel-side-cell:hover .museum-reel-side-img {
+  filter: grayscale(10%) brightness(0.88) sepia(8%);
+}
+
+/* REELS INDEX (/reels) */
+.reels-index-page {
+  min-height: 100vh;
+  padding: 9rem 3.5rem 5rem;
+  background: var(--black);
+  color: var(--warm);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.reels-index-header {
+  margin-bottom: 3rem;
+}
+.reels-index-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 1.25rem;
+}
+.reels-index-intro {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--fog);
+  max-width: 36rem;
+}
+.reels-directory {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.reels-directory-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem 1.75rem;
+  align-items: center;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.reels-directory-thumb {
+  width: 4.75rem;
+  height: 4.75rem;
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+.reels-directory-thumb--empty {
+  background: rgba(255, 255, 255, 0.03);
+  box-sizing: border-box;
+}
+.reels-directory-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(30%) brightness(0.75) sepia(15%);
+  transition: filter 0.4s ease;
+}
+.reels-directory-title {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+}
+.reels-directory-desc {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--fog);
+  max-width: 36rem;
+  margin: 0;
+}
+.reels-directory-action {
+  justify-self: end;
+  align-self: start;
+  padding-top: 0.2rem;
+  white-space: nowrap;
+}
+.reels-directory-link {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.28);
+  padding-bottom: 0.2rem;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.reels-directory-link:hover {
+  color: var(--cream);
+  border-bottom-color: rgba(201, 169, 110, 0.5);
+}
+.reels-directory-soon {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  opacity: 0.88;
 }
 
 .immersive-landing-grid.work-tier2 {
@@ -2938,11 +3165,36 @@ footer {
   .dttm-stills { height: 120px; }
 
   .immersive-landing-intro { padding: 5rem 1.5rem 2rem; }
-  .museum-reel {
-    padding: 5.5rem 1.5rem 3.5rem;
+  .museum-reel-page { padding: 5rem 1.5rem 3rem; }
+  .museum-reel-editorial {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  .museum-reel-track {
-    padding: 2rem 0;
+  .museum-reel-right { order: -1; }
+  .museum-reel-left { order: 1; max-width: none; }
+  .museum-reel-side-stack { min-height: 52vh; }
+  .museum-reel-player-card { padding: 1.5rem 1.35rem; }
+  .reels-index-page { padding: 5rem 1.5rem 4rem; }
+  .reels-directory-row {
+    grid-template-columns: 4rem 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.85rem;
+    row-gap: 0.5rem;
+    align-items: start;
+  }
+  .reels-directory-thumb {
+    grid-row: 1 / span 2;
+    align-self: start;
+    width: 4rem;
+    height: 4rem;
+  }
+  .reels-directory-main {
+    grid-column: 2;
+  }
+  .reels-directory-action {
+    grid-column: 2;
+    justify-self: start;
+    padding-top: 0;
   }
   .immersive-landing-grid.work-tier2 { padding: 2rem 0 3rem; }
 

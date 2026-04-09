@@ -10,11 +10,14 @@ export function CuriousDreamersPromo() {
         <div className="live-text">
           <h2 className="live-headline reveal">Curious Dreamers</h2>
           <p className="live-body reveal reveal-delay-1">
-            Curious Dreamers is an independent animation studio developing
-            original IP across animation and immersive formats. Building on the
-            award-winning early years series Lullaby, with multiple projects
-            currently in development. Presenting at Cartoon Forum Berlin in May
-            and Annecy in June 2026.
+            Curious Dreamers is a Glasgow-based music and screen studio making
+            animated series, immersive films and sound installations. Music comes
+            first in everything they make. Giles is Composer and Sound Designer
+            at the studio, with credits including the RTS award-winning Hushabye
+            Lullaby and the festival-acclaimed stop-motion film Distance to the
+            Moon. Multiple projects currently in development. Presenting at
+            Pictoplasma Berlin in May, Annecy in June and MIP Cannes in November
+            2026.
           </p>
           <a
             href="https://www.curiousdreamers.com"

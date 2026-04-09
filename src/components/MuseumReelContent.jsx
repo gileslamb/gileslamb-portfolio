@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 
 const TRACKS = [
   {
@@ -66,141 +69,227 @@ function formatTime(seconds) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function MuseumReelContent() {
-  const audiosRef = useRef([]);
+export function MuseumReelContent({ sideImages = [] }) {
+  const audioRef = useRef(null);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const resumeAfterLoadRef = useRef(false);
   const [, setUiTick] = useState(0);
 
-  const audioRefCallbacks = useMemo(
-    () =>
-      TRACKS.map(
-        (_, i) => (el) => {
-          audiosRef.current[i] = el;
-        },
-      ),
-    [],
+  const bump = useCallback(() => setUiTick((n) => n + 1), []);
+
+  const goRelative = useCallback((delta) => {
+    const a = audioRef.current;
+    const playing = Boolean(a && !a.paused);
+    resumeAfterLoadRef.current = playing;
+    setTrackIndex((i) => (i + delta + TRACKS.length) % TRACKS.length);
+  }, []);
+
+  const selectTrack = useCallback(
+    (i) => {
+      if (i === trackIndex) return;
+      const a = audioRef.current;
+      resumeAfterLoadRef.current = Boolean(a && !a.paused);
+      setTrackIndex(i);
+    },
+    [trackIndex],
   );
 
   useEffect(() => {
-    const id = window.setInterval(() => setUiTick((n) => n + 1), 250);
-    return () => window.clearInterval(id);
-  }, []);
+    const a = audioRef.current;
+    if (!a) return;
+    const shouldPlay = resumeAfterLoadRef.current;
+    resumeAfterLoadRef.current = false;
+    a.pause();
+    a.src = TRACKS[trackIndex].src;
+    const onCanPlay = () => {
+      if (shouldPlay) void a.play().catch(() => {});
+      bump();
+    };
+    a.addEventListener("canplay", onCanPlay, { once: true });
+    a.load();
+    bump();
+  }, [trackIndex, bump]);
 
-  const pauseOthers = useCallback((except) => {
-    audiosRef.current.forEach((el, j) => {
-      if (el && j !== except && !el.paused) el.pause();
-    });
-  }, []);
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    const onTime = () => bump();
+    const onEnded = () => {
+      resumeAfterLoadRef.current = true;
+      setTrackIndex((i) => (i + 1) % TRACKS.length);
+    };
+    a.addEventListener("timeupdate", onTime);
+    a.addEventListener("ended", onEnded);
+    const id = setInterval(bump, 400);
+    return () => {
+      a.removeEventListener("timeupdate", onTime);
+      a.removeEventListener("ended", onEnded);
+      clearInterval(id);
+    };
+  }, [trackIndex, bump]);
 
-  const togglePlay = useCallback(
-    (i) => {
-      const el = audiosRef.current[i];
-      if (!el) return;
-      if (!el.paused) {
-        el.pause();
-        return;
-      }
-      pauseOthers(i);
-      void el.play().catch(() => {});
+  const togglePlay = useCallback(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (!a.paused) {
+      a.pause();
+      bump();
+      return;
+    }
+    void a.play().catch(() => {});
+    bump();
+  }, [bump]);
+
+  const onSeek = useCallback(
+    (clientX, barEl) => {
+      const a = audioRef.current;
+      if (!a || !Number.isFinite(a.duration) || a.duration <= 0) return;
+      const rect = barEl.getBoundingClientRect();
+      const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      a.currentTime = pct * a.duration;
+      bump();
     },
-    [pauseOthers],
+    [bump],
   );
 
-  const onSeek = useCallback((i, clientX, barEl) => {
-    const el = audiosRef.current[i];
-    if (!el || !Number.isFinite(el.duration) || el.duration <= 0) return;
-    const rect = barEl.getBoundingClientRect();
-    const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-    el.currentTime = pct * el.duration;
-    setUiTick((n) => n + 1);
-  }, []);
+  const audio = audioRef.current;
+  const cur = audio?.currentTime ?? 0;
+  const dur = audio?.duration;
+  const durSafe = Number.isFinite(dur) && dur > 0 ? dur : 0;
+  const pct = durSafe > 0 ? Math.min(100, (cur / durSafe) * 100) : 0;
+  const isPlaying = Boolean(audio && !audio.paused);
+  const current = TRACKS[trackIndex];
 
   return (
-    <main className="museum-reel">
-      <header className="museum-reel-header">
-        <h1 className="museum-reel-title">Giles Lamb · Selected Immersive Work</h1>
-      </header>
+    <>
+      <Nav />
+      <main className="museum-reel-page">
+        <article className="museum-reel-editorial">
+          <div className="museum-reel-left">
+            <h1 className="museum-reel-title">
+              Giles Lamb · Selected Immersive Work
+            </h1>
 
-      <p className="museum-reel-framing">
-        An immersive soundscape built from low organic drones as the foundational
-        layer — minimal melodic content, music emerging from texture rather than
-        theme. Environmental sound abstracted into the compositional fabric until
-        the boundary between sound design and score dissolves. Vocal and choral
-        elements introduced as texture, felt before they&apos;re identified.
-      </p>
+            <p className="museum-reel-framing">
+              An immersive soundscape built from low organic drones as the
+              foundational layer. Minimal melodic content: music emerging from
+              texture rather than theme. Environmental sound abstracted into the
+              compositional fabric until the boundary between sound design and
+              score dissolves. Vocal and choral elements introduced as texture,
+              felt before they&apos;re identified.
+            </p>
 
-      <ol className="museum-reel-tracks">
-        {TRACKS.map((track, i) => {
-          const audio = audiosRef.current[i];
-          const cur = audio?.currentTime ?? 0;
-          const dur = audio?.duration;
-          const durSafe = Number.isFinite(dur) && dur > 0 ? dur : 0;
-          const pct = durSafe > 0 ? Math.min(100, (cur / durSafe) * 100) : 0;
-          const isPlaying = Boolean(audio && !audio.paused);
+            <div className="museum-reel-player-card">
+              <audio ref={audioRef} preload="metadata" />
 
-          return (
-            <li key={track.src} className="museum-reel-track">
-              <audio
-                ref={audioRefCallbacks[i]}
-                src={track.src}
-                preload="metadata"
-              />
-              <div className="museum-reel-track-head">
-                <h2 className="museum-reel-track-title">{track.title}</h2>
-                <p className="museum-reel-track-context">{track.context}</p>
+              <div className="museum-reel-now-label">
+                <span className="museum-reel-now-num">
+                  {String(trackIndex + 1).padStart(2, "0")} /{" "}
+                  {String(TRACKS.length).padStart(2, "0")}
+                </span>
               </div>
-              <div className="museum-reel-player">
+              <h2 className="museum-reel-now-title">{current.title}</h2>
+              <p className="museum-reel-now-context">{current.context}</p>
+
+              <div className="museum-reel-transport">
                 <button
                   type="button"
-                  className={`museum-reel-play ${isPlaying ? "is-playing" : ""}`}
-                  onClick={() => togglePlay(i)}
+                  className="museum-reel-step"
+                  aria-label="Previous track"
+                  onClick={() => goRelative(-1)}
+                />
+                <button
+                  type="button"
+                  className={`museum-reel-play-lg ${isPlaying ? "is-playing" : ""}`}
+                  onClick={togglePlay}
                   aria-label={isPlaying ? "Pause" : "Play"}
                 />
-                <div className="museum-reel-player-main">
-                  <div
-                    className="museum-reel-progress-hit"
-                    role="slider"
-                    tabIndex={0}
-                    aria-valuemin={0}
-                    aria-valuemax={durSafe > 0 ? durSafe : 0}
-                    aria-valuenow={durSafe > 0 ? cur : 0}
-                    aria-label="Seek"
-                    onClick={(e) => onSeek(i, e.clientX, e.currentTarget)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        const el = e.currentTarget;
-                        onSeek(
-                          i,
-                          el.getBoundingClientRect().left + el.offsetWidth / 2,
-                          el,
-                        );
-                      }
-                    }}
-                  >
-                    <span className="museum-reel-progress">
-                      <span
-                        className="museum-reel-progress-fill"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </span>
-                  </div>
-                  <div className="museum-reel-times" aria-live="polite">
-                    <span>{formatTime(cur)}</span>
-                    <span className="museum-reel-times-sep">/</span>
-                    <span>{durSafe > 0 ? formatTime(durSafe) : "—:—"}</span>
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  className="museum-reel-step museum-reel-step-next"
+                  aria-label="Next track"
+                  onClick={() => goRelative(1)}
+                />
               </div>
-            </li>
-          );
-        })}
-      </ol>
 
-      <footer className="museum-reel-footer">
-        <a href="mailto:giles@gileslamb.com" className="museum-reel-email">
-          giles@gileslamb.com
-        </a>
-      </footer>
-    </main>
+              <div
+                className="museum-reel-progress-hit-lg"
+                role="slider"
+                tabIndex={0}
+                aria-valuemin={0}
+                aria-valuemax={durSafe > 0 ? durSafe : 0}
+                aria-valuenow={durSafe > 0 ? cur : 0}
+                aria-label="Seek"
+                onClick={(e) => onSeek(e.clientX, e.currentTarget)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    const el = e.currentTarget;
+                    onSeek(
+                      el.getBoundingClientRect().left + el.offsetWidth / 2,
+                      el,
+                    );
+                  }
+                }}
+              >
+                <span className="museum-reel-progress-lg">
+                  <span
+                    className="museum-reel-progress-fill-lg"
+                    style={{ width: `${pct}%` }}
+                  />
+                </span>
+              </div>
+              <div className="museum-reel-times-lg" aria-live="polite">
+                <span>{formatTime(cur)}</span>
+                <span className="museum-reel-times-sep-lg">/</span>
+                <span>{durSafe > 0 ? formatTime(durSafe) : "--:--"}</span>
+              </div>
+            </div>
+
+            <ol className="museum-reel-chapters">
+              {TRACKS.map((track, i) => (
+                <li key={track.src}>
+                  <button
+                    type="button"
+                    className={`museum-reel-chapter ${i === trackIndex ? "is-active" : ""}`}
+                    onClick={() => selectTrack(i)}
+                  >
+                    <span className="museum-reel-chapter-num">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="museum-reel-chapter-title">
+                      {track.title}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+
+            <div className="museum-reel-foot">
+              <a href="mailto:giles@gileslamb.com" className="museum-reel-email">
+                giles@gileslamb.com
+              </a>
+            </div>
+          </div>
+
+          <aside className="museum-reel-right">
+            <div className="museum-reel-side-stack">
+              {sideImages.map((img) => (
+                <div key={img.src} className="museum-reel-side-cell">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 42vw"
+                    className="museum-reel-side-img"
+                  />
+                </div>
+              ))}
+            </div>
+          </aside>
+        </article>
+      </main>
+      <Footer />
+    </>
   );
 }

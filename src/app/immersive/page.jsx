@@ -25,8 +25,8 @@ export default function ImmersivePage() {
               He works at the intersection of music, narrative and space. Score
               and sound design are composed together from the start as a single
               act, built around what a room, a sequence or a moment actually
-              needs emotionally and dynamically. Whether working alone or with a
-              team, he holds the creative vision from first brief to final mix,
+              needs emotionally and dynamically. Alone or with collaborators, he
+              holds the creative vision from first brief to final mix,
               crafting music and sound as one continuous piece.
             </p>
             <p>
@@ -41,6 +41,11 @@ export default function ImmersivePage() {
               The aim is always the same: sound that deepens what visitors feel,
               shapes how they move through a space, and extends how long they
               carry the experience after they leave.
+            </p>
+            <p className="immersive-reel-cta reveal reveal-delay-2">
+              <Link href="/reels/museum-reel" className="immersive-reel-link">
+                Listen: Installation &amp; Museum Reel →
+              </Link>
             </p>
           </div>
         </section>
