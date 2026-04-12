@@ -40,6 +40,7 @@ export function getAllPosts() {
       subtitle: data.subtitle ?? data.description ?? "",
       date: data.date,
       coverImage: data.coverImage || null,
+      externalLink: data.externalLink || null,
     };
   });
   return posts.sort(

@@ -18,9 +18,9 @@ export default function WritingPage() {
         </section>
 
         <ul className="writing-list">
-          {posts.map((post) => (
-            <li key={post.slug} className="writing-card">
-              <Link href={`/writing/${post.slug}`} className="writing-link">
+          {posts.map((post) => {
+            const cardInner = (
+              <>
                 <div className="writing-card-image">
                   {post.coverImage ? (
                     <img
@@ -43,9 +43,28 @@ export default function WritingPage() {
                   <h2 className="writing-title">{post.title}</h2>
                   <p className="writing-subtitle">{post.subtitle}</p>
                 </div>
-              </Link>
-            </li>
-          ))}
+              </>
+            );
+
+            return (
+              <li key={post.slug} className="writing-card">
+                {post.externalLink ? (
+                  <a
+                    href={post.externalLink}
+                    className="writing-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {cardInner}
+                  </a>
+                ) : (
+                  <Link href={`/writing/${post.slug}`} className="writing-link">
+                    {cardInner}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ul>
 
         <div className="writing-back">
