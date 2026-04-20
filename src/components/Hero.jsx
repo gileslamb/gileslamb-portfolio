@@ -113,6 +113,8 @@ export function Hero() {
       <div className="hero-descriptor">
         <p>
           Composer. Film and installation, live audiovisual, generative work.
+          Three decades of commissioned scoring and own artistic practice.
+          Cannes, BAFTA, RTS and Music+Sound awards.
           I spend as much time on process and improvisation as on the final mix.
         </p>
         <p>
