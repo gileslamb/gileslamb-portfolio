@@ -2822,11 +2822,79 @@ footer {
 }
 .writing-back a:hover { color: var(--cream); }
 
+/* Article hero (full-bleed, sits above <main>) */
+.article-hero {
+  position: relative;
+  width: 100%;
+  height: 72vh;
+  min-height: 480px;
+  max-height: 820px;
+  overflow: hidden;
+  background: var(--black);
+}
+.article-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45) sepia(15%);
+  transform: scale(1.03);
+  transition: transform 12s ease;
+}
+.article-hero:hover .article-hero-img { transform: scale(1.06); }
+.article-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,8,0.05) 0%,
+    rgba(8,8,8,0.35) 45%,
+    rgba(8,8,8,0.92) 85%,
+    rgba(8,8,8,1) 100%
+  );
+}
+.article-hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem 3.5rem 4rem;
+  max-width: 860px;
+}
+.article-hero-date {
+  display: block;
+  font-size: .55rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 1.2rem;
+}
+.article-hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 1.1rem;
+}
+.article-hero-subtitle {
+  font-family: 'Karla', sans-serif;
+  font-size: .85rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--sand);
+  line-height: 1.6;
+}
+
 /* Article page */
 .writing-article {
   min-height: 100vh;
   padding: 9rem 3.5rem 5rem;
   background: var(--black);
+}
+.writing-article--has-hero {
+  padding-top: 5rem;
 }
 .article-content {
   max-width: 680px;
@@ -2874,6 +2942,17 @@ footer {
   margin: 2.5rem 0 1rem;
 }
 .article-body h3 { margin: 2rem 0 .8rem; }
+.article-body h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  margin: 3.5rem 0 1.2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(201,169,110,.12);
+  letter-spacing: 0.01em;
+}
 .article-body ul, .article-body ol {
   margin: 1.5rem 0;
   padding-left: 1.5rem;
@@ -2892,12 +2971,13 @@ footer {
   height: auto;
   margin: 2rem 0;
   border-radius: 2px;
+  filter: brightness(0.9) sepia(8%);
 }
 .article-body hr {
   border: none;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(201,169,110,.12), transparent);
-  margin: 2.5rem 0;
+  margin: 3.5rem 0;
 }
 .article-body blockquote {
   border-left: 2px solid rgba(201,169,110,.3);
@@ -2906,6 +2986,41 @@ footer {
   font-style: italic;
   color: var(--sand);
 }
+
+/* Wide / breakout image (full-width, breaks outside article column) */
+.article-wide-image {
+  margin: 3.5rem -4rem;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.article-wide-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0.82) sepia(12%) contrast(1.04);
+  transition: filter 0.5s ease;
+}
+.article-wide-image:hover img {
+  filter: brightness(0.88) sepia(8%) contrast(1.02);
+}
+
+/* Closing / final line treatment */
+.article-closing-line {
+  margin: 4rem auto 2rem;
+  max-width: 500px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--cream);
+  padding: 3rem 0;
+  border-top: 1px solid rgba(201,169,110,.15);
+  border-bottom: 1px solid rgba(201,169,110,.15);
+}
+.article-closing-line p { margin-bottom: 0.4rem; }
+.article-closing-line p:last-child { margin-bottom: 0; }
 
 /* ========== MOBILE (< 768px) ========== */
 @media (max-width: 767px) {
@@ -3251,7 +3366,13 @@ footer {
   .case-study { padding: 5rem 1.5rem 4rem; }
 
   /* WRITING */
+  .article-hero { height: 55vh; min-height: 360px; }
+  .article-hero-content { padding: 2rem 1.5rem 3rem; }
+  .article-hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .article-wide-image { margin: 2.5rem -1.5rem; border-radius: 0; }
+  .article-closing-line { font-size: clamp(1.3rem, 5vw, 1.7rem); margin: 3rem 0 2rem; }
   .writing-page, .writing-article { padding: 5rem 1.5rem 4rem; }
+  .writing-article--has-hero { padding-top: 3rem; }
   .writing-list {
     grid-template-columns: 1fr;
   }

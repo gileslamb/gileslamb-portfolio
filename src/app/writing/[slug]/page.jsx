@@ -9,6 +9,20 @@ import {
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
+function WideImage({ src, alt }) {
+  return (
+    <figure className="article-wide-image">
+      <img src={src} alt={alt || ""} />
+    </figure>
+  );
+}
+
+function ClosingLine({ children }) {
+  return <div className="article-closing-line">{children}</div>;
+}
+
+const mdxComponents = { WideImage, ClosingLine };
+
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
@@ -20,24 +34,48 @@ export default async function WritingPage({ params }) {
   if (!post) notFound();
 
   const { frontmatter, body } = post;
+  const hasHero = !!frontmatter.coverImage;
 
   return (
     <>
       <Nav />
-      <main className="writing-article">
-        <article className="article-content">
-          <header className="article-header">
-            <h1 className="article-title">{frontmatter.title}</h1>
-            <p className="article-subtitle">
-              {frontmatter.subtitle ?? frontmatter.description}
-            </p>
-            <time className="article-date" dateTime={frontmatter.date}>
+
+      {hasHero && (
+        <div className="article-hero">
+          <img
+            src={frontmatter.coverImage}
+            alt={frontmatter.title}
+            className="article-hero-img"
+          />
+          <div className="article-hero-overlay" />
+          <div className="article-hero-content">
+            <time className="article-hero-date" dateTime={frontmatter.date}>
               {formatWritingDateLong(frontmatter.date)}
             </time>
-          </header>
+            <h1 className="article-hero-title">{frontmatter.title}</h1>
+            <p className="article-hero-subtitle">
+              {frontmatter.subtitle ?? frontmatter.description}
+            </p>
+          </div>
+        </div>
+      )}
+
+      <main className={`writing-article${hasHero ? " writing-article--has-hero" : ""}`}>
+        <article className="article-content">
+          {!hasHero && (
+            <header className="article-header">
+              <h1 className="article-title">{frontmatter.title}</h1>
+              <p className="article-subtitle">
+                {frontmatter.subtitle ?? frontmatter.description}
+              </p>
+              <time className="article-date" dateTime={frontmatter.date}>
+                {formatWritingDateLong(frontmatter.date)}
+              </time>
+            </header>
+          )}
 
           <div className="article-body">
-            <MDXRemote source={body} />
+            <MDXRemote source={body} components={mdxComponents} />
           </div>
         </article>
 
