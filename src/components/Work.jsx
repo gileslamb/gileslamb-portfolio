@@ -147,7 +147,14 @@ export function Work() {
       {/* TIER 2: Further Selected Work */}
       <div className="work-tier2 reveal">
         <h3 className="work-tier2-title">Further Selected Work</h3>
-        <p className="work-tier2-subtitle">Additional credits from 30 years of practice.</p>
+        <p className="work-tier2-subtitle">
+          Additional credits from 30 years of practice — across Film, TV,{" "}
+          <Link href="/animation" className="work-tier2-genre-link">Animation &amp; Kids&rsquo;</Link>,{" "}
+          Cinematics,{" "}
+          <Link href="/immersive" className="work-tier2-genre-link">Installation &amp; Museum</Link>{" "}
+          and{" "}
+          <a href="https://gileslamb.bandcamp.com" className="work-tier2-genre-link" target="_blank" rel="noopener noreferrer">Studio Albums</a>.
+        </p>
         <ul className="work-further-grid">
           {furtherProjects.map((project, i) => (
             <li key={project.id} className={`work-further-item ${i % 2 === 0 ? "img-left" : "img-right"}`}>
