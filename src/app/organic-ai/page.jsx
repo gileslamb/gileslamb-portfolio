@@ -2,6 +2,9 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
+const HERO_IMAGE =
+  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/1943f336-31d4-4a82-0fee-c8f3015c9a00/public";
+
 export const metadata = {
   title: "Organic AI — Giles Lamb",
   description:
@@ -12,15 +15,20 @@ export default function OrganicAIPage() {
   return (
     <>
       <Nav />
-      <main className="writing-article">
-        <article className="article-content">
-          <header className="article-header">
-            <h1 className="article-title">Organic AI</h1>
-            <p className="article-subtitle">
-              How I use artificial intelligence without losing my mind, or my music.
-            </p>
-          </header>
 
+      <div className="article-hero">
+        <img src={HERO_IMAGE} alt="Organic AI" className="article-hero-img" />
+        <div className="article-hero-overlay" />
+        <div className="article-hero-content">
+          <h1 className="article-hero-title">Organic AI</h1>
+          <p className="article-hero-subtitle">
+            How I use artificial intelligence without losing my mind, or my music.
+          </p>
+        </div>
+      </div>
+
+      <main className="writing-article writing-article--has-hero">
+        <article className="article-content">
           <div className="article-body">
             <p>I've been writing about this for a while without naming it.</p>
 

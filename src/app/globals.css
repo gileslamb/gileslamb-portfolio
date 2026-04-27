@@ -2720,6 +2720,17 @@ footer {
   line-height: 1.6;
   color: var(--fog);
 }
+.writing-tagline-sub {
+  margin-top: 1rem;
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--fog);
+}
+.writing-tagline-sub a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .writing-list {
   list-style: none;
   display: grid;

@@ -15,6 +15,9 @@ export default function WritingPage() {
           <p className="writing-tagline">
             Essays on sound, image, and the act of making.
           </p>
+          <p className="writing-tagline-sub">
+            <Link href="/organic-ai">Organic AI</Link> — a curated reading list on creativity, friction, and working with AI without losing the work.
+          </p>
         </section>
 
         <ul className="writing-list">
