@@ -2,12 +2,15 @@ import Link from "next/link";
 import { formatWritingDateShort, getAllPosts } from "@/lib/writing";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { buildBlogSchema, buildSectionBreadcrumb } from "@/lib/schema/helpers";
 
 export default function WritingPage() {
   const posts = getAllPosts();
 
   return (
     <>
+      <JsonLd schema={[buildBlogSchema(), buildSectionBreadcrumb("Essays", "writing")]} />
       <Nav />
       <main className="writing-page">
         <section className="writing-intro">

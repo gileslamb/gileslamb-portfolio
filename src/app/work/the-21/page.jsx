@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { buildThe21Schema } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
@@ -37,6 +40,7 @@ The film carries a particular weight. The subject matter is real, the families o
 export default function The21Page() {
   return (
     <>
+      <JsonLd schema={[buildThe21Schema(), buildWorkBreadcrumb("The 21", "the-21")]} />
       <Nav />
       <main className="the-21-page">
         <article className="the-21-layout">

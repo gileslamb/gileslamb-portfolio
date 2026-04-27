@@ -5,10 +5,13 @@ import { Footer } from "@/components/Footer";
 import { Contact } from "@/components/Contact";
 import { RevealObserver } from "@/components/RevealObserver";
 import { IMMERSIVE_GRID } from "@/data/immersive";
+import { JsonLd } from "@/components/JsonLd";
+import { buildSectionBreadcrumb } from "@/lib/schema/helpers";
 
 export default function ImmersivePage() {
   return (
     <>
+      <JsonLd schema={buildSectionBreadcrumb("Installation & Museum", "immersive")} />
       <RevealObserver />
       <Nav />
       <main className="immersive-landing">

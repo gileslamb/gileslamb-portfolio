@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { buildHolyHellSchema } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 const CLOUDFLARE_BASE = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
@@ -36,6 +39,7 @@ const COPY = [
 export default function HolyHellPage() {
   return (
     <>
+      <JsonLd schema={[...buildHolyHellSchema(), buildWorkBreadcrumb("Holy Hell", "holy-hell")]} />
       <Nav />
       <main className="holy-hell-page">
         <article className="holy-hell-layout">

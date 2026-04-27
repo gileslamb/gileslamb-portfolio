@@ -8,6 +8,8 @@ import {
 } from "@/lib/writing";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { buildBlogPostingSchema, buildEssayBreadcrumb } from "@/lib/schema/helpers";
 
 function WideImage({ src, alt }) {
   return (
@@ -38,6 +40,16 @@ export default async function WritingPage({ params }) {
 
   return (
     <>
+      <JsonLd schema={[
+        buildBlogPostingSchema({
+          title: frontmatter.title,
+          description: frontmatter.description ?? frontmatter.subtitle,
+          date: frontmatter.date,
+          slug: frontmatter.slug,
+          coverImage: frontmatter.coverImage,
+        }),
+        buildEssayBreadcrumb(frontmatter.title, frontmatter.slug),
+      ]} />
       <Nav />
 
       {hasHero && (

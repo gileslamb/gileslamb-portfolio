@@ -5,6 +5,9 @@ import { useState } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import CloudflareVideo from "@/components/CloudflareVideo";
+import { JsonLd } from "@/components/JsonLd";
+import { buildDistanceToTheMoonSchema } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 const PROJECT = {
   id: "distance-to-the-moon",
@@ -68,6 +71,7 @@ export default function DistanceToTheMoonPage() {
 
   return (
     <>
+      <JsonLd schema={[...buildDistanceToTheMoonSchema(), buildWorkBreadcrumb("Distance to the Moon", "distance-to-the-moon")]} />
       <Nav />
       <main className="dttm-page">
         <article className="dttm-layout">

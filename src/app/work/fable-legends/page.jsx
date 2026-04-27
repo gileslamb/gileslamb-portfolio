@@ -4,6 +4,9 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import CloudflareVideo from "@/components/CloudflareVideo";
+import { JsonLd } from "@/components/JsonLd";
+import { buildFableLegendsSchema } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
@@ -39,6 +42,7 @@ Giles Lamb composed the score. Sound design and mix by Savalas, the Glasgow-base
 export default function FableLegendsPage() {
   return (
     <>
+      <JsonLd schema={[...buildFableLegendsSchema(), buildWorkBreadcrumb("Fable Legends", "fable-legends")]} />
       <Nav />
       <main className="fable-legends-page">
         <article className="fable-legends-layout">

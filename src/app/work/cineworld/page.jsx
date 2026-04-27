@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { buildCineworldSchema } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 const PROJECT = {
   id: "cineworld",
@@ -24,6 +27,7 @@ It played before screenings across the Cineworld estate. Every film, every scree
 export default function CineworldPage() {
   return (
     <>
+      <JsonLd schema={[buildCineworldSchema(), buildWorkBreadcrumb("Cineworld: The Eternal Descent", "cineworld")]} />
       <Nav />
       <main className="cineworld-page">
         <article className="cineworld-layout">

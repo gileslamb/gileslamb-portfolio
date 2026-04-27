@@ -2,10 +2,14 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import CloudflareVideo from "@/components/CloudflareVideo";
+import { JsonLd } from "@/components/JsonLd";
+import { buildDeadIslandSchema, buildWorkItemList } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 export default function DeadIslandPage() {
   return (
     <>
+      <JsonLd schema={[...buildDeadIslandSchema(), buildWorkBreadcrumb("Dead Island", "dead-island")]} />
       <Nav />
       <main className="case-study">
         <article className="case-study-content">

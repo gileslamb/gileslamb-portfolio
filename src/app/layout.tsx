@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CustomCursor } from "@/components/CustomCursor";
 import { Cormorant_Garamond } from "next/font/google";
+import { JsonLd } from "@/components/JsonLd";
+import { buildGlobalSchemas } from "@/lib/schema/helpers";
 
 /** Homepage hero only: load on server to avoid client-bundle font work in dev */
 const heroNameFont = Cormorant_Garamond({
@@ -36,6 +38,7 @@ export default function RootLayout({
           minHeight: "100%",
         }}
       >
+        <JsonLd schema={buildGlobalSchemas()} />
         <CustomCursor />
         {children}
       </body>

@@ -8,10 +8,13 @@ import { OriginalProjects } from "@/components/OriginalProjects";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { RevealObserver } from "@/components/RevealObserver";
+import { JsonLd } from "@/components/JsonLd";
+import { buildWorkItemList } from "@/lib/schema/works";
 
 export default function Home() {
   return (
     <>
+      <JsonLd schema={buildWorkItemList()} />
       <RevealObserver />
       <Nav />
       <main>

@@ -4,6 +4,9 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import CloudflareVideo from "@/components/CloudflareVideo";
+import { JsonLd } from "@/components/JsonLd";
+import { buildValhallaRisingSchema } from "@/lib/schema/works";
+import { buildWorkBreadcrumb } from "@/lib/schema/helpers";
 
 const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
@@ -36,6 +39,7 @@ Refn coined his approach "Refn-esque" after this film. Drive followed two years 
 export default function ValhallaRisingPage() {
   return (
     <>
+      <JsonLd schema={[...buildValhallaRisingSchema(), buildWorkBreadcrumb("Valhalla Rising", "valhalla-rising")]} />
       <Nav />
       <main className="valhalla-rising-page">
         <article className="valhalla-rising-layout">
