@@ -60,12 +60,13 @@ export const gilesLamb: Person = {
   ],
   sameAs: [
     "https://www.imdb.com/name/nm1506362/",
+    "https://en.wikipedia.org/wiki/Giles_Lamb",
+    "https://open.spotify.com/artist/4C8f4HNofNhZdt6DZT7Mlb",
+    "https://music.apple.com/gb/artist/giles-lamb/422905060",
+    "https://music.apple.com/gb/artist/giles-robert-lamb/1686388791",
+    "https://www.instagram.com/gileslamb/",
+    "https://gileslamb.bandcamp.com",
+    "https://www.linkedin.com/in/gileslamb/",
     // TODO: Add Vimeo profile URL
-    // TODO: Add Spotify for Artists URL
-    // TODO: Add Apple Music artist URL
-    // TODO: Add Instagram URL
-    // TODO: Add LinkedIn URL
-    // TODO: Add Bandcamp / SoundCloud URL
-    // TODO: Add Wikipedia URL if exists
   ],
 };
