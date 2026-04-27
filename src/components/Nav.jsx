@@ -36,6 +36,9 @@ export function Nav() {
             <Link href="/writing">Essays</Link>
           </li>
           <li>
+            <Link href="/organic-ai">Organic AI</Link>
+          </li>
+          <li>
             <Link href="/#contact">Contact</Link>
           </li>
         </ul>
@@ -80,6 +83,11 @@ export function Nav() {
           <li>
             <Link href="/writing" onClick={closeMenu}>
               Essays
+            </Link>
+          </li>
+          <li>
+            <Link href="/organic-ai" onClick={closeMenu}>
+              Organic AI
             </Link>
           </li>
           <li>
