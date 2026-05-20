@@ -26,9 +26,9 @@ Professional portfolio site for Giles Lamb, cinematic composer and immersive aud
 
 4. Open [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Render
+## Deploy on Vercel
 
-Connect the repo to [Render](https://render.com); deployment happens automatically on push to `main`. See `render.yaml` for configuration.
+Connect the repo to [Vercel](https://vercel.com); deployment happens automatically on push to `main`.
 
 ## Structure
 
