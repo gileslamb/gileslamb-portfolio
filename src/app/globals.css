@@ -1326,6 +1326,139 @@ nav::after {
   .anim-case-stills { height: 100px; }
 }
 
+/* RELEASES PAGE (/releases) */
+.releases-page {
+  min-height: 100vh;
+  padding: 9rem 3.5rem 5rem;
+  background: var(--black);
+}
+.releases-intro {
+  margin-bottom: 4rem;
+  max-width: 640px;
+}
+.releases-tagline {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--fog);
+  line-height: 1.6;
+}
+.releases-section {
+  margin-bottom: 5rem;
+}
+.releases-section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+/* Both grids use identical card sizing so sessions and albums look coherent */
+.releases-sessions-grid,
+.releases-albums-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 320px));
+  gap: 2rem;
+}
+
+/* Card */
+.releases-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--deep);
+  transition: background 0.3s ease;
+}
+.releases-card:hover {
+  background: var(--carbon);
+}
+.releases-card-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--carbon);
+}
+.releases-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, filter 0.4s ease;
+  filter: brightness(0.88);
+}
+.releases-card:hover .releases-card-img {
+  transform: scale(1.03);
+  filter: brightness(1);
+}
+.releases-card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+.releases-card-type {
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: 'Karla', sans-serif;
+}
+.releases-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.25;
+  color: var(--cream);
+  margin: 0;
+}
+.releases-card-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--fog);
+  line-height: 1.4;
+  margin: 0;
+}
+.releases-card-year {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--smoke);
+  font-family: 'Karla', sans-serif;
+  margin: 0.1rem 0 0;
+}
+.releases-card-desc {
+  font-size: 0.78rem;
+  color: var(--fog);
+  line-height: 1.55;
+  margin: 0.4rem 0 0;
+}
+
+@media (max-width: 768px) {
+  .releases-page { padding: 5rem 1.5rem 4rem; }
+  .releases-sessions-grid,
+  .releases-albums-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .releases-sessions-grid,
+  .releases-albums-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .releases-card-body { padding: 1rem 1rem 1.25rem; }
+}
+
 /* IMMERSIVE LANDING (/immersive) */
 .immersive-landing {
   background: var(--black);

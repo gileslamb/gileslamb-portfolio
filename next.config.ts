@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/unstable-systems/001",
+        destination: "/unstable-systems/001/index.html",
+      },
+      {
+        source: "/unstable-systems/001/listen",
+        destination: "/unstable-systems/001/listen/index.html",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

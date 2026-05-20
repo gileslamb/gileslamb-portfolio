@@ -153,7 +153,7 @@ export function Work() {
           Cinematics,{" "}
           <Link href="/immersive" className="work-tier2-genre-link">Installation &amp; Museum</Link>{" "}
           and{" "}
-          <a href="https://gileslamb.bandcamp.com" className="work-tier2-genre-link" target="_blank" rel="noopener noreferrer">Studio Albums</a>.
+          <Link href="/releases" className="work-tier2-genre-link">Releases</Link>.
         </p>
         <ul className="work-further-grid">
           {furtherProjects.map((project, i) => (

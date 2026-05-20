@@ -1,0 +1,131 @@
+{
+  "_comment": "Releases data for gileslamb.com. Grouped by type on the Releases page. Add new entries at the top of the relevant array. Covers are hotlinked from Bandcamp's CDN for now; migrate to local /public assets in a future pass if desired.",
+
+  "sessions": [
+    {
+      "slug": "unstable-systems-001",
+      "title": "Unstable Systems — Session 001",
+      "year": 2026,
+      "date": "2026-05-18",
+      "type": "Session",
+      "cover": "/unstable-systems/001/cover.png",
+      "link": "/unstable-systems/001",
+      "external": false,
+      "description": "Live improvisation, single take. 48 minutes."
+    }
+  ],
+
+  "albums": [
+    {
+      "slug": "distance-to-the-moon",
+      "title": "The Distance to the Moon",
+      "subtitle": "Original Motion Picture Soundtrack",
+      "year": 2026,
+      "date": "2026-02-27",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a1682993290_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/the-distance-to-the-moon-original-motion-picture-soundtrack",
+      "external": true,
+      "description": "A soundtrack inspired by Italo Calvino's Cosmicomics. Reshaped by a stop-motion animation collaboration."
+    },
+    {
+      "slug": "deep-blue-mind",
+      "title": "Deep Blue Mind",
+      "year": 2021,
+      "date": "2021-02-02",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a2556366998_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/deep-blue-mind",
+      "external": true,
+      "description": "Binaural meditation for Haken Continuumini. Music made with eyes closed."
+    },
+    {
+      "slug": "synthetic-dreams",
+      "title": "Synthetic Dreams",
+      "year": 2020,
+      "date": "2020-06-09",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a4124406172_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/synthetic-dreams",
+      "external": true,
+      "description": "A machine emulating a human. Vocaloid, fragments, strings, piano."
+    },
+    {
+      "slug": "white-matter",
+      "title": "White Matter",
+      "year": 2019,
+      "date": "2019-03-29",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a3882240075_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/white-matter",
+      "external": true,
+      "description": "Modern classical for piano and string quartet. Birth, death, and the cycle between."
+    },
+    {
+      "slug": "hope",
+      "title": "Hope",
+      "year": 2018,
+      "date": "2018-12-11",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a1852835909_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/hope",
+      "external": true,
+      "description": "Cinematic scores augmented with electronic production. Emotive and experiential."
+    },
+    {
+      "slug": "pure-frame",
+      "title": "Pure Frame",
+      "year": 2018,
+      "date": "2018-12-10",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a3329427650_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/pure-frame",
+      "external": true,
+      "description": "Piano, voice, and modular synthesiser. A fractured sonic tableau with a melodic core."
+    },
+    {
+      "slug": "acoustoma",
+      "title": "Acoust:OMA",
+      "year": 2016,
+      "date": "2016-10-21",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a3337934261_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/aoust-oma",
+      "external": true,
+      "description": "Piano quartet and electronics. The boundary between modern classical, electronic, and ambient."
+    },
+    {
+      "slug": "glossolalia",
+      "title": "Glossolalia",
+      "year": 2015,
+      "date": "2015-05-20",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a2701499845_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/glossolalia",
+      "external": true,
+      "description": "Evocative compositions including a condensed version of the Suilven score."
+    },
+    {
+      "slug": "before-the-birds",
+      "title": "Before the Birds",
+      "year": 2015,
+      "date": "2015-05-13",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a3219798539_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/before-the-birds",
+      "external": true,
+      "description": "Piano, viola, cello. Beautiful order transforming into mottled disarray."
+    },
+    {
+      "slug": "transform",
+      "title": "Transform",
+      "year": 2013,
+      "date": "2013-12-02",
+      "type": "Album",
+      "cover": "https://f4.bcbits.com/img/a2650617143_10.jpg",
+      "link": "https://gileslamb.bandcamp.com/album/transform",
+      "external": true,
+      "description": "Early piano-led work."
+    }
+  ]
+}

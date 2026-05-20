@@ -24,13 +24,10 @@ export function Nav() {
             <Link href="/#work">Work</Link>
           </li>
           <li>
-            <Link href="/#practice">Practice</Link>
-          </li>
-          <li>
-            <Link href="/#live">Live</Link>
-          </li>
-          <li>
             <Link href="/immersive">Installation &amp; Museum</Link>
+          </li>
+          <li>
+            <Link href="/releases">Releases</Link>
           </li>
           <li>
             <Link href="/writing">Essays</Link>
@@ -63,18 +60,13 @@ export function Nav() {
             </Link>
           </li>
           <li>
-            <Link href="/#practice" onClick={closeMenu}>
-              Practice
-            </Link>
-          </li>
-          <li>
-            <Link href="/#live" onClick={closeMenu}>
-              Live
-            </Link>
-          </li>
-          <li>
             <Link href="/immersive" onClick={closeMenu}>
               Installation &amp; Museum
+            </Link>
+          </li>
+          <li>
+            <Link href="/releases" onClick={closeMenu}>
+              Releases
             </Link>
           </li>
           <li>

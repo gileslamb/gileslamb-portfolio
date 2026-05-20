@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Giles Lamb — Unstable Systems / Session 001 / Listen</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Listening room — Unstable Systems / Session 001.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #080810;
+    --cream: #d8cfb8;
+    --cream-dim: rgba(216, 207, 184, 0.55);
+    --cream-faint: rgba(216, 207, 184, 0.28);
+    --rule: rgba(216, 207, 184, 0.12);
+    --accent: #dc1e1e;
+    --accent-dim: rgba(220, 30, 30, 0.7);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--cream);
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  #c { position: fixed; inset: 0; z-index: 0; display: block; }
+  #start {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--bg); color: var(--cream-dim);
+    font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: opacity 1.2s ease;
+    gap: 18px;
+  }
+  #start.fade { opacity: 0; pointer-events: none; }
+  #start .welcome {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+  #start .enter {
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .page {
+    position: relative; z-index: 2; min-height: 100vh;
+    display: grid; grid-template-rows: auto 1fr auto;
+    padding: clamp(28px, 4vw, 56px);
+  }
+
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+  .identity {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(20px, 2.2vw, 26px);
+    letter-spacing: 0.02em; color: var(--cream); line-height: 1;
+  }
+  .session {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream-faint); text-align: right; line-height: 1.6;
+  }
+
+  main {
+    display: grid; grid-template-columns: 1fr; align-items: center;
+    padding: clamp(40px, 8vh, 120px) 0;
+  }
+  .release { max-width: 720px; }
+
+  .release .meta-top {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream-faint); margin-bottom: 28px;
+    display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+  }
+  .release .meta-top .dot { width: 4px; height: 4px; background: var(--cream-faint); border-radius: 50%; }
+  .release .meta-top .listening-badge {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 10px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+  }
+
+  .release h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 0.95; letter-spacing: -0.01em;
+    color: var(--cream); margin-bottom: 8px;
+  }
+  .release h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-size: clamp(20px, 2.4vw, 28px);
+    letter-spacing: 0.06em; color: var(--cream-dim); margin-bottom: 40px;
+  }
+  .release .notes {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(15px, 1.3vw, 17px); line-height: 1.7;
+    color: var(--cream-dim); max-width: 480px; margin-bottom: 36px;
+  }
+  .release .notes em { font-style: italic; color: var(--cream); }
+  .release .thanks {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 1.4vw, 19px);
+    color: var(--cream);
+    margin-bottom: 24px;
+    max-width: 480px;
+    line-height: 1.55;
+  }
+
+  .instruments {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-faint); line-height: 1.9;
+    border-top: 1px solid var(--rule);
+    padding-top: 20px; margin-bottom: 48px; max-width: 480px;
+  }
+
+  .player {
+    max-width: 720px;
+    background: rgba(8, 8, 16, 0.55);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--rule);
+    padding: 24px 26px; margin-bottom: 32px;
+  }
+  .player-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .player-label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream-dim);
+  }
+  .player-limit {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .player-body { display: flex; align-items: center; gap: 18px; }
+
+  .play-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--cream-dim);
+    background: transparent; color: var(--cream); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.3s ease;
+    flex-shrink: 0; padding: 0;
+  }
+  .play-btn:hover { border-color: var(--cream); background: rgba(216, 207, 184, 0.06); }
+  .play-btn svg { width: 14px; height: 14px; fill: var(--cream); }
+  .play-btn .pause { display: none; }
+  .play-btn.playing .play { display: none; }
+  .play-btn.playing .pause { display: block; }
+
+  .waveform-wrap {
+    flex: 1; position: relative;
+    height: 56px; cursor: pointer;
+  }
+  #waveform { width: 100%; height: 100%; display: block; }
+  .waveform-progress {
+    position: absolute; top: 0; left: 0; bottom: 0; width: 0%;
+    background: linear-gradient(90deg, rgba(216, 207, 184, 0.06) 0%, rgba(216, 207, 184, 0.14) 100%);
+    pointer-events: none; transition: width 0.08s linear;
+  }
+
+  .time-display {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.15em; color: var(--cream-dim);
+    min-width: 96px; text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .downloads {
+    max-width: 720px; margin-bottom: 48px;
+  }
+  .downloads-label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream-dim); margin-bottom: 14px;
+  }
+  .actions {
+    display: flex; flex-wrap: wrap; gap: 14px;
+  }
+  .btn {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 16px 26px;
+    border: 1px solid var(--cream-dim);
+    background: transparent; color: var(--cream); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 14px;
+    cursor: pointer; transition: all 0.4s ease;
+  }
+  .btn:hover { border-color: var(--cream); background: rgba(216, 207, 184, 0.04); }
+  .btn .format {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; font-weight: 400;
+    letter-spacing: 0.02em; text-transform: none; opacity: 0.85;
+  }
+  .btn svg { width: 12px; height: 12px; fill: currentColor; opacity: 0.7; }
+
+  .note-strip {
+    max-width: 720px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; color: var(--cream-dim);
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    line-height: 1.6;
+  }
+
+  footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 400;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream-faint); padding-top: 60px;
+  }
+  footer a { color: var(--cream-faint); text-decoration: none; transition: color 0.3s; }
+  footer a:hover { color: var(--cream-dim); }
+  footer .left { display: flex; gap: 24px; }
+
+  /* Locked overlay shown if no valid key */
+  .locked-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px;
+  }
+  .locked-card {
+    max-width: 480px; text-align: center;
+  }
+  .locked-card h3 {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-weight: 300; font-size: 32px;
+    color: var(--cream); margin-bottom: 16px;
+  }
+  .locked-card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; color: var(--cream-dim);
+    line-height: 1.6; margin-bottom: 28px;
+  }
+  .locked-card .btn-back {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none;
+    border: 1px solid var(--accent); padding: 14px 24px;
+    display: inline-block; transition: all 0.3s;
+  }
+  .locked-card .btn-back:hover { background: var(--accent); color: var(--bg); }
+  .locked-key-label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream-dim); margin-bottom: 10px;
+  }
+  .locked-key-form {
+    display: flex; max-width: 320px; margin: 0 auto 24px;
+    border-bottom: 1px solid var(--cream-dim);
+  }
+  .locked-key-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    padding: 12px 0;
+    font-family: 'Cormorant Garamond', serif; font-size: 16px;
+    font-weight: 300; font-style: italic; color: var(--cream);
+  }
+  .locked-key-input::placeholder { color: var(--cream-faint); }
+  .locked-key-submit {
+    background: transparent; border: none; cursor: pointer;
+    padding: 12px 0 12px 18px;
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream-dim); transition: color 0.3s;
+  }
+  .locked-key-submit:hover { color: var(--cream); }
+
+  .reveal {
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 1.4s ease, transform 1.4s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal:nth-child(2) { transition-delay: 0.15s; }
+  .reveal:nth-child(3) { transition-delay: 0.3s; }
+  .reveal:nth-child(4) { transition-delay: 0.45s; }
+
+  @media (max-width: 640px) {
+    header { flex-direction: column; align-items: flex-start; }
+    .session { text-align: left; }
+    .player { padding: 20px 18px; }
+    .player-body { gap: 12px; }
+    .time-display { min-width: 70px; font-size: 9px; }
+    .waveform-wrap { height: 48px; }
+    footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+    footer .left { flex-wrap: wrap; }
+    .actions { flex-direction: column; }
+    .btn { justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<!-- LOCKED OVERLAY (shown if access key is missing/invalid) -->
+<div class="locked-overlay" id="lockedOverlay" style="display:none;">
+  <div class="locked-card">
+    <h3>This page is for listeners</h3>
+    <p>The listening room is available to people who have purchased the recording. If you've bought it and arrived here without a link, check your Gumroad receipt or email me at <a href="mailto:giles@gileslamb.com" style="color: var(--cream); border-bottom: 1px solid var(--cream-faint);">giles@gileslamb.com</a>.</p>
+    <p class="locked-key-label">Have a key?</p>
+    <form class="locked-key-form" id="keyForm">
+      <input class="locked-key-input" type="text" placeholder="enter your access key" autocomplete="off" spellcheck="false">
+      <button class="locked-key-submit" type="submit">Open</button>
+    </form>
+    <a href="/unstable-systems/001" class="btn-back">Back to release</a>
+  </div>
+</div>
+
+<!-- WELCOME OVERLAY -->
+<div id="start" style="display:none;">
+  <div class="welcome">welcome to the listening room</div>
+  <div class="enter">touch to begin</div>
+</div>
+
+<div class="page" id="page" style="display:none;">
+
+  <header class="reveal">
+    <div class="identity">Giles Lamb</div>
+    <div class="session">
+      Session 001<br>
+      Glasgow / 18.05.2026
+    </div>
+  </header>
+
+  <main>
+    <div class="release">
+
+      <div class="meta-top reveal">
+        <span class="listening-badge">Listening room</span>
+        <span>Live</span>
+        <span class="dot"></span>
+        <span>One take</span>
+        <span class="dot"></span>
+        <span>48 minutes</span>
+      </div>
+
+      <h1 class="reveal">Unstable Systems<br>Session 001</h1>
+      <h2 class="reveal">recorded Glasgow</h2>
+
+      <p class="thanks reveal">
+        thank you for listening - enjoy
+      </p>
+
+      <p class="notes reveal">
+        Live improvisation, recorded in my studio in Glasgow.
+      </p>
+
+      <div class="instruments reveal">
+        Osmose / Norns / 0-Coast / Modular / Spectral Resonator / Enso / Silo
+      </div>
+
+      <div class="player">
+        <div class="player-head">
+          <span class="player-label">Full recording</span>
+          <span class="player-limit" id="duration">48:00</span>
+        </div>
+
+        <div class="player-body">
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="play" viewBox="0 0 20 20"><path d="M5 3 L17 10 L5 17 Z"/></svg>
+            <svg class="pause" viewBox="0 0 20 20"><rect x="5" y="3" width="3" height="14"/><rect x="12" y="3" width="3" height="14"/></svg>
+          </button>
+
+          <div class="waveform-wrap" id="waveformWrap">
+            <canvas id="waveform"></canvas>
+            <div class="waveform-progress" id="progress"></div>
+          </div>
+
+          <div class="time-display" id="time">0:00 / 48:00</div>
+        </div>
+      </div>
+
+      <div class="downloads">
+        <div class="downloads-label">Download</div>
+        <div class="actions">
+          <a class="btn" id="wavLink" href="#" download>
+            WAV
+            <span class="format">24-bit / 48 kHz · 812 MB · studio master</span>
+            <svg viewBox="0 0 16 16"><path d="M8 1 L8 11 M4 7 L8 11 L12 7 M2 14 L14 14"
+                  stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          </a>
+          <a class="btn" id="flacLink" href="#" download>
+            FLAC
+            <span class="format">24-bit / 48 kHz · 520 MB · lossless</span>
+            <svg viewBox="0 0 16 16"><path d="M8 1 L8 11 M4 7 L8 11 L12 7 M2 14 L14 14"
+                  stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          </a>
+          <a class="btn" id="mp3Link" href="#" download>
+            MP3
+            <span class="format">320 kbps · 113 MB</span>
+            <svg viewBox="0 0 16 16"><path d="M8 1 L8 11 M4 7 L8 11 L12 7 M2 14 L14 14"
+                  stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <p class="note-strip reveal">
+        Bookmark this page. Your link is unique to you and will keep working.
+      </p>
+
+    </div>
+  </main>
+
+  <footer class="reveal">
+    <div class="left">
+      <a href="https://gileslamb.com">gileslamb.com</a>
+      <a href="/unstable-systems/001">Release page</a>
+    </div>
+    <div>© Giles Lamb 2026</div>
+  </footer>
+
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   ACCESS GATE
+   --------------------------------------------------------------------
+   Reads ?key= from the URL. For Gumroad-delivery model (Option A):
+   set a single shared key (e.g. the one you put in the Gumroad
+   product URL). For per-buyer tokens (Option B), this can be replaced
+   with a fetch to a Cloudflare Worker that validates the token.
+   ════════════════════════════════════════════════════════════════════ */
+const VALID_KEYS = [
+  'single-take-001',     // change this — give buyers via Gumroad
+  // additional keys can be added here as needed
+];
+
+const params = new URLSearchParams(window.location.search);
+const providedKey = params.get('key');
+
+const lockedOverlay = document.getElementById('lockedOverlay');
+const startEl       = document.getElementById('start');
+const pageEl        = document.getElementById('page');
+
+if (!providedKey || !VALID_KEYS.includes(providedKey)) {
+  lockedOverlay.style.display = 'flex';
+} else {
+  // Persist the valid key in localStorage so the buyer doesn't need
+  // the URL every time — they can bookmark /listen and it'll work
+  try { localStorage.setItem('gileslamb-listen-key', providedKey); } catch(e) {}
+  startEl.style.display = 'flex';
+  pageEl.style.display = 'grid';
+}
+
+// Allow access if a valid key is already in localStorage (return visits)
+if (!providedKey) {
+  try {
+    const saved = localStorage.getItem('gileslamb-listen-key');
+    if (saved && VALID_KEYS.includes(saved)) {
+      lockedOverlay.style.display = 'none';
+      startEl.style.display = 'flex';
+      pageEl.style.display = 'grid';
+    }
+  } catch(e) {}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   BACKGROUND SHADER
+   ════════════════════════════════════════════════════════════════════ */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COLS = 6, ROWS = 6;
+const POINT_SPACING = 38;
+const PLANE_WIDTH  = (COLS - 1) * POINT_SPACING;
+const PLANE_HEIGHT = (ROWS - 1) * POINT_SPACING;
+const ANGLE_X = 0.35, ANGLE_Y = 0.5;
+const PLANE_Z_SPACING = 180;
+const NUM_PLANES = 18;
+const SCROLL_SPEED = 1.8;
+const FOCAL = 600, CAM_Z = -300;
+
+let planes = [];
+let time = 0;
+
+function initPlanes() {
+  planes = [];
+  for (let i = 0; i < NUM_PLANES; i++) {
+    planes.push({
+      z: i * PLANE_Z_SPACING,
+      activation: Array.from({length: COLS * ROWS}, () => 0),
+      dwelling: false, dwellTimer: 0, speed: SCROLL_SPEED,
+    });
+  }
+}
+
+function project(x, y, z) {
+  const cosY = Math.cos(ANGLE_Y), sinY = Math.sin(ANGLE_Y);
+  let rx = x * cosY - z * sinY;
+  let rz = x * sinY + z * cosY;
+  const cosX = Math.cos(ANGLE_X), sinX = Math.sin(ANGLE_X);
+  let ry = y * cosX - rz * sinX;
+  rz     = y * sinX + rz * cosX;
+  const depth = rz - CAM_Z;
+  if (depth <= 0) return null;
+  const scale = FOCAL / depth;
+  return { sx: W / 2 + rx * scale, sy: H / 2 + ry * scale, scale, depth };
+}
+
+function getPlanePoints(planeZ) {
+  const hw = PLANE_WIDTH / 2, hh = PLANE_HEIGHT / 2;
+  const points = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      points.push(project(-hw + c * POINT_SPACING, -hh + r * POINT_SPACING, planeZ));
+    }
+  }
+  return points;
+}
+
+let analyser = null, audioCtx = null, dataArray = null, audioSrcNode = null;
+let bassEnergy = 0, midEnergy = 0;
+
+function attachAnalyser(audioEl) {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  audioSrcNode = audioCtx.createMediaElementSource(audioEl);
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  audioSrcNode.connect(analyser);
+  analyser.connect(audioCtx.destination);
+}
+
+function getAudioEnergies() {
+  if (!analyser) {
+    bassEnergy = 0.28 + 0.18 * Math.sin(time * 0.018);
+    midEnergy  = 0.12 + 0.08 * Math.sin(time * 0.05 + 1.2);
+    return;
+  }
+  analyser.getByteFrequencyData(dataArray);
+  const sampleRate = audioCtx.sampleRate;
+  const binHz = sampleRate / analyser.fftSize;
+  let bass = 0, bassN = 0, mid = 0, midN = 0;
+  for (let i = 0; i < dataArray.length; i++) {
+    const hz = i * binHz;
+    const v = dataArray[i] / 255;
+    if (hz >= 80 && hz < 250)   { bass += v; bassN++; }
+    if (hz >= 250 && hz < 4000) { mid += v;  midN++;  }
+  }
+  const alpha = 0.05;
+  bassEnergy = bassEnergy * (1-alpha) + (bassN ? bass/bassN : 0) * alpha;
+  midEnergy  = midEnergy  * (1-alpha) + (midN  ? mid/midN   : 0) * alpha;
+}
+
+function updatePlaneActivation(plane) {
+  for (let i = 0; i < plane.activation.length; i++) {
+    const r = Math.floor(i / COLS), c = i % COLS;
+    const dr = r - (ROWS-1)/2, dc = c - (COLS-1)/2;
+    const dist = Math.sqrt(dr*dr + dc*dc);
+    const maxDist = Math.sqrt(((ROWS-1)/2)**2 + ((COLS-1)/2)**2);
+    const phase = (r * 0.7 + c * 1.1 + plane.z * 0.01);
+    const noise = 0.5 + 0.5 * Math.sin(phase + time * 0.03);
+    const centreWeight = 1 - (dist / maxDist) * 0.6;
+    const target = bassEnergy * centreWeight * noise;
+    plane.activation[i] = plane.activation[i] * 0.85 + target * 0.15;
+  }
+}
+
+function drawPlane(plane) {
+  const pts = getPlanePoints(plane.z);
+  if (!pts.length || !pts[0]) return;
+  const refPt = project(0, 0, plane.z);
+  if (!refPt) return;
+  if (refPt.sx < -300 || refPt.sx > W + 300) return;
+
+  const corners = [
+    project(-PLANE_WIDTH/2, -PLANE_HEIGHT/2, plane.z),
+    project( PLANE_WIDTH/2, -PLANE_HEIGHT/2, plane.z),
+    project( PLANE_WIDTH/2,  PLANE_HEIGHT/2, plane.z),
+    project(-PLANE_WIDTH/2,  PLANE_HEIGHT/2, plane.z),
+  ];
+  if (corners.every(p => p !== null)) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.globalAlpha = 0.04 + bassEnergy * 0.04;
+    ctx.beginPath();
+    ctx.moveTo(corners[0].sx, corners[0].sy);
+    corners.slice(1).forEach(p => ctx.lineTo(p.sx, p.sy));
+    ctx.closePath();
+    ctx.fillStyle = '#1a1040';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'screen';
+  ctx.globalAlpha = 0.06;
+  ctx.strokeStyle = '#2a1860';
+  ctx.lineWidth = 0.5;
+  for (let r = 0; r < ROWS; r++) {
+    const rowPts = pts.slice(r * COLS, (r+1) * COLS).filter(Boolean);
+    if (rowPts.length < 2) continue;
+    ctx.beginPath();
+    ctx.moveTo(rowPts[0].sx, rowPts[0].sy);
+    rowPts.slice(1).forEach(p => ctx.lineTo(p.sx, p.sy));
+    ctx.stroke();
+  }
+  for (let c = 0; c < COLS; c++) {
+    const colPts = [];
+    for (let r = 0; r < ROWS; r++) colPts.push(pts[r * COLS + c]);
+    const validPts = colPts.filter(Boolean);
+    if (validPts.length < 2) continue;
+    ctx.beginPath();
+    ctx.moveTo(validPts[0].sx, validPts[0].sy);
+    validPts.slice(1).forEach(p => ctx.lineTo(p.sx, p.sy));
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'screen';
+  pts.forEach((p, i) => {
+    if (!p) return;
+    const act = plane.activation[i] || 0;
+    const baseR = Math.max(1, p.scale * 8);
+    const r = baseR * (0.4 + act * 1.2);
+    let colour;
+    if (act < 0.15)      colour = '#1a1a3a';
+    else if (act < 0.35) colour = '#2a2060';
+    else if (act < 0.55) colour = '#5a3090';
+    else if (act < 0.75) colour = '#7040c0';
+    else                 colour = '#c0a0ff';
+    const grad = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r * 2.5);
+    grad.addColorStop(0,   colour + 'cc');
+    grad.addColorStop(0.4, colour + '44');
+    grad.addColorStop(1,   colour + '00');
+    ctx.globalAlpha = 0.5 + act * 0.5;
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, r * 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  });
+  ctx.restore();
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+  time++;
+  getAudioEnergies();
+  ctx.fillStyle = 'rgba(8,8,16,0.22)';
+  ctx.fillRect(0, 0, W, H);
+  planes.sort((a, b) => b.z - a.z);
+  for (const plane of planes) {
+    if (plane.dwelling) {
+      plane.dwellTimer--;
+      if (plane.dwellTimer <= 0) { plane.dwelling = false; plane.speed = SCROLL_SPEED; }
+    } else {
+      if (Math.random() < 0.0008) {
+        plane.dwelling = true;
+        plane.dwellTimer = 60 + Math.floor(Math.random() * 80);
+        plane.speed = 0;
+      } else {
+        plane.speed = SCROLL_SPEED * (0.85 + bassEnergy * 0.3);
+      }
+    }
+    plane.z -= plane.speed;
+    const totalDepth = NUM_PLANES * PLANE_Z_SPACING;
+    if (plane.z < CAM_Z + 50) plane.z += totalDepth;
+    updatePlaneActivation(plane);
+    drawPlane(plane);
+  }
+}
+initPlanes();
+loop();
+
+/* ════════════════════════════════════════════════════════════════════
+   WELCOME OVERLAY
+   ════════════════════════════════════════════════════════════════════ */
+const reveals = document.querySelectorAll('.reveal');
+startEl.addEventListener('click', () => {
+  startEl.classList.add('fade');
+  setTimeout(() => startEl.style.display = 'none', 1200);
+  reveals.forEach(el => el.classList.add('in'));
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   FULL AUDIO PLAYER (no cap, no preview)
+   --------------------------------------------------------------------
+   Update FULL_AUDIO_URL when you have the full track on R2.
+   Use the same R2 bucket pattern as the preview but in a private
+   bucket if you want true protection. For Gumroad delivery, the URL
+   itself being unguessable is generally enough at this scale.
+   ════════════════════════════════════════════════════════════════════ */
+const FULL_AUDIO_URL = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001-320.mp3';
+const FULL_FLAC_URL  = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001.flac';
+const FULL_WAV_URL   = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001.wav';
+const PEAKS_URL      = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001-peaks.json';
+
+const audio = new Audio();
+audio.preload = 'metadata';
+audio.src = FULL_AUDIO_URL;
+audio.crossOrigin = 'anonymous';
+
+document.getElementById('mp3Link').href  = FULL_AUDIO_URL;
+document.getElementById('flacLink').href = FULL_FLAC_URL;
+document.getElementById('wavLink').href  = FULL_WAV_URL;
+
+const playBtn      = document.getElementById('playBtn');
+const progress     = document.getElementById('progress');
+const waveformWrap = document.getElementById('waveformWrap');
+const waveCanvas   = document.getElementById('waveform');
+const wctx         = waveCanvas.getContext('2d');
+const timeDisplay  = document.getElementById('time');
+const durationEl   = document.getElementById('duration');
+
+let peaks = null;
+const dpr = window.devicePixelRatio || 1;
+
+function sizeWaveCanvas() {
+  const rect = waveCanvas.parentElement.getBoundingClientRect();
+  waveCanvas.width  = Math.floor(rect.width * dpr);
+  waveCanvas.height = Math.floor(rect.height * dpr);
+  waveCanvas.style.width  = rect.width + 'px';
+  waveCanvas.style.height = rect.height + 'px';
+}
+
+function drawWaveform() {
+  const w = waveCanvas.width;
+  const h = waveCanvas.height;
+  wctx.clearRect(0, 0, w, h);
+
+  if (!peaks || !peaks.length) {
+    wctx.strokeStyle = 'rgba(216, 207, 184, 0.18)';
+    wctx.lineWidth = 1 * dpr;
+    wctx.beginPath();
+    wctx.moveTo(0, h/2); wctx.lineTo(w, h/2);
+    wctx.stroke();
+    return;
+  }
+
+  const totalBars = peaks.length;
+  const barW = w / totalBars;
+  const mid = h / 2;
+
+  for (let i = 0; i < totalBars; i++) {
+    const x = i * barW;
+    const amp = Math.min(1, Math.max(0, peaks[i]));
+    const barH = amp * (h * 0.9);
+    const y1 = mid - barH / 2;
+    const y2 = mid + barH / 2;
+    // Whole waveform is "active" on the listen page — no locked region
+    wctx.fillStyle = 'rgba(216, 207, 184, 0.55)';
+    wctx.fillRect(x, y1, Math.max(1, barW - 1 * dpr), Math.max(1 * dpr, y2 - y1));
+  }
+}
+
+window.addEventListener('resize', () => { sizeWaveCanvas(); drawWaveform(); });
+
+async function loadPeaks() {
+  try {
+    const resp = await fetch(PEAKS_URL, { cache: 'force-cache' });
+    if (!resp.ok) throw new Error('Peaks fetch failed');
+    const data = await resp.json();
+    if (Array.isArray(data)) {
+      if (typeof data[0] === 'number') peaks = data;
+      else if (data[0] && 'max' in data[0]) peaks = data.map(p => Math.max(Math.abs(p.min), Math.abs(p.max)));
+    } else if (data.peaks) {
+      peaks = data.peaks;
+    }
+  } catch (e) {
+    const N = 600;
+    peaks = Array.from({length: N}, (_, i) => {
+      const t = i / N;
+      const env = 0.3 + 0.5 * Math.sin(t * Math.PI * 3) * Math.sin(t * Math.PI);
+      return Math.abs(env) + 0.05 * Math.random();
+    });
+  }
+  drawWaveform();
+}
+
+sizeWaveCanvas();
+drawWaveform();
+loadPeaks();
+
+let analyserAttached = false;
+function fmt(s) {
+  if (!isFinite(s)) s = 0;
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60).toString().padStart(2, '0');
+  return `${m}:${sec}`;
+}
+
+playBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    if (!analyserAttached) {
+      try { attachAnalyser(audio); analyserAttached = true; } catch(e) {}
+    }
+    audio.play().catch(() => {});
+    playBtn.classList.add('playing');
+  } else {
+    audio.pause();
+    playBtn.classList.remove('playing');
+  }
+});
+
+audio.addEventListener('loadedmetadata', () => {
+  const dur = audio.duration;
+  if (isFinite(dur) && dur > 0) {
+    durationEl.textContent = fmt(dur);
+    timeDisplay.textContent = `0:00 / ${fmt(dur)}`;
+  }
+});
+
+audio.addEventListener('timeupdate', () => {
+  const dur = audio.duration || 1;
+  const pct = (audio.currentTime / dur) * 100;
+  progress.style.width = pct + '%';
+  timeDisplay.textContent = `${fmt(audio.currentTime)} / ${fmt(dur)}`;
+});
+
+audio.addEventListener('ended', () => { playBtn.classList.remove('playing'); });
+
+waveformWrap.addEventListener('click', (e) => {
+  const dur = audio.duration;
+  if (!isFinite(dur)) return;
+  const rect = waveformWrap.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = pct * dur;
+});
+
+document.getElementById('keyForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const val = e.target.querySelector('input').value.trim();
+  if (val) window.location.href = '/unstable-systems/001/listen?key=' + encodeURIComponent(val);
+});
+</script>
+</body>
+</html>
