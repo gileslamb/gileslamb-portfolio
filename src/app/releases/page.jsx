@@ -56,7 +56,7 @@ export default function ReleasesPage() {
         </div>
 
         <section className="releases-section">
-          <h2 className="releases-section-heading">Live</h2>
+          <h2 className="releases-section-heading">Live Recordings</h2>
           <div className="releases-sessions-grid">
             {live.map((release) => (
               <ReleaseCard key={release.slug} release={release} />
