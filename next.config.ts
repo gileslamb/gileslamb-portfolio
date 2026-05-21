@@ -13,12 +13,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/unstable-systems/001",
-        destination: "/unstable-systems/001/index.html",
+        source: "/releases/orbital-fifths",
+        destination: "/releases/orbital-fifths/index.html",
       },
       {
-        source: "/unstable-systems/001/listen",
-        destination: "/unstable-systems/001/listen/index.html",
+        source: "/releases/orbital-fifths/listen",
+        destination: "/releases/orbital-fifths/listen/index.html",
       },
     ];
   },

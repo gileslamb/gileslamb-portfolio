@@ -16,7 +16,7 @@ function ReleaseCard({ release }) {
   return (
     <a href={release.link} className="releases-card" {...linkProps}>
       <div className="releases-card-image">
-        {/* Cover URLs: sessions use local /public assets; albums hotlink from
+        {/* Cover URLs: live releases use R2 CDN; albums hotlink from
             Bandcamp CDN (f4.bcbits.com) — migrate to local /public in a future pass */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -42,7 +42,7 @@ function ReleaseCard({ release }) {
 }
 
 export default function ReleasesPage() {
-  const { sessions, albums } = releasesData;
+  const { live, albums } = releasesData;
 
   return (
     <>
@@ -56,9 +56,9 @@ export default function ReleasesPage() {
         </div>
 
         <section className="releases-section">
-          <h2 className="releases-section-heading">Sessions</h2>
+          <h2 className="releases-section-heading">Live</h2>
           <div className="releases-sessions-grid">
-            {sessions.map((release) => (
+            {live.map((release) => (
               <ReleaseCard key={release.slug} release={release} />
             ))}
           </div>

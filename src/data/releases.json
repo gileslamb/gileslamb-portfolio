@@ -1,17 +1,17 @@
 {
   "_comment": "Releases data for gileslamb.com. Grouped by type on the Releases page. Add new entries at the top of the relevant array. Covers are hotlinked from Bandcamp's CDN for now; migrate to local /public assets in a future pass if desired.",
 
-  "sessions": [
+  "live": [
     {
-      "slug": "unstable-systems-001",
-      "title": "Unstable Systems — Session 001",
+      "slug": "orbital-fifths",
+      "title": "Orbital Fifths",
       "year": 2026,
       "date": "2026-05-18",
-      "type": "Session",
-      "cover": "/unstable-systems/001/cover.png",
-      "link": "/unstable-systems/001",
+      "type": "Live",
+      "cover": "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/orbital-fifths-cover.png",
+      "link": "/releases/orbital-fifths",
       "external": false,
-      "description": "Live improvisation, single take. 48 minutes."
+      "description": "Live improvisation, 18 May 2026, Glasgow. Single take, unedited."
     }
   ],
 

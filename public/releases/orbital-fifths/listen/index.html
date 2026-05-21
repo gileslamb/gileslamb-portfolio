@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Giles Lamb — Unstable Systems / Session 001 / Listen</title>
+<title>Giles Lamb — Orbital Fifths / Listen</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Listening room — Unstable Systems / Session 001.">
+<meta name="description" content="Listening room — Orbital Fifths.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -321,7 +321,7 @@
       <input class="locked-key-input" type="text" placeholder="enter your access key" autocomplete="off" spellcheck="false">
       <button class="locked-key-submit" type="submit">Open</button>
     </form>
-    <a href="/unstable-systems/001" class="btn-back">Back to release</a>
+    <a href="/releases/orbital-fifths" class="btn-back">Back to release</a>
   </div>
 </div>
 
@@ -336,7 +336,7 @@
   <header class="reveal">
     <div class="identity">Giles Lamb</div>
     <div class="session">
-      Session 001<br>
+      Live Session<br>
       Glasgow / 18.05.2026
     </div>
   </header>
@@ -353,7 +353,7 @@
         <span>48 minutes</span>
       </div>
 
-      <h1 class="reveal">Unstable Systems<br>Session 001</h1>
+      <h1 class="reveal">Orbital Fifths</h1>
       <h2 class="reveal">Giles Lamb · Glasgow · 18 May 2026</h2>
 
       <p class="thanks reveal">
@@ -708,10 +708,10 @@ startEl.addEventListener('click', () => {
    bucket if you want true protection. For Gumroad delivery, the URL
    itself being unguessable is generally enough at this scale.
    ════════════════════════════════════════════════════════════════════ */
-const FULL_AUDIO_URL = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001-320.mp3';
-const FULL_FLAC_URL  = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001.flac';
-const FULL_WAV_URL   = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001.wav';
-const PEAKS_URL      = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/unstable-systems-001-peaks.json';
+const FULL_AUDIO_URL = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/orbital-fifths-320.mp3';
+const FULL_FLAC_URL  = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/orbital-fifths.flac';
+const FULL_WAV_URL   = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/orbital-fifths.wav';
+const PEAKS_URL      = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/orbital-fifths-peaks.json';
 
 const audio = new Audio();
 audio.preload = 'metadata';
@@ -848,7 +848,7 @@ waveformWrap.addEventListener('click', (e) => {
 document.getElementById('keyForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const val = e.target.querySelector('input').value.trim();
-  if (val) window.location.href = '/unstable-systems/001/listen?key=' + encodeURIComponent(val);
+  if (val) window.location.href = '/releases/orbital-fifths/listen?key=' + encodeURIComponent(val);
 });
 </script>
 </body>

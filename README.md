@@ -38,20 +38,20 @@ Connect the repo to [Vercel](https://vercel.com); deployment happens automatical
 
 ## Music Releases
 
-Static HTML release pages live in `public/unstable-systems/` and are served via Next.js rewrites (see `next.config.ts`). They are self-contained — no React, no build step.
+Static HTML release pages live in `public/releases/` and are served via Next.js rewrites (see `next.config.ts`). They are self-contained — no React, no build step. Release data for the `/releases` catalogue page lives in `src/data/releases.json`.
 
-**Unstable Systems — Session 001** (`/unstable-systems/001`)
-- Release page: `public/unstable-systems/001/index.html`
-- Listening room (access-gated): `public/unstable-systems/001/listen/index.html`
-- Audio + peaks served from Cloudflare R2: `pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev`
-- Purchase via Gumroad: `8787808030905.gumroad.com/l/unstable-systems-001`
-- Access key for the listening room: `single-take-001` (delivered in Gumroad receipt URL)
+**Orbital Fifths** (`/releases/orbital-fifths`)
+- Release page: `public/releases/orbital-fifths/index.html`
+- Listening room (access-gated): `public/releases/orbital-fifths/listen/index.html`
+- Audio, peaks, and cover served from Cloudflare R2: `pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev`
+- Access key for the listening room: `single-take-001` (delivered in purchase receipt URL)
 
 **Utility scripts** (`scripts/`)
 - `make_peaks.py` — generates waveform peaks JSON from a WAV master; upload output to R2
 - `make_cover.py` — composites text onto artwork to produce the release cover PNG
 
-**Adding a new session:**
-1. Duplicate and update the HTML files under `public/unstable-systems/002/`
+**Adding a new live release:**
+1. Duplicate and update the HTML files under `public/releases/<slug>/`
 2. Add rewrite entries to `next.config.ts`
-3. Upload audio files and peaks JSON to R2
+3. Add an entry to the `live` array in `src/data/releases.json`
+4. Upload audio files, peaks JSON, and cover PNG to R2
