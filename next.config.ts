@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         source: "/releases/orbital-fifths/listen",
         destination: "/releases/orbital-fifths/listen/index.html",
       },
+      {
+        source: "/live",
+        destination: "/live/index.html",
+      },
     ];
   },
   images: {

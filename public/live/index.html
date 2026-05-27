@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Unstable Systems — Live Preview · 8 June</title>
+<meta name="description" content="An invite-only live music preview by Giles Lamb. Curious Studios, Glasgow. Monday 8 June 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0908;
+    --ink: #f4ede4;
+    --ink-soft: rgba(244, 237, 228, 0.72);
+    --ink-faint: rgba(244, 237, 228, 0.45);
+    --accent: #d4a574;
+    --rule: rgba(244, 237, 228, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .page {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 5vw;
+  }
+
+  /* Background image with treatment */
+  .bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/fea729e5-b9ef-477f-4e65-f444135e5600/public');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  .bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(10, 9, 8, 0.35) 0%, rgba(10, 9, 8, 0.75) 70%, rgba(10, 9, 8, 0.92) 100%),
+      linear-gradient(180deg, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.4) 50%, rgba(10, 9, 8, 0.85) 100%);
+  }
+
+  /* Grain overlay */
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.6'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  .card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 640px;
+    padding: 6vh 7vw;
+    text-align: center;
+    animation: fadeUp 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.4rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.2s forwards;
+  }
+
+  .eyebrow span {
+    display: inline-block;
+    padding: 0 0.8em;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    vertical-align: middle;
+    opacity: 0.6;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-variation-settings: "SOFT" 50, "WONK" 1;
+    font-style: italic;
+    margin-bottom: 0.4rem;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.4s forwards;
+  }
+
+  .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.6s forwards;
+  }
+
+  .body-text {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(1.05rem, 1.6vw, 1.18rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 460px;
+    margin: 0 auto 3.5rem;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.8s forwards;
+  }
+
+  .body-text em {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    margin-bottom: 3.5rem;
+    padding: 2.4rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    animation: fadeIn 1.2s 1s forwards;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    text-align: left;
+  }
+
+  .detail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+
+  .detail-value {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.02rem;
+    color: var(--ink);
+    text-align: right;
+    font-style: italic;
+  }
+
+  .closing {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeIn 1.2s 1.2s forwards;
+  }
+
+  .rsvp {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 1rem 2.4rem;
+    border: 1px solid var(--accent);
+    transition: all 0.4s ease;
+    opacity: 0;
+    animation: fadeIn 1.2s 1.4s forwards;
+  }
+
+  .rsvp:hover {
+    background: var(--accent);
+    color: var(--bg);
+    letter-spacing: 0.32em;
+  }
+
+  .signature {
+    margin-top: 3rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1rem;
+    color: var(--ink-faint);
+    opacity: 0;
+    animation: fadeIn 1.2s 1.6s forwards;
+  }
+
+  /* Corner marks */
+  .corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-color: var(--ink-faint);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .corner-tl { top: 24px; left: 24px; border-top: 1px solid; border-left: 1px solid; }
+  .corner-tr { top: 24px; right: 24px; border-top: 1px solid; border-right: 1px solid; }
+  .corner-bl { bottom: 24px; left: 24px; border-bottom: 1px solid; border-left: 1px solid; }
+  .corner-br { bottom: 24px; right: 24px; border-bottom: 1px solid; border-right: 1px solid; }
+
+  /* Footer ID line */
+  .id-line {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    z-index: 2;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .card { padding: 5vh 2rem; }
+    .detail-row { flex-direction: column; gap: 0.3rem; }
+    .detail-value { text-align: left; }
+    .id-line { font-size: 0.55rem; letter-spacing: 0.2em; }
+    .corner { width: 16px; height: 16px; }
+  }
+
+  @media print {
+    .bg::after { background: rgba(10,9,8,0.7); }
+    .rsvp { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bg"></div>
+  <div class="grain"></div>
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <article class="card">
+    <div class="eyebrow"><span>An Invitation</span></div>
+
+    <h1 class="title">Unstable Systems</h1>
+    <p class="subtitle">A Live Preview · Invite Only</p>
+
+    <p class="body-text">
+      A short, private run of a new live performance — the first time it leaves the studio. <em>Forty minutes of music</em>, with friends in the room.
+    </p>
+
+    <div class="details">
+      <div class="detail-row">
+        <span class="detail-label">Date</span>
+        <span class="detail-value">Monday, 8 June 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Time</span>
+        <span class="detail-value">7:30 for 8:00pm</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Place</span>
+        <span class="detail-value">Curious Studios<br>73 Albion Street<br>Merchant City, Glasgow G1 1NY</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Hosting</span>
+        <span class="detail-value">Drinks &amp; nibbles from 7:30</span>
+      </div>
+    </div>
+
+    <p class="closing">You're invited — plus one welcome.</p>
+
+    <a href="mailto:giles@gileslamb.com?subject=Unstable%20Systems%20%E2%80%94%208%20June&body=Hi%20Giles%2C%0A%0AI%27ll%20be%20there%20on%20the%208th." class="rsvp">RSVP</a>
+
+    <p class="signature">— Giles</p>
+  </article>
+
+  <div class="id-line">GL · LIVE · 08 / 06 / 26</div>
+</div>
+</body>
+</html>
