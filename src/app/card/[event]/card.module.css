@@ -25,17 +25,17 @@
   z-index: 0;
 }
 
-/* Radial vignette over shader */
+/* Radial vignette over shader — kept light so the shader shows */
 .veil {
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background: radial-gradient(
-    120% 120% at 50% 38%,
-    transparent 30%,
-    rgba(8, 8, 8, 0.55) 78%,
-    rgba(8, 8, 8, 0.92) 100%
+    130% 130% at 50% 40%,
+    transparent 20%,
+    rgba(8, 8, 8, 0.30) 65%,
+    rgba(8, 8, 8, 0.72) 100%
   );
 }
 
@@ -71,7 +71,7 @@
 }
 
 .gateMark {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-hero-name), 'Cormorant Garamond', Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: clamp(34px, 7vw, 68px);
@@ -161,7 +161,7 @@
 
 /* Name */
 .name {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-hero-name), 'Cormorant Garamond', Georgia, serif;
   font-weight: 300;
   font-size: clamp(40px, 9vw, 72px);
   line-height: 0.98;
@@ -183,7 +183,7 @@
   margin: 30px 0 26px;
 }
 .lede {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-hero-name), 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(20px, 3.6vw, 27px);
   font-weight: 400;
   line-height: 1.32;
@@ -198,7 +198,7 @@
 }
 .invite {
   margin-top: 14px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-hero-name), 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
   font-size: clamp(17px, 2.6vw, 20px);
   color: var(--card-accent);
@@ -236,7 +236,17 @@
   color: var(--card-accent);
 }
 
-/* Form */
+/* Form — lifted onto a frosted panel for contrast against the shader */
+.formPanel {
+  background: rgba(8, 8, 8, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(237, 229, 216, 0.14);
+  border-radius: 3px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  margin-top: 4px;
+}
+
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -249,20 +259,20 @@
 
 .input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(237, 229, 216, 0.13);
+  border: 1px solid rgba(237, 229, 216, 0.40);
   color: var(--cream);
   font-family: 'Karla', sans-serif;
   font-size: 13px;
-  padding: 14px;
+  padding: 13px 14px;
   border-radius: 2px;
   outline: none;
   transition: border-color 0.25s, background 0.25s;
 }
-.input::placeholder { color: var(--smoke); }
+.input::placeholder { color: rgba(237, 229, 216, 0.45); }
 .input:focus {
   border-color: var(--card-accent);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(237, 229, 216, 0.20);
 }
 
 .turnstileWrap {
@@ -292,7 +302,7 @@
 .sendBtn:disabled { opacity: 0.5; cursor: default; }
 
 .err {
-  color: #e98a7a;
+  color: #f4a090;
   font-size: 10.5px;
   min-height: 14px;
   margin-top: 6px;
@@ -303,17 +313,17 @@
   margin-top: 8px;
   font-size: 10px;
   line-height: 1.6;
-  color: var(--smoke);
+  color: rgba(237, 229, 216, 0.45);
 }
 .consent a {
-  color: var(--fog);
+  color: rgba(237, 229, 216, 0.65);
   text-underline-offset: 2px;
 }
 
 /* Success */
 .done { text-align: left; }
 .doneBig {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-hero-name), 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(22px, 4vw, 30px);
   font-weight: 400;
   line-height: 1.25;

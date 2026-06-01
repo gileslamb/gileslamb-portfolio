@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import CardClient from './CardClient';
 
 export const CARD_EVENTS: Record<string, { name: string; accent: string; stingUrl: string | null }> = {
-  'annecy-2026': { name: 'Annecy 2026', accent: '#c9a96e', stingUrl: null },
+  'annecy-2026': { name: 'Annecy 2026', accent: '#c9a96e', stingUrl: '/audio/resonant-being-part-2.mp3' },
   'direct':      { name: '',            accent: '#c9a96e', stingUrl: null },
 };
 

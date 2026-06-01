@@ -37,21 +37,32 @@ float fbm(vec2 p){
 }
 void main(){
   vec2 p=(gl_FragCoord.xy-0.5*uRes.xy)/uRes.y;
-  float t=uTime*0.045;
-  float warp=0.6+uLevel*0.9+uPulse*0.7;
+  float t=uTime*0.06;
+  float warp=0.55+uLevel*1.4+uBass*0.7+uPulse*1.0;
   vec2 q=vec2(fbm(p*1.4+vec2(0.0,t)),fbm(p*1.4+vec2(5.2,-t)));
-  vec2 r=vec2(fbm(p*1.4+warp*q+vec2(1.7,9.2)+t*0.5),fbm(p*1.4+warp*q+vec2(8.3,2.8)-t*0.4));
+  vec2 r=vec2(fbm(p*1.4+warp*q+vec2(1.7,9.2)+t*0.55),
+              fbm(p*1.4+warp*q+vec2(8.3,2.8)-t*0.45));
   float f=fbm(p*1.4+warp*r);
-  vec3 deep=vec3(0.027,0.043,0.063);
-  vec3 mid=vec3(0.055,0.118,0.149);
-  vec3 glow=uAccent;
-  float energy=clamp(uLevel*0.8+uBass*0.5+uPulse*0.9,0.0,1.0);
-  vec3 col=mix(deep,mid,smoothstep(0.25,0.85,f));
-  col=mix(col,glow,smoothstep(0.62,0.98,f)*(0.18+energy*0.55));
+
+  /* sci-fi palette — visible even before audio kicks in */
+  vec3 deep =vec3(0.03,0.06,0.13);
+  vec3 mid  =vec3(0.07,0.20,0.30);
+  vec3 bright=vec3(0.12,0.38,0.52);
+  vec3 glow =uAccent;
+
+  float energy=clamp(uLevel*1.6+uBass*1.1+uPulse*1.3,0.0,1.0);
+  vec3 col=mix(deep,mid,smoothstep(0.18,0.72,f));
+  col=mix(col,bright,smoothstep(0.58,0.92,f)*0.55);
+  col=mix(col,glow,smoothstep(0.65,0.98,f)*(0.22+energy*0.65));
+
+  /* ambient bloom so shader is always legible */
   float d=length(p*vec2(uRes.x/uRes.y,1.0));
-  col+=glow*(0.05+uBass*0.10)*smoothstep(0.9,0.0,d)*(0.4+uPulse);
-  col*=1.0-0.45*smoothstep(0.5,1.25,d);
-  col+=hash(gl_FragCoord.xy+uTime)*0.04-0.02;
+  col+=mid*0.18*smoothstep(1.1,0.0,d);
+  col+=glow*(0.07+uBass*0.28+uPulse*0.18)*smoothstep(0.85,0.0,d);
+
+  /* lighter vignette */
+  col*=1.0-0.32*smoothstep(0.42,1.3,d);
+  col+=hash(gl_FragCoord.xy+uTime)*0.035-0.017;
   gl_FragColor=vec4(col,1.0);
 }`;
 
@@ -277,8 +288,8 @@ export default function CardClient({
         let lo = 0, all = 0;
         for (let i = 0; i < 12; i++) lo += data[i];
         for (let i = 0; i < data.length; i++) all += data[i];
-        bass += (lo / (12 * 255) - bass) * 0.18;
-        level += (all / (data.length * 255) * 2.2 - level) * 0.12;
+        bass += (lo / (12 * 255) * 3.5 - bass) * 0.20;
+        level += (all / (data.length * 255) * 4.0 - level) * 0.14;
         const rise = Math.max(0, level - lastLevel); lastLevel = level;
         pulse += (Math.min(1, rise * 6) - pulse) * 0.25;
         pulse *= 0.96;
@@ -453,6 +464,7 @@ export default function CardClient({
                 </div>
               </div>
             ) : (
+              <div className={styles.formPanel}>
               <form onSubmit={handleSubmit} noValidate>
                 <div className={styles.row}>
                   <input
@@ -494,6 +506,7 @@ export default function CardClient({
                   <a href="/privacy" target="_blank" rel="noopener">Privacy</a>
                 </p>
               </form>
+              </div>
             )}
           </div>
         </div>
