@@ -15,7 +15,7 @@ export default function CardDirectPage() {
       eventName={cfg.name}
       accent={cfg.accent}
       stingUrl={cfg.stingUrl}
-      captureEndpoint={process.env.NEXT_PUBLIC_CAPTURE_ENDPOINT ?? ''}
+      captureEndpoint={process.env.NEXT_PUBLIC_CAPTURE_ENDPOINT ?? 'https://giles-engine.gileslamb.workers.dev/capture'}
       turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY ?? ''}
     />
   );
