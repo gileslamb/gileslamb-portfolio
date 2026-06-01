@@ -3781,3 +3781,63 @@ body {
   background-color: var(--black);
   color: var(--warm);
 }
+
+/* Privacy page */
+.privacy-page {
+  padding: 12rem 3.5rem 8rem;
+  background: var(--black);
+  min-height: 100vh;
+}
+.privacy-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.privacy-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 3.5rem;
+  line-height: 1.1;
+}
+.privacy-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.privacy-body section h2 {
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+.privacy-body section p {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: var(--fog);
+}
+.privacy-body section a {
+  color: var(--warm);
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 169, 110, 0.35);
+  text-underline-offset: 0.2em;
+  transition: color 0.25s, text-decoration-color 0.25s;
+}
+.privacy-body section a:hover {
+  color: var(--cream);
+  text-decoration-color: rgba(201, 169, 110, 0.6);
+}
+@media (max-width: 768px) {
+  .privacy-page { padding: 9rem 1.5rem 6rem; }
+}
+
+/* /card pages: full-screen experience, no site cursor */
+body.card-mode {
+  overflow: hidden;
+  cursor: auto;
+}
+body.card-mode .cursor,
+body.card-mode .cursor-ring {
+  display: none !important;
+}

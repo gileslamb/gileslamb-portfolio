@@ -1,0 +1,403 @@
+/* card.module.css — Giles Lamb composer card
+   Fonts: Cormorant Garamond (serif), Karla (ui/labels) — from site globals
+   Colors: mapped from site CSS custom properties
+   --card-accent is set inline per event; falls back to site --accent (#c9a96e)
+*/
+
+.page {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: 'Karla', sans-serif;
+  font-weight: 300;
+  color: var(--cream);
+  background: var(--black);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* WebGL canvas */
+.gl {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+/* Radial vignette over shader */
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 120% at 50% 38%,
+    transparent 30%,
+    rgba(8, 8, 8, 0.55) 78%,
+    rgba(8, 8, 8, 0.92) 100%
+  );
+}
+
+/* Centered stage */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  overflow-y: auto;
+}
+
+/* ---- Enter gate ---- */
+.gate {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  cursor: pointer;
+  transition: opacity 0.9s ease, visibility 0.9s;
+}
+.gate.gone {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gateMark {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(34px, 7vw, 68px);
+  letter-spacing: 0.01em;
+  color: var(--cream);
+  opacity: 0;
+  animation: rise 1.2s 0.15s ease forwards;
+}
+
+.gatePrompt {
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--fog);
+  opacity: 0;
+  animation: rise 1.2s 0.5s ease forwards;
+}
+
+.gateRing {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: rise 1.2s 0.7s ease forwards;
+}
+.gateRing::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--card-accent);
+  opacity: 0;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+.gateDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--card-accent);
+}
+
+/* ---- Card ---- */
+.card {
+  width: min(560px, 100%);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: opacity, transform;
+}
+.card.in {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.card.in .reveal { animation: rise 0.85s ease forwards; }
+.card.in .r1 { animation-delay: 0.05s; }
+.card.in .r2 { animation-delay: 0.20s; }
+.card.in .r3 { animation-delay: 0.35s; }
+.card.in .r4 { animation-delay: 0.55s; }
+.card.in .r5 { animation-delay: 0.75s; }
+
+/* Eyebrow */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.bar {
+  height: 1px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Name */
+.name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(40px, 9vw, 72px);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  color: var(--cream);
+  margin: 18px 0 6px;
+}
+
+/* Role */
+.role {
+  font-size: 11px;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+}
+
+/* Pitch */
+.pitch {
+  margin: 30px 0 26px;
+}
+.lede {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(20px, 3.6vw, 27px);
+  font-weight: 400;
+  line-height: 1.32;
+  color: var(--cream);
+}
+.scope {
+  margin-top: 14px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--fog);
+  letter-spacing: 0.02em;
+}
+.invite {
+  margin-top: 14px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(17px, 2.6vw, 20px);
+  color: var(--card-accent);
+}
+
+/* Credits */
+.credits {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 28px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cr {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.crTitle {
+  font-weight: 400;
+  color: var(--cream);
+}
+.crDetail {
+  color: var(--smoke);
+  text-align: right;
+}
+.awards {
+  margin-top: 4px;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+}
+
+/* Form */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+@media (max-width: 440px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+.input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--cream);
+  font-family: 'Karla', sans-serif;
+  font-size: 13px;
+  padding: 14px;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+.input::placeholder { color: var(--smoke); }
+.input:focus {
+  border-color: var(--card-accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.turnstileWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.sendBtn {
+  width: 100%;
+  margin-top: 2px;
+  background: var(--card-accent);
+  color: var(--black);
+  border: none;
+  font-family: 'Karla', sans-serif;
+  font-weight: 400;
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+.sendBtn:hover { filter: brightness(1.08); }
+.sendBtn:active { transform: translateY(1px); }
+.sendBtn:disabled { opacity: 0.5; cursor: default; }
+
+.err {
+  color: #e98a7a;
+  font-size: 10.5px;
+  min-height: 14px;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+.consent {
+  margin-top: 8px;
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--smoke);
+}
+.consent a {
+  color: var(--fog);
+  text-underline-offset: 2px;
+}
+
+/* Success */
+.done { text-align: left; }
+.doneBig {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.doneSub {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--fog);
+  line-height: 1.7;
+}
+.doneSub a { color: var(--card-accent); text-decoration: none; }
+
+/* Footer */
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 22px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  pointer-events: none;
+}
+.evName { color: var(--fog); }
+
+.audioBtn {
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--smoke);
+  background: none;
+  border: none;
+  font-family: 'Karla', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.bars {
+  display: inline-flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 11px;
+}
+.bars i {
+  width: 2px;
+  background: var(--card-accent);
+  height: 4px;
+  border-radius: 1px;
+  transition: height 0.1s linear;
+}
+.audioOff .bars i {
+  height: 2px !important;
+  background: var(--smoke);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  70%  { transform: scale(1.9); opacity: 0;   }
+  100% { opacity: 0; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .gateMark,
+  .gatePrompt,
+  .gateRing {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
