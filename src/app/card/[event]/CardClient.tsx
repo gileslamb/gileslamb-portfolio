@@ -341,7 +341,7 @@ export default function CardClient({
     const payload: Record<string, string> = {
       name,
       email,
-      source: 'card',
+      source: 'giles-lamb',
       source_detail: event,
       consent_text: CONSENT_TEXT,
       consent_at: new Date().toISOString(),
