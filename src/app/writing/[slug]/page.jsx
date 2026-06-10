@@ -11,9 +11,9 @@ import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { buildBlogPostingSchema, buildEssayBreadcrumb } from "@/lib/schema/helpers";
 
-function WideImage({ src, alt }) {
+function WideImage({ src, alt, portrait }) {
   return (
-    <figure className="article-wide-image">
+    <figure className={`article-wide-image${portrait ? " article-wide-image--portrait" : ""}`}>
       <img src={src} alt={alt || ""} />
     </figure>
   );
@@ -24,6 +24,37 @@ function ClosingLine({ children }) {
 }
 
 const mdxComponents = { WideImage, ClosingLine };
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) return {};
+  const { frontmatter } = post;
+  const description = frontmatter.description ?? frontmatter.subtitle;
+  const url = `https://gileslamb.com/writing/${frontmatter.slug}`;
+  const ogImage = frontmatter.coverImage
+    ? [{ url: frontmatter.coverImage, alt: frontmatter.title }]
+    : [];
+  return {
+    title: `${frontmatter.title} — Giles Lamb`,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: frontmatter.title,
+      description,
+      url,
+      type: "article",
+      publishedTime: frontmatter.date,
+      images: ogImage,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: frontmatter.title,
+      description,
+      images: frontmatter.coverImage ? [frontmatter.coverImage] : [],
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const posts = getAllPosts();

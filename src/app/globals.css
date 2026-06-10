@@ -3382,6 +3382,16 @@ footer {
 .article-wide-image:hover img {
   filter: brightness(0.88) sepia(8%) contrast(1.02);
 }
+.article-wide-image--portrait {
+  display: flex;
+  justify-content: center;
+}
+.article-wide-image--portrait img {
+  width: auto;
+  max-width: 55%;
+  max-height: 75vh;
+  object-fit: contain;
+}
 
 /* Closing / final line treatment */
 .article-closing-line {
