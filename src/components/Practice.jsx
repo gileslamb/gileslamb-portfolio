@@ -6,6 +6,7 @@ const PRACTICE_IMAGE =
 export function Practice() {
   return (
     <section className="practice" id="practice">
+      {/* Row 1 left: heading + body */}
       <div className="practice-left">
         <p className="section-label reveal">Practice</p>
         <h2 className="practice-headline reveal reveal-delay-1">
@@ -28,7 +29,20 @@ export function Practice() {
         </div>
       </div>
 
-      <div className="lanes reveal reveal-delay-2">
+      {/* Row 1 right: image */}
+      <div className="practice-image reveal reveal-delay-2">
+        <Image
+          src={PRACTICE_IMAGE}
+          alt="Giles Lamb at his Unstable Systems rig during the 8 June 2026 live performance, hands on the keyboard controlling synths mid-improvisation"
+          width={1920}
+          height={1080}
+          className="practice-image-img"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Row 2: three disciplines */}
+      <div className="practice-lanes">
         <div className="lane">
           <span className="lane-num">01</span>
           <div className="lane-content">
@@ -79,17 +93,6 @@ export function Practice() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="practice-image">
-        <Image
-          src={PRACTICE_IMAGE}
-          alt="Giles Lamb at his Unstable Systems rig during the 8 June 2026 live performance, hands on the keyboard controlling synths mid-improvisation"
-          fill
-          sizes="100vw"
-          className="practice-image-img"
-          loading="lazy"
-        />
       </div>
     </section>
   );
