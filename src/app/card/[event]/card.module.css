@@ -320,6 +320,19 @@
   text-underline-offset: 2px;
 }
 
+/* Animation work link */
+.animLink {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fog);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.animLink:hover { color: var(--cream); }
+
 /* Success */
 .done { text-align: left; }
 .doneBig {

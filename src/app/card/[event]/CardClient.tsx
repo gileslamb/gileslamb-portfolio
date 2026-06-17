@@ -452,6 +452,14 @@ export default function CardClient({
               <span className={styles.crDetail}>Sky Kids · animation</span>
             </div>
             <div className={styles.awards}>BAFTA · RTS · Music &amp; Sound Awards</div>
+            <a
+              href="https://www.gileslamb.com/animation"
+              className={styles.animLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Animation work →
+            </a>
           </div>
 
           <div className={`${styles.reveal} ${styles.r5}`}>
