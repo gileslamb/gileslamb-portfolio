@@ -1,3 +1,8 @@
+import Image from "next/image";
+
+const PRACTICE_IMAGE =
+  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/1fceb1b8-7959-4ce2-b885-a107fd74d300/public";
+
 export function Practice() {
   return (
     <section className="practice" id="practice">
@@ -74,6 +79,17 @@ export function Practice() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="practice-image">
+        <Image
+          src={PRACTICE_IMAGE}
+          alt="Giles Lamb at his Unstable Systems rig during the 8 June 2026 live performance, hands on the keyboard controlling synths mid-improvisation"
+          fill
+          sizes="100vw"
+          className="practice-image-img"
+          loading="lazy"
+        />
       </div>
     </section>
   );
