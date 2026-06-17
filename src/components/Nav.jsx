@@ -21,9 +21,6 @@ export function Nav() {
         </Link>
         <ul className="nav-links">
           <li>
-            <Link href="/#work">Work</Link>
-          </li>
-          <li>
             <Link href="/animation">Animation</Link>
           </li>
           <li>
@@ -57,11 +54,6 @@ export function Nav() {
         aria-hidden={!menuOpen}
       >
         <ul className="nav-overlay-links">
-          <li>
-            <Link href="/#work" onClick={closeMenu}>
-              Work
-            </Link>
-          </li>
           <li>
             <Link href="/animation" onClick={closeMenu}>
               Animation

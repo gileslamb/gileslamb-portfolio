@@ -1,84 +1,45 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const FEATURED_IMAGE =
-  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/fcd2ca85-ab4b-4c87-597e-bd9ed2945100/public";
+  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/8cd73992-0209-4125-16d2-5a81f67fb200/public";
 
 export function LivePractice() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(null); // null | "loading" | "success" | "error"
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus("loading");
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    setStatus(res.ok ? "success" : "error");
-  };
-
   return (
     <section className="live-bridge" id="live">
       <div className="live-bridge-inner">
         <div className="live-text">
           <p className="live-eyebrow reveal">Live Practice</p>
           <h2 className="live-headline reveal reveal-delay-1">
-            Sound as the DNA
-            <br />
-            from which
-            <br />
-            <em>image emerges</em>
+            Unstable Systems
           </h2>
           <p className="live-body reveal reveal-delay-2">
-            Years of studio and film work, now in the room in real time. Modular
-            synthesis and generative visuals. Sound and image at once, neither
-            pretending to lead. Debuting 2026.
+            Unstable Systems is Giles Lamb&rsquo;s live performance practice: music made in one
+            pass, in the moment, played at the point where a part-stable, part-unpredictable
+            system is about to fall apart. Nothing is decided in advance and nothing is fixed
+            afterward. It is the wrangle between human and machine, human expression encoded
+            in the act of shaping what comes out. The opposite of generative polish:
+            musicality and intention, played live in a room.
           </p>
-          <div className="live-coming-soon reveal reveal-delay-2">
-            <p className="live-coming-soon-label">Signal Dreams · Coming 2026</p>
-            <p className="live-coming-soon-sub">
-              A new immersive living album. Enter your email for dates.
-            </p>
-            {status === "success" ? (
-              <p className="live-email-success">
-                You&apos;re on the list. We&apos;ll be in touch.
-              </p>
-            ) : (
-              <form className="live-email-form" onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="live-email-input"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="live-email-submit"
-                  disabled={status === "loading"}
-                >
-                  {status === "loading" ? "..." : "Notify me"}
-                </button>
-                {status === "error" && (
-                  <p className="live-email-error">
-                    Something went wrong. Try again.
-                  </p>
-                )}
-              </form>
-            )}
-          </div>
+          <p className="live-body reveal reveal-delay-2">
+            The first public preview, in June 2026, confirmed what the practice is for. The
+            audience completes it. These are works that exist to connect in the moment,
+            cinematic and strongly visual, built from modular synthesis, the Osmose, neural
+            voice processing and felt piano.
+          </p>
+          <p className="live-body reveal reveal-delay-2">
+            The live recordings are released as they accumulate. Orbital Fifths, roughly
+            forty minutes played in a single take, is the first.
+          </p>
+          <Link href="/releases" className="live-text-cta reveal reveal-delay-2">
+            Releases &rarr;
+          </Link>
         </div>
         <div className="live-featured-link reveal reveal-delay-2">
           <div className="live-visual">
             <Image
               src={FEATURED_IMAGE}
-              alt="Signal Dreams live visual"
+              alt="Giles Lamb performing live — Unstable Systems"
               fill
               sizes="(max-width: 767px) 100vw, 50vw"
               className="live-featured-image"

@@ -1108,10 +1108,10 @@ nav::after {
 
 /* Landing page */
 .anim-landing {
-  background: #f2ede3;
+  background: var(--black);
   min-height: 100vh;
   padding: 9rem 3.5rem 5rem;
-  color: #1a1612;
+  color: var(--cream);
 }
 .anim-landing-intro {
   max-width: 900px;
@@ -1121,7 +1121,7 @@ nav::after {
   max-width: 900px;
   margin: 0 auto 3.5rem;
   padding-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(26,22,18,0.12);
+  border-bottom: 1px solid rgba(237,229,216,.12);
 }
 .anim-hero-name {
   display: block;
@@ -1129,44 +1129,44 @@ nav::after {
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 300;
   letter-spacing: 0.01em;
-  color: #1a1612;
+  color: var(--cream);
   text-decoration: none;
   line-height: 1;
   margin-bottom: 0.25rem;
 }
-.anim-hero-name:hover { color: #7a5c2e; }
+.anim-hero-name:hover { color: var(--accent); }
 .anim-hero-role {
   display: block;
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #7a7068;
+  color: var(--fog);
   margin-bottom: 1.6rem;
 }
 .anim-hero-back {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7a7068;
+  color: var(--fog);
   text-decoration: none;
 }
-.anim-hero-back:hover { color: #3d3730; }
+.anim-hero-back:hover { color: var(--cream); }
 .anim-landing-heading {
   font-family: var(--font-hero-name), 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.7rem, 4vw, 2.6rem);
   font-weight: 300;
-  color: #1a1612;
+  color: var(--cream);
   letter-spacing: 0.01em;
   line-height: 1.15;
   margin-bottom: 2rem;
 }
 .anim-landing-intro .section-label {
-  color: #7a7068;
+  color: var(--fog);
 }
 .anim-landing-body p {
   font-size: 1rem;
   line-height: 1.85;
-  color: #3d3730;
+  color: rgba(237,229,216,.80);
   margin-bottom: 1rem;
 }
 
@@ -1180,7 +1180,7 @@ nav::after {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  background: rgba(26,22,18,.08);
+  background: rgba(237,229,216,.06);
 }
 .anim-grid-item {}
 .anim-grid-link {
@@ -1189,10 +1189,10 @@ nav::after {
   min-height: 340px;
   text-decoration: none;
   color: inherit;
-  background: #f2ede3;
+  background: #0a0907;
   transition: background 0.3s ease;
 }
-.anim-grid-link:hover { background: #ede7dc; }
+.anim-grid-link:hover { background: #141210; }
 .anim-grid-item.img-right .anim-grid-link {
   direction: rtl;
 }
@@ -1209,11 +1209,11 @@ nav::after {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: brightness(0.95) saturate(0.9);
+  filter: brightness(0.82) saturate(0.85);
   transition: filter 0.4s ease, transform 0.6s ease;
 }
 .anim-grid-link:hover .anim-grid-img {
-  filter: brightness(1) saturate(1);
+  filter: brightness(0.92) saturate(0.95);
   transform: scale(1.02);
 }
 .anim-grid-content {
@@ -1227,19 +1227,19 @@ nav::after {
   font-size: clamp(1.6rem, 2.5vw, 2.4rem);
   font-weight: 300;
   line-height: 1.1;
-  color: #1a1612;
+  color: var(--cream);
   margin-bottom: 0.5rem;
 }
 .anim-grid-client {
   font-size: .75rem;
-  color: #7a7068;
+  color: var(--fog);
   margin-bottom: 0.25rem;
 }
 .anim-grid-meta {
   font-size: .6rem;
   letter-spacing: .15em;
   text-transform: uppercase;
-  color: #9a9088;
+  color: var(--smoke);
   margin-bottom: 0.5rem;
 }
 .anim-grid-role {
@@ -1248,12 +1248,12 @@ nav::after {
   letter-spacing: .05em;
 }
 
-/* Individual project pages — light equivalent of .dttm-* */
+/* Individual project pages */
 .anim-case-page {
-  background: #f2ede3;
+  background: var(--black);
   min-height: 100vh;
   padding: 9rem 3.5rem 5rem;
-  color: #1a1612;
+  color: var(--cream);
 }
 .anim-case-layout {
   display: grid;
@@ -1267,7 +1267,7 @@ nav::after {
   font-size: .56rem;
   letter-spacing: .25em;
   text-transform: uppercase;
-  color: #7a7068;
+  color: var(--fog);
   margin-bottom: 1rem;
 }
 .anim-case-title {
@@ -1275,13 +1275,13 @@ nav::after {
   font-size: clamp(2.2rem, 4vw, 3.6rem);
   font-weight: 300;
   line-height: 1.05;
-  color: #1a1612;
+  color: var(--cream);
   margin-bottom: 0.8rem;
 }
 .anim-case-description {
   font-size: .95rem;
   line-height: 1.9;
-  color: #3d3730;
+  color: rgba(237,229,216,.80);
   margin-bottom: 2rem;
 }
 .anim-case-description p { margin-bottom: 1.2rem; }
@@ -1296,7 +1296,7 @@ nav::after {
   font-size: .65rem;
   letter-spacing: .15em;
   text-transform: uppercase;
-  color: #7a7068;
+  color: var(--fog);
   margin-bottom: 1.5rem;
 }
 .anim-case-meta-sep { margin: 0 0.5rem; }
@@ -1309,7 +1309,7 @@ nav::after {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.anim-case-link:hover { color: #1a1612; }
+.anim-case-link:hover { color: var(--cream); }
 .anim-case-right { min-width: 0; }
 .anim-case-video {
   margin-bottom: 1.5rem;
@@ -1337,7 +1337,7 @@ nav::after {
 .anim-case-back {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(26,22,18,.08);
+  border-top: 1px solid rgba(237,229,216,.08);
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
@@ -1346,11 +1346,11 @@ nav::after {
   font-size: .65rem;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #7a7068;
+  color: var(--fog);
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.anim-case-back a:hover { color: #1a1612; }
+.anim-case-back a:hover { color: var(--cream); }
 
 @media (max-width: 767px) {
   .anim-landing { padding: 5rem 1.5rem 4rem; }
@@ -3049,8 +3049,18 @@ footer {
   display: flex; justify-content: space-between; align-items: center;
   border-top: 1px solid rgba(255,255,255,.04);
 }
+.footer-left { display: flex; flex-direction: column; gap: 0.3rem; }
+.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; }
 .footer-name { font-family: 'Cormorant Garamond', serif; font-size: .85rem; letter-spacing: .14em; color: var(--ash); }
 .footer-copy { font-size: .58rem; letter-spacing: .12em; color: var(--smoke); }
+.footer-email {
+  font-size: .82rem;
+  letter-spacing: .04em;
+  color: var(--cream);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-email:hover { color: var(--accent); }
 
 /* Hamburger (hidden on desktop) */
 .nav-hamburger {
