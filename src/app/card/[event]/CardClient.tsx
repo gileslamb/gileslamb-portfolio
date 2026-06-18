@@ -419,39 +419,24 @@ export default function CardClient({
             {eventName && <span>{eventName}</span>}
           </div>
 
-          <h1 className={`${styles.name} ${styles.reveal} ${styles.r1}`}>Giles Lamb</h1>
-          <div className={`${styles.role} ${styles.reveal} ${styles.r1}`}>Composer</div>
+          <h1 className={`${styles.name} ${styles.reveal} ${styles.r1}`}>
+            <a href="https://www.gileslamb.com" target="_blank" rel="noopener noreferrer" className={styles.nameLink}>Giles Lamb</a>
+          </h1>
+          <div className={`${styles.role} ${styles.reveal} ${styles.r1}`}>COMPOSER</div>
 
           <div className={styles.pitch}>
             <div className={`${styles.lede} ${styles.reveal} ${styles.r2}`}>
               For when the brief needs more than a soundtrack.
             </div>
             <div className={`${styles.scope} ${styles.reveal} ${styles.r3}`}>
-              Film, animation, games, immersive. And the strange in-between.
-            </div>
-            <div className={`${styles.invite} ${styles.reveal} ${styles.r3}`}>
-              Tell me what you&rsquo;re making.
+              Animation · Kids &amp; Family<br />
+              Immersive &amp; Installation<br />
+              Film &amp; Documentary<br />
+              TV &amp; Drama
             </div>
           </div>
 
           <div className={`${styles.credits} ${styles.reveal} ${styles.r4}`}>
-            <div className={styles.cr}>
-              <b className={styles.crTitle}>Dead Island</b>
-              <span className={styles.crDetail}>Cannes Lions Gold trailer</span>
-            </div>
-            <div className={styles.cr}>
-              <b className={styles.crTitle}>Valhalla Rising</b>
-              <span className={styles.crDetail}>feature film</span>
-            </div>
-            <div className={styles.cr}>
-              <b className={styles.crTitle}>Distance to the Moon</b>
-              <span className={styles.crDetail}>BFI / Screen Scotland</span>
-            </div>
-            <div className={styles.cr}>
-              <b className={styles.crTitle}>The Brilliant World of Tom Gates</b>
-              <span className={styles.crDetail}>Sky Kids · animation</span>
-            </div>
-            <div className={styles.awards}>BAFTA · RTS · Music &amp; Sound Awards</div>
             <a
               href="https://www.gileslamb.com/reel"
               className={styles.animLink}
@@ -467,6 +452,14 @@ export default function CardClient({
               rel="noopener noreferrer"
             >
               Animation work →
+            </a>
+            <a
+              href="https://www.gileslamb.com"
+              className={styles.animLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              gileslamb.com →
             </a>
           </div>
 

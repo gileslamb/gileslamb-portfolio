@@ -170,6 +170,12 @@
   margin: 18px 0 6px;
 }
 
+/* Name link — inherits h1 appearance, no underline */
+.nameLink {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* Role */
 .role {
   font-size: 11px;
