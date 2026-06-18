@@ -1,4 +1,7 @@
 import { ReelPlayerContent } from "@/components/ReelPlayerContent";
+import { pickDramaDocumentaryImages } from "@/data/dramaDocumentarySideImages";
+
+export const dynamic = "force-dynamic";
 
 const BASE = "https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/Reels/Drama%20and%20documentary/";
 
@@ -31,11 +34,13 @@ const TRACKS = [
 ];
 
 export default function DramaDocumentaryPage() {
+  const sideImages = pickDramaDocumentaryImages(3);
   return (
     <ReelPlayerContent
       tracks={TRACKS}
       heading="Selected Drama & Documentary"
       framing="Scores for feature documentary, short drama and factual work. From intimate chamber pieces to large-scale orchestral and world music-influenced compositions."
+      sideImages={sideImages}
     />
   );
 }

@@ -1,4 +1,7 @@
 import { ReelPlayerContent } from "@/components/ReelPlayerContent";
+import { pickCinematicsTrailersImages } from "@/data/cinematicsTrailersSideImages";
+
+export const dynamic = "force-dynamic";
 
 const BASE = "https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/Reels/Cinematics%20and%20trailers/";
 
@@ -25,11 +28,13 @@ const TRACKS = [
 ];
 
 export default function CinematicsTrailersPage() {
+  const sideImages = pickCinematicsTrailersImages(3);
   return (
     <ReelPlayerContent
       tracks={TRACKS}
       heading="Selected Cinematics & Trailers"
       framing="Score and music for game cinematics, film trailers and commercial work. Orchestral, electronic and hybrid approaches across major studio and independent productions."
+      sideImages={sideImages}
     />
   );
 }

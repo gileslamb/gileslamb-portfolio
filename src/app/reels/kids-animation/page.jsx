@@ -1,4 +1,7 @@
 import { ReelPlayerContent } from "@/components/ReelPlayerContent";
+import { pickKidsAnimationImages } from "@/data/kidsAnimationSideImages";
+
+export const dynamic = "force-dynamic";
 
 const BASE = "https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/Reels/Kids%20and%20animation/";
 
@@ -23,11 +26,13 @@ const TRACKS = [
 ];
 
 export default function KidsAnimationPage() {
+  const sideImages = pickKidsAnimationImages(3);
   return (
     <ReelPlayerContent
       tracks={TRACKS}
       heading="Selected Kids & Animation"
       framing="Original scores and themes for children's animation and kids' TV across BBC, Sky, CBBC and independent productions. Playful, characterful, emotionally precise."
+      sideImages={sideImages}
     />
   );
 }

@@ -1,4 +1,7 @@
 import { ReelPlayerContent } from "@/components/ReelPlayerContent";
+import { pickTvImages } from "@/data/tvSideImages";
+
+export const dynamic = "force-dynamic";
 
 const BASE = "https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/Reels/TV/";
 
@@ -24,11 +27,13 @@ const TRACKS = [
 ];
 
 export default function TVPage() {
+  const sideImages = pickTvImages(3);
   return (
     <ReelPlayerContent
       tracks={TRACKS}
       heading="Selected TV Work"
       framing="Music for television across drama, factual and entertainment. Themes, underscore and title sequences for UK and international broadcast."
+      sideImages={sideImages}
     />
   );
 }

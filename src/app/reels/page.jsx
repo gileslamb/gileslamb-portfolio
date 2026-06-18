@@ -3,6 +3,10 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { pickMuseumReelGalleryImages } from "@/data/museumReelSideImages";
+import { pickCinematicsTrailersImages } from "@/data/cinematicsTrailersSideImages";
+import { pickDramaDocumentaryImages } from "@/data/dramaDocumentarySideImages";
+import { pickKidsAnimationImages } from "@/data/kidsAnimationSideImages";
+import { pickTvImages } from "@/data/tvSideImages";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +27,7 @@ const REELS = [
     description: "Score and sound design for animation across all ages.",
     href: "/reels/kids-animation",
     live: true,
+    visualPool: "kids",
   },
   {
     id: "documentary",
@@ -30,6 +35,7 @@ const REELS = [
     description: "Feature and short documentary scores.",
     href: "/reels/drama-documentary",
     live: true,
+    visualPool: "drama",
   },
   {
     id: "tv-drama",
@@ -37,6 +43,7 @@ const REELS = [
     description: "Television and drama composition.",
     href: "/reels/tv",
     live: true,
+    visualPool: "tv",
   },
   {
     id: "trailers-cinematics",
@@ -44,16 +51,20 @@ const REELS = [
     description: "Game trailers, film trailers and cinematic work.",
     href: "/reels/cinematics-trailers",
     live: true,
+    visualPool: "cinematics",
   },
 ];
 
 const THUMB_SIZE = 76;
 
 export default function ReelsIndexPage() {
-  const museumNeed = REELS.filter((r) => r.visualPool === "museum").length;
-  const museumThumbs =
-    museumNeed > 0 ? pickMuseumReelGalleryImages(museumNeed) : [];
-  let museumIx = 0;
+  const thumbMap = {
+    museum:     pickMuseumReelGalleryImages(1)[0]    ?? null,
+    kids:       pickKidsAnimationImages(1)[0]         ?? null,
+    drama:      pickDramaDocumentaryImages(1)[0]      ?? null,
+    tv:         pickTvImages(1)[0]                    ?? null,
+    cinematics: pickCinematicsTrailersImages(1)[0]    ?? null,
+  };
 
   return (
     <>
@@ -73,10 +84,7 @@ export default function ReelsIndexPage() {
 
         <ul className="reels-directory">
           {REELS.map((item) => {
-            const thumb =
-              item.visualPool === "museum"
-                ? museumThumbs[museumIx++]
-                : null;
+            const thumb = item.visualPool ? (thumbMap[item.visualPool] ?? null) : null;
             return (
               <li key={item.id} className="reels-directory-row">
                 <div
