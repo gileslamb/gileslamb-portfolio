@@ -87,6 +87,12 @@ export default function ImmersivePage() {
           </ul>
         </section>
 
+        <p className="immersive-reel-foot">
+          <Link href="/reels/museum-reel" className="immersive-reel-link">
+            Listen to selected installation work →
+          </Link>
+        </p>
+
         <Contact />
       </main>
       <Footer />

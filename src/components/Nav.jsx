@@ -27,6 +27,9 @@ export function Nav() {
             <Link href="/immersive">Installation &amp; Museum</Link>
           </li>
           <li>
+            <Link href="/reels">Listen</Link>
+          </li>
+          <li>
             <Link href="/releases">Releases</Link>
           </li>
           <li>
@@ -62,6 +65,11 @@ export function Nav() {
           <li>
             <Link href="/immersive" onClick={closeMenu}>
               Installation &amp; Museum
+            </Link>
+          </li>
+          <li>
+            <Link href="/reels" onClick={closeMenu}>
+              Listen
             </Link>
           </li>
           <li>

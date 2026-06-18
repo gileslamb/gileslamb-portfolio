@@ -19,28 +19,28 @@ const REELS = [
   },
   {
     id: "animation-kids",
-    title: "Animation & Kids",
+    title: "Kids & Animation",
     description: "Score and sound design for animation across all ages.",
     href: "/reels/kids-animation",
     live: true,
   },
   {
     id: "documentary",
-    title: "Documentary",
+    title: "Drama & Documentary",
     description: "Feature and short documentary scores.",
     href: "/reels/drama-documentary",
     live: true,
   },
   {
     id: "tv-drama",
-    title: "TV & Drama",
+    title: "TV",
     description: "Television and drama composition.",
     href: "/reels/tv",
     live: true,
   },
   {
     id: "trailers-cinematics",
-    title: "Trailers & Cinematics",
+    title: "Cinematics & Trailers",
     description: "Game trailers, film trailers and cinematic work.",
     href: "/reels/cinematics-trailers",
     live: true,
@@ -64,6 +64,10 @@ export default function ReelsIndexPage() {
           <p className="reels-index-intro">
             Selected audio and audiovisual reels by category. More added as they
             land.
+          </p>
+          <p className="reels-index-back">
+            Part of the work at{" "}
+            <Link href="/" className="reels-index-back-link">gileslamb.com</Link>
           </p>
         </header>
 

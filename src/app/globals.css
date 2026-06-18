@@ -1386,6 +1386,23 @@ nav::after {
   .anim-case-stills { height: 100px; }
 }
 
+.anim-reel-foot {
+  padding: 3rem 3.5rem 0;
+}
+.anim-reel-link {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--sand);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.28);
+  padding-bottom: 0.2rem;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.anim-reel-link:hover {
+  color: var(--cream);
+  border-bottom-color: rgba(201, 169, 110, 0.48);
+}
+
 /* RELEASES PAGE (/releases) */
 .releases-page {
   min-height: 100vh;
@@ -1553,6 +1570,10 @@ nav::after {
 .immersive-reel-link:hover {
   color: var(--cream);
   border-bottom-color: rgba(201, 169, 110, 0.48);
+}
+p.immersive-reel-foot {
+  padding: 0 3.5rem 3rem;
+  margin-top: 0;
 }
 
 /* Museum reel: editorial two-column (/reels/museum-reel) */
@@ -1851,6 +1872,20 @@ nav::after {
   color: var(--fog);
   max-width: 36rem;
 }
+.reels-index-back {
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--smoke);
+}
+.reels-index-back-link {
+  color: var(--fog);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding-bottom: 0.1rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.reels-index-back-link:hover { color: var(--cream); border-bottom-color: rgba(255,255,255,0.3); }
 .reels-directory {
   list-style: none;
   margin: 0;

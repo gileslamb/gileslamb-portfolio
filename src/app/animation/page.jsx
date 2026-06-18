@@ -77,6 +77,12 @@ export default function AnimationPage() {
             ))}
           </ul>
         </section>
+
+        <p className="anim-reel-foot">
+          <Link href="/reels/kids-animation" className="anim-reel-link">
+            Listen to selected animation work →
+          </Link>
+        </p>
       </main>
       <Footer />
     </>
