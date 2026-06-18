@@ -453,6 +453,14 @@ export default function CardClient({
             </div>
             <div className={styles.awards}>BAFTA · RTS · Music &amp; Sound Awards</div>
             <a
+              href="https://www.gileslamb.com/reel"
+              className={styles.animLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Watch showreel →
+            </a>
+            <a
               href="https://www.gileslamb.com/animation"
               className={styles.animLink}
               target="_blank"
