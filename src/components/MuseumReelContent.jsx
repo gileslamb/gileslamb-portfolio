@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -166,6 +167,7 @@ export function MuseumReelContent({ sideImages = [] }) {
       <main className="museum-reel-page">
         <article className="museum-reel-editorial">
           <div className="museum-reel-left">
+            <Link href="/reels" className="museum-reel-back">← Reels</Link>
             <h1 className="museum-reel-title">
               Giles Lamb · Selected Immersive Work
             </h1>

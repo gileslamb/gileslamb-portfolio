@@ -87,27 +87,43 @@ export default function ReelsIndexPage() {
             const thumb = item.visualPool ? (thumbMap[item.visualPool] ?? null) : null;
             return (
               <li key={item.id} className="reels-directory-row">
-                <div
-                  className={
-                    thumb
-                      ? "reels-directory-thumb"
-                      : "reels-directory-thumb reels-directory-thumb--empty"
-                  }
-                  aria-hidden={!thumb}
-                >
-                  {thumb ? (
-                    <Image
-                      src={thumb.src}
-                      alt=""
-                      width={THUMB_SIZE}
-                      height={THUMB_SIZE}
-                      sizes={`${THUMB_SIZE}px`}
-                      className="reels-directory-thumb-img"
-                    />
-                  ) : null}
-                </div>
+                {item.live && item.href ? (
+                  <Link href={item.href} className="reels-directory-thumb-link" tabIndex={-1} aria-hidden="true">
+                    <div className={thumb ? "reels-directory-thumb" : "reels-directory-thumb reels-directory-thumb--empty"}>
+                      {thumb ? (
+                        <Image
+                          src={thumb.src}
+                          alt=""
+                          width={THUMB_SIZE}
+                          height={THUMB_SIZE}
+                          sizes={`${THUMB_SIZE}px`}
+                          className="reels-directory-thumb-img"
+                        />
+                      ) : null}
+                    </div>
+                  </Link>
+                ) : (
+                  <div className={thumb ? "reels-directory-thumb" : "reels-directory-thumb reels-directory-thumb--empty"} aria-hidden="true">
+                    {thumb ? (
+                      <Image
+                        src={thumb.src}
+                        alt=""
+                        width={THUMB_SIZE}
+                        height={THUMB_SIZE}
+                        sizes={`${THUMB_SIZE}px`}
+                        className="reels-directory-thumb-img"
+                      />
+                    ) : null}
+                  </div>
+                )}
                 <div className="reels-directory-main">
-                  <span className="reels-directory-title">{item.title}</span>
+                  {item.live && item.href ? (
+                    <Link href={item.href} className="reels-directory-title-link">
+                      {item.title}
+                    </Link>
+                  ) : (
+                    <span className="reels-directory-title">{item.title}</span>
+                  )}
                   <p className="reels-directory-desc">{item.description}</p>
                 </div>
                 <div className="reels-directory-action">

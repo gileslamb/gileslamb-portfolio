@@ -1595,6 +1595,18 @@ p.immersive-reel-foot {
   max-width: 620px;
   min-width: 0;
 }
+.museum-reel-back {
+  display: inline-block;
+  margin-bottom: 1.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.museum-reel-back:hover { color: var(--fog); }
+
 .museum-reel-title {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(2rem, 3.8vw, 3.15rem);
@@ -1927,6 +1939,26 @@ p.immersive-reel-foot {
   font-weight: 300;
   color: var(--cream);
   margin-bottom: 0.4rem;
+}
+.reels-directory-title-link {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--cream);
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  transition: color 0.2s ease;
+}
+.reels-directory-title-link:hover { color: var(--sand); }
+.reels-directory-thumb-link {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.reels-directory-thumb-link:hover .reels-directory-thumb-img {
+  filter: grayscale(10%) brightness(0.88) sepia(10%);
 }
 .reels-directory-desc {
   font-size: 0.82rem;

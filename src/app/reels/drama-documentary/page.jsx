@@ -6,7 +6,6 @@ export const dynamic = "force-dynamic";
 const BASE = "https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/Reels/Drama%20and%20documentary/";
 
 const TRACKS = [
-  { title: "Afro Urban Groove", src: BASE + "Afro%20Urban%20Groove%20MASTER.mp3" },
   { title: "Afro Groove", src: BASE + "Afro%20groove%20Master.mp3" },
   { title: "Alien (pitch) | SEGA", src: BASE + "Alien%20%28pitch%29%20%7C%20SEGA.mp3" },
   { title: "Armada | Axis Animation", src: BASE + "Armada%20%7C%20Axis%20Animation.mp3" },
