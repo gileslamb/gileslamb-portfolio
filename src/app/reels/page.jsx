@@ -21,25 +21,29 @@ const REELS = [
     id: "animation-kids",
     title: "Animation & Kids",
     description: "Score and sound design for animation across all ages.",
-    live: false,
+    href: "/reels/kids-animation",
+    live: true,
   },
   {
     id: "documentary",
     title: "Documentary",
     description: "Feature and short documentary scores.",
-    live: false,
+    href: "/reels/drama-documentary",
+    live: true,
   },
   {
     id: "tv-drama",
     title: "TV & Drama",
     description: "Television and drama composition.",
-    live: false,
+    href: "/reels/tv",
+    live: true,
   },
   {
     id: "trailers-cinematics",
     title: "Trailers & Cinematics",
     description: "Game trailers, film trailers and cinematic work.",
-    live: false,
+    href: "/reels/cinematics-trailers",
+    live: true,
   },
 ];
 
