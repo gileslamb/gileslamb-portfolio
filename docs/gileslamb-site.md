@@ -2,11 +2,9 @@
 
 Canonical map of the gileslamb.com website: all routes, pages, content, infrastructure and conventions. Updated as the site changes. This is the document Claude Code reads at the start of any site session.
 
-**Last updated:** 18 June 2026
+**Last updated:** 18 June 2026 (wallet pass section added)
 **Repo:** gileslamb.com (Next.js, deployed on Vercel)
 **Infrastructure:** Vercel (hosting), Cloudflare R2 (audio/media), Cloudflare Stream (video), Cloudflare Images (images)
-
-**Source of truth:** Google Drive — gilesdocs/Workflows and Systems/gileslamb-site.md (file ID: `1VXl7KEKdLKo-Jy8Wfs-vrykItnW8CNS8`). Update the Drive doc first; keep this copy in sync.
 
 ---
 
@@ -90,6 +88,44 @@ Minimal — black background, no nav, no footer. Cloudflare Stream embed fullscr
 ### `/card` — Digital Card
 
 Per-event QR capture page. Audio-reactive shader, name/email capture. Source written to `giles-engine` D1 `captures` table.
+
+**Configured events** (in `src/app/card/[event]/page.tsx`):
+| Slug | Display name | Sting audio |
+|---|---|---|
+| `annecy-2026` | Annecy 2026 | `/audio/resonant-being-part-2.mp3` |
+| `direct` | (none — generic) | none |
+
+**QR code URLs:**
+- Annecy: `https://gileslamb.com/card/annecy-2026`
+- Generic: `https://gileslamb.com/card/direct`
+
+**Post-tap links on card** (credits section): Watch showreel → `/reel`, Animation work → `/animation`
+
+---
+
+### Apple Wallet Pass — SHELVED (18 Jun 2026)
+
+Pass structure built; signing not yet configured. Resume when Apple cert is ready.
+
+**Pass Type ID:** `pass.com.gileslamb.card`  
+**Files in repo:**
+- `wallet/pass.model/pass.json` — complete pass definition (fields, colours, QR)
+- `wallet/certs/` — gitignored; place `wwdr.pem`, `signerCert.pem`, `signerKey.pem` here
+- `scripts/generate-pass.js` — builds and signs the `.pkpass`
+- `scripts/create-pass-placeholders.js` — one-time placeholder image setup
+- `docs/README-wallet-pass.md` — full cert setup and generation instructions
+
+**To resume:**
+1. Register `pass.com.gileslamb.card` in Apple Developer portal (Identifiers > Pass Type IDs)
+2. Get Team ID from developer portal (10-char string, top right)
+3. Set `teamIdentifier` in `wallet/pass.model/pass.json`
+4. Create Pass Type ID certificate, export as `.p12`, convert to PEM (see README)
+5. `npm install passkit-generator` (already in devDependencies)
+6. `npm run wallet:placeholders` then `npm run wallet:generate`
+7. Output lands at `public/gileslamb-card.pkpass` → served at `gileslamb.com/gileslamb-card.pkpass`
+
+**Pass front:** COMPOSER header · Giles Lamb primary · Film · Animation · Immersive + Glasgow, UK secondary · gileslamb.com auxiliary · QR → gileslamb.com/card  
+**Pass back:** Showreel, Animation, Listen, Email links + credits + awards
 
 ---
 
@@ -183,10 +219,10 @@ Public base URL: `https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev`
 museum-playlist/
 ├── (museum reel audio — top level, existing)
 └── Reels/
-    ├── Cinematics and trailers/  (19 tracks)
-    ├── Drama and documentary/    (25 tracks)
-    ├── Kids and animation/       (17 tracks)
-    └── TV/                       (18 tracks)
+    ├── Cinematics and trailers/   (19 tracks)
+    ├── Drama and documentary/     (25 tracks)
+    ├── Kids and animation/        (17 tracks)
+    └── TV/                        (18 tracks)
 ```
 
 CORS: configured for gileslamb.com and www.gileslamb.com, GET/HEAD, all headers.
@@ -206,7 +242,7 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 - **Signal Dreams:** retired. Do not reference on the site. Absorbed into Dream Screens / Giles Lamb Live.
 - **Reels:** not linked from individual work pages — only from the nav (LISTEN) and from /animation and /immersive contextual links.
 - **CLAUDE.md** at repo root, `/docs/` folder for session handoffs.
-- **This file** should be kept in sync with the Drive source of truth.
+- **This file** should be kept in sync with `/docs/gileslamb-site.md` in the repo (Claude Code's local reference copy).
 
 ---
 
@@ -220,3 +256,5 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 | 18 Jun 2026 | Contextual reel links added to /animation and /immersive |
 | 18 Jun 2026 | Homepage copy updated: Signal Dreams → Dream Screens |
 | 18 Jun 2026 | Experience section reordered on LinkedIn — Giles Lamb Music now primary |
+| 18 Jun 2026 | /card post-tap links updated: Watch showreel + Animation work added |
+| 18 Jun 2026 | Apple Wallet pass structure built (shelved — needs Apple cert to sign) |
