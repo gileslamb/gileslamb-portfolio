@@ -118,7 +118,7 @@ export function Hero() {
           I spend as much time on process and improvisation as on the final mix.
         </p>
         <p>
-          Signal Dreams is current live work.{" "}
+          Dream Screens is a new project in development.{" "}
           <Link href="/writing" className="hero-descriptor-link">
             The Quiet Room
           </Link>{" "}
