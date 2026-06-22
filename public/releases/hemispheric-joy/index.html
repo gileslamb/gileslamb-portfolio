@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Giles Lamb — Hemispheric Joy</title>
+<meta name="description" content="A single take. Recorded live in my studio in Glasgow.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #080810;
+    --cream: #d8cfb8;
+    --cream-dim: rgba(216, 207, 184, 0.55);
+    --cream-faint: rgba(216, 207, 184, 0.28);
+    --rule: rgba(216, 207, 184, 0.12);
+    --accent: #dc1e1e;
+    --accent-dim: rgba(220, 30, 30, 0.7);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--cream);
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  #c { position: fixed; inset: 0; z-index: 0; display: block; }
+  #start {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); color: var(--cream-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    cursor: pointer; transition: opacity 1.2s ease;
+  }
+  #start.fade { opacity: 0; pointer-events: none; }
+
+  .page {
+    position: relative; z-index: 2; min-height: 100vh;
+    display: grid; grid-template-rows: auto 1fr auto;
+    padding: clamp(28px, 4vw, 56px);
+  }
+
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+  .identity {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(20px, 2.2vw, 26px);
+    letter-spacing: 0.02em; color: var(--cream); line-height: 1;
+  }
+  .session {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream-faint); text-align: right; line-height: 1.6;
+  }
+
+  main {
+    display: grid; grid-template-columns: 1fr; align-items: center;
+    padding: clamp(40px, 8vh, 120px) 0;
+  }
+  .release { max-width: 720px; }
+
+  .release .meta-top {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream-faint); margin-bottom: 28px;
+    display: flex; gap: 18px; align-items: center;
+  }
+  .release .meta-top .dot { width: 4px; height: 4px; background: var(--cream-faint); border-radius: 50%; }
+
+  .release h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 0.95; letter-spacing: -0.01em;
+    color: var(--cream); margin-bottom: 8px;
+  }
+  .release h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-size: clamp(20px, 2.4vw, 28px);
+    letter-spacing: 0.06em; color: var(--cream-dim); margin-bottom: 40px;
+  }
+  .release .notes {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(15px, 1.3vw, 17px); line-height: 1.7;
+    color: var(--cream-dim); max-width: 480px; margin-bottom: 36px;
+  }
+  .instruments {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-faint); line-height: 1.9;
+    border-top: 1px solid var(--rule);
+    padding-top: 20px; margin-bottom: 48px; max-width: 480px;
+  }
+
+  .player {
+    max-width: 720px;
+    background: rgba(8, 8, 16, 0.55);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--rule);
+    padding: 24px 26px; margin-bottom: 32px;
+  }
+  .player-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .player-label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream-dim);
+  }
+  .player-limit {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-dim);
+  }
+  .player-body { display: flex; align-items: center; gap: 18px; }
+
+  .play-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--cream-dim);
+    background: transparent; color: var(--cream); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.3s ease;
+    flex-shrink: 0; padding: 0;
+  }
+  .play-btn:hover { border-color: var(--cream); background: rgba(216, 207, 184, 0.06); }
+  .play-btn svg { width: 14px; height: 14px; fill: var(--cream); }
+  .play-btn .pause { display: none; }
+  .play-btn.playing .play { display: none; }
+  .play-btn.playing .pause { display: block; }
+
+  .waveform-wrap {
+    flex: 1; position: relative;
+    height: 56px; cursor: pointer;
+  }
+  #waveform { width: 100%; height: 100%; display: block; }
+  .waveform-progress {
+    position: absolute; top: 0; left: 0; bottom: 0; width: 0%;
+    background: linear-gradient(90deg, rgba(216, 207, 184, 0.06) 0%, rgba(216, 207, 184, 0.14) 100%);
+    pointer-events: none; transition: width 0.08s linear;
+  }
+  .preview-cap-line {
+    position: absolute; top: -4px; bottom: -4px;
+    width: 1px; background: var(--accent);
+    pointer-events: none;
+  }
+  .preview-cap-line::after {
+    content: 'preview ends';
+    position: absolute; top: -14px; left: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 8px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); white-space: nowrap;
+  }
+
+  .time-display {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.15em; color: var(--cream-dim);
+    min-width: 96px; text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .actions {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    margin-bottom: 16px; max-width: 720px;
+  }
+  .btn {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 16px 26px;
+    border: 1px solid var(--cream-dim);
+    background: transparent; color: var(--cream); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 14px;
+    cursor: pointer; transition: all 0.4s ease;
+  }
+  .btn:hover { border-color: var(--cream); background: rgba(216, 207, 184, 0.04); }
+  .btn-primary { border-color: var(--accent); color: var(--accent); }
+  .btn-primary:hover { background: var(--accent); color: var(--bg); }
+  .btn .price {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; font-weight: 400;
+    letter-spacing: 0.02em; text-transform: none; opacity: 0.85;
+  }
+
+  .alt-purchase {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; color: var(--cream-dim);
+    margin-bottom: 48px; max-width: 720px;
+  }
+  .alt-purchase a {
+    color: var(--cream); text-decoration: none;
+    border-bottom: 1px solid var(--cream-faint);
+    padding-bottom: 1px; transition: border-color 0.3s;
+  }
+  .alt-purchase a:hover { border-color: var(--cream); }
+
+  .signup { max-width: 720px; border-top: 1px solid var(--rule); padding-top: 36px; }
+  .signup-label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream-dim); margin-bottom: 8px;
+  }
+  .signup-text {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 15px; color: var(--cream-dim);
+    margin-bottom: 20px; max-width: 440px; line-height: 1.5;
+  }
+  .signup-form { display: flex; max-width: 480px; border-bottom: 1px solid var(--cream-dim); }
+  .signup-form input {
+    flex: 1; background: transparent; border: none; outline: none;
+    padding: 12px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-weight: 300;
+    color: var(--cream); font-style: italic;
+  }
+  .signup-form input::placeholder { color: var(--cream-faint); }
+  .signup-form button {
+    background: transparent; border: none; cursor: pointer;
+    padding: 12px 0 12px 18px;
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream-dim); transition: color 0.3s ease;
+  }
+  .signup-form button:hover { color: var(--cream); }
+
+  footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 400;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream-faint); padding-top: 60px;
+  }
+  footer a { color: var(--cream-faint); text-decoration: none; transition: color 0.3s; }
+  footer a:hover { color: var(--cream-dim); }
+  footer .left { display: flex; gap: 24px; }
+
+  .reveal {
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 1.4s ease, transform 1.4s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal:nth-child(2) { transition-delay: 0.15s; }
+  .reveal:nth-child(3) { transition-delay: 0.3s; }
+  .reveal:nth-child(4) { transition-delay: 0.45s; }
+
+  @media (max-width: 640px) {
+    header { flex-direction: column; align-items: flex-start; }
+    .session { text-align: left; }
+    .player { padding: 20px 18px; }
+    .player-body { gap: 12px; }
+    .time-display { min-width: 70px; font-size: 9px; }
+    .preview-cap-line::after { font-size: 7px; }
+    .waveform-wrap { height: 48px; }
+    footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+    footer .left { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+<div id="start">touch to begin</div>
+
+<div class="page">
+
+  <header class="reveal">
+    <div class="identity">Giles Lamb</div>
+    <div class="session">
+      Live Session<br>
+      Glasgow / 22.05.2026
+    </div>
+  </header>
+
+  <main>
+    <div class="release">
+
+      <div class="meta-top reveal">
+        <span>Live</span>
+        <span class="dot"></span>
+        <span>One take</span>
+        <span class="dot"></span>
+        <span>35 minutes</span>
+      </div>
+
+      <h1 class="reveal">Hemispheric Joy</h1>
+      <h2 class="reveal">— Glasgow · 22 May 2026</h2>
+
+      <p class="notes reveal">
+        A single take. Recorded live in my studio in Glasgow.
+      </p>
+
+      <div class="instruments reveal">
+        Osmose / Norns / 0-Coast / Modular / Spectral Resonator / Enso / Silo / Neutone (voice → shakuhachi)
+      </div>
+
+      <div class="player">
+        <div class="player-head">
+          <span class="player-label">Preview</span>
+          <span class="player-limit">4:00 / 35:10</span>
+        </div>
+
+        <div class="player-body">
+          <button class="play-btn" id="playBtn" aria-label="Play preview">
+            <svg class="play" viewBox="0 0 20 20"><path d="M5 3 L17 10 L5 17 Z"/></svg>
+            <svg class="pause" viewBox="0 0 20 20"><rect x="5" y="3" width="3" height="14"/><rect x="12" y="3" width="3" height="14"/></svg>
+          </button>
+
+          <div class="waveform-wrap" id="waveformWrap">
+            <canvas id="waveform"></canvas>
+            <div class="waveform-progress" id="progress"></div>
+            <div class="preview-cap-line" id="capLine"></div>
+          </div>
+
+          <div class="time-display" id="time">0:00 / 4:00</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://gileslamb.gumroad.com/l/hemispheric-joy" target="_blank" rel="noopener">
+          Buy &amp; download
+          <span class="price">£6 — WAV + FLAC + MP3</span>
+        </a>
+      </div>
+
+      <p class="alt-purchase">
+        Already purchased? <a href="/releases/hemispheric-joy/listen?key=hemispheric-joy-001">Open your listening room →</a>
+      </p>
+
+      <div class="signup">
+        <div class="signup-label">The Quiet Room</div>
+        <p class="signup-text">
+          Occasional essays on listening, composition, and the studio. No noise.
+        </p>
+        <form class="signup-form" id="signupForm">
+          <input type="email" placeholder="your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="reveal">
+    <div class="left">
+      <a href="https://gileslamb.com">gileslamb.com</a>
+      <a href="https://gileslamb.bandcamp.com">Bandcamp</a>
+    </div>
+    <div>© Giles Lamb 2026</div>
+  </footer>
+
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   BACKGROUND SHADER
+   ════════════════════════════════════════════════════════════════════ */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COLS = 6, ROWS = 6;
+const POINT_SPACING = 38;
+const PLANE_WIDTH  = (COLS - 1) * POINT_SPACING;
+const PLANE_HEIGHT = (ROWS - 1) * POINT_SPACING;
+const ANGLE_X = 0.35, ANGLE_Y = 0.5;
+const PLANE_Z_SPACING = 180;
+const NUM_PLANES = 18;
+const SCROLL_SPEED = 1.8;
+const FOCAL = 600, CAM_Z = -300;
+
+let planes = [];
+let time = 0;
+
+function initPlanes() {
+  planes = [];
+  for (let i = 0; i < NUM_PLANES; i++) {
+    planes.push({
+      z: i * PLANE_Z_SPACING,
+      activation: Array.from({length: COLS * ROWS}, () => 0),
+      dwelling: false, dwellTimer: 0, speed: SCROLL_SPEED,
+    });
+  }
+}
+
+function project(x, y, z) {
+  const cosY = Math.cos(ANGLE_Y), sinY = Math.sin(ANGLE_Y);
+  let rx = x * cosY - z * sinY;
+  let rz = x * sinY + z * cosY;
+  const cosX = Math.cos(ANGLE_X), sinX = Math.sin(ANGLE_X);
+  let ry = y * cosX - rz * sinX;
+  rz     = y * sinX + rz * cosX;
+  const depth = rz - CAM_Z;
+  if (depth <= 0) return null;
+  const scale = FOCAL / depth;
+  return { sx: W / 2 + rx * scale, sy: H / 2 + ry * scale, scale, depth };
+}
+
+function getPlanePoints(planeZ) {
+  const hw = PLANE_WIDTH / 2, hh = PLANE_HEIGHT / 2;
+  const points = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      points.push(project(-hw + c * POINT_SPACING, -hh + r * POINT_SPACING, planeZ));
+    }
+  }
+  return points;
+}
+
+let analyser = null, audioCtx = null, dataArray = null, audioSrcNode = null;
+let bassEnergy = 0, midEnergy = 0;
+
+function attachAnalyser(audioEl) {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  audioSrcNode = audioCtx.createMediaElementSource(audioEl);
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  audioSrcNode.connect(analyser);
+  analyser.connect(audioCtx.destination);
+}
+
+function getAudioEnergies() {
+  if (!analyser) {
+    bassEnergy = 0.28 + 0.18 * Math.sin(time * 0.018);
+    midEnergy  = 0.12 + 0.08 * Math.sin(time * 0.05 + 1.2);
+    return;
+  }
+  analyser.getByteFrequencyData(dataArray);
+  const sampleRate = audioCtx.sampleRate;
+  const binHz = sampleRate / analyser.fftSize;
+  let bass = 0, bassN = 0, mid = 0, midN = 0;
+  for (let i = 0; i < dataArray.length; i++) {
+    const hz = i * binHz;
+    const v = dataArray[i] / 255;
+    if (hz >= 80 && hz < 250)   { bass += v; bassN++; }
+    if (hz >= 250 && hz < 4000) { mid += v;  midN++;  }
+  }
+  const alpha = 0.05;
+  bassEnergy = bassEnergy * (1-alpha) + (bassN ? bass/bassN : 0) * alpha;
+  midEnergy  = midEnergy  * (1-alpha) + (midN  ? mid/midN   : 0) * alpha;
+}
+
+function updatePlaneActivation(plane) {
+  for (let i = 0; i < plane.activation.length; i++) {
+    const r = Math.floor(i / COLS), c = i % COLS;
+    const dr = r - (ROWS-1)/2, dc = c - (COLS-1)/2;
+    const dist = Math.sqrt(dr*dr + dc*dc);
+    const maxDist = Math.sqrt(((ROWS-1)/2)**2 + ((COLS-1)/2)**2);
+    const phase = (r * 0.7 + c * 1.1 + plane.z * 0.01);
+    const noise = 0.5 + 0.5 * Math.sin(phase + time * 0.03);
+    const centreWeight = 1 - (dist / maxDist) * 0.6;
+    const target = bassEnergy * centreWeight * noise;
+    plane.activation[i] = plane.activation[i] * 0.85 + target * 0.15;
+  }
+}
+
+function drawPlane(plane) {
+  const pts = getPlanePoints(plane.z);
+  if (!pts.length || !pts[0]) return;
+  const refPt = project(0, 0, plane.z);
+  if (!refPt) return;
+  if (refPt.sx < -300 || refPt.sx > W + 300) return;
+
+  const corners = [
+    project(-PLANE_WIDTH/2, -PLANE_HEIGHT/2, plane.z),
+    project( PLANE_WIDTH/2, -PLANE_HEIGHT/2, plane.z),
+    project( PLANE_WIDTH/2,  PLANE_HEIGHT/2, plane.z),
+    project(-PLANE_WIDTH/2,  PLANE_HEIGHT/2, plane.z),
+  ];
+  if (corners.every(p => p !== null)) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.globalAlpha = 0.04 + bassEnergy * 0.04;
+    ctx.beginPath();
+    ctx.moveTo(corners[0].sx, corners[0].sy);
+    corners.slice(1).forEach(p => ctx.lineTo(p.sx, p.sy));
+    ctx.closePath();
+    ctx.fillStyle = '#1a1040';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'screen';
+  ctx.globalAlpha = 0.06;
+  ctx.strokeStyle = '#2a1860';
+  ctx.lineWidth = 0.5;
+  for (let r = 0; r < ROWS; r++) {
+    const rowPts = pts.slice(r * COLS, (r+1) * COLS).filter(Boolean);
+    if (rowPts.length < 2) continue;
+    ctx.beginPath();
+    ctx.moveTo(rowPts[0].sx, rowPts[0].sy);
+    rowPts.slice(1).forEach(p => ctx.lineTo(p.sx, p.sy));
+    ctx.stroke();
+  }
+  for (let c = 0; c < COLS; c++) {
+    const colPts = [];
+    for (let r = 0; r < ROWS; r++) colPts.push(pts[r * COLS + c]);
+    const validPts = colPts.filter(Boolean);
+    if (validPts.length < 2) continue;
+    ctx.beginPath();
+    ctx.moveTo(validPts[0].sx, validPts[0].sy);
+    validPts.slice(1).forEach(p => ctx.lineTo(p.sx, p.sy));
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'screen';
+  pts.forEach((p, i) => {
+    if (!p) return;
+    const act = plane.activation[i] || 0;
+    const baseR = Math.max(1, p.scale * 8);
+    const r = baseR * (0.4 + act * 1.2);
+    let colour;
+    if (act < 0.15)      colour = '#1a1a3a';
+    else if (act < 0.35) colour = '#2a2060';
+    else if (act < 0.55) colour = '#5a3090';
+    else if (act < 0.75) colour = '#7040c0';
+    else                 colour = '#c0a0ff';
+    const grad = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r * 2.5);
+    grad.addColorStop(0,   colour + 'cc');
+    grad.addColorStop(0.4, colour + '44');
+    grad.addColorStop(1,   colour + '00');
+    ctx.globalAlpha = 0.5 + act * 0.5;
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, r * 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  });
+  ctx.restore();
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+  time++;
+  getAudioEnergies();
+  ctx.fillStyle = 'rgba(8,8,16,0.22)';
+  ctx.fillRect(0, 0, W, H);
+  planes.sort((a, b) => b.z - a.z);
+  for (const plane of planes) {
+    if (plane.dwelling) {
+      plane.dwellTimer--;
+      if (plane.dwellTimer <= 0) { plane.dwelling = false; plane.speed = SCROLL_SPEED; }
+    } else {
+      if (Math.random() < 0.0008) {
+        plane.dwelling = true;
+        plane.dwellTimer = 60 + Math.floor(Math.random() * 80);
+        plane.speed = 0;
+      } else {
+        plane.speed = SCROLL_SPEED * (0.85 + bassEnergy * 0.3);
+      }
+    }
+    plane.z -= plane.speed;
+    const totalDepth = NUM_PLANES * PLANE_Z_SPACING;
+    if (plane.z < CAM_Z + 50) plane.z += totalDepth;
+    updatePlaneActivation(plane);
+    drawPlane(plane);
+  }
+}
+initPlanes();
+loop();
+
+/* ════════════════════════════════════════════════════════════════════
+   START OVERLAY
+   ════════════════════════════════════════════════════════════════════ */
+const startEl = document.getElementById('start');
+const reveals = document.querySelectorAll('.reveal');
+startEl.addEventListener('click', () => {
+  startEl.classList.add('fade');
+  setTimeout(() => startEl.style.display = 'none', 1200);
+  reveals.forEach(el => el.classList.add('in'));
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   AUDIO + WAVEFORM PLAYER
+   ════════════════════════════════════════════════════════════════════ */
+const PREVIEW_LIMIT    = 240;           // 4 minutes in seconds
+const FULL_DURATION    = 35 * 60 + 10; // 35:10 = 2110 seconds
+const PREVIEW_FRACTION = PREVIEW_LIMIT / FULL_DURATION;
+
+const AUDIO_URL = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/hemispheric-joy.mp3';
+const PEAKS_URL = 'https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/hemispheric-joy-peaks.json';
+
+const audio = new Audio();
+audio.preload = 'metadata';
+audio.src = AUDIO_URL;
+audio.crossOrigin = 'anonymous';
+
+const playBtn      = document.getElementById('playBtn');
+const progress     = document.getElementById('progress');
+const waveformWrap = document.getElementById('waveformWrap');
+const waveCanvas   = document.getElementById('waveform');
+const wctx         = waveCanvas.getContext('2d');
+const timeDisplay  = document.getElementById('time');
+const capLine      = document.getElementById('capLine');
+
+capLine.style.left = (PREVIEW_FRACTION * 100) + '%';
+
+let peaks = null;
+const dpr = window.devicePixelRatio || 1;
+
+function sizeWaveCanvas() {
+  const rect = waveCanvas.parentElement.getBoundingClientRect();
+  waveCanvas.width  = Math.floor(rect.width * dpr);
+  waveCanvas.height = Math.floor(rect.height * dpr);
+  waveCanvas.style.width  = rect.width + 'px';
+  waveCanvas.style.height = rect.height + 'px';
+}
+
+function drawWaveform() {
+  const w = waveCanvas.width;
+  const h = waveCanvas.height;
+  wctx.clearRect(0, 0, w, h);
+
+  if (!peaks || !peaks.length) {
+    wctx.strokeStyle = 'rgba(216, 207, 184, 0.18)';
+    wctx.lineWidth = 1 * dpr;
+    wctx.beginPath();
+    wctx.moveTo(0, h/2); wctx.lineTo(w, h/2);
+    wctx.stroke();
+    return;
+  }
+
+  const totalBars = peaks.length;
+  const barW = w / totalBars;
+  const mid = h / 2;
+  const capX = w * PREVIEW_FRACTION;
+
+  for (let i = 0; i < totalBars; i++) {
+    const x = i * barW;
+    const amp = Math.min(1, Math.max(0, peaks[i]));
+    const barH = amp * (h * 0.9);
+    const y1 = mid - barH / 2;
+    const y2 = mid + barH / 2;
+    wctx.fillStyle = (x < capX)
+      ? 'rgba(216, 207, 184, 0.6)'
+      : 'rgba(216, 207, 184, 0.14)';
+    wctx.fillRect(x, y1, Math.max(1, barW - 1 * dpr), Math.max(1 * dpr, y2 - y1));
+  }
+}
+
+window.addEventListener('resize', () => { sizeWaveCanvas(); drawWaveform(); });
+
+async function loadPeaks() {
+  try {
+    const resp = await fetch(PEAKS_URL, { cache: 'force-cache' });
+    if (!resp.ok) throw new Error('Peaks fetch failed');
+    const data = await resp.json();
+    if (Array.isArray(data)) {
+      if (typeof data[0] === 'number') peaks = data;
+      else if (data[0] && 'max' in data[0]) peaks = data.map(p => Math.max(Math.abs(p.min), Math.abs(p.max)));
+    } else if (data.peaks) {
+      peaks = data.peaks;
+    }
+  } catch (e) {
+    const N = 400;
+    peaks = Array.from({length: N}, (_, i) => {
+      const t = i / N;
+      const env = 0.3 + 0.5 * Math.sin(t * Math.PI * 3) * Math.sin(t * Math.PI);
+      return Math.abs(env) + 0.05 * Math.random();
+    });
+  }
+  drawWaveform();
+}
+
+sizeWaveCanvas();
+drawWaveform();
+loadPeaks();
+
+let analyserAttached = false;
+function fmt(s) {
+  if (!isFinite(s)) s = 0;
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60).toString().padStart(2, '0');
+  return `${m}:${sec}`;
+}
+
+playBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    if (!analyserAttached) {
+      try { attachAnalyser(audio); analyserAttached = true; } catch(e) {}
+    }
+    audio.play().catch(() => {});
+    playBtn.classList.add('playing');
+  } else {
+    audio.pause();
+    playBtn.classList.remove('playing');
+  }
+});
+
+audio.addEventListener('timeupdate', () => {
+  if (audio.currentTime >= PREVIEW_LIMIT) {
+    audio.pause();
+    audio.currentTime = PREVIEW_LIMIT;
+    playBtn.classList.remove('playing');
+  }
+  const previewFraction = Math.min(audio.currentTime / PREVIEW_LIMIT, 1);
+  const progressPct = previewFraction * PREVIEW_FRACTION * 100;
+  progress.style.width = progressPct + '%';
+  timeDisplay.textContent = `${fmt(audio.currentTime)} / 4:00`;
+});
+
+audio.addEventListener('ended', () => { playBtn.classList.remove('playing'); });
+
+waveformWrap.addEventListener('click', (e) => {
+  const rect = waveformWrap.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  if (pct <= PREVIEW_FRACTION) {
+    const previewPct = pct / PREVIEW_FRACTION;
+    audio.currentTime = previewPct * PREVIEW_LIMIT;
+  } else {
+    const buyBtn = document.querySelector('.btn-primary');
+    buyBtn.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(1.05)' },
+      { transform: 'scale(1)' },
+    ], { duration: 500, easing: 'ease-out' });
+    audio.currentTime = PREVIEW_LIMIT - 0.1;
+  }
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   SIGNUP
+   ════════════════════════════════════════════════════════════════════ */
+document.getElementById('signupForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  const btn = e.target.querySelector('button');
+  btn.textContent = 'Thank you';
+  input.disabled = true;
+  input.value = '';
+  setTimeout(() => { btn.textContent = 'Subscribe'; input.disabled = false; }, 3000);
+});
+</script>
+</body>
+</html>

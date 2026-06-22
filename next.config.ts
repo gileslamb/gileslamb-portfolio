@@ -21,6 +21,14 @@ const nextConfig: NextConfig = {
         destination: "/releases/orbital-fifths/listen/index.html",
       },
       {
+        source: "/releases/hemispheric-joy",
+        destination: "/releases/hemispheric-joy/index.html",
+      },
+      {
+        source: "/releases/hemispheric-joy/listen",
+        destination: "/releases/hemispheric-joy/listen/index.html",
+      },
+      {
         source: "/live",
         destination: "/live/index.html",
       },

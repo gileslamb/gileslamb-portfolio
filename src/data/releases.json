@@ -3,6 +3,25 @@
 
   "live": [
     {
+      "slug": "hemispheric-joy",
+      "title": "Hemispheric Joy",
+      "year": 2026,
+      "date": "2026-05-22",
+      "type": "Live",
+      "cover": "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/hemispheric-joy-cover.png",
+      "link": "/releases/hemispheric-joy",
+      "external": false,
+      "store": "https://gileslamb.gumroad.com/l/hemispheric-joy",
+      "listen": "/releases/hemispheric-joy/listen?key=hemispheric-joy-001",
+      "r2": {
+        "wav":   "hemispheric-joy.wav",
+        "flac":  "hemispheric-joy.flac",
+        "mp3":   "hemispheric-joy.mp3",
+        "peaks": "hemispheric-joy-peaks.json"
+      },
+      "description": "A single take. Recorded live in my studio in Glasgow."
+    },
+    {
       "slug": "orbital-fifths",
       "title": "Orbital Fifths",
       "year": 2026,
