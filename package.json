@@ -19,6 +19,7 @@
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.1.6",
     "gray-matter": "^4.0.3",
+    "hls.js": "^1.6.16",
     "next": "16.1.6",
     "next-mdx-remote": "^6.0.0",
     "react": "19.2.3",
@@ -31,9 +32,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "passkit-generator": "^3.5.7",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4",
-    "passkit-generator": "^4.0.0",
     "typescript": "^5"
   }
 }
