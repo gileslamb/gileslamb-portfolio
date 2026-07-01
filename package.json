@@ -10,7 +10,9 @@
     "start": "next start -p 4321",
     "preview": "next build && next start -p 4321",
     "lint": "eslint",
-    "fetch-images": "node scripts/fetch-cover-images.js"
+    "fetch-images": "node scripts/fetch-cover-images.js",
+    "wallet:placeholders": "node scripts/create-pass-placeholders.js",
+    "wallet:generate": "node scripts/generate-pass.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -31,6 +33,7 @@
     "eslint-config-next": "16.1.6",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4",
+    "passkit-generator": "^4.0.0",
     "typescript": "^5"
   }
 }
