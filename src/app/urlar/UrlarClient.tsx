@@ -309,20 +309,24 @@ export default function UrlarClient() {
           </div>
         </div>
 
-        {/* Hero — dictionary-entry treatment */}
-        <div style={{ maxWidth: 680 }}>
-          {/* Headword */}
-          <h1 className="ul-h1" style={{
-            fontFamily: SERIF,
-            fontWeight: 300,
-            fontStyle: 'italic',
-            fontSize: 'clamp(68px,11vw,140px)',
-            lineHeight: .88,
-            letterSpacing: '-.01em',
-            textShadow: '0 2px 48px rgba(0,0,0,.5)',
-            margin: 0,
-            color: INK,
-          }}>Ùrlar</h1>
+        {/* Hero */}
+        <div style={{ maxWidth: 'min(92vw,860px)' }}>
+          {/* Headword + bracketed gloss, side-by-side on desktop, stacked on mobile */}
+          <div className="ul-h1" style={{
+            display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap',
+            gap: 'clamp(12px,1.8vw,28px)', margin: 0,
+          }}>
+            <h1 style={{
+              fontFamily: SERIF, fontWeight: 300, fontStyle: 'italic',
+              fontSize: 'clamp(68px,11vw,140px)', lineHeight: .88, letterSpacing: '-.01em',
+              textShadow: '0 2px 48px rgba(0,0,0,.5)', margin: 0, color: INK, flex: 'none',
+            }}>Ùrlar</h1>
+            <p style={{
+              fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
+              fontSize: 'clamp(11px,1.1vw,14px)', lineHeight: 1.75, color: FAINT,
+              maxWidth: '20ch', margin: 0, paddingBottom: '0.12em',
+            }}>[ ground; floor — the foundational theme of a pibroch, the classical theme-and-variations art music of the Highland bagpipe ]</p>
+          </div>
 
           {/* Phonetic */}
           <p className="ul-ph" style={{
@@ -346,28 +350,16 @@ export default function UrlarClient() {
           }}>A live transmedia performance. Piano, synthesis, projection and quadraphonic sound.</p>
         </div>
 
-        {/* Right-side column — Oliveros epigraph + dictionary annotation, stacked */}
+        {/* Right-side column — Oliveros epigraph */}
         <div className="ul-quotebox ul-quote" style={{
           position: 'absolute', right: 'clamp(34px,4.5vw,64px)', top: '50%', transform: 'translateY(-50%)',
           maxWidth: '22ch', textAlign: 'right',
-          display: 'flex', flexDirection: 'column', gap: 'clamp(28px,3.5vw,48px)',
         }}>
-          {/* Oliveros epigraph */}
-          <div>
-            <p style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
-              "To listen is to open to the possibility of change."
-            </p>
-            <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12 }}>
-              Pauline Oliveros
-            </p>
-          </div>
-          {/* Dictionary annotation */}
-          <p style={{
-            fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(10px,1.05vw,13px)', lineHeight: 1.7,
-            color: FAINT,
-          }}>
-            n., Scottish Gaelic — ground; floor. The foundational theme of a pibroch — the classical theme-and-variations art music of the Highland bagpipe — from which every variation departs and to which it returns.
+          <p style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
+            "To listen is to open to the possibility of change."
+          </p>
+          <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12 }}>
+            Pauline Oliveros
           </p>
         </div>
 
