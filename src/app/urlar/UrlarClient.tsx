@@ -323,9 +323,9 @@ export default function UrlarClient() {
             }}>Ùrlar</h1>
             <p style={{
               fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
-              fontSize: 'clamp(11px,1.1vw,14px)', lineHeight: 1.75, color: FAINT,
-              maxWidth: '20ch', margin: 0, paddingBottom: '0.12em',
-            }}>[ ground; floor — the foundational theme of a pibroch, the classical theme-and-variations art music of the Highland bagpipe ]</p>
+              fontSize: 'clamp(10px,0.9vw,12px)', lineHeight: 1.75, color: FAINT,
+              maxWidth: '36ch', margin: 0, paddingBottom: '0.12em',
+            }}>[Scottish Gaelic — ground; The foundational theme of a pibroch**, from which every variation departs and to which it returns]</p>
           </div>
 
           {/* Phonetic */}
@@ -411,6 +411,14 @@ export default function UrlarClient() {
               )}
             </div>
           </div>
+
+          {/* Footnote */}
+          <p style={{
+            fontFamily: SANS, fontSize: 10, lineHeight: 1.55, color: FAINT,
+            marginTop: 'clamp(10px,1.2vw,18px)', letterSpacing: '.01em',
+          }}>
+            **pibroch, the classical theme-and-variations art music of the Highland bagpipe
+          </p>
         </div>
       </div>
     </>
