@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/reels/museum-reel",
         permanent: true,
       },
+      {
+        source: "/resonantbeing",
+        destination: "/urlar",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

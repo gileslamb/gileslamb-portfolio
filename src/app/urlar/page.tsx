@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Syne, Space_Grotesk } from 'next/font/google';
-import ResonantBeingClient from './ResonantBeingClient';
+import UrlarClient from './UrlarClient';
 
 const syne = Syne({
   subsets: ['latin'],
@@ -17,15 +17,16 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Resonant Being · Giles Lamb',
-  description: 'A live transmedia performance. Piano, synthesis, projection and quadraphonic sound.',
+  title: 'Ùrlar — Giles Lamb',
+  description:
+    'Ùrlar — ground; floor. The bed beneath the deep, the theme beneath the variations. A meditative live performance by Giles Lamb.',
   robots: { index: false, follow: false },
 };
 
-export default function ResonantBeingPage() {
+export default function UrlarPage() {
   return (
     <div className={`${syne.variable} ${spaceGrotesk.variable}`}>
-      <ResonantBeingClient />
+      <UrlarClient />
     </div>
   );
 }

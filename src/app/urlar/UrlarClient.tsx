@@ -11,7 +11,7 @@ const TRACK_URL =
   'https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/resonant-beings/internal-logic-middle.m4a';
 const CAPTURE_URL = 'https://giles-engine.gileslamb.workers.dev/capture';
 const CONSENT_TEXT =
-  'Occasional updates from Giles Lamb about Resonant Being. No spam, unsubscribe any time.';
+  'Occasional updates from Giles Lamb about Ùrlar. No spam, unsubscribe any time.';
 const FADE = 1.2;
 
 const INK = '#F5F3ED';
@@ -21,10 +21,12 @@ const LINE = 'rgba(245,243,237,.28)';
 const LINE_SOFT = 'rgba(245,243,237,.14)';
 const ACCENT = '#E7A75E';
 
+/* Cormorant Garamond is loaded by the root layout as --font-hero-name */
+const SERIF = 'var(--font-hero-name,"Cormorant Garamond",Georgia,serif)';
 const DISP = 'var(--font-syne,"Syne",system-ui,sans-serif)';
 const SANS = 'var(--font-sg,"Space Grotesk",-apple-system,sans-serif)';
 
-export default function ResonantBeingClient() {
+export default function UrlarClient() {
   const vidARef = useRef<HTMLVideoElement>(null);
   const vidBRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -136,8 +138,8 @@ export default function ResonantBeingClient() {
         body: JSON.stringify({
           name,
           email,
-          source: 'giles-lamb',
-          source_detail: 'resonant-being',
+          source: 'urlar',
+          source_detail: 'urlar',
           consent_text: CONSENT_TEXT,
           consent_at: new Date().toISOString(),
         }),
@@ -153,26 +155,28 @@ export default function ResonantBeingClient() {
   return (
     <>
       <style>{`
-        .rb-top { opacity:0; animation:rb-rise 1s .2s cubic-bezier(.2,.7,.2,1) forwards; }
-        .rb-h1  { opacity:0; animation:rb-rise 1.1s .38s cubic-bezier(.2,.7,.2,1) forwards; }
-        .rb-strap{ opacity:0; animation:rb-rise 1.1s .52s cubic-bezier(.2,.7,.2,1) forwards; }
-        .rb-bio  { opacity:0; animation:rb-rise 1.1s .78s cubic-bezier(.2,.7,.2,1) forwards; }
-        .rb-quote{ opacity:0; animation:rb-rise 1.1s .7s cubic-bezier(.2,.7,.2,1) forwards; }
-        .rb-bottom{ opacity:0; animation:rb-rise 1.1s .82s cubic-bezier(.2,.7,.2,1) forwards; }
-        @keyframes rb-rise{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:none;} }
-        .rb-r1{ animation:rb-ripple 6s ease-in-out infinite; transform-origin:32px 32px; }
-        .rb-r2{ animation:rb-ripple 6s ease-in-out .8s infinite; transform-origin:32px 32px; }
-        .rb-r3{ animation:rb-ripple 6s ease-in-out 1.6s infinite; transform-origin:32px 32px; }
-        @keyframes rb-ripple{ 0%,100%{ opacity:.18; transform:scale(.96);} 45%{ opacity:.6; transform:scale(1.02);} }
-        .rb-eq-ring.on{ animation:rb-pulse 2.4s ease-out infinite; }
-        @keyframes rb-pulse{ 0%{ opacity:.5; transform:scale(1);} 100%{ opacity:0; transform:scale(1.4);} }
-        @media (prefers-reduced-motion:reduce){ .rb-r1,.rb-r2,.rb-r3{ animation:none!important; } }
+        .ul-top   { opacity:0; animation:ul-rise 1s .2s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-h1    { opacity:0; animation:ul-rise 1.1s .36s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-ph    { opacity:0; animation:ul-rise 1.1s .50s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-def   { opacity:0; animation:ul-rise 1.1s .62s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-strap { opacity:0; animation:ul-rise 1.1s .74s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-bio   { opacity:0; animation:ul-rise 1.1s .78s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-quote { opacity:0; animation:ul-rise 1.1s .68s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-bottom{ opacity:0; animation:ul-rise 1.1s .82s cubic-bezier(.2,.7,.2,1) forwards; }
+        @keyframes ul-rise{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:none;} }
+        .ul-r1{ animation:ul-ripple 6s ease-in-out infinite; transform-origin:32px 32px; }
+        .ul-r2{ animation:ul-ripple 6s ease-in-out .8s infinite; transform-origin:32px 32px; }
+        .ul-r3{ animation:ul-ripple 6s ease-in-out 1.6s infinite; transform-origin:32px 32px; }
+        @keyframes ul-ripple{ 0%,100%{ opacity:.18; transform:scale(.96);} 45%{ opacity:.6; transform:scale(1.02);} }
+        .ul-eq-ring.on{ animation:ul-pulse 2.4s ease-out infinite; }
+        @keyframes ul-pulse{ 0%{ opacity:.5; transform:scale(1);} 100%{ opacity:0; transform:scale(1.4);} }
+        @media (prefers-reduced-motion:reduce){ .ul-r1,.ul-r2,.ul-r3{ animation:none!important; } }
         @media (max-width:720px){
-          .rb-bottomrow{ flex-direction:column!important; align-items:stretch!important; }
-          .rb-quotebox{ position:static!important; transform:none!important; text-align:left!important; max-width:100%!important; margin:18px 0 0!important; }
+          .ul-bottomrow{ flex-direction:column!important; align-items:stretch!important; }
+          .ul-quotebox{ position:static!important; transform:none!important; text-align:left!important; max-width:100%!important; margin:18px 0 0!important; }
         }
-        .rb-btn:hover{ background:#fff!important; transform:translateY(-1px)!important; }
-        .rb-atoggle:hover{ background:rgba(245,243,237,.18)!important; transform:scale(1.05)!important; }
+        .ul-btn:hover{ background:#fff!important; transform:translateY(-1px)!important; }
+        .ul-atoggle:hover{ background:rgba(245,243,237,.18)!important; transform:scale(1.05)!important; }
       `}</style>
 
       {/* Video background */}
@@ -221,7 +225,6 @@ export default function ResonantBeingClient() {
         <span style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 1, background: LINE_SOFT }} />
         <span style={{ position: 'absolute', top: 0, bottom: 0, left: 0,   width: 1,  background: LINE_SOFT }} />
         <span style={{ position: 'absolute', top: 0, bottom: 0, right: 0,  width: 1,  background: LINE_SOFT }} />
-        {/* Corner ticks */}
         {(['tl','tr','bl','br'] as const).map(corner => (
           <span key={corner} style={{
             position: 'absolute',
@@ -236,12 +239,12 @@ export default function ResonantBeingClient() {
         <span style={{
           position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
           fontFamily: SANS, fontSize: 9, letterSpacing: '.34em', color: FAINT, textTransform: 'uppercase',
-        }}>Res · 20.09.26 · Ayrshire</span>
+        }}>Ùrlar · 20.09.26 · Ayrshire</span>
       </div>
 
       {/* Audio toggle */}
       <button
-        className="rb-atoggle"
+        className="ul-atoggle"
         onClick={toggleAudio}
         aria-label={playing ? 'Pause music' : 'Play music'}
         style={{
@@ -255,7 +258,7 @@ export default function ResonantBeingClient() {
         }}
       >
         <span
-          className={`rb-eq-ring${playing ? ' on' : ''}`}
+          className={`ul-eq-ring${playing ? ' on' : ''}`}
           style={{
             position: 'absolute', inset: '-1px', borderRadius: '50%',
             border: `1px solid ${ACCENT}`,
@@ -283,15 +286,15 @@ export default function ResonantBeingClient() {
         fontFamily: SANS, color: INK,
       }}>
         {/* Brand — top */}
-        <div className="rb-top">
+        <div className="ul-top">
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
             <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"
               style={{ width: 'clamp(46px,4.8vw,64px)', height: 'clamp(46px,4.8vw,64px)', flex: 'none', color: INK }}
             >
               <circle cx="32" cy="32" r="2.6" fill="currentColor"/>
-              <circle className="rb-r1" cx="32" cy="32" r="9"  stroke="currentColor" strokeWidth="1.1" opacity=".7"/>
-              <circle className="rb-r2" cx="32" cy="32" r="17" stroke="currentColor" strokeWidth="1"   opacity=".45"/>
-              <circle className="rb-r3" cx="32" cy="32" r="25" stroke="currentColor" strokeWidth="1"   opacity=".25"/>
+              <circle className="ul-r1" cx="32" cy="32" r="9"  stroke="currentColor" strokeWidth="1.1" opacity=".7"/>
+              <circle className="ul-r2" cx="32" cy="32" r="17" stroke="currentColor" strokeWidth="1"   opacity=".45"/>
+              <circle className="ul-r3" cx="32" cy="32" r="25" stroke="currentColor" strokeWidth="1"   opacity=".25"/>
               <circle cx="32" cy="32" r="31" stroke="currentColor" strokeWidth="1" opacity=".12"/>
             </svg>
             <div>
@@ -307,27 +310,63 @@ export default function ResonantBeingClient() {
           </div>
         </div>
 
-        {/* Hero — middle */}
-        <div style={{ maxWidth: 640 }}>
-          <h1 className="rb-h1" style={{
-            fontFamily: DISP, fontWeight: 700,
-            fontSize: 'clamp(52px,10vw,120px)', lineHeight: .9,
-            letterSpacing: '-.02em', textShadow: '0 2px 40px rgba(0,0,0,.4)', margin: 0,
-          }}>Resonant Being</h1>
-          <p className="rb-strap" style={{
-            fontFamily: DISP, fontWeight: 400,
-            fontSize: 'clamp(22px,3.1vw,36px)', lineHeight: 1.3,
-            color: INK, maxWidth: '24ch',
-            margin: 'clamp(16px,2vw,24px) 0 0',
-          }}>A live transmedia performance. Piano, synthesis, projection and quadraphonic sound.</p>
+        {/* Hero — dictionary-entry treatment */}
+        <div style={{ maxWidth: 680 }}>
+          {/* Headword */}
+          <h1 className="ul-h1" style={{
+            fontFamily: SERIF,
+            fontWeight: 300,
+            fontStyle: 'italic',
+            fontSize: 'clamp(68px,11vw,140px)',
+            lineHeight: .88,
+            letterSpacing: '-.01em',
+            textShadow: '0 2px 48px rgba(0,0,0,.5)',
+            margin: 0,
+            color: INK,
+          }}>Ùrlar</h1>
+
+          {/* Phonetic */}
+          <p className="ul-ph" style={{
+            fontFamily: SANS,
+            fontWeight: 300,
+            fontSize: 'clamp(10px,1vw,12px)',
+            letterSpacing: '.26em',
+            color: FAINT,
+            margin: 'clamp(10px,1.2vw,16px) 0 0',
+          }}>/ˈuːr-lər/ · OOR-lar</p>
+
+          {/* Definition */}
+          <p className="ul-def" style={{
+            fontFamily: SERIF,
+            fontStyle: 'italic',
+            fontWeight: 400,
+            fontSize: 'clamp(16px,1.6vw,22px)',
+            lineHeight: 1.55,
+            color: MUTED,
+            maxWidth: '38ch',
+            margin: 'clamp(8px,1vw,14px) 0 0',
+          }}>
+            n., Scottish Gaelic — ground; floor. The foundational theme of a pibroch, from which every variation departs and to which it returns.
+          </p>
+
+          {/* Strap */}
+          <p className="ul-strap" style={{
+            fontFamily: DISP,
+            fontWeight: 400,
+            fontSize: 'clamp(18px,2.4vw,30px)',
+            lineHeight: 1.35,
+            color: INK,
+            maxWidth: '26ch',
+            margin: 'clamp(18px,2.2vw,30px) 0 0',
+          }}>A meditative live performance — music, resonance and projected light.</p>
         </div>
 
         {/* Oliveros quote — absolute, right-anchored, vertically centred */}
-        <div className="rb-quotebox rb-quote" style={{
+        <div className="ul-quotebox ul-quote" style={{
           position: 'absolute', right: 'clamp(34px,4.5vw,64px)', top: '50%', transform: 'translateY(-50%)',
           maxWidth: '22ch', textAlign: 'right',
         }}>
-          <p style={{ fontFamily: DISP, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
+          <p style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
             "To listen is to open to the possibility of change."
           </p>
           <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12 }}>
@@ -336,17 +375,17 @@ export default function ResonantBeingClient() {
         </div>
 
         {/* Bottom — bio + date/venue + sign-up */}
-        <div className="rb-bottom" style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(22px,3vw,42px)' }}>
-          <p className="rb-bio" style={{ fontSize: 'clamp(17px,2.2vw,25px)', fontWeight: 300, lineHeight: 1.5, color: MUTED, maxWidth: '40ch' }}>
+        <div className="ul-bottom" style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(22px,3vw,42px)' }}>
+          <p className="ul-bio" style={{ fontSize: 'clamp(17px,2.2vw,25px)', fontWeight: 300, lineHeight: 1.5, color: MUTED, maxWidth: '40ch' }}>
             Award-winning composer and improviser Giles Lamb. With a background in neuroscience and psychology, he shapes music and visuals, live, into a deep listening experience.
           </p>
 
-          <div className="rb-bottomrow" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 28 }}>
+          <div className="ul-bottomrow" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 28 }}>
             <div style={{ fontSize: 13, letterSpacing: '.04em', color: MUTED }}>
               <strong style={{ fontWeight: 500, color: INK, display: 'block', fontSize: 15, marginBottom: 3 }}>
-                Sunday 20 September 2026
+                Sunday 20 September 2026, 2–4pm
               </strong>
-              KCR Academy, The Byre, Dalgarven Mill, Kilwinning KA13 6PL
+              KCR Academy Barn, Dalgarven Mill, KA13 6PL
             </div>
 
             {/* Sign-up */}
@@ -355,7 +394,7 @@ export default function ResonantBeingClient() {
                 Be first to know when tickets open
               </p>
               {formState === 'done' ? (
-                <p style={{ fontFamily: DISP, fontSize: 18, padding: '10px 0' }}>
+                <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 20, padding: '10px 0' }}>
                   Thank you. You&rsquo;re on the list.
                 </p>
               ) : (
@@ -367,7 +406,7 @@ export default function ResonantBeingClient() {
                   {formError && (
                     <p style={{ color: ACCENT, fontSize: 12, margin: '4px 0 8px', fontFamily: SANS }}>{formError}</p>
                   )}
-                  <button className="rb-btn" type="submit" disabled={formState === 'sending'} style={{
+                  <button className="ul-btn" type="submit" disabled={formState === 'sending'} style={{
                     width: '100%', marginTop: 6,
                     background: INK, color: '#0a0d12', border: 'none',
                     padding: '13px 20px', cursor: formState === 'sending' ? 'wait' : 'pointer',
