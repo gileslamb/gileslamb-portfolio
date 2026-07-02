@@ -176,6 +176,7 @@ export default function UrlarClient() {
         }
         .ul-btn:hover{ background:#fff!important; transform:translateY(-1px)!important; }
         .ul-atoggle:hover{ background:rgba(245,243,237,.18)!important; transform:scale(1.05)!important; }
+        .ul-credit-link:hover{ text-decoration:underline!important; }
       `}</style>
 
       {/* Video background */}
@@ -324,7 +325,7 @@ export default function UrlarClient() {
             <p style={{
               fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
               fontSize: 'clamp(10px,0.9vw,12px)', lineHeight: 1.75, color: FAINT,
-              maxWidth: '36ch', margin: 0, paddingBottom: '0.12em',
+              maxWidth: '48ch', margin: 0, paddingBottom: '0.12em',
             }}>[Scottish Gaelic — ground; The foundational theme of a pibroch**, from which every variation departs and to which it returns]</p>
           </div>
 
@@ -412,13 +413,15 @@ export default function UrlarClient() {
             </div>
           </div>
 
-          {/* Footnote */}
-          <p style={{
-            fontFamily: SANS, fontSize: 10, lineHeight: 1.55, color: FAINT,
-            marginTop: 'clamp(10px,1.2vw,18px)', letterSpacing: '.01em',
-          }}>
-            **pibroch, the classical theme-and-variations art music of the Highland bagpipe
-          </p>
+          {/* Footnote + credit */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <p style={{ fontFamily: SANS, fontSize: 10, lineHeight: 1.55, color: FAINT, letterSpacing: '.01em', margin: 0 }}>
+              **pibroch, the classical theme-and-variations art music of the Highland bagpipe
+            </p>
+            <p style={{ fontFamily: SANS, fontSize: 10, lineHeight: 1.55, color: FAINT, letterSpacing: '.01em', margin: 0 }}>
+              <a href="https://gileslamb.com" className="ul-credit-link" style={{ color: 'inherit', textDecoration: 'none' }}>Giles Lamb</a>{' '}creates sound and music for some of the world&rsquo;s most iconic immersive exhibitions and experiences, and for landmark titles in games and film.
+            </p>
+          </div>
         </div>
       </div>
     </>
