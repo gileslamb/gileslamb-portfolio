@@ -158,8 +158,7 @@ export default function UrlarClient() {
         .ul-top   { opacity:0; animation:ul-rise 1s .2s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-h1    { opacity:0; animation:ul-rise 1.1s .36s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-ph    { opacity:0; animation:ul-rise 1.1s .50s cubic-bezier(.2,.7,.2,1) forwards; }
-        .ul-def   { opacity:0; animation:ul-rise 1.1s .62s cubic-bezier(.2,.7,.2,1) forwards; }
-        .ul-strap { opacity:0; animation:ul-rise 1.1s .74s cubic-bezier(.2,.7,.2,1) forwards; }
+        .ul-strap { opacity:0; animation:ul-rise 1.1s .62s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-bio   { opacity:0; animation:ul-rise 1.1s .78s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-quote { opacity:0; animation:ul-rise 1.1s .68s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-bottom{ opacity:0; animation:ul-rise 1.1s .82s cubic-bezier(.2,.7,.2,1) forwards; }
@@ -335,20 +334,6 @@ export default function UrlarClient() {
             margin: 'clamp(10px,1.2vw,16px) 0 0',
           }}>/ˈuːr-lər/ · OOR-lar</p>
 
-          {/* Definition */}
-          <p className="ul-def" style={{
-            fontFamily: SERIF,
-            fontStyle: 'italic',
-            fontWeight: 400,
-            fontSize: 'clamp(16px,1.6vw,22px)',
-            lineHeight: 1.55,
-            color: MUTED,
-            maxWidth: '38ch',
-            margin: 'clamp(8px,1vw,14px) 0 0',
-          }}>
-            n., Scottish Gaelic — ground; floor. The foundational theme of a pibroch, from which every variation departs and to which it returns.
-          </p>
-
           {/* Strap */}
           <p className="ul-strap" style={{
             fontFamily: DISP,
@@ -357,20 +342,32 @@ export default function UrlarClient() {
             lineHeight: 1.35,
             color: INK,
             maxWidth: '26ch',
-            margin: 'clamp(18px,2.2vw,30px) 0 0',
-          }}>A meditative live performance — music, resonance and projected light.</p>
+            margin: 'clamp(14px,1.8vw,24px) 0 0',
+          }}>A live transmedia performance. Piano, synthesis, projection and quadraphonic sound.</p>
         </div>
 
-        {/* Oliveros quote — absolute, right-anchored, vertically centred */}
+        {/* Right-side column — Oliveros epigraph + dictionary annotation, stacked */}
         <div className="ul-quotebox ul-quote" style={{
           position: 'absolute', right: 'clamp(34px,4.5vw,64px)', top: '50%', transform: 'translateY(-50%)',
           maxWidth: '22ch', textAlign: 'right',
+          display: 'flex', flexDirection: 'column', gap: 'clamp(28px,3.5vw,48px)',
         }}>
-          <p style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
-            "To listen is to open to the possibility of change."
-          </p>
-          <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12 }}>
-            Pauline Oliveros
+          {/* Oliveros epigraph */}
+          <div>
+            <p style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
+              "To listen is to open to the possibility of change."
+            </p>
+            <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12 }}>
+              Pauline Oliveros
+            </p>
+          </div>
+          {/* Dictionary annotation */}
+          <p style={{
+            fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
+            fontSize: 'clamp(10px,1.05vw,13px)', lineHeight: 1.7,
+            color: FAINT,
+          }}>
+            n., Scottish Gaelic — ground; floor. The foundational theme of a pibroch — the classical theme-and-variations art music of the Highland bagpipe — from which every variation departs and to which it returns.
           </p>
         </div>
 

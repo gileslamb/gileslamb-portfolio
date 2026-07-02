@@ -19,7 +19,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: 'Ùrlar — Giles Lamb',
   description:
-    'Ùrlar — ground; floor. The bed beneath the deep, the theme beneath the variations. A meditative live performance by Giles Lamb.',
+    'Ùrlar — a live transmedia performance by Giles Lamb. Piano, synthesis, projection and quadraphonic sound.',
   robots: { index: false, follow: false },
 };
 
