@@ -1,0 +1,210 @@
+<!-- Ùrlar redesign mockup v7 — browser print removed; PDF becomes a static build-time asset -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ùrlar — redesign mockup v7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+<style>
+  :root{
+    --bg:#05070a;--ink:#F5F3ED;--muted:rgba(245,243,237,.82);--faint:rgba(245,243,237,.55);
+    --line:rgba(245,243,237,.24);--line-soft:rgba(245,243,237,.12);--accent:#E7A75E;
+    --serif:"Cormorant Garamond",Georgia,serif;--disp:"Syne",system-ui,sans-serif;--sans:"Space Grotesk",-apple-system,sans-serif;
+    --vidbright:.60;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+
+  .stage{position:fixed;inset:0;overflow:hidden}
+  .screen{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s}
+  .screen.on{opacity:1;pointer-events:auto}
+
+  .bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#05070a}
+  .still,.bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:brightness(var(--vidbright)) saturate(.75) blur(1px)}
+  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      linear-gradient(to right,rgba(4,7,12,.6) 0%,rgba(4,7,12,.26) 42%,rgba(4,7,12,0) 70%),
+      linear-gradient(to top,rgba(4,7,12,.86) 0%,rgba(4,7,12,.32) 42%,rgba(4,7,12,.4) 100%),
+      radial-gradient(120% 90% at 50% 40%,transparent 52%,rgba(4,7,12,.5));}
+  .grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .watermark{position:fixed;z-index:2;right:-14vw;top:50%;transform:translateY(-50%);
+    width:60vw;height:60vw;color:var(--ink);opacity:.07;pointer-events:none}
+
+  .mark{width:clamp(40px,4.6vw,56px);height:auto;color:var(--ink);flex:none}
+  .r1{animation:ripple 6s ease-in-out infinite;transform-origin:32px 32px}
+  .r2{animation:ripple 6s ease-in-out .8s infinite;transform-origin:32px 32px}
+  .r3{animation:ripple 6s ease-in-out 1.6s infinite;transform-origin:32px 32px}
+  @keyframes ripple{0%,100%{opacity:.18;transform:scale(.96)}45%{opacity:.6;transform:scale(1.02)}}
+
+  .atoggle{position:fixed;z-index:12;top:clamp(26px,3.2vw,44px);right:clamp(26px,3.2vw,44px);
+    width:clamp(48px,5vw,58px);height:clamp(48px,5vw,58px);border-radius:50%;border:1px solid var(--line);
+    background:rgba(245,243,237,.08);backdrop-filter:blur(6px);color:var(--ink);cursor:pointer;
+    display:grid;place-items:center;transition:background .25s,transform .2s}
+  .atoggle:hover{background:rgba(245,243,237,.18);transform:scale(1.05)}
+  .eq-ring{position:absolute;inset:-1px;border-radius:50%;border:1px solid var(--accent);opacity:0}
+  .eq-ring.on{animation:eqpulse 2.4s ease-out infinite}
+  @keyframes eqpulse{0%{opacity:.5;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+
+  .poster{position:relative;z-index:5;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(30px,4.5vw,66px)}
+  .poster .top{display:flex;align-items:center;gap:16px}
+  .brand-name{font-family:var(--disp);font-weight:600;font-size:clamp(19px,2.4vw,27px);letter-spacing:.05em;line-height:1.05}
+  .brand-sub{font-size:clamp(10px,1.1vw,12px);letter-spacing:.42em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+
+  .headline{max-width:min(92vw,900px)}
+  .heroline{display:flex;align-items:flex-end;flex-wrap:wrap;gap:clamp(12px,1.8vw,28px)}
+  .title{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(80px,13vw,190px);line-height:.84;letter-spacing:-.01em;text-shadow:0 4px 60px rgba(0,0,0,.6);flex:none}
+  .gloss{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(11px,1vw,13px);line-height:1.7;color:var(--faint);max-width:46ch;padding-bottom:.35em}
+  .gloss em{color:var(--muted)}
+  .phon{font-family:var(--sans);font-weight:300;font-size:clamp(10px,1vw,12px);letter-spacing:.26em;color:var(--faint);margin-top:clamp(10px,1.2vw,16px)}
+  .tag{font-family:var(--disp);font-weight:400;font-size:clamp(16px,2vw,26px);line-height:1.35;color:var(--ink);max-width:28ch;margin-top:clamp(14px,1.8vw,24px)}
+
+  .oliveros{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(19px,2.4vw,30px);line-height:1.35;color:var(--accent);max-width:32ch}
+  .oliveros .by{display:block;font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);margin-top:12px}
+
+  .bottom{display:flex;flex-direction:column;gap:clamp(18px,2.2vw,30px)}
+  .botrow{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px}
+  .when{display:flex;flex-direction:column;gap:6px}
+  .date{font-family:var(--disp);font-weight:700;font-size:clamp(28px,4.8vw,58px);line-height:.95;letter-spacing:.01em;color:var(--ink)}
+  .date .day{color:var(--accent)}
+  .time{font-family:var(--disp);font-weight:500;font-size:clamp(14px,1.7vw,21px);letter-spacing:.06em}
+  .venue{font-family:var(--sans);font-size:clamp(11px,1.1vw,13px);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .cta{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);
+    text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:5px;transition:.2s;white-space:nowrap}
+  .cta:hover{color:var(--accent)}
+
+  .printbar{text-align:center;display:flex;gap:12px;justify-content:center;align-items:center}
+  .printlink{font-family:var(--sans);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);
+    background:none;border:none;cursor:pointer;transition:.2s}
+  .printlink:hover{color:var(--ink)}
+  .pdfnote{display:none;font-family:var(--sans);font-size:9px;letter-spacing:.18em;color:var(--faint)}
+
+  .frame{position:absolute;inset:clamp(15px,2.2vw,26px);z-index:4;pointer-events:none;border:1px solid var(--line-soft)}
+  .frame .label{position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);background:var(--bg);padding:0 12px;font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint)}
+
+  .page2{position:relative;z-index:5;height:100%;overflow:auto;display:flex;align-items:center;justify-content:center;padding:clamp(40px,6vw,90px) 24px}
+  .p2col{max-width:600px;width:100%}
+  .back{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);text-decoration:none;display:inline-block;margin-bottom:36px;cursor:pointer}
+  .back:hover{color:var(--ink)}
+  .p2title{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(48px,8vw,86px);line-height:.9}
+  .p2gloss{font-family:var(--serif);font-style:italic;font-size:clamp(13px,1.4vw,16px);line-height:1.7;color:var(--faint);margin-top:16px;max-width:52ch}
+  .bio{font-size:clamp(15px,1.7vw,18px);font-weight:300;line-height:1.6;color:var(--muted);margin-top:34px;max-width:48ch}
+  .form-lead{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin:44px 0 16px}
+  .field{width:100%;background:rgba(245,243,237,.06);border:none;border-bottom:1px solid var(--line);padding:13px 10px;font-family:var(--sans);font-size:14px;color:var(--ink);margin-bottom:12px;outline:none}
+  .field::placeholder{color:var(--faint)}
+  .rowf{display:flex;gap:10px}
+  .notify{width:100%;margin-top:6px;background:var(--ink);color:#0a0d12;border:none;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:.2s}
+  .notify:hover{background:#fff}
+  .consent{font-size:10px;line-height:1.6;color:var(--faint);margin-top:14px}
+
+  @media(max-width:720px){.botrow{flex-direction:column;align-items:flex-start}.rowf{flex-direction:column}}
+</style>
+
+<div class="stage">
+  <div class="bg">
+    <img class="still" alt="" crossorigin="anonymous" src="https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/9510de9cffc769d1720604298dc57895/thumbnails/thumbnail.jpg?time=8s&height=1080">
+    <video id="vid" muted playsinline autoplay loop
+      poster="https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/9510de9cffc769d1720604298dc57895/thumbnails/thumbnail.jpg?time=8s&height=1080"></video>
+    <span class="scrim"></span><span class="grain"></span>
+  </div>
+
+  <svg class="watermark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+    <circle cx="32" cy="32" r="2.6" fill="currentColor"/>
+    <circle cx="32" cy="32" r="9"  stroke="currentColor" stroke-width=".5"/>
+    <circle cx="32" cy="32" r="17" stroke="currentColor" stroke-width=".5"/>
+    <circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width=".5"/>
+    <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width=".5"/>
+  </svg>
+
+  <!-- ===== POSTER ===== -->
+  <div id="s-poster" class="screen on">
+    <div class="frame"><span class="label">Ùrlar · 20.09.26 · Ayrshire</span></div>
+
+    <button id="atoggle" class="atoggle" onclick="toggleAudio()" aria-label="Play music">
+      <span id="eqring" class="eq-ring"></span>
+      <svg id="ico-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="ico-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+    </button>
+    <audio id="track" src="https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/resonant-beings/internal-logic-middle.m4a" loop preload="auto"></audio>
+
+    <div class="poster">
+      <div class="top">
+        <svg class="mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle cx="32" cy="32" r="2.6" fill="currentColor"/>
+          <circle class="r1" cx="32" cy="32" r="9"  stroke="currentColor" stroke-width="1.1" opacity=".7"/>
+          <circle class="r2" cx="32" cy="32" r="17" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <circle class="r3" cx="32" cy="32" r="25" stroke="currentColor" stroke-width="1" opacity=".25"/>
+          <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="1" opacity=".12"/>
+        </svg>
+        <div><div class="brand-name">Giles Lamb</div><div class="brand-sub">Live</div></div>
+      </div>
+
+      <div class="headline">
+        <div class="heroline">
+          <div class="title">Ùrlar</div>
+          <p class="gloss">[Scottish Gaelic — <em>ground</em>; the foundational theme of a pibroch, from which every variation departs and to which it returns.]</p>
+        </div>
+        <p class="phon">/ˈuːr-lər/ · OOR-lar</p>
+        <p class="tag">A live performance of piano, synthesis, projection and quadraphonic sound.</p>
+      </div>
+
+      <p class="oliveros">"To listen is to open to the possibility of change."
+        <span class="by">Pauline Oliveros</span></p>
+
+      <div class="bottom">
+        <div class="botrow">
+          <div class="when">
+            <div class="date"><span class="day">Sun 20 Sep</span> 2026</div>
+            <div class="time">2 – 4 PM</div>
+            <div class="venue">KCR Academy Barn · Dalgarven Mill · Ayrshire</div>
+          </div>
+          <a class="cta" href="#" onclick="show('page2');return false">Tickets &amp; updates →</a>
+        </div>
+        <div class="printbar">
+          <button class="printlink" onclick="document.getElementById('pdfnote').style.display='inline'">Download poster (PDF)</button>
+          <span id="pdfnote" class="pdfnote">↳ links to a static /public/urlar-poster.pdf in the real build</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SIGN-UP PAGE ===== -->
+  <div id="s-page2" class="screen">
+    <div class="page2"><div class="p2col">
+      <a class="back" onclick="show('poster')">← Ùrlar</a>
+      <div class="p2title">Ùrlar</div>
+      <p class="p2gloss">[Scottish Gaelic — <em>ground</em>; the foundational theme of a pibroch, from which every variation departs and to which it returns.] /ˈuːr-lər/ · OOR-lar</p>
+      <p class="bio">A deep listening experience by award-winning composer and improviser Giles Lamb. With a background in neuroscience and psychology, Giles creates sound and music for some of the world's most iconic immersive exhibitions and experiences, and for landmark titles in games and film.</p>
+      <p class="form-lead">Be first to know when tickets open</p>
+      <div class="rowf"><input class="field" type="text" placeholder="Name (optional)"><input class="field" type="email" placeholder="Email"></div>
+      <button class="notify">Notify me</button>
+      <p class="consent">Occasional updates from Giles Lamb about Ùrlar. No spam, unsubscribe any time.</p>
+    </div></div>
+  </div>
+</div>
+
+<script>
+  function show(which){
+    document.getElementById('s-poster').classList.toggle('on', which==='poster');
+    document.getElementById('s-page2').classList.toggle('on', which==='page2');
+    window.scrollTo(0,0);
+  }
+  var playing=false;
+  function toggleAudio(){
+    var a=document.getElementById('track'), ring=document.getElementById('eqring');
+    var pl=document.getElementById('ico-play'), pa=document.getElementById('ico-pause'), btn=document.getElementById('atoggle');
+    function setIcons(){pl.style.display=playing?'none':'block';pa.style.display=playing?'block':'none';ring.classList.toggle('on',playing);btn.setAttribute('aria-label',playing?'Pause music':'Play music');}
+    if(playing){ a.pause(); playing=false; setIcons(); }
+    else { a.volume=0.85; a.play().then(function(){playing=true;setIcons();}).catch(function(){}); }
+  }
+  (function(){
+    var MANIFEST='https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/9510de9cffc769d1720604298dc57895/manifest/video.m3u8';
+    var v=document.getElementById('vid');
+    if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=MANIFEST; v.play().catch(function(){}); }
+    else if(window.Hls&&Hls.isSupported()){ var h=new Hls(); h.loadSource(MANIFEST); h.attachMedia(v); h.on(Hls.Events.MANIFEST_PARSED,function(){v.play().catch(function(){});}); }
+  })();
+</script>

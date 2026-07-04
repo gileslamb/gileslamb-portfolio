@@ -12,7 +12,8 @@
     "lint": "eslint",
     "fetch-images": "node scripts/fetch-cover-images.js",
     "wallet:placeholders": "node scripts/create-pass-placeholders.js",
-    "wallet:generate": "node scripts/generate-pass.js"
+    "wallet:generate": "node scripts/generate-pass.js",
+    "generate:pdf": "node scripts/generate-urlar-pdf.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -33,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "passkit-generator": "^3.5.7",
+    "playwright": "^1.61.1",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
