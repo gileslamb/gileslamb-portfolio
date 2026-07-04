@@ -166,7 +166,10 @@ export default function UrlarClient() {
           src={THUMBNAIL}
           alt=""
           crossOrigin="anonymous"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER }}
+          /* Print mode drops the CSS filter (which forces Chromium to rasterize the
+             whole backdrop into a huge bitmap → white page in PDF viewers); a solid
+             overlay below does the darkening instead so the still embeds as a small JPEG. */
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: printMode ? undefined : VIDFILTER }}
         />
         {!printMode && (
           <>
@@ -195,11 +198,20 @@ export default function UrlarClient() {
         ].join(','),
       }} />
 
-      {/* Grain */}
-      <div aria-hidden="true" style={{
-        position: 'fixed', inset: 0, zIndex: 2, pointerEvents: 'none', opacity: 0.05,
-        backgroundImage: GRAIN,
-      }} />
+      {/* Print-only solid darkening — replaces the CSS filter for a viewer-friendly PDF */}
+      {printMode && (
+        <div aria-hidden="true" style={{
+          position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'rgba(4,7,12,.5)',
+        }} />
+      )}
+
+      {/* Grain — skipped in print: feTurbulence noise rasterizes to a huge bitmap in PDFs */}
+      {!printMode && (
+        <div aria-hidden="true" style={{
+          position: 'fixed', inset: 0, zIndex: 2, pointerEvents: 'none', opacity: 0.05,
+          backgroundImage: GRAIN,
+        }} />
+      )}
 
       {/* Watermark */}
       <svg aria-hidden="true" viewBox="0 0 64 64" fill="none" style={{
