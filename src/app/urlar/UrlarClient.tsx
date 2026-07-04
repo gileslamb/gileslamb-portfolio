@@ -9,17 +9,19 @@ const THUMBNAIL =
   'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/9510de9cffc769d1720604298dc57895/thumbnails/thumbnail.jpg?time=8s&height=1080';
 const TRACK_URL =
   'https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/resonant-beings/internal-logic-middle.m4a';
-const CAPTURE_URL = 'https://giles-engine.gileslamb.workers.dev/capture';
-const CONSENT_TEXT =
-  'Occasional updates from Giles Lamb about Ùrlar. No spam, unsubscribe any time.';
 const FADE = 1.2;
 
 const INK = '#F5F3ED';
-const MUTED = 'rgba(245,243,237,.72)';
-const FAINT = 'rgba(245,243,237,.5)';
-const LINE = 'rgba(245,243,237,.28)';
-const LINE_SOFT = 'rgba(245,243,237,.14)';
+const MUTED = 'rgba(245,243,237,.82)';
+const FAINT = 'rgba(245,243,237,.55)';
+const LINE = 'rgba(245,243,237,.24)';
+const LINE_SOFT = 'rgba(245,243,237,.12)';
 const ACCENT = '#E7A75E';
+const BG = '#05070a';
+
+const VIDFILTER = 'brightness(.60) saturate(.75) blur(1px)';
+const GRAIN =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
 /* Cormorant Garamond is loaded by the root layout as --font-hero-name */
 const SERIF = 'var(--font-hero-name,"Cormorant Garamond",Georgia,serif)';
@@ -34,8 +36,12 @@ export default function UrlarClient() {
   const hlsRef = useRef<Hls[]>([]);
 
   const [playing, setPlaying] = useState(false);
-  const [formState, setFormState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
-  const [formError, setFormError] = useState('');
+  const [printMode, setPrintMode] = useState(false);
+
+  /* Print mode (?print=1) — used only for static PDF generation */
+  useEffect(() => {
+    setPrintMode(new URLSearchParams(window.location.search).get('print') === '1');
+  }, []);
 
   /* Lock scroll for full-viewport layout */
   useEffect(() => {
@@ -49,8 +55,9 @@ export default function UrlarClient() {
     };
   }, []);
 
-  /* Cloudflare Stream crossfade */
+  /* Cloudflare Stream crossfade — skipped entirely in print mode */
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('print') === '1') return;
     const vidA = vidARef.current;
     const vidB = vidBRef.current;
     if (!vidA || !vidB) return;
@@ -123,35 +130,6 @@ export default function UrlarClient() {
     }
   }, [playing]);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
-    if (!email) { setFormError('Please enter your email.'); return; }
-    setFormState('sending');
-    setFormError('');
-    try {
-      const res = await fetch(CAPTURE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          source: 'urlar',
-          source_detail: 'urlar',
-          consent_text: CONSENT_TEXT,
-          consent_at: new Date().toISOString(),
-        }),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setFormState('done');
-    } catch {
-      setFormState('error');
-      setFormError('Something went wrong. Please try again.');
-    }
-  }, []);
-
   return (
     <>
       <style>{`
@@ -159,7 +137,6 @@ export default function UrlarClient() {
         .ul-h1    { opacity:0; animation:ul-rise 1.1s .36s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-ph    { opacity:0; animation:ul-rise 1.1s .50s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-strap { opacity:0; animation:ul-rise 1.1s .62s cubic-bezier(.2,.7,.2,1) forwards; }
-        .ul-bio   { opacity:0; animation:ul-rise 1.1s .78s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-quote { opacity:0; animation:ul-rise 1.1s .68s cubic-bezier(.2,.7,.2,1) forwards; }
         .ul-bottom{ opacity:0; animation:ul-rise 1.1s .82s cubic-bezier(.2,.7,.2,1) forwards; }
         @keyframes ul-rise{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:none;} }
@@ -169,48 +146,65 @@ export default function UrlarClient() {
         @keyframes ul-ripple{ 0%,100%{ opacity:.18; transform:scale(.96);} 45%{ opacity:.6; transform:scale(1.02);} }
         .ul-eq-ring.on{ animation:ul-pulse 2.4s ease-out infinite; }
         @keyframes ul-pulse{ 0%{ opacity:.5; transform:scale(1);} 100%{ opacity:0; transform:scale(1.4);} }
-        @media (prefers-reduced-motion:reduce){ .ul-r1,.ul-r2,.ul-r3{ animation:none!important; } }
-        @media (max-width:720px){
-          .ul-bottomrow{ flex-direction:column!important; align-items:stretch!important; }
-          .ul-quotebox{ position:static!important; transform:none!important; text-align:left!important; max-width:100%!important; margin:18px 0 0!important; }
+        @media (prefers-reduced-motion:reduce){
+          .ul-r1,.ul-r2,.ul-r3,.ul-eq-ring,.ul-top,.ul-h1,.ul-ph,.ul-strap,.ul-quote,.ul-bottom{ animation:none!important; opacity:1!important; transform:none!important; }
         }
-        .ul-btn:hover{ background:#fff!important; transform:translateY(-1px)!important; }
+        @media (max-width:720px){
+          .ul-botrow{ flex-direction:column!important; align-items:flex-start!important; }
+        }
+        .ul-cta{ transition:color .2s!important; }
+        .ul-cta:hover{ color:${ACCENT}!important; }
+        .ul-printlink:hover{ color:${INK}!important; }
         .ul-atoggle:hover{ background:rgba(245,243,237,.18)!important; transform:scale(1.05)!important; }
-        .ul-credit-link:hover{ text-decoration:underline!important; }
       `}</style>
 
-      {/* Video background */}
+      {/* Background — darkened still + crossfading video */}
       <div style={{
-        position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden',
-        background: `#05070a url(${THUMBNAIL}) center/cover no-repeat`,
+        position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', background: BG,
       }}>
-        <video
-          ref={vidARef}
-          muted playsInline preload="auto"
-          poster={THUMBNAIL}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0, transition: 'opacity 1.2s linear', willChange: 'opacity' }}
+        <img
+          src={THUMBNAIL}
+          alt=""
+          crossOrigin="anonymous"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER }}
         />
-        <video
-          ref={vidBRef}
-          muted playsInline preload="auto"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0, transition: 'opacity 1.2s linear', willChange: 'opacity' }}
-        />
+        {!printMode && (
+          <>
+            <video
+              ref={vidARef}
+              muted playsInline preload="auto"
+              poster={THUMBNAIL}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER, opacity: 0, transition: 'opacity 1.2s linear', willChange: 'opacity' }}
+            />
+            <video
+              ref={vidBRef}
+              muted playsInline preload="auto"
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER, opacity: 0, transition: 'opacity 1.2s linear', willChange: 'opacity' }}
+            />
+          </>
+        )}
       </div>
 
       {/* Scrim */}
       <div aria-hidden="true" style={{
         position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none',
         background: [
-          'linear-gradient(to right,rgba(4,7,12,.62) 0%,rgba(4,7,12,.28) 42%,rgba(4,7,12,0) 70%)',
-          'linear-gradient(to top,rgba(4,7,12,.72) 0%,rgba(4,7,12,.15) 40%,rgba(4,7,12,.1) 100%)',
-          'radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(4,7,12,.4))',
+          'linear-gradient(to right,rgba(4,7,12,.6) 0%,rgba(4,7,12,.26) 42%,rgba(4,7,12,0) 70%)',
+          'linear-gradient(to top,rgba(4,7,12,.86) 0%,rgba(4,7,12,.32) 42%,rgba(4,7,12,.4) 100%)',
+          'radial-gradient(120% 90% at 50% 40%,transparent 52%,rgba(4,7,12,.5))',
         ].join(','),
+      }} />
+
+      {/* Grain */}
+      <div aria-hidden="true" style={{
+        position: 'fixed', inset: 0, zIndex: 2, pointerEvents: 'none', opacity: 0.05,
+        backgroundImage: GRAIN,
       }} />
 
       {/* Watermark */}
       <svg aria-hidden="true" viewBox="0 0 64 64" fill="none" style={{
         position: 'fixed', zIndex: 2, right: '-14vw', top: '50%', transform: 'translateY(-50%)',
-        width: '60vw', height: '60vw', color: INK, opacity: 0.05, pointerEvents: 'none',
+        width: '60vw', height: '60vw', color: INK, opacity: 0.07, pointerEvents: 'none',
       }}>
         <circle cx="32" cy="32" r="2.6" fill="currentColor"/>
         <circle cx="32" cy="32" r="9"  stroke="currentColor" strokeWidth=".5"/>
@@ -219,225 +213,168 @@ export default function UrlarClient() {
         <circle cx="32" cy="32" r="31" stroke="currentColor" strokeWidth=".5"/>
       </svg>
 
-      {/* Hairline frame */}
-      <div aria-hidden="true" style={{ position: 'fixed', inset: 'clamp(16px,2.2vw,28px)', zIndex: 4, pointerEvents: 'none' }}>
-        <span style={{ position: 'absolute', left: 0, right: 0, top: 0,    height: 1, background: LINE_SOFT }} />
-        <span style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 1, background: LINE_SOFT }} />
-        <span style={{ position: 'absolute', top: 0, bottom: 0, left: 0,   width: 1,  background: LINE_SOFT }} />
-        <span style={{ position: 'absolute', top: 0, bottom: 0, right: 0,  width: 1,  background: LINE_SOFT }} />
-        {(['tl','tr','bl','br'] as const).map(corner => (
-          <span key={corner} style={{
-            position: 'absolute',
-            ...(corner[0] === 't' ? { top: 0 } : { bottom: 0 }),
-            ...(corner[1] === 'l' ? { left: 0 } : { right: 0 }),
-            width: 8, height: 8,
-          }}>
-            <span style={{ position: 'absolute', width: 8, height: 1, background: LINE, ...(corner[0] === 't' ? { top: 0 } : { bottom: 0 }) }} />
-            <span style={{ position: 'absolute', width: 1, height: 8, background: LINE, ...(corner[1] === 'l' ? { left: 0 } : { right: 0 }) }} />
-          </span>
-        ))}
-        <span style={{
-          position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
-          fontFamily: SANS, fontSize: 9, letterSpacing: '.34em', color: FAINT, textTransform: 'uppercase',
-        }}>Ùrlar · 20.09.26 · Ayrshire</span>
-      </div>
+      {/* Hairline frame + top label */}
+      {!printMode && (
+        <div aria-hidden="true" style={{
+          position: 'fixed', inset: 'clamp(15px,2.2vw,26px)', zIndex: 4,
+          pointerEvents: 'none', border: `1px solid ${LINE_SOFT}`,
+        }}>
+          <span style={{
+            position: 'absolute', top: -1, left: '50%', transform: 'translate(-50%,-50%)',
+            background: BG, padding: '0 12px',
+            fontFamily: SANS, fontSize: 9, letterSpacing: '.34em', color: FAINT, textTransform: 'uppercase',
+          }}>Ùrlar · 20.09.26 · Ayrshire</span>
+        </div>
+      )}
 
       {/* Audio toggle */}
-      <button
-        className="ul-atoggle"
-        onClick={toggleAudio}
-        aria-label={playing ? 'Pause music' : 'Play music'}
-        style={{
-          position: 'fixed', zIndex: 12,
-          top: 'clamp(26px,3.2vw,44px)', right: 'clamp(26px,3.2vw,44px)',
-          width: 'clamp(48px,5vw,58px)', height: 'clamp(48px,5vw,58px)',
-          borderRadius: '50%', border: `1px solid ${LINE}`,
-          background: 'rgba(245,243,237,.08)', backdropFilter: 'blur(6px)',
-          color: INK, cursor: 'pointer', display: 'grid', placeItems: 'center',
-          transition: 'background .25s,transform .2s',
-        }}
-      >
-        <span
-          className={`ul-eq-ring${playing ? ' on' : ''}`}
+      {!printMode && (
+        <button
+          className="ul-atoggle"
+          onClick={toggleAudio}
+          aria-label={playing ? 'Pause music' : 'Play music'}
           style={{
-            position: 'absolute', inset: '-1px', borderRadius: '50%',
-            border: `1px solid ${ACCENT}`,
-            opacity: playing ? undefined : 0,
+            position: 'fixed', zIndex: 12,
+            top: 'clamp(26px,3.2vw,44px)', right: 'clamp(26px,3.2vw,44px)',
+            width: 'clamp(48px,5vw,58px)', height: 'clamp(48px,5vw,58px)',
+            borderRadius: '50%', border: `1px solid ${LINE}`,
+            background: 'rgba(245,243,237,.08)', backdropFilter: 'blur(6px)',
+            color: INK, cursor: 'pointer', display: 'grid', placeItems: 'center',
+            transition: 'background .25s,transform .2s',
           }}
-        />
-        {playing ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <rect x="6" y="5" width="4" height="14" rx="1"/>
-            <rect x="14" y="5" width="4" height="14" rx="1"/>
-          </svg>
-        ) : (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        )}
-      </button>
+        >
+          <span
+            className={`ul-eq-ring${playing ? ' on' : ''}`}
+            style={{
+              position: 'absolute', inset: '-1px', borderRadius: '50%',
+              border: `1px solid ${ACCENT}`,
+              opacity: playing ? undefined : 0,
+            }}
+          />
+          {playing ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="6" y="5" width="4" height="14" rx="1"/>
+              <rect x="14" y="5" width="4" height="14" rx="1"/>
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          )}
+        </button>
+      )}
       <audio ref={audioRef} src={TRACK_URL} loop preload="auto" />
 
-      {/* Content */}
+      {/* Poster content */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 5,
         display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-        padding: 'clamp(34px,4.5vw,64px)',
+        padding: 'clamp(30px,4.5vw,66px)',
         fontFamily: SANS, color: INK,
       }}>
         {/* Brand — top */}
-        <div className="ul-top">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-            <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"
-              style={{ width: 'clamp(46px,4.8vw,64px)', height: 'clamp(46px,4.8vw,64px)', flex: 'none', color: INK }}
-            >
-              <circle cx="32" cy="32" r="2.6" fill="currentColor"/>
-              <circle className="ul-r1" cx="32" cy="32" r="9"  stroke="currentColor" strokeWidth="1.1" opacity=".7"/>
-              <circle className="ul-r2" cx="32" cy="32" r="17" stroke="currentColor" strokeWidth="1"   opacity=".45"/>
-              <circle className="ul-r3" cx="32" cy="32" r="25" stroke="currentColor" strokeWidth="1"   opacity=".25"/>
-              <circle cx="32" cy="32" r="31" stroke="currentColor" strokeWidth="1" opacity=".12"/>
-            </svg>
-            <div>
-              <div style={{ fontFamily: DISP, fontWeight: 600, fontSize: 'clamp(22px,2.6vw,30px)', letterSpacing: '.05em', lineHeight: 1.05 }}>
-                Giles Lamb
-              </div>
-              <small style={{
-                display: 'block', fontFamily: SANS, fontWeight: 400,
-                fontSize: 'clamp(11px,1.1vw,13px)', letterSpacing: '.42em',
-                textTransform: 'uppercase', color: FAINT, marginTop: 8,
-              }}>Live</small>
+        <div className="ul-top" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"
+            style={{ width: 'clamp(40px,4.6vw,56px)', height: 'auto', flex: 'none', color: INK }}
+          >
+            <circle cx="32" cy="32" r="2.6" fill="currentColor"/>
+            <circle className="ul-r1" cx="32" cy="32" r="9"  stroke="currentColor" strokeWidth="1.1" opacity=".7"/>
+            <circle className="ul-r2" cx="32" cy="32" r="17" stroke="currentColor" strokeWidth="1"   opacity=".45"/>
+            <circle className="ul-r3" cx="32" cy="32" r="25" stroke="currentColor" strokeWidth="1"   opacity=".25"/>
+            <circle cx="32" cy="32" r="31" stroke="currentColor" strokeWidth="1" opacity=".12"/>
+          </svg>
+          <div>
+            <div style={{ fontFamily: DISP, fontWeight: 600, fontSize: 'clamp(19px,2.4vw,27px)', letterSpacing: '.05em', lineHeight: 1.05 }}>
+              Giles Lamb
             </div>
+            <div style={{
+              fontFamily: SANS, fontSize: 'clamp(10px,1.1vw,12px)', letterSpacing: '.42em',
+              textTransform: 'uppercase', color: FAINT, marginTop: 6,
+            }}>Live</div>
           </div>
         </div>
 
         {/* Hero */}
-        <div style={{ maxWidth: 'min(92vw,860px)' }}>
-          {/* Headword + bracketed gloss, side-by-side on desktop, stacked on mobile */}
-          <div className="ul-h1" style={{
+        <div className="ul-h1" style={{ maxWidth: 'min(92vw,900px)' }}>
+          <div style={{
             display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap',
-            gap: 'clamp(12px,1.8vw,28px)', margin: 0,
+            gap: 'clamp(12px,1.8vw,28px)',
           }}>
             <h1 style={{
               fontFamily: SERIF, fontWeight: 300, fontStyle: 'italic',
-              fontSize: 'clamp(68px,11vw,140px)', lineHeight: .88, letterSpacing: '-.01em',
-              textShadow: '0 2px 48px rgba(0,0,0,.5)', margin: 0, color: INK, flex: 'none',
+              fontSize: 'clamp(80px,13vw,190px)', lineHeight: .84, letterSpacing: '-.01em',
+              textShadow: '0 4px 60px rgba(0,0,0,.6)', margin: 0, color: INK, flex: 'none',
             }}>Ùrlar</h1>
             <p style={{
               fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
-              fontSize: 'clamp(10px,0.9vw,12px)', lineHeight: 1.75, color: FAINT,
-              maxWidth: '48ch', margin: 0, paddingBottom: '0.12em',
-            }}>[Scottish Gaelic — ground; The foundational theme of a pibroch**, from which every variation departs and to which it returns]</p>
+              fontSize: 'clamp(11px,1vw,13px)', lineHeight: 1.7, color: FAINT,
+              maxWidth: '46ch', margin: 0, paddingBottom: '.35em',
+            }}>[Scottish Gaelic — <span style={{ color: MUTED }}>ground</span>; the foundational theme of a pibroch, from which every variation departs and to which it returns.]</p>
           </div>
 
-          {/* Phonetic */}
           <p className="ul-ph" style={{
-            fontFamily: SANS,
-            fontWeight: 300,
-            fontSize: 'clamp(10px,1vw,12px)',
-            letterSpacing: '.26em',
-            color: FAINT,
-            margin: 'clamp(10px,1.2vw,16px) 0 0',
+            fontFamily: SANS, fontWeight: 300, fontSize: 'clamp(10px,1vw,12px)',
+            letterSpacing: '.26em', color: FAINT, margin: 'clamp(10px,1.2vw,16px) 0 0',
           }}>/ˈuːr-lər/ · OOR-lar</p>
 
-          {/* Strap */}
           <p className="ul-strap" style={{
-            fontFamily: DISP,
-            fontWeight: 400,
-            fontSize: 'clamp(18px,2.4vw,30px)',
-            lineHeight: 1.35,
-            color: INK,
-            maxWidth: '26ch',
+            fontFamily: DISP, fontWeight: 400, fontSize: 'clamp(16px,2vw,26px)',
+            lineHeight: 1.35, color: INK, maxWidth: '28ch',
             margin: 'clamp(14px,1.8vw,24px) 0 0',
-          }}>A live transmedia performance. Piano, synthesis, projection and quadraphonic sound.</p>
+          }}>A live performance of piano, synthesis, projection and quadraphonic sound.</p>
         </div>
 
-        {/* Right-side column — Oliveros epigraph */}
-        <div className="ul-quotebox ul-quote" style={{
-          position: 'absolute', right: 'clamp(34px,4.5vw,64px)', top: '50%', transform: 'translateY(-50%)',
-          maxWidth: '22ch', textAlign: 'right',
+        {/* Oliveros epigraph — sits in the gap between strap and date */}
+        <p className="ul-quote" style={{
+          fontFamily: SERIF, fontStyle: 'italic', fontWeight: 400,
+          fontSize: 'clamp(19px,2.4vw,30px)', lineHeight: 1.35, color: ACCENT,
+          maxWidth: '32ch', margin: 0,
         }}>
-          <p style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(17px,2vw,24px)', lineHeight: 1.45, color: ACCENT }}>
-            "To listen is to open to the possibility of change."
-          </p>
-          <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12 }}>
-            Pauline Oliveros
-          </p>
-        </div>
+          &ldquo;To listen is to open to the possibility of change.&rdquo;
+          <span style={{
+            display: 'block', fontFamily: SANS, fontStyle: 'normal', fontSize: 10,
+            letterSpacing: '.32em', textTransform: 'uppercase', color: FAINT, marginTop: 12,
+          }}>Pauline Oliveros</span>
+        </p>
 
-        {/* Bottom — bio + date/venue + sign-up */}
-        <div className="ul-bottom" style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(22px,3vw,42px)' }}>
-          <p className="ul-bio" style={{ fontSize: 'clamp(17px,2.2vw,25px)', fontWeight: 300, lineHeight: 1.5, color: MUTED, maxWidth: '40ch' }}>
-            Award-winning composer and improviser Giles Lamb. With a background in neuroscience and psychology, he shapes music and visuals, live, into a deep listening experience.
-          </p>
-
-          <div className="ul-bottomrow" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 28 }}>
-            <div style={{ fontSize: 13, letterSpacing: '.04em', color: MUTED }}>
-              <strong style={{ fontWeight: 500, color: INK, display: 'block', fontSize: 15, marginBottom: 3 }}>
-                Sunday 20 September 2026, 2–4pm
-              </strong>
-              KCR Academy Barn, Dalgarven Mill, KA13 6PL
+        {/* Bottom — date/venue + links */}
+        <div className="ul-bottom" style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(18px,2.2vw,30px)' }}>
+          <div className="ul-botrow" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{
+                fontFamily: DISP, fontWeight: 700, fontSize: 'clamp(28px,4.8vw,58px)',
+                lineHeight: .95, letterSpacing: '.01em', color: INK,
+              }}>
+                <span style={{ color: ACCENT }}>Sun 20 Sep</span> 2026
+              </div>
+              <div style={{ fontFamily: DISP, fontWeight: 500, fontSize: 'clamp(14px,1.7vw,21px)', letterSpacing: '.06em' }}>
+                2 – 4 PM
+              </div>
+              <div style={{
+                fontFamily: SANS, fontSize: 'clamp(11px,1.1vw,13px)', letterSpacing: '.22em',
+                textTransform: 'uppercase', color: MUTED, marginTop: 4,
+              }}>KCR Academy Barn · Dalgarven Mill · KA13 6PL</div>
             </div>
 
-            {/* Sign-up */}
-            <div style={{ width: '100%', maxWidth: 380 }}>
-              <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '.3em', textTransform: 'uppercase', color: ACCENT, marginBottom: 14 }}>
-                Be first to know when tickets open
-              </p>
-              {formState === 'done' ? (
-                <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 20, padding: '10px 0' }}>
-                  Thank you. You&rsquo;re on the list.
-                </p>
-              ) : (
-                <form onSubmit={handleSubmit} noValidate>
-                  <div style={{ display: 'flex', gap: 10 }}>
-                    <input name="name" type="text" placeholder="Name (optional)" autoComplete="name" style={fieldStyle} />
-                    <input name="email" type="email" placeholder="Email" required autoComplete="email" style={fieldStyle} />
-                  </div>
-                  {formError && (
-                    <p style={{ color: ACCENT, fontSize: 12, margin: '4px 0 8px', fontFamily: SANS }}>{formError}</p>
-                  )}
-                  <button className="ul-btn" type="submit" disabled={formState === 'sending'} style={{
-                    width: '100%', marginTop: 6,
-                    background: INK, color: '#0a0d12', border: 'none',
-                    padding: '13px 20px', cursor: formState === 'sending' ? 'wait' : 'pointer',
-                    fontFamily: SANS, fontSize: 11, letterSpacing: '.24em', textTransform: 'uppercase',
-                    transition: 'transform .2s,background .25s',
-                  }}>
-                    {formState === 'sending' ? 'Sending…' : 'Notify me'}
-                  </button>
-                  <p style={{ fontFamily: SANS, fontSize: 10, lineHeight: 1.6, color: FAINT, marginTop: 12 }}>
-                    {CONSENT_TEXT}
-                  </p>
-                </form>
-              )}
-            </div>
+            {!printMode && (
+              <a className="ul-cta" href="/urlar/tickets" style={{
+                fontFamily: SANS, fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase',
+                color: INK, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`,
+                paddingBottom: 5, whiteSpace: 'nowrap',
+              }}>Tickets &amp; updates →</a>
+            )}
           </div>
 
-          {/* Footnote + credit */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <p style={{ fontFamily: SANS, fontSize: 10, lineHeight: 1.55, color: FAINT, letterSpacing: '.01em', margin: 0 }}>
-              **pibroch, the classical theme-and-variations art music of the Highland bagpipe
-            </p>
-            <p style={{ fontFamily: SANS, fontSize: 10, lineHeight: 1.55, color: FAINT, letterSpacing: '.01em', margin: 0 }}>
-              <a href="https://gileslamb.com" className="ul-credit-link" style={{ color: 'inherit', textDecoration: 'none' }}>Giles Lamb</a>{' '}creates sound and music for some of the world&rsquo;s most iconic immersive exhibitions and experiences, and for landmark titles in games and film.
-            </p>
-          </div>
+          {!printMode && (
+            <div style={{ textAlign: 'center' }}>
+              <a className="ul-printlink" href="/urlar-poster.pdf" target="_blank" rel="noopener noreferrer" style={{
+                fontFamily: SANS, fontSize: 9.5, letterSpacing: '.3em', textTransform: 'uppercase',
+                color: FAINT, textDecoration: 'none', transition: 'color .2s',
+              }}>Download poster (PDF)</a>
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 }
-
-const fieldStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(245,243,237,.06)',
-  border: 'none',
-  borderBottom: `1px solid ${LINE}`,
-  padding: '12px 10px',
-  fontFamily: SANS,
-  fontSize: 14,
-  color: INK,
-  marginBottom: 10,
-  backdropFilter: 'blur(2px)',
-  outline: 'none',
-};
