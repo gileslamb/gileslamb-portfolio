@@ -362,18 +362,32 @@ export default function UrlarClient() {
               <div style={{ fontFamily: DISP, fontWeight: 500, fontSize: 'clamp(14px,1.7vw,21px)', letterSpacing: '.06em' }}>
                 2 – 4 PM
               </div>
-              <div style={{
-                fontFamily: SANS, fontSize: 'clamp(11px,1.1vw,13px)', letterSpacing: '.22em',
-                textTransform: 'uppercase', color: MUTED, marginTop: 4,
-              }}>KCR Academy Barn · Dalgarven Mill · KA13 6PL</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/kcr-academy-logo.png"
+                  alt="KCR Academy"
+                  style={{ height: 'clamp(34px,4vw,44px)', width: 'auto', flex: 'none' }}
+                />
+                <div style={{
+                  fontFamily: SANS, fontSize: 'clamp(11px,1.1vw,13px)', letterSpacing: '.22em',
+                  textTransform: 'uppercase', color: MUTED,
+                }}>KCR Academy Barn · Dalgarven Mill · KA13 6PL</div>
+              </div>
             </div>
 
             {!printMode && (
-              <a className="ul-cta" href="mailto:jane@kcracademy.com?subject=%C3%99rlar%20%E2%80%94%2020%20Sept%20%E2%80%94%20ticket%20request" style={{
-                fontFamily: SANS, fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase',
-                color: INK, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`,
-                paddingBottom: 5, whiteSpace: 'nowrap',
-              }}>Email to book — £20, 20 places</a>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
+                <a className="ul-cta" href="mailto:jane@kcracademy.com?subject=%C3%99rlar%20%E2%80%94%2020%20Sept%20%E2%80%94%20ticket%20request" style={{
+                  fontFamily: SANS, fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase',
+                  color: INK, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`,
+                  paddingBottom: 5, whiteSpace: 'nowrap',
+                }}>Email to book — £20, 20 places</a>
+                <p style={{
+                  fontFamily: SANS, fontSize: 11, lineHeight: 1.5, color: FAINT,
+                  margin: 0, textAlign: 'right',
+                }}>Bookings are handled by Jane at KCR Academy.</p>
+              </div>
             )}
           </div>
 
