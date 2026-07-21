@@ -4,9 +4,9 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Hls from 'hls.js';
 
 const MANIFEST =
-  'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/9510de9cffc769d1720604298dc57895/manifest/video.m3u8';
+  'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/09c888db1acd3ba26fb0f2b8bd28a292/manifest/video.m3u8';
 const THUMBNAIL =
-  'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/9510de9cffc769d1720604298dc57895/thumbnails/thumbnail.jpg?time=8s&height=1080';
+  'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/09c888db1acd3ba26fb0f2b8bd28a292/thumbnails/thumbnail.jpg?time=8s&height=1080';
 const TRACK_URL =
   'https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/resonant-beings/internal-logic-middle.m4a';
 const FADE = 1.2;
