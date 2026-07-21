@@ -369,11 +369,11 @@ export default function UrlarClient() {
             </div>
 
             {!printMode && (
-              <a className="ul-cta" href="/urlar/tickets" style={{
+              <a className="ul-cta" href="mailto:jane@kcracademy.com?subject=%C3%99rlar%20%E2%80%94%2020%20Sept%20%E2%80%94%20ticket%20request" style={{
                 fontFamily: SANS, fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase',
                 color: INK, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`,
                 paddingBottom: 5, whiteSpace: 'nowrap',
-              }}>Tickets &amp; updates →</a>
+              }}>Email to book — £20, 20 places</a>
             )}
           </div>
 
