@@ -3,13 +3,19 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Hls from 'hls.js';
 
-const MANIFEST =
-  'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/09c888db1acd3ba26fb0f2b8bd28a292/manifest/video.m3u8';
+const STREAM = 'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com';
+/* Background cycles through three clips with slow crossfades:
+   clean water → performer ghosted at 35% → performer ghosted at 50%. */
+const PLAYLIST = [
+  `${STREAM}/9510de9cffc769d1720604298dc57895/manifest/video.m3u8`, // clean
+  `${STREAM}/09c888db1acd3ba26fb0f2b8bd28a292/manifest/video.m3u8`, // 35% ghost
+  `${STREAM}/68eeb46ea059449e3660d0f785f8367f/manifest/video.m3u8`, // 50% ghost
+];
 const THUMBNAIL =
-  'https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/09c888db1acd3ba26fb0f2b8bd28a292/thumbnails/thumbnail.jpg?time=8s&height=1080';
+  `${STREAM}/9510de9cffc769d1720604298dc57895/thumbnails/thumbnail.jpg?time=8s&height=1080`;
 const TRACK_URL =
   'https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev/resonant-beings/internal-logic-middle.m4a';
-const FADE = 1.2;
+const FADE = 2.5;
 
 const INK = '#F5F3ED';
 const MUTED = 'rgba(245,243,237,.82)';
@@ -33,7 +39,6 @@ export default function UrlarClient() {
   const vidBRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const rafRef = useRef<number | null>(null);
-  const hlsRef = useRef<Hls[]>([]);
 
   const [playing, setPlaying] = useState(false);
   const [printMode, setPrintMode] = useState(false);
@@ -55,66 +60,94 @@ export default function UrlarClient() {
     };
   }, []);
 
-  /* Cloudflare Stream crossfade — skipped entirely in print mode */
+  /* Cloudflare Stream — cycle the 3-clip PLAYLIST with slow crossfades.
+     Two <video> elements ping-pong: one plays the current clip while the
+     other silently preloads the next; at the end we crossfade and advance.
+     Skipped entirely in print mode. */
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get('print') === '1') return;
-    const vidA = vidARef.current;
-    const vidB = vidBRef.current;
-    if (!vidA || !vidB) return;
+    const vids: HTMLVideoElement[] = [vidARef.current, vidBRef.current].filter(Boolean) as HTMLVideoElement[];
+    if (vids.length < 2) return;
 
-    function attach(v: HTMLVideoElement) {
-      if (v.canPlayType('application/vnd.apple.mpegurl')) {
-        v.src = MANIFEST;
-      } else if (Hls.isSupported()) {
-        const h = new Hls();
-        hlsRef.current.push(h);
-        h.loadSource(MANIFEST);
-        h.attachMedia(v);
-      } else {
-        v.src = MANIFEST;
-      }
+    const native = !!vids[0].canPlayType('application/vnd.apple.mpegurl');
+    const hlsInst: (Hls | null)[] = [null, null];
+    let cancelled = false;
+
+    /* Point element `i` at `url`; resolve once it can play from the start. */
+    function loadClip(i: number, url: string): Promise<void> {
+      const v = vids[i]!;
+      if (hlsInst[i]) { hlsInst[i]!.destroy(); hlsInst[i] = null; }
+      return new Promise((resolve) => {
+        if (native || !Hls.isSupported()) {
+          const onReady = () => { v.removeEventListener('loadeddata', onReady); resolve(); };
+          v.addEventListener('loadeddata', onReady);
+          v.src = url;
+          v.load();
+        } else {
+          const h = new Hls();
+          hlsInst[i] = h;
+          h.loadSource(url);
+          h.attachMedia(v);
+          h.on(Hls.Events.MANIFEST_PARSED, () => resolve());
+        }
+      });
     }
 
-    attach(vidA);
-    attach(vidB);
-
-    let front = vidA;
-    let back = vidB;
+    let front = 0;
+    let back = 1;
+    let idx = 0;              // PLAYLIST index currently on `front`
+    let backReady = false;
     let transitioning = false;
 
-    vidA.style.opacity = '1';
-    vidB.style.opacity = '0';
-    vidA.play().catch(() => {});
+    vids[front]!.style.opacity = '1';
+    vids[back]!.style.opacity = '0';
 
-    function swap() {
+    (async () => {
+      await loadClip(front, PLAYLIST[idx]);
+      if (cancelled) return;
+      vids[front]!.play().catch(() => {});
+      backReady = false;
+      await loadClip(back, PLAYLIST[(idx + 1) % PLAYLIST.length]);
+      if (!cancelled) backReady = true;
+    })();
+
+    function crossfade() {
       transitioning = true;
-      back.currentTime = 0;
-      back.play().catch(() => {});
-      back.style.opacity = '1';
-      front.style.opacity = '0';
-      const old = front;
-      front = back;
-      back = old;
+      const b = vids[back]!;
+      try { b.currentTime = 0; } catch (_) { /* ignored */ }
+      b.play().catch(() => {});
+      b.style.opacity = '1';
+      vids[front]!.style.opacity = '0';
+      const faded = front;
       setTimeout(() => {
-        back.pause();
-        try { back.currentTime = 0; } catch (_) { /* ignored */ }
+        if (cancelled) return;
+        vids[faded]!.pause();
+        front = back;
+        back = faded;
+        idx = (idx + 1) % PLAYLIST.length;
         transitioning = false;
-      }, FADE * 1000 + 60);
+        backReady = false;
+        loadClip(back, PLAYLIST[(idx + 1) % PLAYLIST.length]).then(() => {
+          if (!cancelled) backReady = true;
+        });
+      }, FADE * 1000 + 80);
     }
 
     function tick() {
-      if (!transitioning && isFinite(front.duration) && front.duration > 0) {
-        if (front.currentTime >= front.duration - FADE) swap();
+      const f = vids[front]!;
+      if (!transitioning && backReady && isFinite(f.duration) && f.duration > 0
+          && f.currentTime >= f.duration - FADE) {
+        crossfade();
       }
       rafRef.current = requestAnimationFrame(tick);
     }
     rafRef.current = requestAnimationFrame(tick);
 
     return () => {
+      cancelled = true;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      hlsRef.current.forEach(h => h.destroy());
-      hlsRef.current = [];
-      [vidA, vidB].forEach(v => { v.pause(); v.src = ''; });
+      hlsInst.forEach(h => h && h.destroy());
+      vids.forEach(v => { if (v) { v.pause(); v.src = ''; } });
     };
   }, []);
 
@@ -177,12 +210,12 @@ export default function UrlarClient() {
               ref={vidARef}
               muted playsInline preload="auto"
               poster={THUMBNAIL}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER, opacity: 0, transition: 'opacity 1.2s linear', willChange: 'opacity' }}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER, opacity: 0, transition: `opacity ${FADE}s linear`, willChange: 'opacity' }}
             />
             <video
               ref={vidBRef}
               muted playsInline preload="auto"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER, opacity: 0, transition: 'opacity 1.2s linear', willChange: 'opacity' }}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: VIDFILTER, opacity: 0, transition: `opacity ${FADE}s linear`, willChange: 'opacity' }}
             />
           </>
         )}
