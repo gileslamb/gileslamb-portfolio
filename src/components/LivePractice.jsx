@@ -34,6 +34,9 @@ export function LivePractice() {
           <Link href="/releases" className="live-text-cta reveal reveal-delay-2">
             Releases &rarr;
           </Link>
+          <Link href="/live" className="live-text-cta reveal reveal-delay-2">
+            Live &rarr;
+          </Link>
         </div>
         <div className="live-featured-link reveal reveal-delay-2">
           <div className="live-visual">

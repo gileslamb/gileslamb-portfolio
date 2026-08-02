@@ -2969,6 +2969,8 @@ p.immersive-reel-foot {
   color: var(--cream);
   border-bottom-color: rgba(201,169,110,.45);
 }
+/* homepage live section now carries two links (Releases, Live) */
+.live-text-cta + .live-text-cta { margin-left: 2rem; }
 .live-text-cta.live-text-cta-prose {
   text-transform: none;
   letter-spacing: 0.04em;
@@ -3992,4 +3994,123 @@ body.card-mode {
 body.card-mode .cursor,
 body.card-mode .cursor-ring {
   display: none !important;
+}
+
+/* ===== /live — live practice page ===== */
+/* Reuses .section-label, .live-headline, .live-body, .live-text-cta and
+   .live-coming-soon-* from the homepage live section. */
+.live-page {
+  min-height: 100vh;
+  padding: 9rem 3.5rem 5rem;
+  background: var(--black);
+}
+.live-page-intro {
+  margin-bottom: 4rem;
+  max-width: 640px;
+}
+.live-page-tagline {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--fog);
+  line-height: 1.6;
+}
+.live-page-section {
+  max-width: 900px;
+  margin-bottom: 5rem;
+}
+.live-page-section-ruled {
+  padding-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.live-page-strand-label {
+  font-size: 0.56rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 400;
+}
+.live-page-strand-label::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--accent);
+}
+.live-page .live-body {
+  max-width: 60ch;
+}
+.live-page-urlar {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+.live-page-urlar-text { min-width: 0; }
+.live-page-urlar-title {
+  font-style: italic;
+  margin-bottom: 0.6rem;
+}
+.live-page-pronounce {
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  color: var(--smoke);
+  margin-bottom: 1.2rem;
+}
+.live-page-gloss {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--sand);
+  max-width: 46ch;
+  margin-bottom: 2rem;
+}
+.live-page-gloss em { font-style: italic; color: var(--cream); }
+.live-page-quote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  line-height: 1.4;
+  color: var(--accent);
+  max-width: 32ch;
+  margin: 2.5rem 0;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--accent-dim);
+}
+.live-page-quote-cite {
+  display: block;
+  font-family: 'Karla', sans-serif;
+  font-style: normal;
+  font-size: 0.56rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--fog);
+  margin-top: 0.9rem;
+}
+.live-page-enquiry {
+  font-size: 0.82rem;
+  line-height: 1.95;
+  color: var(--fog);
+  margin: 2.5rem 0 0.5rem;
+}
+.live-page-urlar-visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--deep);
+}
+.live-page-urlar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.72) saturate(0.8);
+}
+@media (max-width: 900px) {
+  .live-page-urlar { grid-template-columns: 1fr; gap: 2.5rem; }
+  .live-page-urlar-visual { aspect-ratio: 16 / 10; order: -1; }
+}
+@media (max-width: 768px) {
+  .live-page { padding: 9rem 1.5rem 5rem; }
 }

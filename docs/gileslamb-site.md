@@ -2,7 +2,7 @@
 
 Canonical map of the gileslamb.com website: all routes, pages, content, infrastructure and conventions. Updated as the site changes. This is the document Claude Code reads at the start of any site session.
 
-**Last updated:** 18 June 2026 (wallet pass section added)
+**Last updated:** 2 August 2026 (/live rebuilt; homepage hero CTA changed)
 **Repo:** gileslamb.com (Next.js, deployed on Vercel)
 **Infrastructure:** Vercel (hosting), Cloudflare R2 (audio/media), Cloudflare Stream (video), Cloudflare Images (images)
 
@@ -37,7 +37,11 @@ Current nav items, left to right:
 **Title:** Giles Lamb · Composer · Immersive Sound Artist
 
 **Sections:**
-1. Hero — full-bleed studio photo, name, tagline, two CTAs (Selected Work / Commission a project)
+1. Hero — full-bleed studio photo, name, tagline, two CTAs (Selected Work → `#work` / Live → `/live`)
+
+   > "Commission a project" removed 2 Aug 2026. The site should read as an artist's site
+   > that takes commissions, not a services site — availability-for-hire is not the
+   > above-the-fold offer. Commission enquiry lives in the Contact section, unchanged.
 2. Showreel 2026 — Cloudflare Stream embed. Video ID: `00b4dbad6e415e5edbca3b3c3b507dff`
 3. Practice — "The medium shifts. The obsession doesn't." Three strands with filter tags:
    - 01 Film & Television (tags: Cinematic Trailer, Film Score, Animation, TV Series, Campaign)
@@ -67,6 +71,47 @@ Dedicated page for spatial sound, museum commissions and immersive installation 
 ### `/releases` — Releases
 
 Three sections: Live, Singles, Albums. Structure per `releases.md` in canonical docs.
+
+---
+
+### `/live` — Live
+
+**Rebuilt:** 2 August 2026 (App Router page, `src/app/live/page.jsx`)
+
+The live practice page. Two named strands, site design system, standard Nav + Footer:
+
+1. **The method — Unstable Systems.** Copy carried over from the homepage `LivePractice`
+   section. Links to `/releases`.
+2. **The event — Ùrlar.** Deep listening, spatial music and visuals. Positioning copy and
+   the hero still are sourced from the Ùrlar brochure pages (`/urlar`, `/urlar/host`) —
+   not rewritten. Includes the Oliveros epigraph and the pibroch gloss.
+
+**Framing:** Ùrlar is the event; Unstable Systems is the method underneath it.
+
+**Dates:** "Dates coming soon" only. No specific date, venue or ticketing link appears
+here, and this page deliberately does **not** link to `/urlar` or `/urlar/host` — see the
+warning under Ùrlar brochure pages below.
+
+**Contact:** reuses the existing site contact route (`/#contact`). No new form.
+
+**Linked from:** homepage hero CTA ("Live"), and a "Live →" link in the homepage
+`LivePractice` section. Not in global nav.
+
+**Previous occupant:** `/live` was an invite-only RSVP card for the 8 June 2026 preview
+(Curious Studios, Glasgow), served as static HTML via a `next.config.ts` rewrite. Archived
+2 Aug 2026 to `public/live-preview-8-june/index.html` → `/live-preview-8-june`
+(still `noindex, nofollow`).
+
+---
+
+### Ùrlar brochure pages — `/urlar`, `/urlar/host`, `/urlar/tickets`
+
+Unlisted pages (not in nav). Poster page, programmer/venue pitch page, and ticket capture.
+
+> ⚠️ **These pages carry the 20 September 2026 KCR Academy Barn date, venue and booking
+> contact.** That gig is handled privately through the promoter and is not intended to be
+> public on the site. `/live` does not link to them. Reviewed 2 Aug 2026 — left as-is,
+> pending a decision.
 
 ---
 
@@ -258,3 +303,7 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 | 18 Jun 2026 | Experience section reordered on LinkedIn — Giles Lamb Music now primary |
 | 18 Jun 2026 | /card post-tap links updated: Watch showreel + Animation work added |
 | 18 Jun 2026 | Apple Wallet pass structure built (shelved — needs Apple cert to sign) |
+| 2 Aug 2026 | `/live` rebuilt as an App Router page — Unstable Systems (method) + Ùrlar (event) strands; "Dates coming soon"; contact via `/#contact`. Ùrlar copy sourced from `/urlar` + `/urlar/host` |
+| 2 Aug 2026 | `/live` 8 June invite card archived to `/live-preview-8-june`; rewrite repointed |
+| 2 Aug 2026 | Homepage hero CTA: "Commission a project" removed, replaced with "Live" → `/live`. Contact section unchanged |
+| 2 Aug 2026 | "Live →" link added to homepage `LivePractice` section |

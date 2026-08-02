@@ -34,8 +34,10 @@ const nextConfig: NextConfig = {
         destination: "/releases/hemispheric-joy/listen/index.html",
       },
       {
-        source: "/live",
-        destination: "/live/index.html",
+        // Archived 2 Aug 2026: the 8 June 2026 invite-only preview card.
+        // /live is now an App Router page; the invite kept at its own URL.
+        source: "/live-preview-8-june",
+        destination: "/live-preview-8-june/index.html",
       },
     ];
   },

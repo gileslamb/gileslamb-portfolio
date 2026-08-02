@@ -129,8 +129,8 @@ export function Hero() {
         <Link href="#work" className="cta-primary">
           Selected Work
         </Link>
-        <Link href="#contact" className="cta-secondary">
-          Commission a project
+        <Link href="/live" className="cta-secondary">
+          Live
         </Link>
       </div>
 
