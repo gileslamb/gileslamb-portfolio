@@ -22,6 +22,10 @@ const DESC =
 export const metadata: Metadata = {
   title: "Ùrlar — a deep-listening performance · Giles Lamb",
   description: DESC,
+  /* Shared directly with programmers and the gig audience — reachable by link,
+     kept out of search. Matches /urlar and /urlar/tickets. OG/Twitter cards are
+     unaffected, so link previews still render when the page is shared. */
+  robots: { index: false, follow: false },
   alternates: { canonical: PAGE_URL },
   openGraph: {
     type: "website",

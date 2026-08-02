@@ -2,7 +2,7 @@
 
 Canonical map of the gileslamb.com website: all routes, pages, content, infrastructure and conventions. Updated as the site changes. This is the document Claude Code reads at the start of any site session.
 
-**Last updated:** 2 August 2026 (/live rebuilt; homepage hero CTA changed)
+**Last updated:** 2 August 2026 (/live rebuilt; hero CTA changed; Ùrlar noindex; meta description)
 **Repo:** gileslamb.com (Next.js, deployed on Vercel)
 **Infrastructure:** Vercel (hosting), Cloudflare R2 (audio/media), Cloudflare Stream (video), Cloudflare Images (images)
 
@@ -88,9 +88,9 @@ The live practice page. Two named strands, site design system, standard Nav + Fo
 
 **Framing:** Ùrlar is the event; Unstable Systems is the method underneath it.
 
-**Dates:** "Dates coming soon" only. No specific date, venue or ticketing link appears
-here, and this page deliberately does **not** link to `/urlar` or `/urlar/host` — see the
-warning under Ùrlar brochure pages below.
+**Dates:** "Dates coming soon" only — no specific date, venue or ticketing link. This page
+also does not link to `/urlar` or `/urlar/host`; see the note under the Ùrlar entry below —
+that is now a layout choice, not a constraint.
 
 **Contact:** reuses the existing site contact route (`/#contact`). No new form.
 
@@ -104,14 +104,43 @@ warning under Ùrlar brochure pages below.
 
 ---
 
-### Ùrlar brochure pages — `/urlar`, `/urlar/host`, `/urlar/tickets`
+### `/urlar` — Ùrlar brochure pages
 
-Unlisted pages (not in nav). Poster page, programmer/venue pitch page, and ticket capture.
+Three routes, all **live and deliberately shared** with the gig's audience and with
+programmers. Not in global nav — reached by direct link, QR, and email.
 
-> ⚠️ **These pages carry the 20 September 2026 KCR Academy Barn date, venue and booking
-> contact.** That gig is handled privately through the promoter and is not intended to be
-> public on the site. `/live` does not link to them. Reviewed 2 Aug 2026 — left as-is,
-> pending a decision.
+| Route | Purpose |
+|---|---|
+| `/urlar` | Poster page — full-viewport, crossfading Cloudflare Stream background, audio toggle, PDF poster download |
+| `/urlar/host` | Programmer/venue pitch — what Ùrlar is, what the room needs and gives back |
+| `/urlar/tickets` | Ticket/updates capture → `giles-engine` worker, `source: 'urlar'` |
+
+**Also:** `/resonantbeing` → `/urlar` (permanent redirect, `next.config.ts`).
+
+**Content:** these pages carry the 20 September 2026 date, KCR Academy Barn / Dalgarven
+Mill / KA13 6PL, and the `jane@kcracademy.com` booking mailto. This is intentional and
+correct — the pages exist to be shared with that audience. **Do not remove, redirect,
+unpublish or edit that content.**
+
+**Indexing — `noindex, nofollow` by design (2 Aug 2026).** Reachable by anyone with the
+link; kept out of search results. Set per route via the Next.js metadata API:
+
+- `src/app/urlar/page.tsx` — `robots: { index: false, follow: false }`
+- `src/app/urlar/tickets/page.tsx` — same
+- `src/app/urlar/host/page.tsx` — same (added 2 Aug 2026; the other two already had it)
+
+Deliberately **not** a global rule, so the rest of the site stays indexable. OpenGraph and
+Twitter card metadata on `/urlar/host` is unaffected — link previews still render when the
+page is shared.
+
+> No `sitemap.xml` and no `robots.txt` exist in this repo (no `src/app/sitemap.ts`,
+> no `src/app/robots.ts`, nothing in `public/`). Nothing to exclude and nothing that
+> contradicts the per-route rules. **If a sitemap is ever added, exclude these three
+> routes**, and keep any `robots.txt` free of `Allow` rules that would conflict.
+
+**Note on `/live`:** `/live` does not link to these pages. That was a decision made under
+an earlier, since-retracted instruction to keep the September gig off the site; it is now
+simply a layout choice, not a constraint. Linking `/live` → `/urlar/host` would be fine.
 
 ---
 
@@ -307,3 +336,5 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 | 2 Aug 2026 | `/live` 8 June invite card archived to `/live-preview-8-june`; rewrite repointed |
 | 2 Aug 2026 | Homepage hero CTA: "Commission a project" removed, replaced with "Live" → `/live`. Contact section unchanged |
 | 2 Aug 2026 | "Live →" link added to homepage `LivePractice` section |
+| 2 Aug 2026 | `/urlar/host` given `robots: { index: false, follow: false }` — all three Ùrlar routes now noindex/nofollow by design, per route, no global rule. Pages stay live and shared; no visible content changed |
+| 2 Aug 2026 | Global meta description updated — "Signal Dreams" removed, replaced with current positioning. `<title>` unchanged |
