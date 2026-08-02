@@ -2,7 +2,7 @@
 
 Canonical map of the gileslamb.com website: all routes, pages, content, infrastructure and conventions. Updated as the site changes. This is the document Claude Code reads at the start of any site session.
 
-**Last updated:** 2 August 2026 (/live rebuilt; hero CTA changed; Ùrlar noindex; meta description)
+**Last updated:** 3 August 2026 (LIVE added to global nav)
 **Repo:** gileslamb.com (Next.js, deployed on Vercel)
 **Infrastructure:** Vercel (hosting), Cloudflare R2 (audio/media), Cloudflare Stream (video), Cloudflare Images (images)
 
@@ -24,9 +24,14 @@ Canonical map of the gileslamb.com website: all routes, pages, content, infrastr
 
 Current nav items, left to right:
 
-`GILES LAMB` (home) · `ANIMATION` · `INSTALLATION & MUSEUM` · `LISTEN` · `RELEASES` · `ESSAYS` · `CONTACT`
+`GILES LAMB` (home) · `ANIMATION` · `INSTALLATION & MUSEUM` · `LIVE` · `LISTEN` · `RELEASES` · `ESSAYS` · `CONTACT`
 
 > Note: LISTEN added 18 June 2026. Previously the reels section was not linked from nav.
+> LIVE → `/live` added 3 Aug 2026, between INSTALLATION & MUSEUM and LISTEN.
+
+Nav items are defined twice in `src/components/Nav.jsx` — the desktop `ul.nav-links` and
+the mobile `ul.nav-overlay-links` (whose links also take `onClick={closeMenu}`). **Both
+lists must be kept in sync** when adding or removing an item.
 
 ---
 
@@ -94,8 +99,8 @@ that is now a layout choice, not a constraint.
 
 **Contact:** reuses the existing site contact route (`/#contact`). No new form.
 
-**Linked from:** homepage hero CTA ("Live"), and a "Live →" link in the homepage
-`LivePractice` section. Not in global nav.
+**Linked from:** global nav (LIVE, added 3 Aug 2026), homepage hero CTA ("Live"), and a
+"Live →" link in the homepage `LivePractice` section.
 
 **Previous occupant:** `/live` was an invite-only RSVP card for the 8 June 2026 preview
 (Curious Studios, Glasgow), served as static HTML via a `next.config.ts` rewrite. Archived
@@ -338,3 +343,4 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 | 2 Aug 2026 | "Live →" link added to homepage `LivePractice` section |
 | 2 Aug 2026 | `/urlar/host` given `robots: { index: false, follow: false }` — all three Ùrlar routes now noindex/nofollow by design, per route, no global rule. Pages stay live and shared; no visible content changed |
 | 2 Aug 2026 | Global meta description updated — "Signal Dreams" removed, replaced with current positioning. `<title>` unchanged |
+| 3 Aug 2026 | LIVE → `/live` added to global nav, between INSTALLATION & MUSEUM and LISTEN. Added to both the desktop and mobile-overlay lists in `Nav.jsx`; no restructure, no styling change |
