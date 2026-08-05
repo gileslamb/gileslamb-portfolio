@@ -66,13 +66,13 @@ export default function ExcerptPlayer() {
   return (
     <div
       className="flex flex-col justify-between"
-      style={{ border: '1px solid var(--ash)', padding: '1.1rem 1.25rem', minHeight: '92px' }}
+      style={{ border: '1px solid var(--ash)', padding: 'calc(var(--u) * 1.1) calc(var(--u) * 1.25)', minHeight: 'calc(var(--u) * 5.75)' }}
     >
       <style>{`
         .uh-xbtn { transition: background .25s ease, border-color .25s ease; }
         .uh-xbtn:hover { background: rgba(212,201,184,.10); border-color: var(--accent); }
         .uh-xbar { cursor: pointer; }
-        .uh-wave { display:flex; align-items:flex-end; gap:2px; height:26px; width:100%; }
+        .uh-wave { display:flex; align-items:flex-end; gap:2px; height:calc(var(--u) * 1.625); width:100%; }
         .uh-wave i { display:block; flex:1 1 0; min-width:1px; background:#6e5c45; transform-origin:bottom;
           transition: background .3s ease; }
         .uh-wave.on i { background:var(--accent-dim); animation:uh-wave 1.25s ease-in-out infinite; }
@@ -83,13 +83,13 @@ export default function ExcerptPlayer() {
         @media (prefers-reduced-motion:reduce) { .uh-wave.on i { animation:none; } }
       `}</style>
 
-      <div className="flex items-center" style={{ gap: '0.85rem' }}>
+      <div className="flex items-center" style={{ gap: 'calc(var(--u) * 0.85)' }}>
         <button
           className="uh-xbtn grid shrink-0 place-items-center"
           onClick={toggle}
           aria-label={playing ? 'Pause excerpt' : 'Play excerpt'}
           style={{
-            width: 34, height: 34, border: '1px solid rgba(212,201,184,.24)',
+            width: 'calc(var(--u) * 2.125)', height: 'calc(var(--u) * 2.125)', border: '1px solid rgba(212,201,184,.24)',
             background: 'transparent', color: 'var(--sand)', cursor: 'pointer',
           }}
         >
@@ -109,7 +109,7 @@ export default function ExcerptPlayer() {
           <div
             style={{
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: '1.02rem', lineHeight: 1.25, color: 'var(--cream)',
+              fontSize: 'calc(var(--u) * 1.02)', lineHeight: 1.25, color: 'var(--cream)',
             }}
           >
             Listen
@@ -117,8 +117,8 @@ export default function ExcerptPlayer() {
           <div
             style={{
               fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
-              fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--smoke)',
-              marginTop: '0.25rem',
+              fontSize: 'calc(var(--u) * 0.62)', letterSpacing: '0.1em', color: 'var(--smoke)',
+              marginTop: 'calc(var(--u) * 0.25)',
             }}
           >
             {clock(at)} / {clock(len)}
@@ -126,11 +126,14 @@ export default function ExcerptPlayer() {
         </div>
       </div>
 
-      <div className={`uh-wave${playing ? ' on' : ''}`} aria-hidden="true" style={{ marginTop: '0.75rem' }}>
+      <div className={`uh-wave${playing ? ' on' : ''}`} aria-hidden="true" style={{ marginTop: 'calc(var(--u) * 0.75)' }}>
         {BARS.map((h, i) => (
           <i
             key={i}
-            style={{ height: `${Math.round(h * 26)}px`, animationDelay: `${(i % 9) * 0.11}s` }}
+            style={{
+              height: `calc(var(--u) * ${(h * 1.625).toFixed(3)})`,
+              animationDelay: `${(i % 9) * 0.11}s`,
+            }}
           />
         ))}
       </div>
@@ -138,7 +141,7 @@ export default function ExcerptPlayer() {
       <div
         className="uh-xbar"
         onClick={seek}
-        style={{ marginTop: '0.7rem', height: 1, background: 'var(--ash)', position: 'relative' }}
+        style={{ marginTop: 'calc(var(--u) * 0.7)', height: 1, background: 'var(--ash)', position: 'relative' }}
       >
         <div
           style={{

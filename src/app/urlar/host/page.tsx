@@ -20,7 +20,6 @@ const PAGE_URL = "https://www.gileslamb.com/urlar/host";
 const EMAIL = "giles@gileslamb.com";
 const STILL =
   "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/1fceb1b8-7959-4ce2-b885-a107fd74d300/public";
-const MAILTO = `mailto:${EMAIL}?subject=%C3%99rlar%3A%20dates`;
 
 const DESC =
   "A deep-listening performance. Piano and modular synthesis in a quadraphonic sound field, with slow projected light. An occasional series for rooms not built as music venues.";
@@ -120,9 +119,9 @@ function Lyre({ className }: { className: string }) {
 /* (2) fact bar */
 const FACTS: [string, string][] = [
   ["Duration", "70 minutes, no interval"],
-  ["Sound", "Quadraphonic, four point"],
+  ["Sound", "Quadraphonic spatial"],
   ["Capacity", "20 to 60"],
-  ["Support", "One invited guest"],
+  ["Support", "Scope for an invited guest"],
 ];
 
 /* (3) in the room */
@@ -143,22 +142,22 @@ const ROOM: [string, string][] = [
 
 /* (5) rider */
 const RIDER: [string, string][] = [
-  ["Blackout", "Full blackout. This is the single hard requirement."],
+  ["Blackout", "Full blackout, or after dark."],
   ["Room", "Character surfaces suit it best: stone, plaster, timber."],
   ["Get-in", "Four hours before doors, two after."],
-  ["Power", "Standard 13A."],
   [
     "System",
-    "Quadraphonic speakers, subwoofer, projector, scrim, piano, modular. All of it arrives with me.",
+    "Quadraphonic speakers, subwoofer, projector, scrim, digital piano, modular. All of it arrives with me.",
   ],
-  ["Fixings", "Nothing fixes to the building."],
-  ["Running order", "Around 70 minutes, no interval, plus a guest opener."],
+  ["Installation", "Freestanding. Nothing fixes to the building."],
+  ["Seating", "Seating, mats or floor cushions, from the venue."],
+  ["Running order", "Around 70 minutes, no interval, plus scope for a guest opener."],
   ["Capacity", "20 to 60, depending on layout."],
 ];
 
 const label: React.CSSProperties = {
   fontFamily: SANS,
-  fontSize: "0.66rem",
+  fontSize: "calc(var(--u) * 0.66)",
   fontWeight: 400,
   letterSpacing: "0.26em",
   textTransform: "uppercase",
@@ -169,24 +168,21 @@ const label: React.CSSProperties = {
 const prose: React.CSSProperties = {
   fontFamily: SERIF,
   fontWeight: 400,
-  fontSize: "clamp(1.02rem,1.4vw,1.15rem)",
+  fontSize: "clamp(calc(var(--u) * 1.02),1.4vw,calc(var(--u) * 1.15))",
   lineHeight: 1.65,
   color: "var(--warm)",
 };
 
-const slot: React.CSSProperties = {
-  border: "1px solid var(--ash)",
-  fontFamily: MONO,
-  fontSize: "0.68rem",
-  letterSpacing: "0.1em",
-  color: "var(--smoke)",
-};
 
 export default function UrlarHostPage() {
   return (
     <main style={{ background: "var(--black)", color: "var(--warm)" }}>
       <style>{`
-        .uh { overflow-x:clip; }
+        /* One fluid unit drives every size on the page. It holds at 16px up to
+           1440, grows to 20px by 2200, then stops, so the layout scales as a
+           whole on large windows without turning the wordmark into a banner.
+           Hairlines stay 1px on purpose. */
+        .uh { overflow-x:clip; --u:clamp(16px, .526vw + 8.42px, 20px); }
         .uh a.back:hover { color: var(--warm); }
         .uh a.cta { transition: background .3s ease, letter-spacing .3s ease; }
         .uh a.cta:hover { background: var(--cream); letter-spacing: .3em; }
@@ -202,10 +198,10 @@ export default function UrlarHostPage() {
           width:150vw; height:150vw; max-width:1500px; max-height:1500px;
           z-index:-1; pointer-events:none; }
         .uh-rings { display:block; width:100%; height:100%; }
-        .uh-lyre-hero { height:clamp(3.5rem,10.2vw,6.4rem); width:auto;
+        .uh-lyre-hero { height:clamp(calc(var(--u) * 3.5),10.2vw,calc(var(--u) * 6.4)); width:auto;
           position:relative; top:-.08em; }
         .uh-plate { position:fixed; z-index:2; pointer-events:none;
-          inset:clamp(.75rem,1.8vw,1.35rem); border:1px solid #1c1915; }
+          inset:clamp(calc(var(--u) * 0.75),1.8vw,calc(var(--u) * 1.35)); border:1px solid #1c1915; }
         .uh-plate span { position:absolute; width:9px; height:9px; }
         .uh-plate span::before, .uh-plate span::after { content:''; position:absolute; background:#3b352d; }
         .uh-plate span::before { left:0; top:0; width:9px; height:1px; }
@@ -214,6 +210,11 @@ export default function UrlarHostPage() {
         .uh-plate .tr { right:-1px; top:-1px; transform:scaleX(-1); }
         .uh-plate .bl { left:-1px; bottom:-1px; transform:scaleY(-1); }
         .uh-plate .br { right:-1px; bottom:-1px; transform:scale(-1,-1); }
+        /* Rider rows: label column and gutter scale with the page. */
+        .uh-rider-row { display:grid; grid-template-columns:1fr; gap:calc(var(--u) * 0.25); }
+        @media (min-width:640px){
+          .uh-rider-row { grid-template-columns:calc(var(--u) * 9) 1fr; gap:calc(var(--u) * 1.5); }
+        }
         /* Hairline dividers between fact cells: vertical on the row, and on the
            2x2 stack only between columns. */
         .uh-fact + .uh-fact { border-left:1px solid var(--ash); }
@@ -240,7 +241,7 @@ export default function UrlarHostPage() {
           href="https://www.gileslamb.com"
           className="back fixed left-7 top-6 z-10 no-underline"
           style={{
-            fontFamily: SANS, fontSize: "0.72rem", letterSpacing: "0.06em",
+            fontFamily: SANS, fontSize: "calc(var(--u) * 0.72)", letterSpacing: "0.06em",
             color: "rgba(212,201,184,0.5)", transition: "color .2s ease",
           }}
         >
@@ -250,8 +251,14 @@ export default function UrlarHostPage() {
         <AudioToggle />
 
         <div
-          className="relative z-[1] w-full max-w-2xl"
-          style={{ margin: "0 auto", padding: "clamp(5rem,12vw,8rem) clamp(1.5rem,5vw,2rem) 6rem" }}
+          className="relative z-[1] w-full"
+          style={{
+            margin: "0 auto", maxWidth: "calc(var(--u) * 42)",
+            padding:
+              "clamp(calc(var(--u) * 5),12vw,calc(var(--u) * 8))" +
+              " clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2))" +
+              " calc(var(--u) * 6)",
+          }}
         >
           {/* ===== (1) HERO, the only centred block ===== */}
           <header className="relative text-center">
@@ -264,13 +271,13 @@ export default function UrlarHostPage() {
             {/* Lyre locked to the left of the wordmark, optically centred on it */}
             <div
               className="flex items-center justify-center"
-              style={{ gap: "clamp(0.9rem,2.2vw,1.6rem)", marginTop: "1.5rem" }}
+              style={{ gap: "clamp(calc(var(--u) * 0.9),2.2vw,calc(var(--u) * 1.6))", marginTop: "calc(var(--u) * 1.5)" }}
             >
               <Lyre className="uh-lyre-hero shrink-0" />
               <h1
                 style={{
                   fontFamily: SERIF, fontStyle: "italic", fontWeight: 300,
-                  fontSize: "clamp(3.6rem,11vw,7rem)", lineHeight: 0.9,
+                  fontSize: "clamp(calc(var(--u) * 3.6),11vw,calc(var(--u) * 7))", lineHeight: 0.9,
                   letterSpacing: "-0.02em", color: "var(--cream)", margin: 0,
                 }}
               >
@@ -280,8 +287,8 @@ export default function UrlarHostPage() {
 
             <p
               style={{
-                fontFamily: MONO, fontSize: "0.72rem", letterSpacing: "0.12em",
-                color: "var(--smoke)", margin: "1rem 0 0",
+                fontFamily: MONO, fontSize: "calc(var(--u) * 0.72)", letterSpacing: "0.12em",
+                color: "var(--smoke)", margin: "calc(var(--u) * 1) 0 0",
               }}
             >
               [ ˈuːr-lər ]
@@ -289,10 +296,10 @@ export default function UrlarHostPage() {
 
             <p
               className="max-w-[46ch]"
-              style={{ ...prose, color: "var(--sand)", margin: "1.75rem auto 0" }}
+              style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1.75) auto 0" }}
             >
               A 70-minute deep-listening concert for piano and modular synthesis, played into a
-              quadraphonic field of sound and slow projected light.
+              quadraphonic spatial field of sound and slow projected light.
             </p>
           </header>
 
@@ -300,7 +307,7 @@ export default function UrlarHostPage() {
           <section
             className="grid grid-cols-2 sm:grid-cols-4"
             style={{
-              marginTop: "clamp(3.5rem,8vw,5rem)",
+              marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5))",
               borderTop: "1px solid var(--ash)", borderBottom: "1px solid var(--ash)",
             }}
           >
@@ -308,13 +315,13 @@ export default function UrlarHostPage() {
               <div
                 key={k}
                 className="uh-fact"
-                style={{ padding: "1.25rem 1rem", ...(i === 0 ? { paddingLeft: 0 } : null) }}
+                style={{ padding: "calc(var(--u) * 1.25) calc(var(--u) * 1)", ...(i === 0 ? { paddingLeft: 0 } : null) }}
               >
-                <div style={{ ...label, fontSize: "0.58rem", letterSpacing: "0.2em" }}>{k}</div>
+                <div style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>{k}</div>
                 <div
                   style={{
-                    fontFamily: SERIF, fontSize: "1rem", lineHeight: 1.35,
-                    color: "var(--cream)", marginTop: "0.5rem",
+                    fontFamily: SERIF, fontSize: "calc(var(--u) * 1)", lineHeight: 1.35,
+                    color: "var(--cream)", marginTop: "calc(var(--u) * 0.5)",
                   }}
                 >
                   {v}
@@ -324,23 +331,23 @@ export default function UrlarHostPage() {
           </section>
 
           {/* ===== (3) IN THE ROOM ===== */}
-          <section style={{ marginTop: "clamp(3.5rem,8vw,5.5rem)" }}>
+          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
             <h2 style={label}>In the room</h2>
             <div
               className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-7"
-              style={{ marginTop: "1.75rem" }}
+              style={{ marginTop: "calc(var(--u) * 1.75)" }}
             >
               {ROOM.map(([head, copy]) => (
                 <div key={head}>
                   <h3
                     style={{
                       fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
-                      fontSize: "1.3rem", lineHeight: 1.2, color: "var(--cream)", margin: 0,
+                      fontSize: "calc(var(--u) * 1.3)", lineHeight: 1.2, color: "var(--cream)", margin: 0,
                     }}
                   >
                     {head}
                   </h3>
-                  <p style={{ ...prose, fontSize: "0.94rem", lineHeight: 1.6, margin: "0.7rem 0 0" }}>
+                  <p style={{ ...prose, fontSize: "calc(var(--u) * 0.94)", lineHeight: 1.6, margin: "calc(var(--u) * 0.7) 0 0" }}>
                     {copy}
                   </p>
                 </div>
@@ -351,14 +358,14 @@ export default function UrlarHostPage() {
           {/* ===== (4) ETYMOLOGY, pull-quote on a left rule ===== */}
           <blockquote
             style={{
-              borderLeft: "1px solid var(--accent-dim)", paddingLeft: "1.5rem",
-              margin: "clamp(3.5rem,8vw,5.5rem) 0 0",
+              borderLeft: "1px solid var(--accent-dim)", paddingLeft: "calc(var(--u) * 1.5)",
+              margin: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5)) 0 0",
             }}
           >
             <p
               style={{
                 fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
-                fontSize: "clamp(1.3rem,2.5vw,1.65rem)", lineHeight: 1.4,
+                fontSize: "clamp(calc(var(--u) * 1.3),2.5vw,calc(var(--u) * 1.65))", lineHeight: 1.4,
                 color: "var(--cream)", margin: 0,
               }}
             >
@@ -367,11 +374,11 @@ export default function UrlarHostPage() {
           </blockquote>
 
           {/* ===== EXCERPT: player alongside the floating toggle, and a still ===== */}
-          <section style={{ marginTop: "clamp(3.5rem,8vw,5.5rem)" }}>
+          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
             <h2 style={label}>Excerpt</h2>
             <div
               className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-              style={{ marginTop: "1.5rem" }}
+              style={{ marginTop: "calc(var(--u) * 1.5)" }}
             >
               <ExcerptPlayer />
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -383,7 +390,7 @@ export default function UrlarHostPage() {
                 loading="lazy"
                 style={{
                   display: "block", width: "100%", height: "100%",
-                  minHeight: "92px", objectFit: "cover",
+                  minHeight: "calc(var(--u) * 5.75)", objectFit: "cover",
                   border: "1px solid var(--ash)", filter: "saturate(.82) brightness(.72)",
                 }}
               />
@@ -391,19 +398,19 @@ export default function UrlarHostPage() {
           </section>
 
           {/* ===== (5) HOSTING IT ===== */}
-          <section style={{ marginTop: "clamp(3.5rem,8vw,5.5rem)" }}>
+          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
             <h2 style={label}>Hosting it</h2>
-            <dl style={{ borderTop: "1px solid var(--ash)", margin: "1.5rem 0 0" }}>
+            <dl style={{ borderTop: "1px solid var(--ash)", margin: "calc(var(--u) * 1.5) 0 0" }}>
               {RIDER.map(([k, v]) => (
                 <div
                   key={k}
-                  className="grid grid-cols-1 gap-1 sm:grid-cols-[9rem_1fr] sm:gap-6"
-                  style={{ borderBottom: "1px solid var(--ash)", padding: "1rem 0" }}
+                  className="uh-rider-row"
+                  style={{ borderBottom: "1px solid var(--ash)", padding: "calc(var(--u) * 1) 0" }}
                 >
-                  <dt style={{ ...label, fontSize: "0.6rem", letterSpacing: "0.2em", paddingTop: "0.3rem" }}>
+                  <dt style={{ ...label, fontSize: "calc(var(--u) * 0.6)", letterSpacing: "0.2em", paddingTop: "calc(var(--u) * 0.3)" }}>
                     {k}
                   </dt>
-                  <dd style={{ ...prose, fontSize: "0.99rem", lineHeight: 1.55, margin: 0 }}>{v}</dd>
+                  <dd style={{ ...prose, fontSize: "calc(var(--u) * 0.99)", lineHeight: 1.55, margin: 0 }}>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -415,41 +422,49 @@ export default function UrlarHostPage() {
           <div
             className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
             style={{
-              marginTop: "clamp(3.5rem,8vw,5.5rem)", paddingTop: "2rem",
+              marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))", paddingTop: "calc(var(--u) * 2)",
               borderTop: "1px solid var(--ash)",
             }}
           >
             <div>
-              <div style={{ ...label, fontSize: "0.58rem", letterSpacing: "0.2em" }}>Confirmed</div>
+              <div style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>Confirmed</div>
               <p
                 style={{
-                  fontFamily: SERIF, fontSize: "1.3rem", lineHeight: 1.3,
-                  color: "var(--cream)", margin: "0.6rem 0 0",
+                  fontFamily: SERIF, fontSize: "calc(var(--u) * 1.3)", lineHeight: 1.3,
+                  color: "var(--cream)", margin: "calc(var(--u) * 0.6) 0 0",
                 }}
               >
                 Sunday 20 September 2026
               </p>
               <p
                 style={{
-                  fontFamily: SANS, fontWeight: 300, fontSize: "0.82rem", lineHeight: 1.55,
-                  color: "var(--sand)", margin: "0.35rem 0 0",
+                  fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)", lineHeight: 1.55,
+                  color: "var(--sand)", margin: "calc(var(--u) * 0.35) 0 0",
                 }}
               >
                 KCR Academy Barn, Dalgarven Mill, Ayrshire, with Seth Gardner (gong).
               </p>
+              <p
+                style={{
+                  fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)", lineHeight: 1.55,
+                  color: "var(--sand)", margin: "calc(var(--u) * 0.35) 0 0",
+                }}
+              >
+                Winter dates available — October to January.
+              </p>
             </div>
 
             <a
-              href={MAILTO}
+              href={`mailto:${EMAIL}`}
               className="cta inline-block shrink-0 no-underline"
               style={{
-                fontFamily: SANS, fontSize: "0.72rem", fontWeight: 400,
+                fontFamily: SANS, fontSize: "calc(var(--u) * 0.72)", fontWeight: 400,
                 letterSpacing: "0.26em", textTransform: "uppercase",
                 background: "var(--accent)", color: "var(--black)",
-                padding: "1.05rem 2.4rem", display: "inline-block",
+                padding: "calc(var(--u) * 1.05) calc(var(--u) * 2.4)", display: "inline-block",
               }}
             >
-              Find a date
+              {EMAIL}
             </a>
           </div>
         </div>
