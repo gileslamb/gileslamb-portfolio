@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import CardClient from './CardClient';
+import { CAPTURE_ENDPOINT } from '@/lib/capture';
 
 export const CARD_EVENTS: Record<string, { name: string; accent: string; stingUrl: string | null }> = {
   'annecy-2026': { name: 'Annecy 2026', accent: '#c9a96e', stingUrl: '/audio/resonant-being-part-2.mp3' },
@@ -27,7 +28,7 @@ export default async function CardPage({ params }: Props) {
       eventName={cfg.name}
       accent={cfg.accent}
       stingUrl={cfg.stingUrl}
-      captureEndpoint={process.env.NEXT_PUBLIC_CAPTURE_ENDPOINT ?? 'https://giles-engine.gileslamb.workers.dev/capture'}
+      captureEndpoint={CAPTURE_ENDPOINT}
       turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY ?? ''}
     />
   );

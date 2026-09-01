@@ -4114,3 +4114,9 @@ body.card-mode .cursor-ring {
 @media (max-width: 768px) {
   .live-page { padding: 9rem 1.5rem 5rem; }
 }
+
+/* ===== /list — mailing list signup ===== */
+/* Same cursor handling as .card-mode, without the scroll lock. */
+body.list-mode { cursor: auto; }
+body.list-mode .cursor,
+body.list-mode .cursor-ring { display: none !important; }
