@@ -8,7 +8,14 @@ export const LIST_CONSENT_TEXT =
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-/** Kit form subscription. Returns false on any failure — never throws. */
+/**
+ * Kit form subscription. Returns false on any failure — never throws.
+ *
+ * Two steps, and the order matters: Kit v4 404s on POST /forms/{id}/subscribers
+ * unless the subscriber already exists, so create it first. Creating an address
+ * that is already on the account is not an error, so a failure at step 1 is
+ * logged and we still try to add it to the form.
+ */
 async function subscribeToKit(email: string): Promise<boolean> {
   const apiKey = process.env.KIT_API_KEY;
   const formId = process.env.KIT_FORM_ID;
@@ -18,17 +25,29 @@ async function subscribeToKit(email: string): Promise<boolean> {
     return false;
   }
 
+  const headers = {
+    'Content-Type': 'application/json',
+    'X-Kit-Api-Key': apiKey,
+  };
+  const body = JSON.stringify({ email_address: email });
+
   try {
-    const res = await fetch(`https://api.kit.com/v4/forms/${formId}/subscribers`, {
+    const created = await fetch('https://api.kit.com/v4/subscribers', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Kit-Api-Key': apiKey,
-      },
-      body: JSON.stringify({ email_address: email }),
+      headers,
+      body,
     });
-    if (!res.ok) {
-      console.error('[list] Kit rejected subscribe:', res.status, await res.text().catch(() => ''));
+    if (!created.ok) {
+      console.warn('[list] Kit create subscriber:', created.status, await created.text().catch(() => ''));
+    }
+
+    const added = await fetch(`https://api.kit.com/v4/forms/${formId}/subscribers`, {
+      method: 'POST',
+      headers,
+      body,
+    });
+    if (!added.ok) {
+      console.error('[list] Kit rejected form subscribe:', added.status, await added.text().catch(() => ''));
       return false;
     }
     return true;
