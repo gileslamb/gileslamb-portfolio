@@ -16,13 +16,14 @@ const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
  * that is already on the account is not an error, so a failure at step 1 is
  * logged and we still try to add it to the form.
  */
-async function subscribeToKit(email: string): Promise<boolean> {
+async function subscribeToKit(email: string): Promise<{ subscribed: boolean; tagged: boolean }> {
   const apiKey = process.env.KIT_API_KEY;
   const formId = process.env.KIT_FORM_ID;
+  const tagId = process.env.KIT_TAG_ID;
 
   if (!apiKey || !formId) {
     console.error('[list] KIT_API_KEY or KIT_FORM_ID not set — skipping Kit');
-    return false;
+    return { subscribed: false, tagged: false };
   }
 
   const headers = {
@@ -48,12 +49,30 @@ async function subscribeToKit(email: string): Promise<boolean> {
     });
     if (!added.ok) {
       console.error('[list] Kit rejected form subscribe:', added.status, await added.text().catch(() => ''));
-      return false;
+      return { subscribed: false, tagged: false };
     }
-    return true;
+
+    // Tag is what the broadcast segments on, so a failure here is worth its own
+    // log line — the address is still subscribed either way.
+    let tagged = false;
+    if (tagId) {
+      const t = await fetch(`https://api.kit.com/v4/tags/${tagId}/subscribers`, {
+        method: 'POST',
+        headers,
+        body,
+      });
+      tagged = t.ok;
+      if (!t.ok) {
+        console.error('[list] Kit rejected tag:', t.status, await t.text().catch(() => ''));
+      }
+    } else {
+      console.error('[list] KIT_TAG_ID not set — subscriber added but not tagged');
+    }
+
+    return { subscribed: true, tagged };
   } catch (err) {
     console.error('[list] Kit request failed:', err);
-    return false;
+    return { subscribed: false, tagged: false };
   }
 }
 
