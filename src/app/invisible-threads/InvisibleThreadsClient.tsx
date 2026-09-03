@@ -9,7 +9,8 @@ const R2_BASE =
 const VIDEO_SRC = `${R2_BASE}invisible-threads_listening-room_WEB_1440_h264.mp4`;
 const STREAM_SRC = `${R2_BASE}invisible-threads_listening-room_STREAM_aac256.m4a`;
 
-const CD_URL = "https://gileslamb.gumroad.com/l/invisible-threads";
+/* PLACEHOLDER — swap for the Bandcamp album link Giles supplies */
+const BANDCAMP_URL = "https://gileslamb.bandcamp.com/album/invisible-threads";
 /* PLACEHOLDER — swap for the Cancer Research UK link Giles supplies */
 const DONATE_URL = "https://www.cancerresearchuk.org/get-involved/donate";
 
@@ -139,8 +140,8 @@ export default function InvisibleThreadsClient() {
           </button>
 
           <div className={styles.links}>
-            <a href={CD_URL} target="_blank" rel="noopener noreferrer">
-              The CD
+            <a href={BANDCAMP_URL} target="_blank" rel="noopener noreferrer">
+              Bandcamp
             </a>
             <a href={DONATE_URL} target="_blank" rel="noopener noreferrer">
               Donate to Cancer Research UK
