@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
         destination: "/urlar",
         permanent: true,
       },
+      {
+        // Moved 3 Sep 2026: the listening room now lives under /releases
+        source: "/invisible-threads",
+        destination: "/releases/invisible-threads",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
