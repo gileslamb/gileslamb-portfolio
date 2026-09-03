@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import styles from "./listening-room.module.css";
 import cues from "./cues.json";
 
@@ -206,6 +207,11 @@ export default function InvisibleThreadsClient({
         alt="Invisible Threads — Giles Lamb, printed cover"
         decoding="async"
       />
+
+      {/* Way back to the releases index: beside the small cover, settles in with it */}
+      <Link href="/releases" className={styles.back}>
+        ← Releases
+      </Link>
 
       <audio ref={audioRef} src={STREAM_SRC} preload="metadata" />
 
