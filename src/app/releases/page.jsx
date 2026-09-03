@@ -8,13 +8,17 @@ export const metadata = {
     "Studio albums, soundtracks, and live sessions. Music by Giles Lamb.",
 };
 
+/* One card per release. Cards differ only by which links they carry:
+   a link renders when its field is non-empty, nothing otherwise. */
 function ReleaseCard({ release }) {
-  const linkProps = release.external
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+  const links = [
+    { label: "Listening room", href: release.room, external: false },
+    { label: "Streaming", href: release.streaming, external: true },
+    { label: "Bandcamp", href: release.bandcamp, external: true },
+  ].filter((l) => l.href);
 
   return (
-    <a href={release.link} className="releases-card" {...linkProps}>
+    <article className="releases-card">
       <div className="releases-card-image">
         {/* Cover URLs: live releases use R2 CDN; albums hotlink from
             Bandcamp CDN (f4.bcbits.com) — migrate to local /public in a future pass */}
@@ -27,7 +31,6 @@ function ReleaseCard({ release }) {
         />
       </div>
       <div className="releases-card-body">
-        <span className="releases-card-type">{release.type}</span>
         <h3 className="releases-card-title">{release.title}</h3>
         {release.subtitle && (
           <p className="releases-card-subtitle">{release.subtitle}</p>
@@ -36,13 +39,36 @@ function ReleaseCard({ release }) {
         {release.description && (
           <p className="releases-card-desc">{release.description}</p>
         )}
+        {links.length > 0 && (
+          <p className="releases-card-links">
+            {links.map((l) =>
+              l.external ? (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  className="releases-card-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {l.label}
+                </a>
+              ) : (
+                <a key={l.label} href={l.href} className="releases-card-link">
+                  {l.label}
+                </a>
+              ),
+            )}
+          </p>
+        )}
       </div>
-    </a>
+    </article>
   );
 }
 
 export default function ReleasesPage() {
-  const { live, albums } = releasesData;
+  const releases = [...releasesData.releases].sort((a, b) =>
+    b.date.localeCompare(a.date),
+  );
 
   return (
     <>
@@ -55,23 +81,11 @@ export default function ReleasesPage() {
           </p>
         </div>
 
-        <section className="releases-section">
-          <h2 className="releases-section-heading">Live Recordings</h2>
-          <div className="releases-sessions-grid">
-            {live.map((release) => (
-              <ReleaseCard key={release.slug} release={release} />
-            ))}
-          </div>
-        </section>
-
-        <section className="releases-section">
-          <h2 className="releases-section-heading">Albums</h2>
-          <div className="releases-albums-grid">
-            {albums.map((release) => (
-              <ReleaseCard key={release.slug} release={release} />
-            ))}
-          </div>
-        </section>
+        <div className="releases-grid">
+          {releases.map((release) => (
+            <ReleaseCard key={release.slug} release={release} />
+          ))}
+        </div>
       </main>
       <Footer />
     </>

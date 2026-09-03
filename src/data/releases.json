@@ -1,7 +1,18 @@
 {
-  "_comment": "Releases data for gileslamb.com. Grouped by type on the Releases page. Add new entries at the top of the relevant array. Covers are hotlinked from Bandcamp's CDN for now; migrate to local /public assets in a future pass if desired.",
-
-  "live": [
+  "_comment": "Releases data for gileslamb.com. One flat list; the Releases page sorts newest first on `date`. Links: `room` (internal listening room), `streaming` and `bandcamp` (external). Leave a link empty (\"\") and the card renders nothing for it. Covers are hotlinked from R2 / Bandcamp's CDN for now; migrate to local /public assets in a future pass if desired.",
+  "releases": [
+    {
+      "slug": "invisible-threads",
+      "title": "Invisible Threads",
+      "year": 2026,
+      "date": "2026-09-03",
+      "type": "Album",
+      "cover": "/releases/invisible-threads/cover.jpg",
+      "room": "/releases/invisible-threads",
+      "streaming": "",
+      "bandcamp": "",
+      "description": "Ten pieces written over thirty years, 1993 to 2025. All profits to Cancer Research UK."
+    },
     {
       "slug": "hemispheric-joy",
       "title": "Hemispheric Joy",
@@ -9,14 +20,15 @@
       "date": "2026-05-22",
       "type": "Live",
       "cover": "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/hemispheric-joy-cover.png",
-      "link": "/releases/hemispheric-joy",
-      "external": false,
+      "room": "/releases/hemispheric-joy",
+      "streaming": "",
+      "bandcamp": "",
       "store": "https://gileslamb.gumroad.com/l/hemispheric-joy",
       "listen": "/releases/hemispheric-joy/listen?key=hemispheric-joy-001",
       "r2": {
-        "wav":   "hemispheric-joy.wav",
-        "flac":  "hemispheric-joy.flac",
-        "mp3":   "hemispheric-joy.mp3",
+        "wav": "hemispheric-joy.wav",
+        "flac": "hemispheric-joy.flac",
+        "mp3": "hemispheric-joy.mp3",
         "peaks": "hemispheric-joy-peaks.json"
       },
       "description": "A single take. Recorded live in my studio in Glasgow."
@@ -28,13 +40,11 @@
       "date": "2026-05-18",
       "type": "Live",
       "cover": "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/orbital-fifths-cover.png",
-      "link": "/releases/orbital-fifths",
-      "external": false,
+      "room": "/releases/orbital-fifths",
+      "streaming": "",
+      "bandcamp": "",
       "description": "Live improvisation, 18 May 2026, Glasgow. Single take, unedited."
-    }
-  ],
-
-  "albums": [
+    },
     {
       "slug": "distance-to-the-moon",
       "title": "The Distance to the Moon",
@@ -43,8 +53,9 @@
       "date": "2026-02-27",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a1682993290_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/the-distance-to-the-moon-original-motion-picture-soundtrack",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/the-distance-to-the-moon-original-motion-picture-soundtrack",
       "description": "A soundtrack inspired by Italo Calvino's Cosmicomics. Reshaped by a stop-motion animation collaboration."
     },
     {
@@ -54,8 +65,9 @@
       "date": "2021-02-02",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a2556366998_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/deep-blue-mind",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/deep-blue-mind",
       "description": "Binaural meditation for Haken Continuumini. Music made with eyes closed."
     },
     {
@@ -65,8 +77,9 @@
       "date": "2020-06-09",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a4124406172_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/synthetic-dreams",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/synthetic-dreams",
       "description": "A machine emulating a human. Vocaloid, fragments, strings, piano."
     },
     {
@@ -76,8 +89,9 @@
       "date": "2019-03-29",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a3882240075_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/white-matter",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/white-matter",
       "description": "Modern classical for piano and string quartet. Birth, death, and the cycle between."
     },
     {
@@ -87,8 +101,9 @@
       "date": "2018-12-11",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a1852835909_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/hope",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/hope",
       "description": "Cinematic scores augmented with electronic production. Emotive and experiential."
     },
     {
@@ -98,8 +113,9 @@
       "date": "2018-12-10",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a3329427650_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/pure-frame",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/pure-frame",
       "description": "Piano, voice, and modular synthesiser. A fractured sonic tableau with a melodic core."
     },
     {
@@ -109,8 +125,9 @@
       "date": "2016-10-21",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a3337934261_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/aoust-oma",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/aoust-oma",
       "description": "Piano quartet and electronics. The boundary between modern classical, electronic, and ambient."
     },
     {
@@ -120,8 +137,9 @@
       "date": "2015-05-20",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a2701499845_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/glossolalia",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/glossolalia",
       "description": "Evocative compositions including a condensed version of the Suilven score."
     },
     {
@@ -131,8 +149,9 @@
       "date": "2015-05-13",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a3219798539_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/before-the-birds",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/before-the-birds",
       "description": "Piano, viola, cello. Beautiful order transforming into mottled disarray."
     },
     {
@@ -142,8 +161,9 @@
       "date": "2013-12-02",
       "type": "Album",
       "cover": "https://f4.bcbits.com/img/a2650617143_10.jpg",
-      "link": "https://gileslamb.bandcamp.com/album/transform",
-      "external": true,
+      "room": "",
+      "streaming": "",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/transform",
       "description": "Early piano-led work."
     }
   ]
