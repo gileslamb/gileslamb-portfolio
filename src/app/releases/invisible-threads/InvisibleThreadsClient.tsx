@@ -14,9 +14,12 @@ const STREAM_SRC = `${R2_BASE}invisible-threads_listening-room_STREAM_aac256.m4a
 const COVER_SRC = "/releases/invisible-threads/cover.jpg";
 const COVER_THUMB_SRC = "/releases/invisible-threads/cover-thumb.jpg";
 
-/* Bandcamp page not live yet (3 Sep 2026). Set the album URL here when it
-   is; the line below renders only once this is non-empty. */
-const BANDCAMP_URL = "";
+/* Listen / buy links. Bandcamp live 3 Sep 2026. When Spotify and Apple
+   Music are live, set their URLs here and uncomment their rows in the
+   buy block below the tracklist. */
+const BANDCAMP_URL = "https://gileslamb.bandcamp.com/album/invisible-threads";
+// const SPOTIFY_URL = "";
+// const APPLE_MUSIC_URL = "";
 /* Cancer Research UK donate link, confirmed by Giles 3 Sep 2026 */
 const DONATE_URL = "https://www.cancerresearchuk.org/get-involved/donate";
 
@@ -252,6 +255,30 @@ export default function InvisibleThreadsClient({
           ))}
         </ol>
 
+        {/* Listen / buy — Bandcamp now; Spotify and Apple Music slot in beneath */}
+        <div className={styles.buy}>
+          <ul className={styles.buyLinks}>
+            <li>
+              <a href={BANDCAMP_URL} target="_blank" rel="noopener noreferrer">
+                Buy the album on Bandcamp
+              </a>
+            </li>
+            {/* <li>
+              <a href={SPOTIFY_URL} target="_blank" rel="noopener noreferrer">
+                Listen on Spotify
+              </a>
+            </li> */}
+            {/* <li>
+              <a href={APPLE_MUSIC_URL} target="_blank" rel="noopener noreferrer">
+                Listen on Apple Music
+              </a>
+            </li> */}
+          </ul>
+          <p className={styles.buyNote}>
+            All proceeds to Cancer Research UK. Limited CD available.
+          </p>
+        </div>
+
         <p className={styles.credit}>Written, composed and performed by Giles Lamb</p>
         <p className={styles.credit}>* Cello, Peter Nicholson</p>
 
@@ -264,13 +291,6 @@ export default function InvisibleThreadsClient({
             All profits to Cancer Research UK
           </a>
         </p>
-        {BANDCAMP_URL && (
-          <p className={styles.profits}>
-            <a href={BANDCAMP_URL} target="_blank" rel="noopener noreferrer">
-              Bandcamp
-            </a>
-          </p>
-        )}
       </aside>
     </main>
   );

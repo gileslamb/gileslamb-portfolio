@@ -194,6 +194,42 @@
   color: var(--cream);
 }
 
+/* Listen / buy block: between the tracklist and the credits. Link rows use the
+   page's letterspaced label style in the site accent; the note sits in the
+   secondary colour. Spotify / Apple Music rows slot in beneath Bandcamp. */
+.buy {
+  margin: 1.9rem 0 1.9rem;
+}
+.buyLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.buyLinks li {
+  margin: 0 0 0.5rem;
+}
+.buyLinks a {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.buyLinks a:hover {
+  color: var(--cream);
+}
+.buyLinks a:focus-visible {
+  outline: 1px solid var(--cream);
+  outline-offset: 3px;
+}
+.buyNote {
+  font-size: 0.62rem;
+  line-height: 1.7;
+  color: var(--fog);
+  margin: 0.35rem 0 0;
+}
+
 .credit {
   font-size: 0.66rem;
   line-height: 1.7;
