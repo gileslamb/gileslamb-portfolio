@@ -10,7 +10,7 @@ import ExcerptPlayer from "./ExcerptPlayer";
    iframe pattern) under a near-black grade. */
 
 const STREAM = "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com";
-const HERO_ID = "68eeb46ea059449e3660d0f785f8367f";
+const HERO_ID = "aa5cd500a3a12a88cdf1c6f27cb6d6d6";
 const HERO_POSTER = `${STREAM}/${HERO_ID}/thumbnails/thumbnail.jpg?time=8s&height=720`;
 const HERO_IFRAME =
   `${STREAM}/${HERO_ID}/iframe?autoplay=true&loop=true&muted=true&controls=false&preload=auto` +
@@ -118,7 +118,7 @@ function Lyre({ className }: { className: string }) {
 
 /* (2) fact bar */
 const FACTS: [string, string][] = [
-  ["Duration", "70 minutes, no interval"],
+  ["Duration", "Around 60 minutes, no interval"],
   ["Sound", "Quadraphonic spatial"],
   ["Capacity", "20 to 60"],
   ["Support", "Scope for an invited guest"],
@@ -132,7 +132,7 @@ const ROOM: [string, string][] = [
   ],
   [
     "Light",
-    "Slow projected light on scrim and on the surfaces of the room itself. It moves at the pace of the music and never reacts to it.",
+    "Slow projected light on scrim and on the surfaces of the room itself. It moves at the pace of the music.",
   ],
   [
     "Stillness",
@@ -151,7 +151,7 @@ const RIDER: [string, string][] = [
   ],
   ["Installation", "Freestanding. Nothing fixes to the building."],
   ["Seating", "Seating, mats or floor cushions, from the venue."],
-  ["Running order", "Around 70 minutes, no interval, plus scope for a guest opener."],
+  ["Running order", "Around 60 minutes, no interval, plus scope for a guest opener."],
   ["Capacity", "20 to 60, depending on layout."],
 ];
 
@@ -298,7 +298,7 @@ export default function UrlarHostPage() {
               className="max-w-[46ch]"
               style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1.75) auto 0" }}
             >
-              A 70-minute deep-listening concert for piano and modular synthesis, played into a
+              A 60-minute deep-listening concert for piano and modular synthesis, played into a
               quadraphonic spatial field of sound and slow projected light.
             </p>
           </header>
@@ -428,13 +428,21 @@ export default function UrlarHostPage() {
           >
             <div>
               <div style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>Confirmed</div>
+              <div
+                style={{
+                  ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em",
+                  color: "var(--accent)", marginTop: "calc(var(--u) * 0.9)",
+                }}
+              >
+                Premiere
+              </div>
               <p
                 style={{
                   fontFamily: SERIF, fontSize: "calc(var(--u) * 1.3)", lineHeight: 1.3,
                   color: "var(--cream)", margin: "calc(var(--u) * 0.6) 0 0",
                 }}
               >
-                Sunday 20 September 2026
+                Friday 4 December 2026
               </p>
               <p
                 style={{
@@ -442,7 +450,7 @@ export default function UrlarHostPage() {
                   color: "var(--sand)", margin: "calc(var(--u) * 0.35) 0 0",
                 }}
               >
-                KCR Academy Barn, Dalgarven Mill, Ayrshire, with Seth Gardner (gong).
+                House of Toad, Park Circus, Glasgow.
               </p>
               <p
                 style={{
@@ -450,7 +458,7 @@ export default function UrlarHostPage() {
                   color: "var(--sand)", margin: "calc(var(--u) * 0.35) 0 0",
                 }}
               >
-                Winter dates available — October to January.
+                Further dates from January 2027.
               </p>
             </div>
 
