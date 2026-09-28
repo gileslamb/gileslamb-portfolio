@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import HeroVideo from "./HeroVideo";
-import { HERO_OG as OG_IMAGE } from "./hero";
+import { HERO_OG as OG_IMAGE, STREAM } from "./hero";
 
 /* Ùrlar, structured as a documented gig page rather than a poster.
    Site design system only: Cormorant Garamond + Karla (loaded globally via
@@ -12,9 +12,23 @@ import { HERO_OG as OG_IMAGE } from "./hero";
 const PAGE_URL = "https://www.gileslamb.com/urlar/host";
 const EMAIL = "giles@gileslamb.com";
 
-/* Second, smaller clip of the playing, for later. See the commented section
-   under the hero; enabling it also needs STREAM imported from ./hero. */
-// const PLAYING_ID = "";
+/* "Played live": a second, smaller clip of the playing. PLAYING_ID is the one
+   constant to swap. STAND-IN: the ghosted performer clip from /urlar until the
+   real footage is on Stream. PLAYING_POSTER_AT should land on hands on the
+   instruments. */
+const PLAYING_ID = "68eeb46ea059449e3660d0f785f8367f";
+const PLAYING_POSTER_AT = 8;
+const PLAYING_POSTER = `${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?time=${PLAYING_POSTER_AT}s&height=720`;
+const PLAYING_IFRAME =
+  `${STREAM}/${PLAYING_ID}/iframe?controls=true&preload=metadata` +
+  `&poster=${encodeURIComponent(PLAYING_POSTER)}`;
+
+/* Darkens the played-live clip only, poster included (it renders inside the
+   same filtered wrapper, so nothing jumps when playback starts). */
+const PLAYING_BRIGHTNESS = 0.7;
+const PLAYING_CONTRAST = 1.1;
+const PLAYING_SATURATE = 0.9;
+const PLAYING_FILTER = `brightness(${PLAYING_BRIGHTNESS}) contrast(${PLAYING_CONTRAST}) saturate(${PLAYING_SATURATE})`;
 
 const DESC =
   "A 60-minute deep-listening concert for piano and synthesis, played into a quadraphonic field of sound and slow projected light, moving from delicate and fragile to something quite intense, and back.";
@@ -51,7 +65,7 @@ const FACTS: [string, string][] = [
   ["Duration", "Around 60 minutes, no interval"],
   ["Sound", "Quadraphonic spatial"],
   ["Capacity", "20 to 60"],
-  ["Support", "Scope for an invited guest"],
+  ["Performance", "Structured improvisation, played live"],
 ];
 
 /* (3) in the room */
@@ -128,7 +142,9 @@ export default function UrlarHostPage() {
         .uh-plate .br { right:-1px; bottom:-1px; transform:scale(-1,-1); }
         /* Rider rows: label column and gutter scale with the page. */
         .uh-rider-row { display:grid; grid-template-columns:1fr; gap:calc(var(--u) * 0.25); }
+        .uh-playing { width:100%; }
         @media (min-width:640px){
+          .uh-playing { max-width:60%; }
           .uh-rider-row { grid-template-columns:calc(var(--u) * 9) 1fr; gap:calc(var(--u) * 1.5); }
         }
         /* Hairline dividers between fact cells: vertical on the row, and on the
@@ -143,21 +159,6 @@ export default function UrlarHostPage() {
 
       <div className="uh relative">
         <HeroVideo />
-
-        {/* ===== Later: a second, smaller clip of the playing. Not rendered yet.
-        <section className="relative z-[1] w-full" style={{ margin: "0 auto", maxWidth: "calc(var(--u) * 42)", padding: "calc(var(--u) * 3) clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2)) 0" }}>
-          <h2 style={label}>Playing</h2>
-          <div style={{ position: "relative", aspectRatio: "16 / 9", marginTop: "calc(var(--u) * 1.5)", border: "1px solid var(--ash)", background: "var(--black)" }}>
-            <iframe
-              src={`${STREAM}/${PLAYING_ID}/iframe?muted=true&loop=true&autoplay=true&controls=true&poster=${encodeURIComponent(`${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?height=720`)}`}
-              title="Ùrlar: playing"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              loading="lazy"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-            />
-          </div>
-        </section>
-        ===== */}
 
         <div className="uh-plate" aria-hidden="true">
           <span className="tl" /><span className="tr" /><span className="bl" /><span className="br" />
@@ -218,6 +219,10 @@ export default function UrlarHostPage() {
                 something quite intense, and back. A journey that is meditative and detailed
                 throughout.
               </p>
+              <p style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0" }}>
+                Everything is played live. The shape of the hour is composed, but what happens
+                inside it is found in the moment, in the room, and it is different every night.
+              </p>
             </div>
           </header>
 
@@ -270,6 +275,28 @@ export default function UrlarHostPage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* ===== PLAYED LIVE: click to play, with sound. Darkened by PLAYING_FILTER. ===== */}
+          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
+            <h2 style={label}>Played live</h2>
+            <div
+              className="uh-playing"
+              style={{
+                position: "relative", aspectRatio: "16 / 9", marginTop: "calc(var(--u) * 1.75)",
+                background: "var(--black)", border: "1px solid var(--ash)", filter: PLAYING_FILTER,
+              }}
+            >
+              <iframe
+                src={PLAYING_IFRAME}
+                title="Giles Lamb playing Ùrlar live, piano and synthesis"
+                aria-label="Video: Giles Lamb playing Ùrlar live, piano and synthesis"
+                allow="encrypted-media; picture-in-picture; fullscreen"
+                allowFullScreen
+                loading="lazy"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+              />
             </div>
           </section>
 
