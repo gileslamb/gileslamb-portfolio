@@ -1,28 +1,23 @@
 import type { Metadata } from "next";
-import AudioToggle from "./AudioToggle";
-import ExcerptPlayer from "./ExcerptPlayer";
+import HeroVideo from "./HeroVideo";
+import { HERO_OG as OG_IMAGE } from "./hero";
 
 /* Ùrlar, structured as a documented gig page rather than a poster.
    Site design system only: Cormorant Garamond + Karla (loaded globally via
    globals.css @import) and the :root colour tokens. Structure is Tailwind;
-   colour and the drawn elements stay inline so they read off the tokens.
-   Background is the existing Ùrlar Cloudflare Stream composite (the /reel
-   iframe pattern) under a near-black grade. */
+   colour stays inline so it reads off the tokens.
+   The hero is the three-screen audience film, full width and ungraded, with
+   its own sound control (./HeroVideo). Everything below sits on var(--black). */
 
-const STREAM = "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com";
-const HERO_ID = "aa5cd500a3a12a88cdf1c6f27cb6d6d6";
-const HERO_POSTER = `${STREAM}/${HERO_ID}/thumbnails/thumbnail.jpg?time=8s&height=720`;
-const HERO_IFRAME =
-  `${STREAM}/${HERO_ID}/iframe?autoplay=true&loop=true&muted=true&controls=false&preload=auto` +
-  `&poster=${encodeURIComponent(HERO_POSTER)}`;
-const OG_IMAGE = `${STREAM}/${HERO_ID}/thumbnails/thumbnail.jpg?time=8s&width=1200&height=630&fit=crop`;
 const PAGE_URL = "https://www.gileslamb.com/urlar/host";
 const EMAIL = "giles@gileslamb.com";
-const STILL =
-  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/1fceb1b8-7959-4ce2-b885-a107fd74d300/public";
+
+/* Second, smaller clip of the playing, for later. See the commented section
+   under the hero; enabling it also needs STREAM imported from ./hero. */
+// const PLAYING_ID = "";
 
 const DESC =
-  "A deep-listening performance. Piano and modular synthesis in a quadraphonic sound field, with slow projected light. An occasional series for rooms not built as music venues.";
+  "A 60-minute deep-listening concert for piano and synthesis, played into a quadraphonic field of sound and slow projected light, moving from delicate and fragile to something quite intense, and back.";
 
 export const metadata: Metadata = {
   title: "Ùrlar: a deep-listening performance · Giles Lamb",
@@ -51,71 +46,6 @@ const SERIF = "'Cormorant Garamond', Georgia, serif";
 const SANS = "'Karla', -apple-system, sans-serif";
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
-/* Eight rings behind the wordmark, fading outward. */
-const RINGS: [number, string][] = [
-  [70, "#3b352d"],
-  [120, "#353029"],
-  [180, "#2f2b25"],
-  [250, "#292621"],
-  [330, "#24201c"],
-  [420, "#1e1b18"],
-  [520, "#181614"],
-  [630, "#121110"],
-];
-
-function RingField() {
-  return (
-    <svg
-      className="uh-rings"
-      viewBox="0 0 1400 1400"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-    >
-      {RINGS.map(([r, stroke]) => (
-        <circle key={r} cx={700} cy={700} r={r} fill="none" stroke={stroke} strokeWidth={0.7} />
-      ))}
-    </svg>
-  );
-}
-
-/* Primitive lyre: bowl, two arms, yoke, seven strings, tuning pegs. */
-const STRINGS = [112, 128, 144, 160, 176, 192, 208];
-
-function Lyre({ className }: { className: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 320 380"
-      fill="none"
-      stroke="#8a7355"
-      strokeWidth={4.2}
-      strokeLinecap="round"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M92 244 C 96 302, 224 302, 228 244" />
-      <path d="M88 244 C 132 233, 188 233, 232 244" />
-      <path d="M100 240 C 52 190, 46 110, 92 54" />
-      <path d="M220 240 C 268 190, 274 110, 228 54" />
-      <path d="M82 60 C 140 48, 180 48, 238 60" />
-      {STRINGS.map((x) => (
-        <line key={x} x1={x} y1={56} x2={x} y2={238} stroke="#6e5c45" strokeWidth={2.4} />
-      ))}
-      {STRINGS.map((x) => (
-        <circle
-          key={`p${x}`}
-          cx={x}
-          cy={55}
-          r={4.6}
-          fill={x === 160 ? "var(--accent)" : "#8a7355"}
-          stroke="none"
-        />
-      ))}
-    </svg>
-  );
-}
-
 /* (2) fact bar */
 const FACTS: [string, string][] = [
   ["Duration", "Around 60 minutes, no interval"],
@@ -128,11 +58,11 @@ const FACTS: [string, string][] = [
 const ROOM: [string, string][] = [
   [
     "Sound",
-    "Piano and modular synthesis moved around four speakers and a subwoofer, so the music arrives from behind and beside you as often as from the front.",
+    "Piano and synthesis moved around four speakers and a subwoofer, so the music arrives from behind and beside you as often as from the front. I play from the back of the room, with the audience, rather than from a stage.",
   ],
   [
     "Light",
-    "Slow projected light on scrim and on the surfaces of the room itself. It moves at the pace of the music.",
+    "Slow projected light across three screens: one large screen ahead and two dimmer ones either side, so the image surrounds the room rather than sitting in front of it.",
   ],
   [
     "Stillness",
@@ -147,7 +77,7 @@ const RIDER: [string, string][] = [
   ["Get-in", "Four hours before doors, two after."],
   [
     "System",
-    "Quadraphonic speakers, subwoofer, projector, scrim, digital piano, modular. All of it arrives with me.",
+    "Quadraphonic speakers, subwoofer, three projectors and screens, piano and synthesis. All of it arrives with me.",
   ],
   ["Installation", "Freestanding. Nothing fixes to the building."],
   ["Seating", "Seating, mats or floor cushions, from the venue."],
@@ -186,20 +116,6 @@ export default function UrlarHostPage() {
         .uh a.back:hover { color: var(--warm); }
         .uh a.cta { transition: background .3s ease, letter-spacing .3s ease; }
         .uh a.cta:hover { background: var(--cream); letter-spacing: .3em; }
-        .uh-video { position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none; background:var(--black); }
-        .uh-video iframe { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-          width:100vw; height:56.25vw; min-height:100%; min-width:177.78vh; border:0; }
-        .uh-grade { position:fixed; inset:0; z-index:0; pointer-events:none;
-          background:
-            linear-gradient(to bottom, rgba(8,8,8,.28) 0%, rgba(8,8,8,.62) 48%, rgba(8,8,8,.8) 100%),
-            rgba(8,8,8,.52); }
-        /* Ring field is anchored to the wordmark, so the two stay concentric. */
-        .uh-rings-wrap { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-          width:150vw; height:150vw; max-width:1500px; max-height:1500px;
-          z-index:-1; pointer-events:none; }
-        .uh-rings { display:block; width:100%; height:100%; }
-        .uh-lyre-hero { height:clamp(calc(var(--u) * 3.5),10.2vw,calc(var(--u) * 6.4)); width:auto;
-          position:relative; top:-.08em; }
         .uh-plate { position:fixed; z-index:2; pointer-events:none;
           inset:clamp(calc(var(--u) * 0.75),1.8vw,calc(var(--u) * 1.35)); border:1px solid #1c1915; }
         .uh-plate span { position:absolute; width:9px; height:9px; }
@@ -226,12 +142,22 @@ export default function UrlarHostPage() {
       `}</style>
 
       <div className="uh relative">
-        <div aria-hidden="true">
-          <div className="uh-video">
-            <iframe src={HERO_IFRAME} title="" tabIndex={-1} allow="autoplay; muted" loading="eager" />
+        <HeroVideo />
+
+        {/* ===== Later: a second, smaller clip of the playing. Not rendered yet.
+        <section className="relative z-[1] w-full" style={{ margin: "0 auto", maxWidth: "calc(var(--u) * 42)", padding: "calc(var(--u) * 3) clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2)) 0" }}>
+          <h2 style={label}>Playing</h2>
+          <div style={{ position: "relative", aspectRatio: "16 / 9", marginTop: "calc(var(--u) * 1.5)", border: "1px solid var(--ash)", background: "var(--black)" }}>
+            <iframe
+              src={`${STREAM}/${PLAYING_ID}/iframe?muted=true&loop=true&autoplay=true&controls=true&poster=${encodeURIComponent(`${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?height=720`)}`}
+              title="Ùrlar: playing"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              loading="lazy"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+            />
           </div>
-          <div className="uh-grade" />
-        </div>
+        </section>
+        ===== */}
 
         <div className="uh-plate" aria-hidden="true">
           <span className="tl" /><span className="tr" /><span className="bl" /><span className="br" />
@@ -248,42 +174,29 @@ export default function UrlarHostPage() {
           ← gileslamb.com
         </a>
 
-        <AudioToggle />
-
         <div
           className="relative z-[1] w-full"
           style={{
             margin: "0 auto", maxWidth: "calc(var(--u) * 42)",
             padding:
-              "clamp(calc(var(--u) * 5),12vw,calc(var(--u) * 8))" +
+              "clamp(calc(var(--u) * 3),7vw,calc(var(--u) * 5))" +
               " clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2))" +
               " calc(var(--u) * 6)",
           }}
         >
           {/* ===== (1) HERO, the only centred block ===== */}
           <header className="relative text-center">
-            <div className="uh-rings-wrap" aria-hidden="true">
-              <RingField />
-            </div>
-
             <div style={label}>Giles Lamb · Live</div>
 
-            {/* Lyre locked to the left of the wordmark, optically centred on it */}
-            <div
-              className="flex items-center justify-center"
-              style={{ gap: "clamp(calc(var(--u) * 0.9),2.2vw,calc(var(--u) * 1.6))", marginTop: "calc(var(--u) * 1.5)" }}
+            <h1
+              style={{
+                fontFamily: SERIF, fontStyle: "italic", fontWeight: 300,
+                fontSize: "clamp(calc(var(--u) * 3.6),11vw,calc(var(--u) * 7))", lineHeight: 0.9,
+                letterSpacing: "-0.02em", color: "var(--cream)", margin: "calc(var(--u) * 1.5) 0 0",
+              }}
             >
-              <Lyre className="uh-lyre-hero shrink-0" />
-              <h1
-                style={{
-                  fontFamily: SERIF, fontStyle: "italic", fontWeight: 300,
-                  fontSize: "clamp(calc(var(--u) * 3.6),11vw,calc(var(--u) * 7))", lineHeight: 0.9,
-                  letterSpacing: "-0.02em", color: "var(--cream)", margin: 0,
-                }}
-              >
-                Ùrlar
-              </h1>
-            </div>
+              <span style={{ color: "var(--accent)" }}>Ù</span>rlar
+            </h1>
 
             <p
               style={{
@@ -294,13 +207,18 @@ export default function UrlarHostPage() {
               [ ˈuːr-lər ]
             </p>
 
-            <p
-              className="max-w-[46ch]"
-              style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1.75) auto 0" }}
-            >
-              A 60-minute deep-listening concert for piano and modular synthesis, played into a
-              quadraphonic spatial field of sound and slow projected light.
-            </p>
+            <div className="max-w-[46ch]" style={{ margin: "calc(var(--u) * 1.75) auto 0" }}>
+              <p style={{ ...prose, color: "var(--sand)", margin: 0 }}>
+                A 60-minute deep-listening concert for piano and synthesis, played into a
+                quadraphonic field of sound and slow projected light.
+              </p>
+              <p style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0" }}>
+                It starts from a ground and evolves, the music and the visuals cycling through
+                beauty, energy, stillness and real dynamics. It moves from delicate and fragile to
+                something quite intense, and back. A journey that is meditative and detailed
+                throughout.
+              </p>
+            </div>
           </header>
 
           {/* ===== (2) FACT BAR ===== */}
@@ -373,30 +291,6 @@ export default function UrlarHostPage() {
             </p>
           </blockquote>
 
-          {/* ===== EXCERPT: player alongside the floating toggle, and a still ===== */}
-          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
-            <h2 style={label}>Excerpt</h2>
-            <div
-              className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-              style={{ marginTop: "calc(var(--u) * 1.5)" }}
-            >
-              <ExcerptPlayer />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={STILL}
-                alt="Ùrlar in performance"
-                width={1366}
-                height={768}
-                loading="lazy"
-                style={{
-                  display: "block", width: "100%", height: "100%",
-                  minHeight: "calc(var(--u) * 5.75)", objectFit: "cover",
-                  border: "1px solid var(--ash)", filter: "saturate(.82) brightness(.72)",
-                }}
-              />
-            </div>
-          </section>
-
           {/* ===== (5) HOSTING IT ===== */}
           <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
             <h2 style={label}>Hosting it</h2>
@@ -418,7 +312,7 @@ export default function UrlarHostPage() {
 
           {/* ===== (6) FOOTER ROW. A plain div, not <footer>: globals.css styles
                the footer element as site chrome (padding 2.8rem 3.5rem, opaque
-               background), which would indent this row and mask the video. ===== */}
+               background), which would indent this row. ===== */}
           <div
             className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
             style={{
