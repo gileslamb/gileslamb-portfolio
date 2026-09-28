@@ -12,22 +12,13 @@ import { HERO_OG as OG_IMAGE, STREAM } from "./hero";
 const PAGE_URL = "https://www.gileslamb.com/urlar/host";
 const EMAIL = "giles@gileslamb.com";
 
-/* "Played live": a second, smaller clip of the playing (studio pilot, 2:50).
-   PLAYING_ID is the one constant to swap. PLAYING_POSTER_AT lands on both
-   hands on the keys, facing camera. */
+/* Image band behind the "played live" line: a still of the playing (studio
+   pilot, 2:50). PLAYING_ID is the clip; BAND_AT picks the frame (51s is both
+   hands on the keys). BAND_OVERLAY is the near-black wash over the still. */
 const PLAYING_ID = "3913fbedb27eed32fd88c6d87eab3448";
-const PLAYING_POSTER_AT = 51;
-const PLAYING_POSTER = `${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?time=${PLAYING_POSTER_AT}s&height=720`;
-const PLAYING_IFRAME =
-  `${STREAM}/${PLAYING_ID}/iframe?controls=true&preload=metadata` +
-  `&poster=${encodeURIComponent(PLAYING_POSTER)}`;
-
-/* Darkens the played-live clip only, poster included (it renders inside the
-   same filtered wrapper, so nothing jumps when playback starts). */
-const PLAYING_BRIGHTNESS = 0.7;
-const PLAYING_CONTRAST = 1.1;
-const PLAYING_SATURATE = 0.9;
-const PLAYING_FILTER = `brightness(${PLAYING_BRIGHTNESS}) contrast(${PLAYING_CONTRAST}) saturate(${PLAYING_SATURATE})`;
+const BAND_AT = 51;
+const BAND_IMAGE = `${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?time=${BAND_AT}s&height=1080`;
+const BAND_OVERLAY = 0.7;
 
 const DESC =
   "A 60-minute deep-listening concert for piano and synthesis, played into a quadraphonic field of sound and slow projected light, moving from delicate and fragile to something quite intense, and back.";
@@ -141,9 +132,14 @@ export default function UrlarHostPage() {
         .uh-plate .br { right:-1px; bottom:-1px; transform:scale(-1,-1); }
         /* Rider rows: label column and gutter scale with the page. */
         .uh-rider-row { display:grid; grid-template-columns:1fr; gap:calc(var(--u) * 0.25); }
-        .uh-playing { width:100%; }
+        /* Band breaks out of the centred column to the full viewport width. */
+        .uh-band { position:relative; width:100vw; margin-left:calc(50% - 50vw);
+          min-height:45vh; display:flex; align-items:center; justify-content:center;
+          padding:calc(var(--u) * 3) clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2)); overflow:hidden; }
+        .uh-band img, .uh-band-wash { position:absolute; inset:0; width:100%; height:100%; }
+        .uh-band img { object-fit:cover; object-position:center; display:block; }
         @media (min-width:640px){
-          .uh-playing { max-width:60%; }
+          .uh-band { min-height:65vh; }
           .uh-rider-row { grid-template-columns:calc(var(--u) * 9) 1fr; gap:calc(var(--u) * 1.5); }
         }
         /* Hairline dividers between fact cells: vertical on the row, and on the
@@ -218,10 +214,6 @@ export default function UrlarHostPage() {
                 something quite intense, and back. A journey that is meditative and detailed
                 throughout.
               </p>
-              <p style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0" }}>
-                Everything is played live. The shape of the hour is composed, but what happens
-                inside it is found in the moment, in the room, and it is different every night.
-              </p>
             </div>
           </header>
 
@@ -277,26 +269,30 @@ export default function UrlarHostPage() {
             </div>
           </section>
 
-          {/* ===== PLAYED LIVE: click to play, with sound. Darkened by PLAYING_FILTER. ===== */}
-          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
-            <h2 style={label}>Played live</h2>
+          {/* ===== PLAYED LIVE BAND: full bleed out of the column, still of the
+               playing under a near-black wash that fades into the page. ===== */}
+          <section className="uh-band" style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={BAND_IMAGE} alt="" aria-hidden="true" loading="lazy" decoding="async" width={1920} height={1080} />
             <div
-              className="uh-playing"
+              aria-hidden="true"
+              className="uh-band-wash"
               style={{
-                position: "relative", aspectRatio: "16 / 9", marginTop: "calc(var(--u) * 1.75)",
-                background: "var(--black)", border: "1px solid var(--ash)", filter: PLAYING_FILTER,
+                background:
+                  "linear-gradient(to bottom, var(--black) 0%, transparent 22%, transparent 78%, var(--black) 100%)," +
+                  ` rgba(8,8,8,${BAND_OVERLAY})`,
+              }}
+            />
+            <p
+              style={{
+                position: "relative", fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
+                fontSize: "clamp(calc(var(--u) * 1.3),2.5vw,calc(var(--u) * 1.65))", lineHeight: 1.4,
+                color: "var(--cream)", maxWidth: "32ch", margin: 0, textAlign: "center",
               }}
             >
-              <iframe
-                src={PLAYING_IFRAME}
-                title="Giles Lamb playing Ùrlar live, piano and synthesis"
-                aria-label="Video: Giles Lamb playing Ùrlar live, piano and synthesis"
-                allow="encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-                loading="lazy"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-              />
-            </div>
+              Everything is played live. The shape of the hour is composed, but what happens inside
+              it is found in the moment, in the room, and it is different every night.
+            </p>
           </section>
 
           {/* ===== (4) ETYMOLOGY, pull-quote on a left rule ===== */}
