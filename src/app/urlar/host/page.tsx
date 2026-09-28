@@ -21,7 +21,7 @@ const BAND_IMAGE = `${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?time=${BAND
 const BAND_OVERLAY = 0.7;
 
 const DESC =
-  "A 60-minute deep-listening concert for piano and synthesis, played into a quadraphonic field of sound and slow projected light, moving from delicate and fragile to something quite intense, and back.";
+  "Ùrlar is an hour of live piano and synthesis, with quadraphonic sound and projection across three screens, creating an immersive experience.";
 
 export const metadata: Metadata = {
   title: "Ùrlar: a deep-listening performance · Giles Lamb",
@@ -56,22 +56,6 @@ const FACTS: [string, string][] = [
   ["Sound", "Quadraphonic spatial"],
   ["Capacity", "20 to 60"],
   ["Performance", "Structured improvisation, played live"],
-];
-
-/* (3) in the room */
-const ROOM: [string, string][] = [
-  [
-    "Sound",
-    "Piano and synthesis moved around four speakers and a subwoofer, so the music arrives from behind and beside you as often as from the front. I play from the back of the room, with the audience, rather than from a stage.",
-  ],
-  [
-    "Light",
-    "Slow projected light across three screens: one large screen ahead and two dimmer ones either side, so the image surrounds the room rather than sitting in front of it.",
-  ],
-  [
-    "Stillness",
-    "The room is blacked out and the audience stays for the duration. People sit, or lie down. The sound is not talked over.",
-  ],
 ];
 
 /* (5) rider */
@@ -205,14 +189,13 @@ export default function UrlarHostPage() {
 
             <div className="max-w-[46ch]" style={{ margin: "calc(var(--u) * 1.75) auto 0" }}>
               <p style={{ ...prose, color: "var(--sand)", margin: 0 }}>
-                A 60-minute deep-listening concert for piano and synthesis, played into a
-                quadraphonic field of sound and slow projected light.
+                Ùrlar is an hour of live piano and synthesis, with quadraphonic sound and projection
+                across three screens, creating an immersive experience.
               </p>
               <p style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0" }}>
-                It starts from a ground and evolves, the music and the visuals cycling through
-                beauty, energy, stillness and real dynamics. It moves from delicate and fragile to
-                something quite intense, and back. A journey that is meditative and detailed
-                throughout.
+                It begins grounded and simple, with the music growing outward from there. It ranges
+                from delicate, fragile melodies and atmospheres, building in intensity, and
+                returning to almost nothing, in meditative and absorbing detail.
               </p>
             </div>
           </header>
@@ -244,30 +227,11 @@ export default function UrlarHostPage() {
             ))}
           </section>
 
-          {/* ===== (3) IN THE ROOM ===== */}
-          <section style={{ marginTop: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5))" }}>
-            <h2 style={label}>In the room</h2>
-            <div
-              className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-7"
-              style={{ marginTop: "calc(var(--u) * 1.75)" }}
-            >
-              {ROOM.map(([head, copy]) => (
-                <div key={head}>
-                  <h3
-                    style={{
-                      fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
-                      fontSize: "calc(var(--u) * 1.3)", lineHeight: 1.2, color: "var(--cream)", margin: 0,
-                    }}
-                  >
-                    {head}
-                  </h3>
-                  <p style={{ ...prose, fontSize: "calc(var(--u) * 0.94)", lineHeight: 1.6, margin: "calc(var(--u) * 0.7) 0 0" }}>
-                    {copy}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* ===== (3) THE ROOM: one paragraph, no heading ===== */}
+          <p style={{ ...prose, margin: "clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5.5)) 0 0" }}>
+            The room is blacked out, so the projections create a field of light, with people
+            sitting or lying down. I play from behind, among the audience.
+          </p>
 
           {/* ===== PLAYED LIVE BAND: full bleed out of the column, still of the
                playing under a near-black wash that fades into the page. ===== */}
@@ -290,8 +254,9 @@ export default function UrlarHostPage() {
                 color: "var(--cream)", maxWidth: "32ch", margin: 0, textAlign: "center",
               }}
             >
-              Everything is played live. The shape of the hour is composed, but what happens inside
-              it is found in the moment, in the room, and it is different every night.
+              The outline is composed, but within it everything is improvised, so every performance
+              is different. I play in response to the feel of the space and the people in it, in
+              the moment.
             </p>
           </section>
 
