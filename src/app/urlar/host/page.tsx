@@ -12,12 +12,11 @@ import { HERO_OG as OG_IMAGE, STREAM } from "./hero";
 const PAGE_URL = "https://www.gileslamb.com/urlar/host";
 const EMAIL = "giles@gileslamb.com";
 
-/* "Played live": a second, smaller clip of the playing. PLAYING_ID is the one
-   constant to swap. STAND-IN: the ghosted performer clip from /urlar until the
-   real footage is on Stream. PLAYING_POSTER_AT should land on hands on the
-   instruments. */
-const PLAYING_ID = "68eeb46ea059449e3660d0f785f8367f";
-const PLAYING_POSTER_AT = 8;
+/* "Played live": a second, smaller clip of the playing (studio pilot, 2:50).
+   PLAYING_ID is the one constant to swap. PLAYING_POSTER_AT lands on both
+   hands on the keys, facing camera. */
+const PLAYING_ID = "3913fbedb27eed32fd88c6d87eab3448";
+const PLAYING_POSTER_AT = 51;
 const PLAYING_POSTER = `${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?time=${PLAYING_POSTER_AT}s&height=720`;
 const PLAYING_IFRAME =
   `${STREAM}/${PLAYING_ID}/iframe?controls=true&preload=metadata` +
