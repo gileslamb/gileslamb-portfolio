@@ -3996,7 +3996,7 @@ body.card-mode .cursor-ring {
   display: none !important;
 }
 
-/* ===== /live: dates first, then Ùrlar, then the method ===== */
+/* ===== /live: gig poster first, then Ùrlar, then the method ===== */
 /* Reuses .section-label, .live-headline, .live-body and .live-text-cta from
    the homepage live section. */
 .live-page {
@@ -4004,75 +4004,165 @@ body.card-mode .cursor-ring {
   padding: 9rem 3.5rem 5rem;
   background: var(--black);
 }
-.live-page-intro { margin-bottom: 2.5rem; max-width: 1100px; }
-.live-page-intro .section-label { margin-bottom: 1.5rem; }
-.live-page-heading {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--cream);
-}
 
-/* Dates panel: light ground, dark type, so date and venue read at a glance. */
-.live-dates {
-  max-width: 1100px;
-  margin-bottom: 6rem;
-  padding: 2.2rem 2.5rem 2rem;
-  background: var(--cream);
-  color: var(--black);
-  border-radius: 2px;
-}
-.live-dates-title {
+/* Gig poster: one key image, big type. The image is cropped to the three
+   screens and fades to black at the bottom; all type sits on that black, never
+   over the busy part of the image. */
+.gig-heading {
   font-family: 'Karla', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.8rem;
+}
+.gig-poster {
+  max-width: 1100px;
+  background: #000;
+  overflow: hidden;
+}
+.gig-poster-image {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+}
+.gig-poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
+}
+.gig-poster-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.75) 80%, #000 100%),
+    rgba(0,0,0,0.15);
+}
+.gig-poster-body {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: end;
+  margin-top: -4.5rem;
+  padding: 0 3rem 3rem;
+}
+.gig-poster-title {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(3.8rem, 9vw, 7.5rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 1.4rem;
+}
+.gig-poster-date,
+.gig-poster-venue {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #fff;
+}
+.gig-poster-venue { color: var(--warm); }
+.gig-poster-note {
+  margin-top: 1.1rem;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #5a534a;
-  margin-bottom: 1rem;
+  color: var(--accent);
 }
-.live-dates-list { list-style: none; }
-.live-dates-row {
-  display: grid;
-  grid-template-columns: 8rem 15rem 1fr auto;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.3rem 0;
-  border-top: 1px solid rgba(8, 8, 8, 0.14);
-  font-size: 1.05rem;
-  font-weight: 400;
+.gig-poster-actions { min-width: 0; }
+.gig-tickets {
+  display: block;
+  width: 100%;
+  padding: 1.1rem 1.5rem;
+  border: 0;
+  background: var(--cream);
+  color: var(--black);
+  font-family: 'Karla', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.25s ease;
 }
-.live-dates-row:last-child { border-bottom: 1px solid rgba(8, 8, 8, 0.14); }
-.live-dates-work {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 1.6rem;
-  line-height: 1;
+a.gig-tickets:hover { background: #fff; }
+.gig-tickets:disabled {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.14);
+  cursor: not-allowed;
 }
-.live-dates-date { font-weight: 500; }
-.live-dates-venue { color: #3a352f; }
-.live-dates-button {
-  display: inline-block;
-  padding: 0.85rem 1.6rem;
-  background: var(--black);
-  color: var(--cream);
+.gig-alert { margin-top: 1.6rem; }
+.gig-alert-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--warm);
+  margin-bottom: 0.7rem;
+}
+.gig-alert-row { display: flex; gap: 0.5rem; }
+.gig-alert-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.95rem;
+  border-radius: 0;
+}
+.gig-alert-input::placeholder { color: rgba(255,255,255,0.4); }
+.gig-alert-input:focus { outline: none; border-color: var(--accent); }
+.gig-alert-submit {
+  padding: 0.85rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Karla', sans-serif;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  text-decoration: none;
   white-space: nowrap;
   transition: background 0.25s ease, color 0.25s ease;
 }
-.live-dates-button:hover { background: var(--accent-dim); color: #fff; }
-.live-dates-foot {
-  margin-top: 1.2rem;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: #5a534a;
+.gig-alert-submit:hover:not(:disabled) { background: var(--accent); color: var(--black); }
+.gig-alert-submit:disabled { opacity: 0.5; }
+.gig-alert-error { margin-top: 0.6rem; font-size: 0.8rem; color: #e39a8a; }
+.gig-alert-consent { margin-top: 0.6rem; font-size: 0.7rem; line-height: 1.5; color: var(--fog); }
+.gig-alert-done { margin-top: 1.6rem; font-size: 0.9rem; color: var(--warm); }
+.gig-poster-about {
+  display: inline-block;
+  margin-top: 1.4rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fog);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(138,130,120,0.4);
+  padding-bottom: 0.2rem;
+  transition: color 0.25s ease;
 }
-.live-dates-foot a { color: var(--black); text-underline-offset: 0.2em; }
+.gig-poster-about:hover { color: var(--cream); }
+.gig-more {
+  max-width: 1100px;
+  margin: 1.2rem 0 6rem;
+  font-size: 0.85rem;
+  color: var(--fog);
+}
+.live-page-text { max-width: 1100px; margin-bottom: 5rem; }
+.live-page-text .live-body { max-width: 60ch; }
 
 /* Feature rows: text beside a wide image. */
 .live-page-feature {
@@ -4100,9 +4190,6 @@ body.card-mode .cursor-ring {
   height: 100%;
   object-fit: cover;
 }
-/* The Ùrlar frame has empty floor below the screens: wider box, crop high. */
-.live-page-feature-visual-wide { aspect-ratio: 2 / 1; }
-.live-page-feature-visual-wide .live-page-feature-img { object-position: 50% 30%; }
 .live-page-section-ruled {
   padding-top: 5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -4125,29 +4212,17 @@ body.card-mode .cursor-ring {
   background: var(--accent);
 }
 @media (max-width: 900px) {
-  .live-dates-row {
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "work button" "date button" "venue button";
-    gap: 0.25rem 1rem;
-  }
-  .live-dates-work { grid-area: work; margin-bottom: 0.3rem; }
-  .live-dates-date { grid-area: date; }
-  .live-dates-venue { grid-area: venue; }
-  .live-dates-button { grid-area: button; }
+  .gig-poster-body { grid-template-columns: 1fr; gap: 2rem; margin-top: -3rem; }
   .live-page-feature { grid-template-columns: 1fr; gap: 2rem; }
   .live-page-feature-visual,
   .live-page-feature-flip .live-page-feature-visual { order: -1; }
 }
 @media (max-width: 768px) {
   .live-page { padding: 7rem 1.5rem 4rem; }
-  .live-dates { padding: 1.6rem 1.4rem 1.4rem; margin-bottom: 4rem; }
-}
-@media (max-width: 420px) {
-  .live-dates-row {
-    grid-template-columns: 1fr;
-    grid-template-areas: "work" "date" "venue" "button";
-  }
-  .live-dates-button { justify-self: start; margin-top: 0.8rem; }
+  .gig-poster-image { aspect-ratio: 4 / 3; }
+  .gig-poster-img { object-position: 50% 30%; }
+  .gig-poster-body { padding: 0 1.4rem 1.8rem; margin-top: -2rem; }
+  .gig-more { margin-bottom: 4rem; }
 }
 
 /* ===== /list — mailing list signup ===== */

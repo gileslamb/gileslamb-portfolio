@@ -5,7 +5,7 @@ import { getImmersiveProject } from "@/data/immersive";
 import { buildBayeuxTapestrySchema } from "@/lib/schema/works";
 
 export const metadata = {
-  title: "Bayeux Tapestry · British Museum · Giles Lamb",
+  title: "Bayeux Tapestry, British Museum · Giles Lamb",
   description:
     "Score and sound design for the immersive spaces of the British Museum's Bayeux Tapestry exhibition.",
 };

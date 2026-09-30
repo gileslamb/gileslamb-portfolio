@@ -68,7 +68,7 @@ Section order (`src/app/page.jsx`):
 2. **Showreel 2026**: Stream `00b4dbad6e415e5edbca3b3c3b507dff`
 3. **Practice** (`Practice.jsx`): "The medium shifts. The obsession doesn't." Three strands (Film & Television; Immersive & Installation; Live Audiovisual Performance).
 4. **Selected Work** (`Work.jsx`)
-   - Featured three (inline `CASE_STUDIES`): **Bayeux Tapestry** → `/immersive/bayeux-tapestry`, **Distance to the Moon** → `/work/distance-to-the-moon`, **Dead Island** → `/work/dead-island`. A card's awards line only renders when it has awards (Bayeux has none).
+   - Featured three (inline `CASE_STUDIES`): **Bayeux Tapestry, British Museum** → `/immersive/bayeux-tapestry`, **Distance to the Moon** → `/work/distance-to-the-moon`, **Dead Island** → `/work/dead-island`. A card's awards line only renders when it has awards (Bayeux has none).
    - Further Selected Work grid (`src/data/projects.js`), two columns. Keep both lists an even length.
      - Shown: Holy Hell, Valhalla Rising, Visit Scotland, Siren Servers
      - Behind "Show more credits": Story Trails, Mail Rail, Fable Legends, Book of Kells, Cineworld, The 21
@@ -108,7 +108,7 @@ Static folders under `src/app/work/`: book-of-kells, cineworld, dead-island, dis
 
 `src/app/immersive/page.jsx`. Live URL used in outreach; do not move. "← Work" link above the intro, then intro copy, museum reel link, and the `IMMERSIVE_GRID`:
 
-1. Bayeux Tapestry · British Museum (2026)
+1. Bayeux Tapestry, British Museum (2026)
 2. Mail Rail · The Postal Museum (2017)
 3. Zephyr · MSI Chicago (2019)
 4. Oman Across the Ages (2021)
@@ -136,14 +136,21 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
 
 ## `/live`: Live
 
-`src/app/live/page.jsx`, redesigned 30 Sep 2026 to be scannable. Top to bottom:
+`src/app/live/page.jsx`. Top to bottom:
 
-1. **Intro:** "Live" label, heading "Where and when to see me play."
-2. **Upcoming dates:** a light (cream) panel with dark type, one row per date from the `DATES` array at the top of the file: work · date · venue · "Details →" button. Currently one row: **Ùrlar · Fri 4 December 2026 · House of Toad, Glasgow → `/urlar/host`**. Footer line: "More dates from January 2027. Programmers and venues, get in touch" (→ `/#contact`). Rows stack on narrow screens. To add a date, add an entry to `DATES`.
-3. **Ùrlar:** one paragraph, "About Ùrlar →" `/urlar/host`. Image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f`; the frame second is `URLAR_FRAME` (65), cropped high in a 2:1 box.
-4. **The method: Unstable Systems:** one paragraph, "Releases →". Image: the black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
+1. **Forthcoming performances**: a gig poster (`.gig-poster`), in the manner of artist tour pages: one key image, big type.
+   - Key image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f` at `URLAR_FRAME` (65s), cropped to the screens and faded to black at the bottom (21:9 desktop, 4:3 mobile). All type sits on the black, never over the image.
+   - Type: **ÙRLAR** / **Friday 4 December 2026** / **House of Toad, Glasgow** / "Limited spaces".
+   - Tickets button: **`TICKETS_URL`** constant at the top of the page. Empty = greyed, disabled "Tickets coming soon". Set it to the Eventbrite link and it becomes a live "Tickets" button (new tab).
+   - Ticket alert signup (`src/app/live/TicketAlertForm.jsx`): "Be first to hear when tickets go on sale". Posts `{ email, tag: "urlar-hot-2026" }` to `/api/list` (see below).
+   - "About Ùrlar →" `/urlar/host`.
+   - Beneath the poster: "More dates from January 2027."
+2. **Ùrlar**: one paragraph, no image (the poster carries it).
+3. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
 
-The Oliveros quote, pronunciation and Gaelic gloss were dropped from `/live` in the redesign (they remain on `/urlar`).
+### `/api/list` tags
+
+Every signup is saved to the `giles-engine` captures table first (`source: 'list'`, `source_detail` = the extra tag or `'list'`), then subscribed to the Kit form (`KIT_FORM_ID`) and tagged with `KIT_TAG_ID` (live dates). A form can also send `tag`: names in the route's `EXTRA_TAGS` allowlist (currently `urlar-hot-2026`) are resolved to a Kit tag ID by name at signup (Kit's create-tag call is idempotent on name, so the tag is created on first use) and applied as well.
 
 ---
 
@@ -194,7 +201,7 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 | ID | What | Used on |
 |---|---|---|
 | `00b4dbad6e415e5edbca3b3c3b507dff` | Showreel 2026 | Homepage, `/reel` |
-| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar/host` hero (poster/OG at 65s); homepage Live and `/live` stills at 65s |
+| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar/host` hero (poster/OG at 65s); homepage Live still and `/live` poster at 65s |
 | `3913fbedb27eed32fd88c6d87eab3448` | Ùrlar studio pilot (playing) | `/urlar/host` image band (51s) |
 | `9510de9cffc769d1720604298dc57895` / `09c888db1acd3ba26fb0f2b8bd28a292` / `68eeb46ea059449e3660d0f785f8367f` | Ùrlar poster loops (clean, 35% ghost, 50% ghost) | `/urlar` |
 
@@ -237,3 +244,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 3 Sep 2026 | Invisible Threads listening room moved under `/releases` |
 | 30 Sep 2026 | Site refresh: nav (Work · Live · Listen · Releases · Catalogue (hidden) · Essays · Contact); new `/work` index; hero copy; Bayeux Tapestry featured and new `/immersive/bayeux-tapestry`; Mail Rail added with `/immersive/mail-rail`; Holy Hell moved to the grid; homepage Live becomes Ùrlar; `/live` and `/urlar` updated to 4 Dec House of Toad; KCR / 20 Sept details and poster link removed from `/urlar`; Dream Screens reframed as the album out 30 October; schema updated; CLAUDE.md added |
 | 30 Sep 2026 | Bayeux copy revised (tagline "Music and immersive sound design"); `/live` redesigned: dates panel first, then Ùrlar (scan visuals still), then Unstable Systems (B&W photo); Oliveros quote dropped from `/live` |
+| 30 Sep 2026 | Bayeux title "Bayeux Tapestry, British Museum" everywhere; `/live` top rebuilt as a gig poster (Forthcoming performances, `TICKETS_URL`, ticket alert signup tagged `urlar-hot-2026`); `/api/list` accepts an allowlisted extra tag |

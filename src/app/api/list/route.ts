@@ -8,6 +8,12 @@ export const LIST_CONSENT_TEXT =
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
+/* Extra Kit tags a signup form may ask for, by name. Allowlisted so the
+   endpoint can't be used to create arbitrary tags. The name is resolved to an
+   ID at signup time: Kit's create-tag call is idempotent on name, returning the
+   existing tag if there is one. */
+const EXTRA_TAGS = new Set(['urlar-hot-2026']);
+
 /**
  * Kit form subscription. Returns false on any failure — never throws.
  *
@@ -16,7 +22,10 @@ const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
  * that is already on the account is not an error, so a failure at step 1 is
  * logged and we still try to add it to the form.
  */
-async function subscribeToKit(email: string): Promise<{ subscribed: boolean; tagged: boolean }> {
+async function subscribeToKit(
+  email: string,
+  extraTag?: string,
+): Promise<{ subscribed: boolean; tagged: boolean; extraTagged?: boolean }> {
   const apiKey = process.env.KIT_API_KEY;
   const formId = process.env.KIT_FORM_ID;
   const tagId = process.env.KIT_TAG_ID;
@@ -69,7 +78,31 @@ async function subscribeToKit(email: string): Promise<{ subscribed: boolean; tag
       console.error('[list] KIT_TAG_ID not set — subscriber added but not tagged');
     }
 
-    return { subscribed: true, tagged };
+    if (!extraTag) return { subscribed: true, tagged };
+
+    let extraTagged = false;
+    const tagRes = await fetch('https://api.kit.com/v4/tags', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ name: extraTag }),
+    });
+    const tagJson = (await tagRes.json().catch(() => null)) as { tag?: { id?: number } } | null;
+    const extraTagId = tagJson?.tag?.id;
+    if (!tagRes.ok || !extraTagId) {
+      console.error(`[list] Kit could not resolve tag ${extraTag}:`, tagRes.status);
+    } else {
+      const t = await fetch(`https://api.kit.com/v4/tags/${extraTagId}/subscribers`, {
+        method: 'POST',
+        headers,
+        body,
+      });
+      extraTagged = t.ok;
+      if (!t.ok) {
+        console.error(`[list] Kit rejected tag ${extraTag}:`, t.status, await t.text().catch(() => ''));
+      }
+    }
+
+    return { subscribed: true, tagged, extraTagged };
   } catch (err) {
     console.error('[list] Kit request failed:', err);
     return { subscribed: false, tagged: false };
@@ -77,8 +110,9 @@ async function subscribeToKit(email: string): Promise<{ subscribed: boolean; tag
 }
 
 export async function POST(req: Request) {
-  const body = (await req.json().catch(() => null)) as { email?: string } | null;
+  const body = (await req.json().catch(() => null)) as { email?: string; tag?: string } | null;
   const email = body?.email?.trim() ?? '';
+  const extraTag = body?.tag && EXTRA_TAGS.has(body.tag) ? body.tag : undefined;
 
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ ok: false, error: 'A valid email, please.' }, { status: 400 });
@@ -89,7 +123,7 @@ export async function POST(req: Request) {
     await postCapture({
       email,
       source: 'list',
-      source_detail: 'list',
+      source_detail: extraTag ?? 'list',
       consent_text: LIST_CONSENT_TEXT,
     });
   } catch (err) {
@@ -102,7 +136,7 @@ export async function POST(req: Request) {
 
   // Kit is best-effort: the row is already saved, so a failure here is logged,
   // not surfaced. Recoverable by hand from the captures table.
-  const kit = await subscribeToKit(email);
+  const kit = await subscribeToKit(email, extraTag);
 
   return NextResponse.json({ ok: true, kit });
 }

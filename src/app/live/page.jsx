@@ -2,20 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { TicketAlertForm } from "./TicketAlertForm";
 
-/* Upcoming dates: one entry per performance, soonest first. */
-const DATES = [
-  {
-    work: "Ùrlar",
-    date: "Fri 4 December 2026",
-    dateTime: "2026-12-04",
-    venue: "House of Toad, Glasgow",
-    href: "/urlar/host",
-  },
-];
+/* Eventbrite link for the 4 Dec premiere. While empty, the button shows
+   "Tickets coming soon" and is disabled; set it and the button goes live. */
+const TICKETS_URL = "";
 
-/* TouchDesigner scan visuals: the three-screen audience clip from /urlar/host.
-   URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
+/* Kit tag applied to ticket-alert signups (allowlisted in /api/list). */
+const TICKET_ALERT_TAG = "urlar-hot-2026";
+
+/* Poster image: TouchDesigner scan visuals, the three-screen audience clip
+   from /urlar/host. URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
    host, so this is a plain img. */
 const STREAM = "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com";
 const URLAR_FRAME = 65;
@@ -36,58 +33,62 @@ export default function LivePage() {
     <>
       <Nav />
       <main className="live-page">
-        <div className="live-page-intro">
-          <p className="section-label">Live</p>
-          <h1 className="live-page-heading">Where and when to see me play.</h1>
-        </div>
+        {/* ===== Forthcoming performances: gig poster ===== */}
+        <h1 className="gig-heading">Forthcoming performances</h1>
 
-        {/* ===== Upcoming dates ===== */}
-        <section className="live-dates" aria-labelledby="live-dates-title">
-          <h2 id="live-dates-title" className="live-dates-title">
-            Upcoming dates
-          </h2>
-          <ul className="live-dates-list">
-            {DATES.map((d) => (
-              <li key={`${d.work}-${d.dateTime}`} className="live-dates-row">
-                <span className="live-dates-work">{d.work}</span>
-                <time className="live-dates-date" dateTime={d.dateTime}>
-                  {d.date}
-                </time>
-                <span className="live-dates-venue">{d.venue}</span>
-                <Link href={d.href} className="live-dates-button">
-                  Details &rarr;
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <p className="live-dates-foot">
-            More dates from January 2027. Programmers and venues,{" "}
-            <Link href="/#contact">get in touch</Link>.
-          </p>
-        </section>
-
-        {/* ===== Ùrlar ===== */}
-        <section className="live-page-feature">
-          <div className="live-page-feature-text">
-            <h2 className="live-headline live-page-feature-title">Ùrlar</h2>
-            <p className="live-body">
-              Ùrlar is the ground in pibroch, the theme everything returns to. An
-              hour of live piano and synthesis, with spatial sound and projection
-              across three screens. The room is dark; people sit or lie down.
-            </p>
-            <Link href="/urlar/host" className="live-text-cta">
-              About Ùrlar &rarr;
-            </Link>
-          </div>
-          <div className="live-page-feature-visual live-page-feature-visual-wide">
+        <article className="gig-poster" aria-labelledby="gig-urlar-title">
+          <div className="gig-poster-image">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={URLAR_STILL}
               alt="Ùrlar: point-cloud scan visuals projected across three screens"
-              className="live-page-feature-img"
-              loading="lazy"
+              className="gig-poster-img"
             />
           </div>
+
+          <div className="gig-poster-body">
+            <div className="gig-poster-type">
+              <h2 id="gig-urlar-title" className="gig-poster-title">Ùrlar</h2>
+              <p className="gig-poster-date">
+                <time dateTime="2026-12-04">Friday 4 December 2026</time>
+              </p>
+              <p className="gig-poster-venue">House of Toad, Glasgow</p>
+              <p className="gig-poster-note">Limited spaces</p>
+            </div>
+
+            <div className="gig-poster-actions">
+              {TICKETS_URL ? (
+                <a
+                  href={TICKETS_URL}
+                  className="gig-tickets"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Tickets
+                </a>
+              ) : (
+                <button type="button" className="gig-tickets" disabled>
+                  Tickets coming soon
+                </button>
+              )}
+              <TicketAlertForm tag={TICKET_ALERT_TAG} />
+              <Link href="/urlar/host" className="gig-poster-about">
+                About Ùrlar &rarr;
+              </Link>
+            </div>
+          </div>
+        </article>
+
+        <p className="gig-more">More dates from January 2027.</p>
+
+        {/* ===== Ùrlar ===== */}
+        <section className="live-page-text live-page-section-ruled">
+          <h2 className="live-headline live-page-feature-title">Ùrlar</h2>
+          <p className="live-body">
+            Ùrlar is the ground in pibroch, the theme everything returns to. An
+            hour of live piano and synthesis, with spatial sound and projection
+            across three screens. The room is dark; people sit or lie down.
+          </p>
         </section>
 
         {/* ===== The method ===== */}

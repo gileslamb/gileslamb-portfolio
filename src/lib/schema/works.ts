@@ -275,7 +275,7 @@ export function buildBayeuxTapestrySchema(): JsonLd {
     "@context": CTX,
     "@type": "CreativeWork",
     "@id": `${BASE_URL}/immersive/bayeux-tapestry#work`,
-    name: "Bayeux Tapestry exhibition: immersive score and sound design",
+    name: "Bayeux Tapestry, British Museum",
     dateCreated: "2026",
     description:
       "Score and sound design for the immersive spaces of the British Museum's much-anticipated Bayeux Tapestry exhibition, open until July 2027.",

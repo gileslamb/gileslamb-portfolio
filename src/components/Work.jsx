@@ -16,7 +16,7 @@ const CASE_STUDIES = [
     href: "/immersive/bayeux-tapestry",
     year: "2026",
     type: "MUSEUM EXHIBITION · IMMERSIVE SOUND",
-    title: "Bayeux Tapestry",
+    title: "Bayeux Tapestry, British Museum",
     tagline: "Music and immersive sound design",
     description: [
       "Score and sound design for the immersive spaces of the British Museum's much-anticipated Bayeux Tapestry exhibition, open until July 2027.",

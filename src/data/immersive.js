@@ -9,7 +9,7 @@ export const IMMERSIVE_GRID = [
   {
     id: "bayeux-tapestry",
     slug: "bayeux-tapestry",
-    title: "Bayeux Tapestry · British Museum",
+    title: "Bayeux Tapestry, British Museum",
     client: "British Museum / ISO Design",
     year: "2026",
     role: "Composer · Sound Design",
@@ -143,7 +143,7 @@ export const IMMERSIVE_GRID = [
 export const IMMERSIVE_PROJECTS = {
   "bayeux-tapestry": {
     slug: "bayeux-tapestry",
-    title: "Bayeux Tapestry · British Museum",
+    title: "Bayeux Tapestry, British Museum",
     year: "2026",
     type: "Museum Exhibition · Immersive Sound",
     client: "British Museum",
