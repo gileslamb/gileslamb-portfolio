@@ -79,6 +79,19 @@ export function ImmersiveCaseStudy({ project }) {
                 </>
               ) : null}
             </div>
+
+            {project.externalLink && (
+              <div className="anim-case-links">
+                <a
+                  href={project.externalLink.href}
+                  className="anim-case-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.externalLink.label}
+                </a>
+              </div>
+            )}
           </div>
 
           <RightColumn blocks={project.rightBlocks} />

@@ -165,17 +165,6 @@ nav::after {
   opacity: 0; animation: fadeUp 1.2s ease 1.4s forwards;
 }
 .hero-descriptor p + p { margin-top: 1.1rem; }
-.hero-descriptor-link {
-  color: var(--warm);
-  text-decoration: underline;
-  text-decoration-color: rgba(201,169,110,.35);
-  text-underline-offset: .2em;
-  transition: color .25s ease, text-decoration-color .25s ease;
-}
-.hero-descriptor-link:hover {
-  color: var(--cream);
-  text-decoration-color: rgba(201,169,110,.55);
-}
 .hero-cta {
   margin-top: 3.5rem; position: relative; z-index: 2;
   opacity: 0; animation: fadeUp 1.2s ease 1.7s forwards;
@@ -2974,7 +2963,7 @@ p.immersive-reel-foot {
   color: var(--cream);
   border-bottom-color: rgba(201,169,110,.45);
 }
-/* homepage live section now carries two links (Releases, Live) */
+/* homepage live section carries two links (Live, About Ùrlar) */
 .live-text-cta + .live-text-cta { margin-left: 2rem; }
 .live-text-cta.live-text-cta-prose {
   text-transform: none;
@@ -3076,6 +3065,12 @@ p.immersive-reel-foot {
   object-fit: cover;
   filter: grayscale(30%) brightness(0.75) sepia(15%);
   transition: filter 0.4s ease;
+}
+.live-featured-image-plain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 .live-featured-link:hover .live-featured-image {
   filter: grayscale(10%) brightness(0.88) sepia(8%);
@@ -4125,3 +4120,36 @@ body.card-mode .cursor-ring {
 body.list-mode { cursor: auto; }
 body.list-mode .cursor,
 body.list-mode .cursor-ring { display: none !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   WORK INDEX (/work): reuses .immersive-landing, .work-tier2 and
+   .work-further-grid; adds section heads, jump links and back links
+   ═══════════════════════════════════════════════════════════════ */
+.work-index-jump {
+  display: flex; flex-wrap: wrap; gap: .8rem 2rem;
+}
+.work-index-jump a,
+.work-index-more,
+.section-back {
+  font-size: .63rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--fog); text-decoration: none; transition: color .25s ease;
+}
+.work-index-jump a:hover,
+.work-index-more:hover,
+.section-back:hover { color: var(--cream); }
+.work-index-more { color: var(--accent); }
+.work-index-section.work-tier2 {
+  margin-top: 0;
+  padding: 4rem 3.5rem 5rem;
+  scroll-margin-top: 4rem;
+}
+.work-index-head {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: 1rem; margin-bottom: 2.5rem;
+}
+/* An odd item out at the end of a two-column grid spans the full row. */
+.work-index-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.section-back { display: inline-block; margin-bottom: 2rem; }
+@media (max-width: 767px) {
+  .work-index-section.work-tier2 { padding: 3rem 1.5rem 3.5rem; }
+}

@@ -112,17 +112,14 @@ export function Hero() {
       </h1>
       <div className="hero-descriptor">
         <p>
-          Composer. Film and installation, live audiovisual, generative work.
-          Three decades of commissioned scoring and own artistic practice.
-          Cannes, BAFTA, RTS and Music+Sound awards.
-          I spend as much time on process and improvisation as on the final mix.
+          Composer and sound artist. Thirty years scoring film, television,
+          animation and games, and a growing body of museum and installation
+          work, most recently the Bayeux Tapestry at the British Museum.
         </p>
         <p>
-          Dream Screens is a new project in development.{" "}
-          <Link href="/writing" className="hero-descriptor-link">
-            The Quiet Room
-          </Link>{" "}
-          is writing on sound and how I work.
+          Live, I play Ùrlar, for piano, synthesis, projection and spatial
+          sound. I&rsquo;m also developing spatial sound research with the
+          University of Glasgow. Cannes, BAFTA, RTS and Music+Sound awards.
         </p>
       </div>
       <div className="hero-cta">

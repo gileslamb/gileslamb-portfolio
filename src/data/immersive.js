@@ -7,6 +7,28 @@ export function cfImage(id) {
 /** Index grid: order matches spec */
 export const IMMERSIVE_GRID = [
   {
+    id: "bayeux-tapestry",
+    slug: "bayeux-tapestry",
+    title: "Bayeux Tapestry · British Museum",
+    client: "British Museum / ISO Design",
+    year: "2026",
+    role: "Composer · Sound Design",
+    type: "Museum Exhibition · Immersive Sound",
+    image: "/images/bayeux-tapestry.jpg",
+    href: "/immersive/bayeux-tapestry",
+  },
+  {
+    id: "mail-rail",
+    slug: "mail-rail",
+    title: "Mail Rail · The Postal Museum",
+    client: "The Postal Museum / ISO Design (visuals)",
+    year: "2017",
+    role: "Composer · Sound Design",
+    type: "Immersive Museum Ride",
+    image: "/images/mail-rail.png",
+    href: "/immersive/mail-rail",
+  },
+  {
     id: "zephyr",
     slug: "zephyr",
     title: "Zephyr · MSI Chicago",
@@ -119,6 +141,46 @@ export const IMMERSIVE_GRID = [
 ];
 
 export const IMMERSIVE_PROJECTS = {
+  "bayeux-tapestry": {
+    slug: "bayeux-tapestry",
+    title: "Bayeux Tapestry · British Museum",
+    year: "2026",
+    type: "Museum Exhibition · Immersive Sound",
+    client: "British Museum",
+    studio: "ISO Design",
+    role: "Composer · Sound Design",
+    description: `Score and sound design for the immersive spaces of the British Museum's Bayeux Tapestry exhibition, open until July 2027.
+
+The brief was atmosphere rather than a conventional battle score. A slow pulse runs underneath like a heartbeat, with drums that are never quite drums, so the tension lives in the room rather than on top of the picture.`,
+    rightBlocks: [
+      {
+        block: "image",
+        src: "/images/bayeux-tapestry.jpg",
+        alt: "Bayeux Tapestry exhibition, British Museum",
+      },
+    ],
+  },
+  "mail-rail": {
+    slug: "mail-rail",
+    title: "Mail Rail · The Postal Museum",
+    year: "2017",
+    type: "Immersive Museum Ride",
+    client: "The Postal Museum",
+    studio: "ISO Design (visuals)",
+    role: "Composer · Sound Design",
+    description: `Original score and full sound design for the Mail Rail ride at The Postal Museum, London. Visitors travel by miniature train through the original tunnels of the Royal Mail's underground railway, arriving at a platform-wide projection that takes them back to its 1930s heyday.`,
+    externalLink: {
+      label: "Mail Rail at The Postal Museum →",
+      href: "https://www.postalmuseum.org/visit-us/what-to-expect/mail-rail/",
+    },
+    rightBlocks: [
+      {
+        block: "image",
+        src: "/images/mail-rail.png",
+        alt: "Mail Rail, The Postal Museum, London",
+      },
+    ],
+  },
   zephyr: {
     slug: "zephyr",
     title: "Zephyr · MSI Chicago",

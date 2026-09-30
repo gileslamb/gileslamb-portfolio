@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-const HERO =
-  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/139e9942-632c-478a-5ba5-977a6b6b5100/public";
+const HERO = "/images/dream-screens.png";
 
 export function DreamScreensPromo() {
   return (
@@ -10,25 +9,20 @@ export function DreamScreensPromo() {
         <div className="live-text">
           <h2 className="live-headline reveal">Dream Screens</h2>
           <p className="live-body reveal reveal-delay-1">
-            Dream Screens is a transmedia concept album, in development: music,
-            image and narrative conceived together as a single work, designed to
-            be inhabited rather than watched.
+            Dream Screens is a concept album, with music, image and story built
+            together from the start. Out 30 October.
           </p>
           <p className="live-body reveal reveal-delay-2">
-            Where the live practice is improvised and made in the moment, Dream
-            Screens is composed and authored, a fixed world you move through. It
-            asks what an album can be when sound, story and image are built
-            together from the start. Not a soundtrack to visuals, not visuals
-            added to music. One thing.
+            Where the live work is made in the moment, Dream Screens is composed
+            and fixed, a world you move through.
           </p>
-          <p className="live-body reveal reveal-delay-3">Still in development.</p>
           <a
             href="https://dream-screens.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="live-text-cta live-text-cta-prose reveal reveal-delay-4"
+            className="live-text-cta live-text-cta-prose reveal reveal-delay-3"
           >
-            Find out more at Dream Screens
+            Dream Screens
           </a>
         </div>
         <div className="live-featured-link reveal reveal-delay-2">

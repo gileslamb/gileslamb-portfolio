@@ -270,6 +270,40 @@ export function buildCineworldSchema(): JsonLd {
   };
 }
 
+export function buildBayeuxTapestrySchema(): JsonLd {
+  return {
+    "@context": CTX,
+    "@type": "CreativeWork",
+    "@id": `${BASE_URL}/immersive/bayeux-tapestry#work`,
+    name: "Bayeux Tapestry exhibition: immersive score and sound design",
+    dateCreated: "2026",
+    description:
+      "Score and sound design for the immersive spaces of the British Museum's Bayeux Tapestry exhibition, open until July 2027.",
+    creator: { "@id": GILES_ID },
+    locationCreated: { "@type": "Museum", name: "British Museum" },
+    contributor: [{ "@type": "Organization", name: "ISO Design" }],
+    image: `${BASE_URL}/images/bayeux-tapestry.jpg`,
+    url: `${BASE_URL}/immersive/bayeux-tapestry`,
+  };
+}
+
+export function buildMailRailSchema(): JsonLd {
+  return {
+    "@context": CTX,
+    "@type": "CreativeWork",
+    "@id": `${BASE_URL}/immersive/mail-rail#work`,
+    name: "Mail Rail: score and sound design",
+    dateCreated: "2017",
+    description:
+      "Original score and full sound design for the Mail Rail ride at The Postal Museum, London, through the original tunnels of the Royal Mail's underground railway.",
+    creator: { "@id": GILES_ID },
+    locationCreated: { "@type": "Museum", name: "The Postal Museum" },
+    contributor: [{ "@type": "Organization", name: "ISO Design" }],
+    image: `${BASE_URL}/images/mail-rail.png`,
+    url: `${BASE_URL}/immersive/mail-rail`,
+  };
+}
+
 /** ItemList of selected works for the homepage. */
 export function buildWorkItemList(): JsonLd {
   return {
@@ -278,16 +312,18 @@ export function buildWorkItemList(): JsonLd {
     "@id": `${BASE_URL}/#selected-works`,
     name: "Selected Works by Giles Lamb",
     itemListElement: [
-      { "@type": "ListItem", position: 1, item: { "@id": `${BASE_URL}/work/distance-to-the-moon#film` } },
-      { "@type": "ListItem", position: 2, item: { "@id": `${BASE_URL}/work/holy-hell#film` } },
+      { "@type": "ListItem", position: 1, item: { "@id": `${BASE_URL}/immersive/bayeux-tapestry#work` } },
+      { "@type": "ListItem", position: 2, item: { "@id": `${BASE_URL}/work/distance-to-the-moon#film` } },
       { "@type": "ListItem", position: 3, item: { "@id": `${BASE_URL}/work/dead-island#composition` } },
-      { "@type": "ListItem", position: 4, item: { "@id": `${BASE_URL}/work/siren-servers#work` } },
+      { "@type": "ListItem", position: 4, item: { "@id": `${BASE_URL}/work/holy-hell#film` } },
       { "@type": "ListItem", position: 5, item: { "@id": `${BASE_URL}/work/valhalla-rising#film` } },
       { "@type": "ListItem", position: 6, item: { "@id": `${BASE_URL}/work/visit-scotland#campaign` } },
-      { "@type": "ListItem", position: 7, item: { "@id": `${BASE_URL}/work/story-trails#work` } },
-      { "@type": "ListItem", position: 8, item: { "@id": `${BASE_URL}/work/the-21#film` } },
-      { "@type": "ListItem", position: 9, item: { "@id": `${BASE_URL}/work/fable-legends#score` } },
-      { "@type": "ListItem", position: 10, item: { "@id": `${BASE_URL}/work/cineworld#composition` } },
+      { "@type": "ListItem", position: 7, item: { "@id": `${BASE_URL}/work/siren-servers#work` } },
+      { "@type": "ListItem", position: 8, item: { "@id": `${BASE_URL}/work/story-trails#work` } },
+      { "@type": "ListItem", position: 9, item: { "@id": `${BASE_URL}/immersive/mail-rail#work` } },
+      { "@type": "ListItem", position: 10, item: { "@id": `${BASE_URL}/work/fable-legends#score` } },
+      { "@type": "ListItem", position: 11, item: { "@id": `${BASE_URL}/work/cineworld#composition` } },
+      { "@type": "ListItem", position: 12, item: { "@id": `${BASE_URL}/work/the-21#film` } },
     ],
   };
 }

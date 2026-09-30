@@ -37,7 +37,7 @@ export function buildWorkBreadcrumb(title: string, slug: string): WithContext<Br
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      { "@type": "ListItem", position: 2, name: "Work", item: `${BASE_URL}/#work` },
+      { "@type": "ListItem", position: 2, name: "Work", item: `${BASE_URL}/work` },
       { "@type": "ListItem", position: 3, name: title, item: `${BASE_URL}/work/${slug}` },
     ],
   };

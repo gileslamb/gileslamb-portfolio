@@ -2,10 +2,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 
-/* Ùrlar copy and imagery are sourced from the Ùrlar brochure pages
-   (/urlar, /urlar/host) — not rewritten. Note: those pages carry the
-   20 Sept KCR Academy Barn date, which is handled privately by the
-   promoter, so nothing here links to them and no date/venue appears. */
+/* Ùrlar copy and imagery are sourced from the Ùrlar pages (/urlar, /urlar/host). */
 
 const URLAR_STILL =
   "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/68eeb46ea059449e3660d0f785f8367f/thumbnails/thumbnail.jpg?time=8s&height=720";
@@ -74,11 +71,6 @@ export default function LivePage() {
               <p className="live-body">
                 Ùrlar is the event. Unstable Systems is the method underneath it.
               </p>
-              <p className="live-body">
-                Ùrlar is an occasional series — each edition shaped by its room and an
-                invited guest performer. A format that suits rooms not built as music
-                venues: 20–60 capacity depending on layout, ticketed, with a fair split.
-              </p>
 
               <blockquote className="live-page-quote">
                 &ldquo;To listen is to open to the possibility of change.&rdquo;
@@ -86,9 +78,14 @@ export default function LivePage() {
               </blockquote>
 
               <div className="live-coming-soon">
-                <p className="live-coming-soon-label">Dates</p>
-                <p className="live-coming-soon-sub">Dates coming soon.</p>
+                <p className="live-coming-soon-label">Premiere</p>
+                <p className="live-coming-soon-sub">
+                  Friday 4 December 2026, House of Toad, Park Circus, Glasgow.
+                </p>
               </div>
+              <Link href="/urlar/host" className="live-text-cta">
+                About Ùrlar &rarr;
+              </Link>
 
               <p className="live-page-enquiry">
                 Programmers and venues — enquiries welcome.

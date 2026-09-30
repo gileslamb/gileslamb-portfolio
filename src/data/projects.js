@@ -1,22 +1,50 @@
-/* TIER 1: Full case studies (Distance to the Moon, Holy Hell, Dead Island)
+/* TIER 1: Full case studies (Bayeux Tapestry, Distance to the Moon, Dead Island)
    Rendered inline in Work.jsx - not from this file */
 
 /* Cloudflare Images (same account as project pages) so thumbnails load on mobile/Vercel */
 const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
-/* TIER 2: Further Selected Work, checkerboard grid */
+const HOLY_HELL = {
+  id: "holy-hell",
+  title: "Holy Hell",
+  client: "CNN Films / Netflix",
+  year: "2016",
+  type: "FEATURE DOCUMENTARY",
+  director: "Will Allen",
+  role: "Composer",
+  summary: "Feature documentary about two decades inside a cult, pieced together by a former member from his own footage. Live cello, piano and guitar. Sundance, CNN Films, Netflix.",
+  image: `${CF}/14535be8-678b-404a-60d3-71cb2c887300/public`,
+  href: "/work/holy-hell",
+};
+
+const DEAD_ISLAND = {
+  id: "dead-island",
+  title: "Dead Island",
+  client: "Deep Silver",
+  year: "2011",
+  type: "GAME TRAILER",
+  role: "Composer · Producer",
+  summary: "Announcement trailer score: spare, mournful piano against a slow-motion, reverse-chronology tragedy. Cannes Lions Gold.",
+  image: `${CF}/dead-island-cover.png/public`,
+  href: "/work/dead-island",
+};
+
+const MAIL_RAIL = {
+  id: "mail-rail",
+  title: "Mail Rail",
+  client: "The Postal Museum / ISO Design",
+  year: "2017",
+  type: "IMMERSIVE MUSEUM RIDE",
+  role: "COMPOSER · SOUND DESIGN",
+  summary: "Original score and full sound design for the Mail Rail ride at The Postal Museum, London, through the original tunnels of the Royal Mail's underground railway.",
+  image: "/images/mail-rail.png",
+  href: "/immersive/mail-rail",
+};
+
+/* TIER 2: Further Selected Work, checkerboard grid.
+   Two columns: keep both the primary list and the full list an even length. */
 export const FURTHER_WORK_PRIMARY = [
-  {
-    id: "siren-servers",
-    title: "Siren Servers",
-    client: "Sonica / ISO Design / Numbercult",
-    year: "2015",
-    type: "VR INSTALLATION",
-    role: "COMPOSER · SOUND DESIGN",
-    summary: "VR installation presented at Sonica Glasgow. Composition and sound design for an environment where physical and virtual space shared the same footprint.",
-    image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/c7ab2e8f-fd53-45d8-a626-1eb588589600/public",
-    href: "/work/siren-servers",
-  },
+  HOLY_HELL,
   {
     id: "valhalla-rising",
     title: "Valhalla Rising",
@@ -42,6 +70,20 @@ export const FURTHER_WORK_PRIMARY = [
     href: "/work/visit-scotland",
   },
   {
+    id: "siren-servers",
+    title: "Siren Servers",
+    client: "Sonica / ISO Design / Numbercult",
+    year: "2015",
+    type: "VR INSTALLATION",
+    role: "COMPOSER · SOUND DESIGN",
+    summary: "VR installation presented at Sonica Glasgow. Composition and sound design for an environment where physical and virtual space shared the same footprint.",
+    image: "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/c7ab2e8f-fd53-45d8-a626-1eb588589600/public",
+    href: "/work/siren-servers",
+  },
+];
+
+export const FURTHER_WORK_EXTENDED = [
+  {
     id: "story-trails",
     title: "Story Trails",
     client: "StoryFutures / ISO Design",
@@ -51,9 +93,7 @@ export const FURTHER_WORK_PRIMARY = [
     image: `${CF}/d7b9ffe0-5073-4182-1443-89c60b8b4000/public`,
     href: "/work/story-trails",
   },
-];
-
-export const FURTHER_WORK_EXTENDED = [
+  MAIL_RAIL,
   {
     id: "fable-legends",
     title: "Fable Legends",
@@ -105,4 +145,16 @@ export const FURTHER_WORK_EXTENDED = [
 export const FURTHER_WORK_PROJECTS = [
   ...FURTHER_WORK_PRIMARY,
   ...FURTHER_WORK_EXTENDED,
+];
+
+/* /work index, Film TV & Games section. Projects that belong to the Animation
+   or Installation & Museum sections (Distance to the Moon, The 21, Siren Servers,
+   Story Trails, Book of Kells, Mail Rail) appear there instead, so each project
+   is listed once. */
+export const FILM_TV_GAMES = [
+  HOLY_HELL,
+  DEAD_ISLAND,
+  ...["valhalla-rising", "visit-scotland", "fable-legends", "cineworld"].map((id) =>
+    FURTHER_WORK_PROJECTS.find((p) => p.id === id)
+  ),
 ];

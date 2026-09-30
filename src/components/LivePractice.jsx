@@ -1,52 +1,40 @@
-import Image from "next/image";
 import Link from "next/link";
 
-const FEATURED_IMAGE =
-  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/8cd73992-0209-4125-16d2-5a81f67fb200/public";
+/* Three-screen audience view from the /urlar/host hero clip, frame at 65s.
+   Cloudflare Stream is not a next/image remote host, so this is a plain img,
+   the same pattern /live and /urlar/host use. */
+const STREAM = "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com";
+const URLAR_STILL = `${STREAM}/ca96b876b35b1a3278d9f15770b6972f/thumbnails/thumbnail.jpg?time=65s&height=1080`;
 
 export function LivePractice() {
   return (
     <section className="live-bridge" id="live">
       <div className="live-bridge-inner">
         <div className="live-text">
-          <p className="live-eyebrow reveal">Live Practice</p>
-          <h2 className="live-headline reveal reveal-delay-1">
-            Unstable Systems
-          </h2>
+          <p className="live-eyebrow reveal">Live</p>
+          <h2 className="live-headline reveal reveal-delay-1">Ùrlar</h2>
           <p className="live-body reveal reveal-delay-2">
-            Unstable Systems is Giles Lamb&rsquo;s live performance practice: music made in one
-            pass, in the moment, played at the point where a part-stable, part-unpredictable
-            system is about to fall apart. Nothing is decided in advance and nothing is fixed
-            afterward. It is the wrangle between human and machine, human expression encoded
-            in the act of shaping what comes out. The opposite of generative polish:
-            musicality and intention, played live in a room.
+            Ùrlar is the ground in pibroch, the theme everything returns to. A live
+            piece for piano, synthesis, projection and spatial sound.
           </p>
           <p className="live-body reveal reveal-delay-2">
-            The first public preview, in June 2026, confirmed what the practice is for. The
-            audience completes it. These are works that exist to connect in the moment,
-            cinematic and strongly visual, built from modular synthesis, the Osmose, neural
-            voice processing and felt piano.
+            Premiere Friday 4 December, House of Toad, Glasgow.
           </p>
-          <p className="live-body reveal reveal-delay-2">
-            The live recordings are released as they accumulate. Orbital Fifths, roughly
-            forty minutes played in a single take, is the first.
-          </p>
-          <Link href="/releases" className="live-text-cta reveal reveal-delay-2">
-            Releases &rarr;
-          </Link>
           <Link href="/live" className="live-text-cta reveal reveal-delay-2">
             Live &rarr;
+          </Link>
+          <Link href="/urlar/host" className="live-text-cta reveal reveal-delay-2">
+            About Ùrlar &rarr;
           </Link>
         </div>
         <div className="live-featured-link reveal reveal-delay-2">
           <div className="live-visual">
-            <Image
-              src={FEATURED_IMAGE}
-              alt="Giles Lamb performing live — Unstable Systems"
-              fill
-              sizes="(max-width: 767px) 100vw, 50vw"
-              className="live-featured-image"
-              priority={false}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={URLAR_STILL}
+              alt="Ùrlar: projection across three screens, seen from the audience"
+              className="live-featured-image live-featured-image-plain"
+              loading="lazy"
             />
           </div>
         </div>

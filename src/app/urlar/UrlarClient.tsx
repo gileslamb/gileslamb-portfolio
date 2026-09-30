@@ -187,7 +187,6 @@ export default function UrlarClient() {
         }
         .ul-cta{ transition:color .2s!important; }
         .ul-cta:hover{ color:${ACCENT}!important; }
-        .ul-printlink:hover{ color:${INK}!important; }
         .ul-atoggle:hover{ background:rgba(245,243,237,.18)!important; transform:scale(1.05)!important; }
       `}</style>
 
@@ -268,7 +267,7 @@ export default function UrlarClient() {
             position: 'absolute', top: -1, left: '50%', transform: 'translate(-50%,-50%)',
             background: BG, padding: '0 12px',
             fontFamily: SANS, fontSize: 9, letterSpacing: '.34em', color: FAINT, textTransform: 'uppercase',
-          }}>Ùrlar · 20.09.26 · Ayrshire</span>
+          }}>Ùrlar · 04.12.26 · Glasgow</span>
         </div>
       )}
 
@@ -390,48 +389,22 @@ export default function UrlarClient() {
                 fontFamily: DISP, fontWeight: 700, fontSize: 'clamp(28px,4.8vw,58px)',
                 lineHeight: .95, letterSpacing: '.01em', color: INK,
               }}>
-                <span style={{ color: ACCENT }}>Sun 20 Sep</span> 2026
+                <span style={{ color: ACCENT }}>Fri 4 Dec</span> 2026
               </div>
-              <div style={{ fontFamily: DISP, fontWeight: 500, fontSize: 'clamp(14px,1.7vw,21px)', letterSpacing: '.06em' }}>
-                2 – 4 PM
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/kcr-academy-logo.png"
-                  alt="KCR Academy"
-                  style={{ height: 'clamp(34px,4vw,44px)', width: 'auto', flex: 'none' }}
-                />
-                <div style={{
-                  fontFamily: SANS, fontSize: 'clamp(11px,1.1vw,13px)', letterSpacing: '.22em',
-                  textTransform: 'uppercase', color: MUTED,
-                }}>KCR Academy Barn · Dalgarven Mill · KA13 6PL</div>
-              </div>
+              <div style={{
+                fontFamily: SANS, fontSize: 'clamp(11px,1.1vw,13px)', letterSpacing: '.22em',
+                textTransform: 'uppercase', color: MUTED, marginTop: 4,
+              }}>House of Toad · Park Circus · Glasgow</div>
             </div>
 
             {!printMode && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
-                <a className="ul-cta" href="mailto:jane@kcracademy.com?subject=%C3%99rlar%20%E2%80%94%2020%20Sept%20%E2%80%94%20ticket%20request" style={{
-                  fontFamily: SANS, fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase',
-                  color: INK, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`,
-                  paddingBottom: 5, whiteSpace: 'nowrap',
-                }}>Email to book — £20, 20 places</a>
-                <p style={{
-                  fontFamily: SANS, fontSize: 11, lineHeight: 1.5, color: FAINT,
-                  margin: 0, textAlign: 'right',
-                }}>Bookings are handled by Jane at KCR Academy.</p>
-              </div>
+              <a className="ul-cta" href="/urlar/tickets" style={{
+                fontFamily: SANS, fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase',
+                color: INK, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`,
+                paddingBottom: 5, whiteSpace: 'nowrap',
+              }}>Tickets and updates</a>
             )}
           </div>
-
-          {!printMode && (
-            <div style={{ textAlign: 'center' }}>
-              <a className="ul-printlink" href="/urlar-poster.pdf" target="_blank" rel="noopener noreferrer" style={{
-                fontFamily: SANS, fontSize: 9.5, letterSpacing: '.3em', textTransform: 'uppercase',
-                color: FAINT, textDecoration: 'none', transition: 'color .2s',
-              }}>Download poster (PDF)</a>
-            </div>
-          )}
         </div>
       </div>
     </>

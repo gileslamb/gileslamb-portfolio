@@ -17,7 +17,7 @@ export default function AnimationPage() {
         <section className="anim-standalone-hero">
           <Link href="/" className="anim-hero-name">Giles Lamb</Link>
           <span className="anim-hero-role">Composer</span>
-          <Link href="https://www.gileslamb.com/" className="anim-hero-back">Full portfolio →</Link>
+          <Link href="/work" className="anim-hero-back">&larr; Work</Link>
         </section>
 
         <section className="anim-landing-intro">

@@ -16,6 +16,7 @@ export default function ImmersivePage() {
       <Nav />
       <main className="immersive-landing">
         <section className="immersive-landing-intro">
+          <Link href="/work" className="section-back">&larr; Work</Link>
           <p className="section-label reveal">Installation &amp; Museum</p>
           <div className="immersive-landing-body reveal reveal-delay-1">
             <p>

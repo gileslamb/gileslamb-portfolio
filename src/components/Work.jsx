@@ -12,6 +12,22 @@ const CF = "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg";
 
 const CASE_STUDIES = [
   {
+    id: "bayeux-tapestry",
+    href: "/immersive/bayeux-tapestry",
+    year: "2026",
+    type: "MUSEUM EXHIBITION · IMMERSIVE SOUND",
+    title: "Bayeux Tapestry",
+    tagline: "Atmosphere, not a battle score.",
+    description: [
+      "Score and sound design for the immersive spaces of the British Museum's Bayeux Tapestry exhibition, open until July 2027.",
+      "The brief was atmosphere rather than a conventional battle score. A slow pulse runs underneath like a heartbeat, with drums that are never quite drums, so the tension lives in the room rather than on top of the picture.",
+    ],
+    awards: [],
+    meta: { role: "Composer · Sound Design", client: "British Museum", studio: "ISO Design" },
+    coverImage: "/images/bayeux-tapestry.jpg",
+    coverAlt: "Bayeux Tapestry exhibition, British Museum",
+  },
+  {
     id: "distance-to-the-moon",
     href: "/work/distance-to-the-moon",
     year: "2025",
@@ -30,25 +46,6 @@ const CASE_STUDIES = [
     meta: { role: "Composer · Producer", client: "Curious Dreamers / Eyebols", medium: "Original Score" },
     coverImage: `${CF}/dttm--high-res-stills-dttm-picture-lock-v06_01_01_19_12.jpg/public`,
     coverAlt: "Distance to the Moon",
-  },
-  {
-    id: "holy-hell",
-    href: "/work/holy-hell",
-    year: "2016",
-    type: "FEATURE DOCUMENTARY",
-    title: "Holy Hell",
-    tagline: "A cult leader's two decades captured on film. Sundance, CNN Films, Netflix.",
-    description: [
-      "Will Allen had recently left a cult he had been part of for more than 20 years and pieced together all the footage to make the film. The rough edit was poignant, almost dreamlike.",
-      "The first two thirds are joyous and euphoric. In the third act there is a sharp turn. I used live cello, piano, guitar and ambient pads. As the truth reveals itself the melancholy dominates and something sinister creeps in.",
-    ],
-    awards: [
-      "Sundance Film Festival, US Documentary Competition",
-      "Documentary Critics Choice Award",
-    ],
-    meta: { role: "Composer", client: "CNN Films / Netflix", director: "Will Allen" },
-    coverImage: `${CF}/14535be8-678b-404a-60d3-71cb2c887300/public`,
-    coverAlt: "Holy Hell, 2016 film poster",
   },
   {
     id: "dead-island",
@@ -115,14 +112,17 @@ export function Work() {
                     <p key={i}>{para}</p>
                   ))}
                 </div>
-                <div className="work-case-awards">
-                  {study.awards.map((award, i) => (
-                    <div key={i} className="work-case-award">✦ {award}</div>
-                  ))}
-                </div>
+                {study.awards.length > 0 && (
+                  <div className="work-case-awards">
+                    {study.awards.map((award, i) => (
+                      <div key={i} className="work-case-award">✦ {award}</div>
+                    ))}
+                  </div>
+                )}
                 <div className="work-case-meta">
                   <span>{study.meta.role}</span>
                   {study.meta.client && <span>{study.meta.client}</span>}
+                  {study.meta.studio && <span>{study.meta.studio}</span>}
                   {study.meta.director && <span>Director: {study.meta.director}</span>}
                   {study.meta.medium && <span>{study.meta.medium}</span>}
                 </div>
