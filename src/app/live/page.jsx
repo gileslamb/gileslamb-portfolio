@@ -48,11 +48,20 @@ export default function LivePage() {
 
           <div className="gig-poster-body">
             <div className="gig-poster-type">
-              <h2 id="gig-urlar-title" className="gig-poster-title">Ùrlar</h2>
-              <p className="gig-poster-date">
-                <time dateTime="2026-12-04">Friday 4 December 2026</time>
+              <p className="gig-poster-artist">Giles Lamb</p>
+              <h2 id="gig-urlar-title" className="gig-poster-title">
+                <span className="gig-poster-accent">Ù</span>rlar
+              </h2>
+              <p className="gig-poster-blurb">
+                The ground in pibroch, the theme everything returns to. An hour of
+                live piano and synthesis, with spatial sound and projection across
+                three screens.
               </p>
-              <p className="gig-poster-venue">House of Toad, Glasgow</p>
+              <p className="gig-poster-when">
+                <time dateTime="2026-12-04">Friday 4 December 2026</time>
+                <span className="gig-poster-sep" aria-hidden="true"> · </span>
+                <span className="gig-poster-venue">House of Toad, Glasgow</span>
+              </p>
               <p className="gig-poster-note">Limited spaces</p>
             </div>
 
@@ -80,16 +89,6 @@ export default function LivePage() {
         </article>
 
         <p className="gig-more">More dates from January 2027.</p>
-
-        {/* ===== Ùrlar ===== */}
-        <section className="live-page-text live-page-section-ruled">
-          <h2 className="live-headline live-page-feature-title">Ùrlar</h2>
-          <p className="live-body">
-            Ùrlar is the ground in pibroch, the theme everything returns to. An
-            hour of live piano and synthesis, with spatial sound and projection
-            across three screens. The room is dark; people sit or lie down.
-          </p>
-        </section>
 
         {/* ===== The method ===== */}
         <section className="live-page-feature live-page-feature-flip live-page-section-ruled">

@@ -138,15 +138,15 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
 
 `src/app/live/page.jsx`. Top to bottom:
 
-1. **Forthcoming performances**: a gig poster (`.gig-poster`), in the manner of artist tour pages: one key image, big type.
-   - Key image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f` at `URLAR_FRAME` (65s), cropped to the screens and faded to black at the bottom (21:9 desktop, 4:3 mobile). All type sits on the black, never over the image.
-   - Type: **ÙRLAR** / **Friday 4 December 2026** / **House of Toad, Glasgow** / "Limited spaces".
+1. **Forthcoming performances**: a single flier section (`.gig-poster`), typography as `/urlar/host`: Cormorant Garamond (italic title, the Ù in `var(--accent)`) with Karla small caps, site colour tokens only.
+   - Key image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f` at `URLAR_FRAME` (65s), cropped to the screens and faded into the card (21:9 desktop, 4:3 mobile). All type sits below it.
+   - Order: GILES LAMB (small caps) / *Ùrlar* (large) / blurb ("The ground in pibroch, the theme everything returns to. An hour of live piano and synthesis, with spatial sound and projection across three screens.") / Friday 4 December 2026 · House of Toad, Glasgow (venue on its own line on mobile) / "Limited spaces" / tickets button / ticket alert signup / "About Ùrlar →" `/urlar/host`.
    - Tickets button: **`TICKETS_URL`** constant at the top of the page. Empty = greyed, disabled "Tickets coming soon". Set it to the Eventbrite link and it becomes a live "Tickets" button (new tab).
-   - Ticket alert signup (`src/app/live/TicketAlertForm.jsx`): "Be first to hear when tickets go on sale". Posts `{ email, tag: "urlar-hot-2026" }` to `/api/list` (see below).
-   - "About Ùrlar →" `/urlar/host`.
-   - Beneath the poster: "More dates from January 2027."
-2. **Ùrlar**: one paragraph, no image (the poster carries it).
-3. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
+   - Ticket alert signup (`src/app/live/TicketAlertForm.jsx`): "Be first to hear when tickets go on sale". Posts `{ email, tag: "urlar-hot-2026" }` to `/api/list`.
+   - Beneath the flier: "More dates from January 2027."
+2. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
+
+> **Font note:** the Google Fonts `@import` at the top of `globals.css` (Cormorant Garamond upright + italic, Karla 300/400) does not survive the build, so the only Cormorant face on the site is the italic 300 from `next/font` (`--font-hero-name`). All Cormorant text therefore renders italic site-wide, including `/urlar/host` prose and the flier blurb.
 
 ### `/api/list` tags
 
@@ -245,3 +245,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 30 Sep 2026 | Site refresh: nav (Work · Live · Listen · Releases · Catalogue (hidden) · Essays · Contact); new `/work` index; hero copy; Bayeux Tapestry featured and new `/immersive/bayeux-tapestry`; Mail Rail added with `/immersive/mail-rail`; Holy Hell moved to the grid; homepage Live becomes Ùrlar; `/live` and `/urlar` updated to 4 Dec House of Toad; KCR / 20 Sept details and poster link removed from `/urlar`; Dream Screens reframed as the album out 30 October; schema updated; CLAUDE.md added |
 | 30 Sep 2026 | Bayeux copy revised (tagline "Music and immersive sound design"); `/live` redesigned: dates panel first, then Ùrlar (scan visuals still), then Unstable Systems (B&W photo); Oliveros quote dropped from `/live` |
 | 30 Sep 2026 | Bayeux title "Bayeux Tapestry, British Museum" everywhere; `/live` top rebuilt as a gig poster (Forthcoming performances, `TICKETS_URL`, ticket alert signup tagged `urlar-hot-2026`); `/api/list` accepts an allowlisted extra tag |
+| 30 Sep 2026 | `/live` flier: `/urlar/host` typography (accent Ù), GILES LAMB above the title, Ùrlar blurb merged in, separate Ùrlar block removed |

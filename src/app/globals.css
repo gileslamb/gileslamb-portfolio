@@ -3996,7 +3996,7 @@ body.card-mode .cursor-ring {
   display: none !important;
 }
 
-/* ===== /live: gig poster first, then Ùrlar, then the method ===== */
+/* ===== /live: gig poster, then the method ===== */
 /* Reuses .section-label, .live-headline, .live-body and .live-text-cta from
    the homepage live section. */
 .live-page {
@@ -4005,13 +4005,14 @@ body.card-mode .cursor-ring {
   background: var(--black);
 }
 
-/* Gig poster: one key image, big type. The image is cropped to the three
-   screens and fades to black at the bottom; all type sits on that black, never
-   over the busy part of the image. */
+/* Gig poster: one key image, big type, in the /urlar/host typography
+   (Cormorant Garamond italic title with the accent Ù, Karla small caps).
+   The image is cropped to the three screens and fades into the card; all type
+   sits below it, never over the busy part of the image. */
 .gig-heading {
   font-family: 'Karla', sans-serif;
   font-size: 0.72rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--accent);
@@ -4019,7 +4020,7 @@ body.card-mode .cursor-ring {
 }
 .gig-poster {
   max-width: 1100px;
-  background: #000;
+  background: var(--deep);
   overflow: hidden;
 }
 .gig-poster-image {
@@ -4039,42 +4040,59 @@ body.card-mode .cursor-ring {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.75) 80%, #000 100%),
-    rgba(0,0,0,0.15);
+  background: linear-gradient(to bottom, transparent 40%, var(--deep) 98%);
 }
 .gig-poster-body {
   position: relative;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.45fr 1fr;
   gap: 3rem;
   align-items: end;
-  margin-top: -4.5rem;
+  margin-top: -3.5rem;
   padding: 0 3rem 3rem;
 }
-.gig-poster-title {
+.gig-poster-type { min-width: 0; }
+.gig-poster-artist {
   font-family: 'Karla', sans-serif;
-  font-size: clamp(3.8rem, 9vw, 7.5rem);
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: #fff;
-  margin-bottom: 1.4rem;
+  color: var(--fog);
 }
-.gig-poster-date,
-.gig-poster-venue {
-  font-family: 'Karla', sans-serif;
-  font-size: clamp(1.35rem, 2.4vw, 2rem);
+.gig-poster-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin: 0.9rem 0 1.4rem;
+}
+.gig-poster-accent { color: var(--accent); }
+.gig-poster-blurb {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--sand);
+  max-width: 44ch;
+  margin-bottom: 1.6rem;
+}
+.gig-poster-when {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
   font-weight: 400;
   line-height: 1.25;
-  color: #fff;
+  color: var(--cream);
 }
-.gig-poster-venue { color: var(--warm); }
+.gig-poster-venue { color: var(--warm); white-space: nowrap; }
+.gig-poster-sep { color: var(--accent-dim); }
 .gig-poster-note {
-  margin-top: 1.1rem;
-  font-size: 0.72rem;
-  font-weight: 500;
+  margin-top: 1rem;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent);
@@ -4084,29 +4102,30 @@ body.card-mode .cursor-ring {
   display: block;
   width: 100%;
   padding: 1.1rem 1.5rem;
-  border: 0;
-  background: var(--cream);
+  border: 1px solid var(--accent);
+  background: var(--accent);
   color: var(--black);
   font-family: 'Karla', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   text-align: center;
   text-decoration: none;
   transition: background 0.25s ease;
 }
-a.gig-tickets:hover { background: #fff; }
+a.gig-tickets:hover { background: var(--cream); border-color: var(--cream); }
 .gig-tickets:disabled {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.45);
-  border: 1px solid rgba(255,255,255,0.14);
+  background: var(--carbon);
+  color: var(--smoke);
+  border-color: var(--ash);
   cursor: not-allowed;
 }
 .gig-alert { margin-top: 1.6rem; }
 .gig-alert-label {
   display: block;
-  font-size: 0.85rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
   color: var(--warm);
   margin-bottom: 0.7rem;
 }
@@ -4115,23 +4134,23 @@ a.gig-tickets:hover { background: #fff; }
   flex: 1;
   min-width: 0;
   padding: 0.85rem 1rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #fff;
+  background: var(--black);
+  border: 1px solid var(--ash);
+  color: var(--cream);
   font-family: 'Karla', sans-serif;
   font-size: 0.95rem;
   border-radius: 0;
 }
-.gig-alert-input::placeholder { color: rgba(255,255,255,0.4); }
+.gig-alert-input::placeholder { color: var(--smoke); }
 .gig-alert-input:focus { outline: none; border-color: var(--accent); }
 .gig-alert-submit {
   padding: 0.85rem 1.2rem;
   background: transparent;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-dim);
   color: var(--accent);
   font-family: 'Karla', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 0.68rem;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -4139,18 +4158,24 @@ a.gig-tickets:hover { background: #fff; }
 }
 .gig-alert-submit:hover:not(:disabled) { background: var(--accent); color: var(--black); }
 .gig-alert-submit:disabled { opacity: 0.5; }
-.gig-alert-error { margin-top: 0.6rem; font-size: 0.8rem; color: #e39a8a; }
+.gig-alert-error { margin-top: 0.6rem; font-size: 0.8rem; color: var(--accent); }
 .gig-alert-consent { margin-top: 0.6rem; font-size: 0.7rem; line-height: 1.5; color: var(--fog); }
-.gig-alert-done { margin-top: 1.6rem; font-size: 0.9rem; color: var(--warm); }
+.gig-alert-done {
+  margin-top: 1.6rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--warm);
+}
 .gig-poster-about {
   display: inline-block;
   margin-top: 1.4rem;
+  font-family: 'Karla', sans-serif;
   font-size: 0.66rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--fog);
   text-decoration: none;
-  border-bottom: 1px solid rgba(138,130,120,0.4);
+  border-bottom: 1px solid var(--ash);
   padding-bottom: 0.2rem;
   transition: color 0.25s ease;
 }
@@ -4161,8 +4186,6 @@ a.gig-tickets:hover { background: #fff; }
   font-size: 0.85rem;
   color: var(--fog);
 }
-.live-page-text { max-width: 1100px; margin-bottom: 5rem; }
-.live-page-text .live-body { max-width: 60ch; }
 
 /* Feature rows: text beside a wide image. */
 .live-page-feature {
@@ -4222,6 +4245,8 @@ a.gig-tickets:hover { background: #fff; }
   .gig-poster-image { aspect-ratio: 4 / 3; }
   .gig-poster-img { object-position: 50% 30%; }
   .gig-poster-body { padding: 0 1.4rem 1.8rem; margin-top: -2rem; }
+  .gig-poster-sep { display: none; }
+  .gig-poster-venue { display: block; }
   .gig-more { margin-bottom: 4rem; }
 }
 
