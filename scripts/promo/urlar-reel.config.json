@@ -1,0 +1,101 @@
+{
+  "name": "urlar-reel",
+  "_comment": "Instagram Reels cut (1080x1920). Same renderer as urlar.config.json; run with --root pointing at the folder holding src/. Two source clips only — the original pilot.mp4/blend.mp4 are not on this machine, and there is no separate shoal pass, so the field segments are the same clip sampled at different crop windows.",
+  "fps": 30,
+  "workScale": 1.0,
+
+  "safe": {
+    "_comment": "Instagram Reels chrome, in final-output pixels. Caption stack and audio credit sit bottom-left, the action rail right, the top bar above. The end card pads to at least these insets and recentres inside what is left.",
+    "top": 250,
+    "bottom": 420,
+    "right": 200,
+    "left": 0
+  },
+
+  "crop": {
+    "_comment": "Crop-window position across the overflow the cover-scale leaves, 0..1. Default centre; each clip overrides. A 1280x720 source cover-scaled to 1080x1920 is 3413px wide, so x selects which 1080px column of that is kept — 2333px of travel. The instrument cluster sits at ~x1387 of the scaled frame, so x0.41 centres it in the safe box and x0.60+ pushes it off-frame for pure field.",
+    "x": 0.5,
+    "y": 0.5
+  },
+
+  "sources": {
+    "field": {
+      "path": "src/blend-field.mp4",
+      "label": "Shader-treated blend, field dominant (16.7s)"
+    },
+    "present": {
+      "path": "src/blend-present.mp4",
+      "label": "Same scene, instruments more present (16.7s)"
+    }
+  },
+
+  "timeline": [
+    {
+      "src": "field",
+      "in": 0.2,
+      "dur": 15.8,
+      "crop": { "x": 0.60 },
+      "_note": "Field leads. Instruments just off the left edge — environment, not performer."
+    },
+    {
+      "src": "present",
+      "in": 5.5,
+      "dur": 4.5,
+      "crop": { "x": 0.41 },
+      "_note": "The one brief shadowed glimmer, instruments centred in the safe box."
+    },
+    {
+      "src": "field",
+      "in": 0.6,
+      "dur": 15.8,
+      "crop": { "x": 0.82 },
+      "_note": "Field returns on a different column of the frame, so the reuse does not read as a loop."
+    }
+  ],
+
+  "xfade": 0.9,
+  "fadeFromBlack": 1.2,
+
+  "audio": {
+    "path": "src/lightframe-part1.mp3",
+    "_comment": "Lightframe Part 1. in=55.9s is the floor of the trough at 55.75 (-22.75 dB RMS); the next phrase enters at 56.25, so the cut opens on the breath rather than mid-figure. Runs to 94.0s, a settle after the 92-93 peak. Both ends sit in troughs and the 3.5s fade lands on silence, so the Reel loops without a seam.",
+    "fallbackFrom": "field",
+    "in": 55.9,
+    "fadeIn": 1.5,
+    "fadeOut": 3.5,
+    "sourceUrl": "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/Lightframe%20part%201.mp3",
+    "targetLufs": -14.0,
+    "truePeakCeiling": -1.5
+  },
+
+  "endCard": {
+    "seconds": 5.0,
+    "crossfade": 1.2,
+    "palette": {
+      "ink": "#F5F3ED",
+      "muted": "rgba(245,243,237,.82)",
+      "faint": "rgba(245,243,237,.55)",
+      "accent": "#E7A75E",
+      "bg": "#05070a"
+    },
+    "wordmark": "Ùrlar",
+    "line2": "Sunday 20 September · Dalgarven Mill",
+    "line3": "Tickets via link in bio"
+  },
+
+  "outputs": [
+    {
+      "name": "urlar-reel-9x16",
+      "w": 1080,
+      "h": 1920,
+      "vb": "8M",
+      "maxrate": "10M"
+    }
+  ],
+
+  "preview": {
+    "scale": 0.34,
+    "vb": "900k",
+    "suffix": "-preview"
+  }
+}

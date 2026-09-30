@@ -6,7 +6,7 @@ Professional portfolio site for Giles Lamb, cinematic composer and immersive aud
 
 - **Next.js** (App Router)
 - **Tailwind CSS** (layout/spacing only; design via CSS variables)
-- **Deploy target:** Render
+- **Deploy target:** Vercel
 
 ## Setup
 
@@ -15,20 +15,18 @@ Professional portfolio site for Giles Lamb, cinematic composer and immersive aud
    npm install
    ```
 
-2. **Add images** to `public/images/`:
-   - `Wide_studio_2026.png`: Hero background (full bleed)
-   - `unnamed.jpg`: Portrait for Contact section
-
-3. Run the development server:
+2. Run the development server:
    ```bash
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000)
+3. Open [http://localhost:4321](http://localhost:4321)
+
+Images are served from Cloudflare Images or `public/images/`; video from Cloudflare Stream.
 
 ## Deploy on Vercel
 
-Connect the repo to [Vercel](https://vercel.com); deployment happens automatically on push to `main`.
+The site is hosted on [Vercel](https://vercel.com). Every push to `main` deploys to production, so work on a branch and use its Vercel preview deployment before merging. See `CLAUDE.md` and `docs/gileslamb-site.md`.
 
 ## Structure
 

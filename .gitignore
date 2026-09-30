@@ -42,3 +42,18 @@ next-env.d.ts
 
 # Apple Wallet pass (generated artefact — regenerate from wallet/ + certs)
 public/gileslamb-card.pkpass
+
+# Apple Wallet signing certs: never commit (folder kept via .gitkeep)
+wallet/certs/*
+!wallet/certs/.gitkeep
+*.p12
+
+# local tooling
+.wrangler/
+.claude/
+.shotK-tmp.mjs
+
+# local screenshots
+desk*.png
+mob-full.png
+play-*.png

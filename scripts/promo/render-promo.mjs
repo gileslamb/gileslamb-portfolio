@@ -1,0 +1,230 @@
+#!/usr/bin/env node
+/* Preset-driven promo renderer.
+ *
+ *   node scripts/promo/render-promo.mjs --config scripts/promo/urlar.config.json \
+ *        --root <dir with the source clips> --out <dir> [--preview] [--only 16x9]
+ *
+ * Everything that defines the edit lives in the JSON config: sources, timeline,
+ * transitions, audio, end-card copy/palette and the export list. Point it at
+ * different footage/audio by editing the config only.
+ */
+import { chromium } from 'playwright';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const run = promisify(execFile);
+const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > -1 ? process.argv[i + 1] : d; };
+const has = (k) => process.argv.includes('--' + k);
+
+const CFG_PATH = path.resolve(arg('config', 'scripts/promo/urlar.config.json'));
+const CFG = JSON.parse(fs.readFileSync(CFG_PATH, 'utf8'));
+const ROOT = path.resolve(arg('root', path.dirname(CFG_PATH)));
+const OUT = path.resolve(arg('out', 'dist/promo'));
+const PREVIEW = has('preview');
+const ONLY = arg('only', null);
+fs.mkdirSync(OUT, { recursive: true });
+
+const resolveSrc = (p) => (/^https?:\/\//.test(p) ? p : path.isAbsolute(p) ? p : path.join(ROOT, p));
+
+/* ---------- fonts: reuse the site's own self-hosted woff2 (poster faces) ---------- */
+function posterFontCss(repoRoot) {
+  const dir = path.join(repoRoot, '.next/static/chunks');
+  const want = ['Cormorant Garamond', 'Syne', 'Space Grotesk'];
+  const seen = new Set(); const out = [];
+  for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.css'))) {
+    const css = fs.readFileSync(path.join(dir, f), 'utf8');
+    for (const rule of css.match(/@font-face\{[^}]*\}/g) || []) {
+      const fam = (rule.match(/font-family:([^;}]*)/) || [])[1]?.trim().replace(/["']/g, '');
+      if (!want.includes(fam) || seen.has(rule)) continue;
+      const m = rule.match(/url\(\.\.\/media\/([^)]+)\)/); if (!m) continue;
+      const file = path.join(repoRoot, '.next/static/media', m[1]);
+      if (!fs.existsSync(file)) continue;
+      seen.add(rule);
+      out.push(rule.replace(m[0], `url(data:font/woff2;base64,${fs.readFileSync(file).toString('base64')})`));
+    }
+  }
+  if (!out.length) throw new Error('No poster fonts found in .next/static — run a build first.');
+  return out.join('\n');
+}
+
+/* ---------- end card ---------- */
+function endCardHtml(fonts, ec, w, h, safe = null) {
+  const p = ec.palette;
+  const u = Math.round(Math.min(w, h) / 26);       // one unit, so all three crops match
+  /* Platform chrome (Reels captions, action rail) sits over fixed edges of the
+     frame. Padding to at least those insets keeps every glyph clear of it, and
+     because the block is flex-centred the type recentres inside what is left
+     rather than sitting centred-but-half-covered. Falls back to the original
+     10% padding when no safe block is configured. */
+  const base = { top: Math.round(h * 0.1), bottom: Math.round(h * 0.1), left: Math.round(w * 0.1), right: Math.round(w * 0.1) };
+  const pad = {
+    top: Math.max(base.top, safe?.top ?? 0),
+    bottom: Math.max(base.bottom, safe?.bottom ?? 0),
+    left: Math.max(base.left, safe?.left ?? 0),
+    right: Math.max(base.right, safe?.right ?? 0),
+  };
+  const inner = w - pad.left - pad.right;
+  return `<!doctype html><meta charset="utf-8"><style>${fonts}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:${w}px;height:${h}px;overflow:hidden;background:${p.bg}}
+  .s{position:relative;width:${w}px;height:${h}px;display:flex;flex-direction:column;
+     align-items:center;justify-content:center;text-align:center;
+     padding:${pad.top}px ${pad.right}px ${pad.bottom}px ${pad.left}px;background:${p.bg}}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
+     font-size:${u * 5}px;line-height:.86;letter-spacing:-.012em;color:${p.ink}}
+  .r{width:${u * 3}px;height:1px;background:${p.accent};opacity:.85;margin:${u * 1.3}px 0 ${u}px}
+  .l2{font-family:'Syne',system-ui,sans-serif;font-weight:400;font-size:${u * 0.82}px;
+      line-height:1.34;color:${p.ink};max-width:${Math.round(Math.min(w * 0.78, inner))}px}
+  .l3{font-family:'Space Grotesk',sans-serif;font-weight:400;font-size:${u * 0.6}px;
+      letter-spacing:.13em;text-transform:uppercase;color:${p.muted};margin-top:${u * 1.1}px}
+  </style><div class="s"><h1>${ec.wordmark}</h1><div class="r"></div>
+  <div class="l2">${ec.line2}</div><div class="l3">${ec.line3}</div></div>`;
+}
+
+async function renderEndCards(sizes) {
+  const fonts = posterFontCss(process.cwd());
+  const browser = await chromium.launch();
+  const made = {};
+  for (const { w, h, key, safe } of sizes) {
+    const page = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
+    const f = path.join(OUT, `_endcard-${key}.html`);
+    fs.writeFileSync(f, endCardHtml(fonts, CFG.endCard, w, h, safe));
+    await page.goto('file://' + f, { waitUntil: 'load' });
+    await page.evaluate(() => document.fonts.ready);
+    /* Narrow crops orphan the tail of line 3 ("... DALGARVEN / MILL"). If it
+       wraps, break it at the middot instead so both halves stay whole. */
+    await page.evaluate(() => {
+      const el = document.querySelector('.l3');
+      const lh = parseFloat(getComputedStyle(el).lineHeight) || parseFloat(getComputedStyle(el).fontSize) * 1.2;
+      if (el.getBoundingClientRect().height > lh * 1.4) {
+        const [a, b] = el.textContent.split('\u00b7');
+        if (b) el.innerHTML = a.trim() + '<br>' + b.trim();
+      }
+    });
+    await page.waitForTimeout(250);
+    const png = path.join(OUT, `_endcard-${key}.png`);
+    await page.screenshot({ path: png });
+    await page.close();
+    made[key] = png;
+  }
+  await browser.close();
+  return made;
+}
+
+/* ---------- timing + loudness ---------- */
+function totalDuration() {
+  const tl = CFG.timeline, X = CFG.xfade, ec = CFG.endCard;
+  const montage = tl.reduce((a, c) => a + c.dur, 0) - (tl.length - 1) * X;
+  return { montage, total: montage + ec.seconds - ec.crossfade };
+}
+
+/* Measure the chosen audio section and return the dB gain needed to hit
+   targetLufs, held back if it would push true peak past the ceiling. */
+async function audioGainDb() {
+  const a = CFG.audio;
+  if (a.targetLufs == null) return 0;
+  const { total } = totalDuration();
+  const src = a.path ? resolveSrc(a.path) : resolveSrc(CFG.sources[a.fallbackFrom].path);
+  const { stderr } = await run('ffmpeg', ['-hide_banner', '-ss', String(a.in || 0), '-t', String(total),
+    '-i', src, '-af', 'loudnorm=print_format=json', '-f', 'null', '-'],
+    { maxBuffer: 1 << 26 }).catch(e => ({ stderr: e.stderr || '' }));
+  const m = stderr.match(/\{[^{]*"input_i"[\s\S]*?\}/);
+  if (!m) { console.log('  ! loudness measure failed; leaving level untouched'); return 0; }
+  const j = JSON.parse(m[0]);
+  const inI = parseFloat(j.input_i), inTp = parseFloat(j.input_tp);
+  let gain = a.targetLufs - inI;
+  const ceiling = a.truePeakCeiling ?? -1.0;
+  if (inTp + gain > ceiling) gain = ceiling - inTp;
+  console.log(`  audio ${inI.toFixed(2)} LUFS / ${inTp.toFixed(2)} dBTP -> gain ${gain >= 0 ? '+' : ''}${gain.toFixed(2)} dB`);
+  return gain;
+}
+
+/* ---------- ffmpeg graph ---------- */
+function buildArgs({ w, h, vb, maxrate, endcard, outfile, gainDb = 0, crop = null }) {
+  const fps = CFG.fps, X = CFG.xfade, tl = CFG.timeline, ec = CFG.endCard;
+  const inputs = []; const parts = [];
+  tl.forEach((c, i) => { inputs.push('-ss', String(c.in), '-t', String(c.dur + 0.2), '-i', resolveSrc(CFG.sources[c.src].path)); });
+
+  tl.forEach((c, i) => {
+    /* Where the crop window sits in the overflow the cover-scale leaves, 0..1.
+       0.5/0.5 is the centre crop this renderer has always done, so a config
+       with no crop block renders exactly as before. Per-clip overrides
+       per-output: on a tall crop the same wide source gives visibly different
+       framings, which is how one short clip covers two segments without
+       reading as a loop. */
+    const cr = { x: 0.5, y: 0.5, ...(crop || {}), ...(c.crop || {}) };
+    parts.push(`[${i}:v]fps=${fps},scale=${w}:${h}:force_original_aspect_ratio=increase:flags=lanczos,` +
+               `crop=${w}:${h}:(iw-ow)*${cr.x}:(ih-oh)*${cr.y},setsar=1,trim=duration=${c.dur},setpts=PTS-STARTPTS[v${i}]`);
+  });
+  let last = 'v0', acc = tl[0].dur;
+  for (let i = 1; i < tl.length; i++) {
+    const off = (acc - X).toFixed(3);
+    parts.push(`[${last}][v${i}]xfade=transition=fade:duration=${X}:offset=${off}[x${i}]`);
+    last = `x${i}`; acc = acc + tl[i].dur - X;
+  }
+  const montage = acc;
+  parts.push(`[${last}]fade=t=in:st=0:d=${CFG.fadeFromBlack}[m]`);
+
+  const ecIdx = tl.length;
+  inputs.push('-loop', '1', '-t', String(ec.seconds), '-i', endcard);
+  parts.push(`[${ecIdx}:v]fps=${fps},scale=${w}:${h},setsar=1[e]`);
+  const ecOff = (montage - ec.crossfade).toFixed(3);
+  parts.push(`[m][e]xfade=transition=fade:duration=${ec.crossfade}:offset=${ecOff}[vout]`);
+  const total = montage + ec.seconds - ec.crossfade;
+
+  /* audio: configured track, else fall back to a source clip's own audio */
+  const a = CFG.audio;
+  const aIdx = tl.length + 1;
+  const aPath = a.path ? resolveSrc(a.path) : resolveSrc(CFG.sources[a.fallbackFrom].path);
+  inputs.push('-ss', String(a.in || 0), '-t', String(total + 1), '-i', aPath);
+  const gainF = gainDb ? `volume=${gainDb.toFixed(2)}dB,` : '';
+  /* Gain maths alone can't predict lossy-encoder overshoot, so hard-limit to
+     the configured true-peak ceiling instead of trusting the headroom sum. */
+  const ceilDb = CFG.audio.truePeakCeiling ?? -1.0;
+  const limF = `alimiter=level_in=1:level_out=1:limit=${Math.pow(10, ceilDb / 20).toFixed(4)}:attack=5:release=50,`;
+  parts.push(`[${aIdx}:a]atrim=duration=${total},asetpts=PTS-STARTPTS,${gainF}${limF}` +
+             `afade=t=in:st=0:d=${a.fadeIn},afade=t=out:st=${(total - a.fadeOut).toFixed(3)}:d=${a.fadeOut},` +
+             `aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo[aout]`);
+
+  return { args: ['-v', 'error', '-y', ...inputs, '-filter_complex', parts.join(';'),
+    '-map', '[vout]', '-map', '[aout]',
+    '-c:v', 'libx264', '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-preset', PREVIEW ? 'veryfast' : 'medium',
+    '-b:v', vb, '-maxrate', maxrate, '-bufsize', maxrate, '-g', String(fps * 2),
+    '-c:a', 'aac', '-b:a', PREVIEW ? '96k' : '192k', '-ar', '48000', '-movflags', '+faststart',
+    '-t', String(total), outfile], total, usedFallback: !a.path };
+}
+
+/* ---------- go ---------- */
+const outs = CFG.outputs.filter(o => !ONLY || o.name.includes(ONLY))
+  .filter(o => !PREVIEW || o.name.includes('16x9'));
+const sc = PREVIEW ? CFG.preview.scale : 1;
+const even = (n) => Math.round(n / 2) * 2;
+/* Safe insets are authored in final-output pixels, so scale them with a
+   preview render or the end card would reserve full-size margins on a
+   third-size card. */
+const sizes = outs.map(o => ({
+  key: o.name, w: even(o.w * sc), h: even(o.h * sc),
+  safe: (o.safe ?? CFG.safe) ? Object.fromEntries(
+    Object.entries(o.safe ?? CFG.safe).filter(([k]) => k !== '_comment')
+      .map(([k, v]) => [k, Math.round(v * sc)])) : null,
+}));
+
+console.log(`${PREVIEW ? 'PREVIEW' : 'FULL'} · ${outs.length} export(s)`);
+const cards = await renderEndCards(sizes);
+const gainDb = await audioGainDb();
+
+for (const o of outs) {
+  const s = sizes.find(s => s.key === o.name);
+  const outfile = path.join(OUT, o.name + (PREVIEW ? CFG.preview.suffix : '') + '.mp4');
+  const { args, total, usedFallback } = buildArgs({
+    w: s.w, h: s.h, vb: PREVIEW ? CFG.preview.vb : o.vb, maxrate: PREVIEW ? CFG.preview.vb : o.maxrate,
+    endcard: cards[o.name], outfile, gainDb, crop: o.crop ?? CFG.crop ?? null,
+  });
+  process.stdout.write(`  ${o.name}  ${s.w}x${s.h}  ${total.toFixed(2)}s ... `);
+  await run('ffmpeg', args, { maxBuffer: 1 << 26 });
+  const kb = Math.round(fs.statSync(outfile).size / 1024);
+  console.log(`${kb} KB${usedFallback ? '  [audio: FALLBACK]' : ''}`);
+}
+console.log('out:', OUT);

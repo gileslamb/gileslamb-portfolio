@@ -1,0 +1,97 @@
+{
+  "name": "urlar-promo",
+  "fps": 30,
+  "workScale": 1.0,
+  "sources": {
+    "pilot": {
+      "path": "src/pilot.mp4",
+      "label": "Studio pilot (clean performance)"
+    },
+    "blend": {
+      "path": "src/blend.mp4",
+      "label": "Shader-treated blend composite"
+    }
+  },
+  "timeline": [
+    {
+      "src": "pilot",
+      "in": 8.0,
+      "dur": 6.5
+    },
+    {
+      "src": "blend",
+      "in": 1.0,
+      "dur": 6.0
+    },
+    {
+      "src": "pilot",
+      "in": 40.0,
+      "dur": 6.5
+    },
+    {
+      "src": "blend",
+      "in": 9.5,
+      "dur": 6.0
+    },
+    {
+      "src": "pilot",
+      "in": 70.0,
+      "dur": 7.0
+    }
+  ],
+  "xfade": 0.9,
+  "fadeFromBlack": 1.2,
+  "audio": {
+    "path": "src/rb-part1.mp3",
+    "_comment": "Resonant Being Part 1. in=263s = loudest sustained 32s window (mean RMS -13.8 dB).",
+    "fallbackFrom": "pilot",
+    "in": 263.0,
+    "fadeIn": 1.5,
+    "fadeOut": 3.5,
+    "sourceUrl": "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/resonant%20being%20part%201.mp3",
+    "targetLufs": -14.0,
+    "truePeakCeiling": -1.5
+  },
+  "endCard": {
+    "seconds": 5.0,
+    "crossfade": 1.2,
+    "palette": {
+      "ink": "#F5F3ED",
+      "muted": "rgba(245,243,237,.82)",
+      "faint": "rgba(245,243,237,.55)",
+      "accent": "#E7A75E",
+      "bg": "#05070a"
+    },
+    "wordmark": "Ùrlar",
+    "line2": "A live performance of piano, synthesis, projection and quadraphonic sound",
+    "line3": "Sunday 20 September 2026 · KCR Barn, Dalgarven Mill"
+  },
+  "outputs": [
+    {
+      "name": "urlar-promo-16x9",
+      "w": 1920,
+      "h": 1080,
+      "vb": "8M",
+      "maxrate": "10M"
+    },
+    {
+      "name": "urlar-promo-1x1",
+      "w": 1080,
+      "h": 1080,
+      "vb": "6M",
+      "maxrate": "8M"
+    },
+    {
+      "name": "urlar-promo-9x16",
+      "w": 1080,
+      "h": 1920,
+      "vb": "8M",
+      "maxrate": "10M"
+    }
+  ],
+  "preview": {
+    "scale": 0.34,
+    "vb": "900k",
+    "suffix": "-preview"
+  }
+}

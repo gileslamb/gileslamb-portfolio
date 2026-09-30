@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "pass.com.gileslamb.card",
+  "serialNumber": "gileslamb-card-annecy-2026",
+  "teamIdentifier": "REPLACE_WITH_APPLE_TEAM_ID",
+  "organizationName": "Giles Lamb",
+  "description": "Giles Lamb — Composer",
+  "foregroundColor": "rgb(255, 255, 255)",
+  "backgroundColor": "rgb(10, 18, 30)",
+  "labelColor": "rgb(180, 160, 120)",
+  "logoText": "Giles Lamb",
+  "generic": {
+    "headerFields": [
+      {
+        "key": "role",
+        "label": "",
+        "value": "COMPOSER"
+      }
+    ],
+    "primaryFields": [
+      {
+        "key": "name",
+        "label": "",
+        "value": "Giles Lamb"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "disciplines",
+        "label": "",
+        "value": "Film · Animation · Immersive"
+      },
+      {
+        "key": "location",
+        "label": "",
+        "value": "Glasgow, UK"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "website",
+        "label": "",
+        "value": "gileslamb.com"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "showreel",
+        "label": "Showreel",
+        "value": "gileslamb.com/reel",
+        "attributedValue": "<a href='https://www.gileslamb.com/reel'>gileslamb.com/reel</a>"
+      },
+      {
+        "key": "animation",
+        "label": "Animation",
+        "value": "gileslamb.com/animation",
+        "attributedValue": "<a href='https://www.gileslamb.com/animation'>gileslamb.com/animation</a>"
+      },
+      {
+        "key": "listen",
+        "label": "Listen",
+        "value": "gileslamb.com/reels",
+        "attributedValue": "<a href='https://www.gileslamb.com/reels'>gileslamb.com/reels</a>"
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "value": "giles@gileslamb.com",
+        "attributedValue": "<a href='mailto:giles@gileslamb.com'>giles@gileslamb.com</a>"
+      },
+      {
+        "key": "credits",
+        "label": "Selected Work",
+        "value": "Dead Island · Cannes Lions Gold"
+      },
+      {
+        "key": "awards",
+        "label": "Awards",
+        "value": "BAFTA · RTS · Music & Sound Awards"
+      }
+    ]
+  },
+  "barcodes": [
+    {
+      "message": "https://www.gileslamb.com/card",
+      "format": "PKBarcodeFormatQR",
+      "messageEncoding": "iso-8859-1",
+      "altText": "gileslamb.com/card"
+    }
+  ],
+  "barcode": {
+    "message": "https://www.gileslamb.com/card",
+    "format": "PKBarcodeFormatQR",
+    "messageEncoding": "iso-8859-1",
+    "altText": "gileslamb.com/card"
+  }
+}
