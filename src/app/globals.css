@@ -3996,30 +3996,115 @@ body.card-mode .cursor-ring {
   display: none !important;
 }
 
-/* ===== /live — live practice page ===== */
-/* Reuses .section-label, .live-headline, .live-body, .live-text-cta and
-   .live-coming-soon-* from the homepage live section. */
+/* ===== /live: dates first, then Ùrlar, then the method ===== */
+/* Reuses .section-label, .live-headline, .live-body and .live-text-cta from
+   the homepage live section. */
 .live-page {
   min-height: 100vh;
   padding: 9rem 3.5rem 5rem;
   background: var(--black);
 }
-.live-page-intro {
-  margin-bottom: 4rem;
-  max-width: 640px;
+.live-page-intro { margin-bottom: 2.5rem; max-width: 1100px; }
+.live-page-intro .section-label { margin-bottom: 1.5rem; }
+.live-page-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--cream);
 }
-.live-page-tagline {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--fog);
+
+/* Dates panel: light ground, dark type, so date and venue read at a glance. */
+.live-dates {
+  max-width: 1100px;
+  margin-bottom: 6rem;
+  padding: 2.2rem 2.5rem 2rem;
+  background: var(--cream);
+  color: var(--black);
+  border-radius: 2px;
+}
+.live-dates-title {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #5a534a;
+  margin-bottom: 1rem;
+}
+.live-dates-list { list-style: none; }
+.live-dates-row {
+  display: grid;
+  grid-template-columns: 8rem 15rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.3rem 0;
+  border-top: 1px solid rgba(8, 8, 8, 0.14);
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+.live-dates-row:last-child { border-bottom: 1px solid rgba(8, 8, 8, 0.14); }
+.live-dates-work {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.live-dates-date { font-weight: 500; }
+.live-dates-venue { color: #3a352f; }
+.live-dates-button {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  background: var(--black);
+  color: var(--cream);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.live-dates-button:hover { background: var(--accent-dim); color: #fff; }
+.live-dates-foot {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
   line-height: 1.6;
+  color: #5a534a;
 }
-.live-page-section {
-  max-width: 900px;
+.live-dates-foot a { color: var(--black); text-underline-offset: 0.2em; }
+
+/* Feature rows: text beside a wide image. */
+.live-page-feature {
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 3.5rem;
+  align-items: center;
   margin-bottom: 5rem;
 }
+.live-page-feature-flip .live-page-feature-visual { order: -1; }
+.live-page-feature-text { min-width: 0; }
+.live-page-feature-title { margin-bottom: 1.4rem; }
+.live-page-feature .live-body { max-width: 52ch; }
+.live-page-feature-visual {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--deep);
+}
+.live-page-feature-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* The Ùrlar frame has empty floor below the screens: wider box, crop high. */
+.live-page-feature-visual-wide { aspect-ratio: 2 / 1; }
+.live-page-feature-visual-wide .live-page-feature-img { object-position: 50% 30%; }
 .live-page-section-ruled {
-  padding-top: 4rem;
+  padding-top: 5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 .live-page-strand-label {
@@ -4039,80 +4124,30 @@ body.card-mode .cursor-ring {
   height: 1px;
   background: var(--accent);
 }
-.live-page .live-body {
-  max-width: 60ch;
-}
-.live-page-urlar {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 3.5rem;
-  align-items: start;
-}
-.live-page-urlar-text { min-width: 0; }
-.live-page-urlar-title {
-  font-style: italic;
-  margin-bottom: 0.6rem;
-}
-.live-page-pronounce {
-  font-size: 0.62rem;
-  letter-spacing: 0.26em;
-  color: var(--smoke);
-  margin-bottom: 1.2rem;
-}
-.live-page-gloss {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--sand);
-  max-width: 46ch;
-  margin-bottom: 2rem;
-}
-.live-page-gloss em { font-style: italic; color: var(--cream); }
-.live-page-quote {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-  line-height: 1.4;
-  color: var(--accent);
-  max-width: 32ch;
-  margin: 2.5rem 0;
-  padding-left: 1.4rem;
-  border-left: 1px solid var(--accent-dim);
-}
-.live-page-quote-cite {
-  display: block;
-  font-family: 'Karla', sans-serif;
-  font-style: normal;
-  font-size: 0.56rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--fog);
-  margin-top: 0.9rem;
-}
-.live-page-enquiry {
-  font-size: 0.82rem;
-  line-height: 1.95;
-  color: var(--fog);
-  margin: 2.5rem 0 0.5rem;
-}
-.live-page-urlar-visual {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: var(--deep);
-}
-.live-page-urlar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.72) saturate(0.8);
-}
 @media (max-width: 900px) {
-  .live-page-urlar { grid-template-columns: 1fr; gap: 2.5rem; }
-  .live-page-urlar-visual { aspect-ratio: 16 / 10; order: -1; }
+  .live-dates-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "work button" "date button" "venue button";
+    gap: 0.25rem 1rem;
+  }
+  .live-dates-work { grid-area: work; margin-bottom: 0.3rem; }
+  .live-dates-date { grid-area: date; }
+  .live-dates-venue { grid-area: venue; }
+  .live-dates-button { grid-area: button; }
+  .live-page-feature { grid-template-columns: 1fr; gap: 2rem; }
+  .live-page-feature-visual,
+  .live-page-feature-flip .live-page-feature-visual { order: -1; }
 }
 @media (max-width: 768px) {
-  .live-page { padding: 9rem 1.5rem 5rem; }
+  .live-page { padding: 7rem 1.5rem 4rem; }
+  .live-dates { padding: 1.6rem 1.4rem 1.4rem; margin-bottom: 4rem; }
+}
+@media (max-width: 420px) {
+  .live-dates-row {
+    grid-template-columns: 1fr;
+    grid-template-areas: "work" "date" "venue" "button";
+  }
+  .live-dates-button { justify-self: start; margin-top: 0.8rem; }
 }
 
 /* ===== /list — mailing list signup ===== */

@@ -278,7 +278,7 @@ export function buildBayeuxTapestrySchema(): JsonLd {
     name: "Bayeux Tapestry exhibition: immersive score and sound design",
     dateCreated: "2026",
     description:
-      "Score and sound design for the immersive spaces of the British Museum's Bayeux Tapestry exhibition, open until July 2027.",
+      "Score and sound design for the immersive spaces of the British Museum's much-anticipated Bayeux Tapestry exhibition, open until July 2027.",
     creator: { "@id": GILES_ID },
     locationCreated: { "@type": "Museum", name: "British Museum" },
     contributor: [{ "@type": "Organization", name: "ISO Design" }],

@@ -17,10 +17,10 @@ const CASE_STUDIES = [
     year: "2026",
     type: "MUSEUM EXHIBITION · IMMERSIVE SOUND",
     title: "Bayeux Tapestry",
-    tagline: "Atmosphere, not a battle score.",
+    tagline: "Music and immersive sound design",
     description: [
-      "Score and sound design for the immersive spaces of the British Museum's Bayeux Tapestry exhibition, open until July 2027.",
-      "The brief was atmosphere rather than a conventional battle score. A slow pulse runs underneath like a heartbeat, with drums that are never quite drums, so the tension lives in the room rather than on top of the picture.",
+      "Score and sound design for the immersive spaces of the British Museum's much-anticipated Bayeux Tapestry exhibition, open until July 2027.",
+      "The aim was an atmosphere that felt contemporary but carried the feeling of the time: raw, passionate, earthy, with tension building, drawing the visitor into another world.",
     ],
     awards: [],
     meta: { role: "Composer · Sound Design", client: "British Museum", studio: "ISO Design" },

@@ -123,7 +123,7 @@ Static folders under `src/app/work/`: book-of-kells, cineworld, dead-island, dis
 
 Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` from `IMMERSIVE_PROJECTS`; Story Trails, Siren Servers and Book of Kells use their own case-study components. `ImmersiveCaseStudy` supports an optional `externalLink`.
 
-- **`/immersive/bayeux-tapestry`**: 2026 · Museum Exhibition · Immersive Sound. Composer · Sound Design · British Museum · ISO Design. Two paragraphs (exhibition open until July 2027; "atmosphere rather than a conventional battle score"). Image `public/images/bayeux-tapestry.jpg`. JSON-LD `buildBayeuxTapestrySchema`.
+- **`/immersive/bayeux-tapestry`**: 2026 · Museum Exhibition · Immersive Sound. Composer · Sound Design · British Museum · ISO Design. Tagline "Music and immersive sound design" (featured card). Two paragraphs: the much-anticipated exhibition, open until July 2027; "an atmosphere that felt contemporary but carried the feeling of the time". Image `public/images/bayeux-tapestry.jpg`. JSON-LD `buildBayeuxTapestrySchema`.
 - **`/immersive/mail-rail`**: 2017 · Immersive Museum Ride. Composer · Sound Design · The Postal Museum · ISO Design (visuals). Image `public/images/mail-rail.png`. External link to postalmuseum.org Mail Rail page. JSON-LD `buildMailRailSchema`.
 
 ---
@@ -136,10 +136,14 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
 
 ## `/live`: Live
 
-`src/app/live/page.jsx`. Two strands:
+`src/app/live/page.jsx`, redesigned 30 Sep 2026 to be scannable. Top to bottom:
 
-1. **The method: Unstable Systems.** Live practice copy, link to `/releases`.
-2. **The event: Ùrlar.** Pronunciation, Gaelic gloss, deep-listening description, "Ùrlar is the event. Unstable Systems is the method underneath it.", Oliveros quote. **Premiere: Friday 4 December 2026, House of Toad, Park Circus, Glasgow**, link About Ùrlar → `/urlar/host`, then programmer enquiries → `/#contact`. Still: Stream `68eeb46ea059449e3660d0f785f8367f` at 8s.
+1. **Intro:** "Live" label, heading "Where and when to see me play."
+2. **Upcoming dates:** a light (cream) panel with dark type, one row per date from the `DATES` array at the top of the file: work · date · venue · "Details →" button. Currently one row: **Ùrlar · Fri 4 December 2026 · House of Toad, Glasgow → `/urlar/host`**. Footer line: "More dates from January 2027. Programmers and venues, get in touch" (→ `/#contact`). Rows stack on narrow screens. To add a date, add an entry to `DATES`.
+3. **Ùrlar:** one paragraph, "About Ùrlar →" `/urlar/host`. Image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f`; the frame second is `URLAR_FRAME` (65), cropped high in a 2:1 box.
+4. **The method: Unstable Systems:** one paragraph, "Releases →". Image: the black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
+
+The Oliveros quote, pronunciation and Gaelic gloss were dropped from `/live` in the redesign (they remain on `/urlar`).
 
 ---
 
@@ -190,9 +194,9 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 | ID | What | Used on |
 |---|---|---|
 | `00b4dbad6e415e5edbca3b3c3b507dff` | Showreel 2026 | Homepage, `/reel` |
-| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view (90s) | `/urlar/host` hero (poster/OG at 65s); homepage Live still at 65s |
+| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar/host` hero (poster/OG at 65s); homepage Live and `/live` stills at 65s |
 | `3913fbedb27eed32fd88c6d87eab3448` | Ùrlar studio pilot (playing) | `/urlar/host` image band (51s) |
-| `9510de9cffc769d1720604298dc57895` / `09c888db1acd3ba26fb0f2b8bd28a292` / `68eeb46ea059449e3660d0f785f8367f` | Ùrlar poster loops (clean, 35% ghost, 50% ghost) | `/urlar`; the 50% clip's 8s frame is the `/live` still |
+| `9510de9cffc769d1720604298dc57895` / `09c888db1acd3ba26fb0f2b8bd28a292` / `68eeb46ea059449e3660d0f785f8367f` | Ùrlar poster loops (clean, 35% ghost, 50% ghost) | `/urlar` |
 
 ### Local images (`public/images/`)
 
@@ -204,11 +208,11 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 
 ### Cloudflare Images (selected)
 
-| ID | Used on |
-|---|---|
-| `8cd73992-0209-4125-16d2-5a81f67fb200` | Unstable Systems performance photo; `/work` Live card |
-| `1fceb1b8-7959-4ce2-b885-a107fd74d300` | Practice section (8 June rig) |
-| `139e9942-632c-478a-5ba5-977a6b6b5100` | Former Dream Screens image (no longer used) |
+| ID | What | Used on |
+|---|---|---|
+| `8cd73992-0209-4125-16d2-5a81f67fb200` | Black-and-white photo of Giles playing | `/live` Unstable Systems; `/work` Live card |
+| `1fceb1b8-7959-4ce2-b885-a107fd74d300` | 8 June 2026 rig | Practice section |
+| `139e9942-632c-478a-5ba5-977a6b6b5100` | Former Dream Screens image | Not used |
 
 ### R2
 
@@ -232,3 +236,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 3 Aug 2026 | LIVE added to nav |
 | 3 Sep 2026 | Invisible Threads listening room moved under `/releases` |
 | 30 Sep 2026 | Site refresh: nav (Work · Live · Listen · Releases · Catalogue (hidden) · Essays · Contact); new `/work` index; hero copy; Bayeux Tapestry featured and new `/immersive/bayeux-tapestry`; Mail Rail added with `/immersive/mail-rail`; Holy Hell moved to the grid; homepage Live becomes Ùrlar; `/live` and `/urlar` updated to 4 Dec House of Toad; KCR / 20 Sept details and poster link removed from `/urlar`; Dream Screens reframed as the album out 30 October; schema updated; CLAUDE.md added |
+| 30 Sep 2026 | Bayeux copy revised (tagline "Music and immersive sound design"); `/live` redesigned: dates panel first, then Ùrlar (scan visuals still), then Unstable Systems (B&W photo); Oliveros quote dropped from `/live` |

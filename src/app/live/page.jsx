@@ -1,16 +1,34 @@
+import Image from "next/image";
+import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import Link from "next/link";
 
-/* Ùrlar copy and imagery are sourced from the Ùrlar pages (/urlar, /urlar/host). */
+/* Upcoming dates: one entry per performance, soonest first. */
+const DATES = [
+  {
+    work: "Ùrlar",
+    date: "Fri 4 December 2026",
+    dateTime: "2026-12-04",
+    venue: "House of Toad, Glasgow",
+    href: "/urlar/host",
+  },
+];
 
-const URLAR_STILL =
-  "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/68eeb46ea059449e3660d0f785f8367f/thumbnails/thumbnail.jpg?time=8s&height=720";
+/* TouchDesigner scan visuals: the three-screen audience clip from /urlar/host.
+   URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
+   host, so this is a plain img. */
+const STREAM = "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com";
+const URLAR_FRAME = 65;
+const URLAR_STILL = `${STREAM}/ca96b876b35b1a3278d9f15770b6972f/thumbnails/thumbnail.jpg?time=${URLAR_FRAME}s&height=1080`;
+
+/* Black-and-white photo of Giles playing (formerly the homepage live image). */
+const PLAYING_PHOTO =
+  "https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/8cd73992-0209-4125-16d2-5a81f67fb200/public";
 
 export const metadata = {
-  title: "Live — Giles Lamb",
+  title: "Live · Giles Lamb",
   description:
-    "Unstable Systems is the live performance practice. Ùrlar is the deep-listening performance it makes — piano and modular synthesis in a quadraphonic field of sound and slow light.",
+    "Upcoming live dates. Ùrlar premieres Friday 4 December 2026 at House of Toad, Glasgow: live piano and synthesis with spatial sound and projection across three screens.",
 };
 
 export default function LivePage() {
@@ -20,92 +38,81 @@ export default function LivePage() {
       <main className="live-page">
         <div className="live-page-intro">
           <p className="section-label">Live</p>
-          <p className="live-page-tagline">
-            Music made in one pass, in the room, with the audience in it.
-          </p>
+          <h1 className="live-page-heading">Where and when to see me play.</h1>
         </div>
 
-        {/* ===== The method ===== */}
-        <section className="live-page-section">
-          <h2 className="live-page-strand-label">The method</h2>
-          <h3 className="live-headline">Unstable Systems</h3>
-          <p className="live-body">
-            Unstable Systems is Giles Lamb&rsquo;s live performance practice: music made
-            in one pass, in the moment, played at the point where a part-stable,
-            part-unpredictable system is about to fall apart. Nothing is decided in
-            advance and nothing is fixed afterward. It is the wrangle between human and
-            machine, human expression encoded in the act of shaping what comes out. The
-            opposite of generative polish: musicality and intention, played live in a room.
+        {/* ===== Upcoming dates ===== */}
+        <section className="live-dates" aria-labelledby="live-dates-title">
+          <h2 id="live-dates-title" className="live-dates-title">
+            Upcoming dates
+          </h2>
+          <ul className="live-dates-list">
+            {DATES.map((d) => (
+              <li key={`${d.work}-${d.dateTime}`} className="live-dates-row">
+                <span className="live-dates-work">{d.work}</span>
+                <time className="live-dates-date" dateTime={d.dateTime}>
+                  {d.date}
+                </time>
+                <span className="live-dates-venue">{d.venue}</span>
+                <Link href={d.href} className="live-dates-button">
+                  Details &rarr;
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="live-dates-foot">
+            More dates from January 2027. Programmers and venues,{" "}
+            <Link href="/#contact">get in touch</Link>.
           </p>
-          <p className="live-body">
-            The live recordings are released as they accumulate. Orbital Fifths, roughly
-            forty minutes played in a single take, is the first.
-          </p>
-          <Link href="/releases" className="live-text-cta">
-            Releases &rarr;
-          </Link>
         </section>
 
-        {/* ===== The event ===== */}
-        <section className="live-page-section live-page-section-ruled">
-          <h2 className="live-page-strand-label">The event</h2>
+        {/* ===== Ùrlar ===== */}
+        <section className="live-page-feature">
+          <div className="live-page-feature-text">
+            <h2 className="live-headline live-page-feature-title">Ùrlar</h2>
+            <p className="live-body">
+              Ùrlar is the ground in pibroch, the theme everything returns to. An
+              hour of live piano and synthesis, with spatial sound and projection
+              across three screens. The room is dark; people sit or lie down.
+            </p>
+            <Link href="/urlar/host" className="live-text-cta">
+              About Ùrlar &rarr;
+            </Link>
+          </div>
+          <div className="live-page-feature-visual live-page-feature-visual-wide">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={URLAR_STILL}
+              alt="Ùrlar: point-cloud scan visuals projected across three screens"
+              className="live-page-feature-img"
+              loading="lazy"
+            />
+          </div>
+        </section>
 
-          <div className="live-page-urlar">
-            <div className="live-page-urlar-text">
-              <h3 className="live-headline live-page-urlar-title">Ùrlar</h3>
-              <p className="live-page-pronounce">/ˈuːr-lər/ · OOR-lar</p>
-              <p className="live-page-gloss">
-                Scottish Gaelic — <em>ground</em>; the foundational theme of a pibroch,
-                from which every variation departs and to which it returns.
-              </p>
-
-              <p className="live-body">
-                A deep-listening performance: piano and modular synthesis in a
-                quadraphonic spatial sound field, with slow projected light on scrim and
-                the surfaces of the room itself. The audience sit, or lie down.
-              </p>
-              <p className="live-body">
-                It is not a concert, and not an ambient background set. Contemplative, not
-                audio-reactive.
-              </p>
-              <p className="live-body">
-                Ùrlar is the event. Unstable Systems is the method underneath it.
-              </p>
-
-              <blockquote className="live-page-quote">
-                &ldquo;To listen is to open to the possibility of change.&rdquo;
-                <cite className="live-page-quote-cite">Pauline Oliveros</cite>
-              </blockquote>
-
-              <div className="live-coming-soon">
-                <p className="live-coming-soon-label">Premiere</p>
-                <p className="live-coming-soon-sub">
-                  Friday 4 December 2026, House of Toad, Park Circus, Glasgow.
-                </p>
-              </div>
-              <Link href="/urlar/host" className="live-text-cta">
-                About Ùrlar &rarr;
-              </Link>
-
-              <p className="live-page-enquiry">
-                Programmers and venues — enquiries welcome.
-              </p>
-              <Link href="/#contact" className="live-text-cta">
-                Get in touch &rarr;
-              </Link>
-            </div>
-
-            <div className="live-page-urlar-visual">
-              {/* Cloudflare Stream still — not an allowed next/image remote host,
-                  same plain-img pattern used by the Ùrlar and releases pages */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={URLAR_STILL}
-                alt="Ùrlar — piano and modular synthesis in projected light"
-                className="live-page-urlar-img"
-                loading="lazy"
-              />
-            </div>
+        {/* ===== The method ===== */}
+        <section className="live-page-feature live-page-feature-flip live-page-section-ruled">
+          <div className="live-page-feature-text">
+            <h2 className="live-page-strand-label">The method</h2>
+            <h3 className="live-headline live-page-feature-title">Unstable Systems</h3>
+            <p className="live-body">
+              Music made in one pass, in the moment, at the point where a
+              part-stable, part-unpredictable system is about to fall apart. The
+              live recordings are released as they accumulate. Orbital Fifths, forty
+              minutes in a single take, is the first.
+            </p>
+            <Link href="/releases" className="live-text-cta">
+              Releases &rarr;
+            </Link>
+          </div>
+          <div className="live-page-feature-visual">
+            <Image
+              src={PLAYING_PHOTO}
+              alt="Giles Lamb playing live at the keyboard, black and white"
+              fill
+              sizes="(max-width: 900px) 100vw, 45vw"
+              className="live-page-feature-img"
+            />
           </div>
         </section>
       </main>
