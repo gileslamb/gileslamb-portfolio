@@ -1,32 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-/* Ticket alert signup on the /live poster. Posts to the site's /api/list
-   endpoint; `tag` adds an extra Kit tag (allowlisted in the route). */
-export function TicketAlertForm({ tag }) {
+/* Ticket alert signup on the /live poster. Posts to the giles-engine worker
+   (POST /subscribe), which writes the D1 `subscribers` table with
+   source "live", the same list as /list. Honeypot plus the worker's rate
+   limit; no third-party scripts. The button locks while a request is in
+   flight and the worker treats a repeat email as a no-op. */
+const SUBSCRIBE_ENDPOINT =
+  process.env.NEXT_PUBLIC_SUBSCRIBE_ENDPOINT ??
+  "https://giles-engine.gileslamb.workers.dev/subscribe";
+
+export function TicketAlertForm() {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  const inFlight = useRef(false);
   const [state, setState] = useState("idle"); // idle | sending | done | error
   const [error, setError] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (inFlight.current) return;
     setError("");
+    const value = email.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+      setError("A valid email, please.");
+      setState("error");
+      return;
+    }
+    inFlight.current = true;
     setState("sending");
     try {
-      const res = await fetch("/api/list", {
+      const res = await fetch(SUBSCRIBE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), tag }),
+        body: JSON.stringify({ email: value, source: "live", website }),
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error ?? `HTTP ${res.status}`);
       setState("done");
     } catch (err) {
-      setError(err instanceof Error && err.message.startsWith("A valid")
-        ? err.message
-        : "Something went wrong. Try again in a moment.");
+      console.error(err);
+      setError("Something went wrong. Try again in a moment.");
       setState("error");
+    } finally {
+      inFlight.current = false;
     }
   }
 
@@ -43,6 +61,19 @@ export function TicketAlertForm({ tag }) {
       <label htmlFor="gig-alert-email" className="gig-alert-label">
         Be first to hear when tickets go on sale
       </label>
+      {/* Honeypot: hidden from people and screen readers, filled by bots. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="gig-alert-website">Website</label>
+        <input
+          id="gig-alert-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
       <div className="gig-alert-row">
         <input
           id="gig-alert-email"

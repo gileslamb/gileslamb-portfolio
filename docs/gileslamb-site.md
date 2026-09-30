@@ -18,7 +18,7 @@ Canonical map of gileslamb.com: routes, content, media and conventions, written 
 - **Images:** Cloudflare Images, `https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/<id>/public`, or `public/images/`. Both work with `next/image`.
 - **Video:** Cloudflare Stream, `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/<id>`. Stream thumbnails are **not** an allowed `next/image` host, so Stream stills use a plain `<img>` (see `LivePractice.jsx`, `/live`, `/urlar/host`).
 - **Audio / release media:** Cloudflare R2 (two public buckets, see below)
-- **Mailing list:** Kit (v4 API) via `src/app/api/list/route.ts`
+- **Mailing list:** D1 `subscribers` table, written by the `giles-engine` worker `POST /subscribe` (Kit removed 30 Sep 2026)
 - **Dev:** `npm run dev` on port 4321
 
 ---
@@ -142,17 +142,11 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
    - Key image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f` at `URLAR_FRAME` (65s), cropped to the screens and faded into the card (21:9 desktop, 4:3 mobile). All type sits below it.
    - Order: GILES LAMB (small caps) / *Ùrlar* (large) / blurb ("The ground in pibroch, the theme everything returns to. An hour of live piano and synthesis, with spatial sound and projection across three screens.") / Friday 4 December 2026 · House of Toad, Glasgow (venue on its own line on mobile) / "Limited spaces" / tickets button / ticket alert signup / "About Ùrlar →" `/urlar/host`.
    - Tickets button: **`TICKETS_URL`** constant at the top of the page. Empty = greyed, disabled "Tickets coming soon". Set it to the Eventbrite link and it becomes a live "Tickets" button (new tab).
-   - Ticket alert signup (`src/app/live/TicketAlertForm.jsx`): "Be first to hear when tickets go on sale". Posts `{ email, tag: "urlar-hot-2026" }` to `/api/list`.
+   - Ticket alert signup (`src/app/live/TicketAlertForm.jsx`): "Be first to hear when tickets go on sale". Posts `{ email, source: "live" }` to the `giles-engine` worker `POST /subscribe` (D1 `subscribers`), with a honeypot field.
    - Beneath the flier: "More dates from January 2027."
 2. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
 
 > **Font note:** the Google Fonts `@import` at the top of `globals.css` (Cormorant Garamond upright + italic, Karla 300/400) does not survive the build, so the only Cormorant face on the site is the italic 300 from `next/font` (`--font-hero-name`). All Cormorant text therefore renders italic site-wide, including `/urlar/host` prose and the flier blurb.
-
-### `/api/list` tags
-
-Every signup is saved to the `giles-engine` captures table first (`source: 'list'`, `source_detail` = the extra tag or `'list'`), then subscribed to the Kit form (`KIT_FORM_ID`) and tagged with `KIT_TAG_ID` (live dates). A form can also send `tag`: names in the route's `EXTRA_TAGS` allowlist (currently `urlar-hot-2026`) are resolved to a Kit tag ID by name at signup (Kit's create-tag call is idempotent on name, so the tag is created on first use) and applied as well.
-
----
 
 ## `/urlar`: Ùrlar pages
 
@@ -181,7 +175,7 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 | `/reels` + five players | Listening rooms: museum-reel, kids-animation, drama-documentary, tv, cinematics-trailers. `/immersive/museum-reel` → `/reels/museum-reel` |
 | `/reel` | Shareable showreel page, no nav |
 | `/card/[event]` | QR capture card (`annecy-2026`, `direct`) → `giles-engine` D1 `captures` |
-| `/list`, `/api/list` | Mailing list sign-up (Kit) |
+| `/list` | Mailing list sign-up → `giles-engine` `POST /subscribe` (D1 `subscribers`), source from `?src=` |
 | `/privacy` | Privacy notice |
 | `/organic-ai` | Organic AI page |
 | `/live-preview-8-june` | Archived 8 June 2026 invite card (static HTML, noindex) |
@@ -246,3 +240,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 30 Sep 2026 | Bayeux copy revised (tagline "Music and immersive sound design"); `/live` redesigned: dates panel first, then Ùrlar (scan visuals still), then Unstable Systems (B&W photo); Oliveros quote dropped from `/live` |
 | 30 Sep 2026 | Bayeux title "Bayeux Tapestry, British Museum" everywhere; `/live` top rebuilt as a gig poster (Forthcoming performances, `TICKETS_URL`, ticket alert signup tagged `urlar-hot-2026`); `/api/list` accepts an allowlisted extra tag |
 | 30 Sep 2026 | `/live` flier: `/urlar/host` typography (accent Ù), GILES LAMB above the title, Ùrlar blurb merged in, separate Ùrlar block removed |
+| 30 Sep 2026 | `/live` ticket alert now posts to the `giles-engine` worker `POST /subscribe` with `source: "live"` (D1 `subscribers`); Kit tag and `/api/list` route removed on this branch to match `main` |

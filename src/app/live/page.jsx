@@ -8,9 +8,6 @@ import { TicketAlertForm } from "./TicketAlertForm";
    "Tickets coming soon" and is disabled; set it and the button goes live. */
 const TICKETS_URL = "";
 
-/* Kit tag applied to ticket-alert signups (allowlisted in /api/list). */
-const TICKET_ALERT_TAG = "urlar-hot-2026";
-
 /* Poster image: TouchDesigner scan visuals, the three-screen audience clip
    from /urlar/host. URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
    host, so this is a plain img. */
@@ -80,7 +77,7 @@ export default function LivePage() {
                   Tickets coming soon
                 </button>
               )}
-              <TicketAlertForm tag={TICKET_ALERT_TAG} />
+              <TicketAlertForm />
               <Link href="/urlar/host" className="gig-poster-about">
                 About Ùrlar &rarr;
               </Link>
