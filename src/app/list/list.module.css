@@ -61,6 +61,7 @@
   outline: none;
   transition: border-color 0.25s, background 0.25s;
 }
+.stacked { margin-top: 0.75rem; }
 .input::placeholder { color: rgba(237, 229, 216, 0.45); }
 .input:focus {
   border-color: var(--accent);

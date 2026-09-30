@@ -117,7 +117,7 @@ programmers. Not in global nav — reached by direct link, QR, and email.
 | Route | Purpose |
 |---|---|
 | `/urlar` | Poster page — full-viewport, crossfading Cloudflare Stream background, audio toggle, PDF poster download |
-| `/urlar/host` | Programmer/venue pitch — what Ùrlar is, what the room needs and gives back |
+| `/urlar/host` | Premiere page and programmer pitch: poster, three-screen film, event details (House of Toad, Fri 4 Dec 2026, £35, 50 places), tickets button (`EVENTBRITE_URL` constant, placeholder until the Eventbrite link exists), rider |
 | `/urlar/tickets` | Ticket/updates capture → `giles-engine` worker, `source: 'urlar'` |
 
 **Also:** `/resonantbeing` → `/urlar` (permanent redirect, `next.config.ts`).
@@ -344,3 +344,5 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 | 2 Aug 2026 | `/urlar/host` given `robots: { index: false, follow: false }` — all three Ùrlar routes now noindex/nofollow by design, per route, no global rule. Pages stay live and shared; no visible content changed |
 | 2 Aug 2026 | Global meta description updated — "Signal Dreams" removed, replaced with current positioning. `<title>` unchanged |
 | 3 Aug 2026 | LIVE → `/live` added to global nav, between INSTALLATION & MUSEUM and LISTEN. Added to both the desktop and mobile-overlay lists in `Nav.jsx`; no restructure, no styling change |
+| 30 Sep 2026 | `/list` rebuilt: name, email and hidden source from `?src=` (default `site`), posting direct to the `giles-engine` worker `POST /subscribe`, which writes the D1 `subscribers` table. Honeypot plus worker rate limit, no third-party scripts. Kit removed entirely (`/api/list` route deleted; `KIT_*` env vars no longer read) |
+| 30 Sep 2026 | `/urlar/host`: premiere poster above the hero film, new one-line copy, event details block with tickets button, piano no longer named as the lead instrument |

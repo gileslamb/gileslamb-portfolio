@@ -21,7 +21,22 @@ const BAND_IMAGE = `${STREAM}/${PLAYING_ID}/thumbnails/thumbnail.jpg?time=${BAND
 const BAND_OVERLAY = 0.7;
 
 const DESC =
-  "Ùrlar is an hour of live piano and synthesis, with quadraphonic sound and projection across three screens, creating an immersive experience.";
+  "Live music in quadraphonic sound. Multi-screen projection. Total immersion.";
+
+/* Premiere poster, above the hero film (web copy of the press pack
+   urlar-poster.png, flattened on #0a0a09, 1400 wide). */
+const POSTER = "/urlar/poster-house-of-toad.jpg";
+
+/* TODO(Giles): replace with the Eventbrite event URL. Until then the tickets
+   button points at this placeholder and goes nowhere useful. */
+const EVENTBRITE_URL = "EVENTBRITE_URL_TBC";
+
+/* Premiere event details. */
+const EVENT: [string, string, string][] = [
+  ["When", "Friday 4 December 2026", "Doors 7pm, starts 7.30pm"],
+  ["Where", "House of Toad", "Park Circus, Glasgow"],
+  ["Tickets", "£35", "Including a drink on arrival. 50 places."],
+];
 
 export const metadata: Metadata = {
   title: "Ùrlar: a deep-listening performance · Giles Lamb",
@@ -65,7 +80,7 @@ const RIDER: [string, string][] = [
   ["Get-in", "Four hours before doors, two after."],
   [
     "System",
-    "Quadraphonic speakers, subwoofer, three projectors and screens, piano and synthesis. All of it arrives with me.",
+    "Quadraphonic speakers, subwoofer, three projectors and screens, and the instruments. All of it arrives with me.",
   ],
   ["Installation", "Freestanding. Nothing fixes to the building."],
   ["Seating", "Seating, mats or floor cushions, from the venue."],
@@ -122,7 +137,13 @@ export default function UrlarHostPage() {
           padding:calc(var(--u) * 3) clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2)); overflow:hidden; }
         .uh-band img, .uh-band-wash { position:absolute; inset:0; width:100%; height:100%; }
         .uh-band img { object-fit:cover; object-position:center; display:block; }
+        /* Poster sits centred on black above the film, portrait, never wider
+           than the content column plus a little. */
+        .uh-poster { background:var(--black); padding:clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5)) clamp(16px,5vw,calc(var(--u) * 2)); }
+        .uh-poster img { display:block; width:100%; max-width:calc(var(--u) * 30); height:auto; margin:0 auto; }
+        .uh-event + .uh-event { border-top:1px solid var(--ash); }
         @media (min-width:640px){
+          .uh-event + .uh-event { border-top:0; border-left:1px solid var(--ash); padding-left:calc(var(--u) * 1.25) !important; }
           .uh-band { min-height:65vh; }
           .uh-rider-row { grid-template-columns:calc(var(--u) * 9) 1fr; gap:calc(var(--u) * 1.5); }
         }
@@ -137,6 +158,18 @@ export default function UrlarHostPage() {
       `}</style>
 
       <div className="uh relative">
+        {/* ===== POSTER, above the hero film ===== */}
+        <div className="uh-poster">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={POSTER}
+            alt="Ùrlar poster. Giles Lamb, live music in quadraphonic sound. Friday 4 December 2026, House of Toad, Park Circus, Glasgow. Doors 7pm, starts 7.30pm. £35 including a drink on arrival, 50 places."
+            width={1400}
+            height={1978}
+            fetchPriority="high"
+          />
+        </div>
+
         <HeroVideo />
 
         <div className="uh-plate" aria-hidden="true">
@@ -189,16 +222,55 @@ export default function UrlarHostPage() {
 
             <div className="max-w-[46ch]" style={{ margin: "calc(var(--u) * 1.75) auto 0" }}>
               <p style={{ ...prose, color: "var(--sand)", margin: 0 }}>
-                Ùrlar is an hour of live piano and synthesis, with quadraphonic sound and projection
-                across three screens, creating an immersive experience.
-              </p>
-              <p style={{ ...prose, color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0" }}>
-                It begins grounded and simple, with the music growing outward from there. It ranges
-                from delicate, fragile melodies and atmospheres, building in intensity, and
-                returning to almost nothing, in meditative and absorbing detail.
+                Live music in quadraphonic sound. Multi-screen projection. Total immersion.
               </p>
             </div>
           </header>
+
+          {/* ===== PREMIERE: event details and tickets ===== */}
+          <section style={{ marginTop: "clamp(calc(var(--u) * 3),7vw,calc(var(--u) * 4.5))" }}>
+            <h2 style={{ ...label, color: "var(--accent)" }}>Premiere</h2>
+            <dl
+              className="grid grid-cols-1 sm:grid-cols-3"
+              style={{ margin: "calc(var(--u) * 1.25) 0 0", borderTop: "1px solid var(--ash)" }}
+            >
+              {EVENT.map(([k, main, sub]) => (
+                <div key={k} className="uh-event" style={{ padding: "calc(var(--u) * 1.1) 0" }}>
+                  <dt style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>{k}</dt>
+                  <dd style={{ margin: "calc(var(--u) * 0.5) 0 0" }}>
+                    <span
+                      style={{
+                        display: "block", fontFamily: SERIF, fontSize: "calc(var(--u) * 1.2)",
+                        lineHeight: 1.3, color: "var(--cream)",
+                      }}
+                    >
+                      {main}
+                    </span>
+                    <span
+                      style={{
+                        display: "block", fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)",
+                        lineHeight: 1.55, color: "var(--sand)", marginTop: "calc(var(--u) * 0.3)",
+                      }}
+                    >
+                      {sub}
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <a
+              href={EVENTBRITE_URL}
+              className="cta inline-block no-underline"
+              style={{
+                fontFamily: SANS, fontSize: "calc(var(--u) * 0.72)", fontWeight: 400,
+                letterSpacing: "0.26em", textTransform: "uppercase",
+                background: "var(--accent)", color: "var(--black)",
+                padding: "calc(var(--u) * 1.05) calc(var(--u) * 2.4)", marginTop: "calc(var(--u) * 1.25)",
+              }}
+            >
+              Book tickets
+            </a>
+          </section>
 
           {/* ===== (2) FACT BAR ===== */}
           <section
@@ -308,35 +380,11 @@ export default function UrlarHostPage() {
             }}
           >
             <div>
-              <div style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>Confirmed</div>
-              <div
-                style={{
-                  ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em",
-                  color: "var(--accent)", marginTop: "calc(var(--u) * 0.9)",
-                }}
-              >
-                Premiere
-              </div>
-              <p
-                style={{
-                  fontFamily: SERIF, fontSize: "calc(var(--u) * 1.3)", lineHeight: 1.3,
-                  color: "var(--cream)", margin: "calc(var(--u) * 0.6) 0 0",
-                }}
-              >
-                Friday 4 December 2026
-              </p>
+              <div style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>Bookings</div>
               <p
                 style={{
                   fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)", lineHeight: 1.55,
-                  color: "var(--sand)", margin: "calc(var(--u) * 0.35) 0 0",
-                }}
-              >
-                House of Toad, Park Circus, Glasgow.
-              </p>
-              <p
-                style={{
-                  fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)", lineHeight: 1.55,
-                  color: "var(--sand)", margin: "calc(var(--u) * 0.35) 0 0",
+                  color: "var(--sand)", margin: "calc(var(--u) * 0.6) 0 0",
                 }}
               >
                 Further dates from January 2027.
