@@ -155,7 +155,7 @@ Not in the nav. Reached by direct link, QR and email. All `noindex, nofollow`.
 | Route | What it shows |
 |---|---|
 | `/urlar` | Poster page (`UrlarClient.tsx`): crossfading Stream background, audio toggle, Oliveros epigraph. Top strip "Ùrlar · 04.12.26 · Glasgow"; date block **Fri 4 Dec 2026, House of Toad · Park Circus · Glasgow**; CTA "Tickets and updates" → `/urlar/tickets`. `?print=1` is the print mode used by `npm run generate:pdf` |
-| `/urlar/host` | Programmer/venue page: three-screen hero video with sound control, fact bar, room paragraph, played-live image band, pibroch pull-quote, "Hosting it" rider, footer "Confirmed: Friday 4 December 2026, House of Toad, Park Circus, Glasgow. Further dates from January 2027." with giles@gileslamb.com |
+| `/urlar/host` | Premiere page and programmer pitch: poster, three-screen hero video with sound control, one-line copy, premiere details (Fri 4 Dec 2026, House of Toad, doors 7pm, starts 7.30pm, £35 with a drink, 50 places) with a tickets button on the `EVENTBRITE_URL` placeholder, fact bar, room paragraph, played-live image band, pibroch pull-quote, "Hosting it" rider, footer "Further dates from January 2027." with giles@gileslamb.com |
 | `/urlar/tickets` | Ticket/updates sign-up → `giles-engine` worker, `source: 'urlar'` |
 
 `/resonantbeing` → `/urlar` (permanent redirect).
@@ -241,3 +241,5 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 30 Sep 2026 | Bayeux title "Bayeux Tapestry, British Museum" everywhere; `/live` top rebuilt as a gig poster (Forthcoming performances, `TICKETS_URL`, ticket alert signup tagged `urlar-hot-2026`); `/api/list` accepts an allowlisted extra tag |
 | 30 Sep 2026 | `/live` flier: `/urlar/host` typography (accent Ù), GILES LAMB above the title, Ùrlar blurb merged in, separate Ùrlar block removed |
 | 30 Sep 2026 | `/live` ticket alert now posts to the `giles-engine` worker `POST /subscribe` with `source: "live"` (D1 `subscribers`); Kit tag and `/api/list` route removed on this branch to match `main` |
+| 30 Sep 2026 | `/list` rebuilt: name, email and hidden source from `?src=` (default `site`), posting direct to the `giles-engine` worker `POST /subscribe`, which writes the D1 `subscribers` table. Honeypot plus worker rate limit, no third-party scripts. Kit removed entirely (`/api/list` route deleted; `KIT_*` env vars no longer read) |
+| 30 Sep 2026 | `/urlar/host`: premiere poster above the hero film, new one-line copy, event details block with tickets button, piano no longer named as the lead instrument |
