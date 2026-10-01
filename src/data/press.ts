@@ -50,14 +50,28 @@ export const CREDITS: { group: string; items: Credit[] }[] = [
 export const SELECTED_CREDITS: Credit[] = [
   { title: "Bayeux Tapestry", detail: "British Museum" },
   { title: "Book of Kells Experience", detail: "Trinity College Dublin" },
-  { title: "Experience Zephyr", detail: "MSI Chicago" },
-  { title: "Valhalla Rising" },
-  { title: "The Brilliant World of Tom Gates" },
-  { title: "Dead Island" },
+  { title: "Experience Zephyr", detail: "Museum of Science and Industry, Chicago" },
+  { title: "Valhalla Rising", detail: "feature film" },
+  { title: "Dead Island", detail: "announcement trailer, Cannes 2012" },
+  { title: "The Brilliant World of Tom Gates", detail: "BAFTA Scotland" },
 ];
 
-/* TODO(Giles): confirm the Cannes year. The Dead Island page and the site
-   schema say 2011; 2012 is as briefed for the press kit. */
+/* Short bio, for the About section on /urlar/host. Copy as supplied by
+   Giles, 1 Oct 2026. */
+export const SHORT_BIO =
+  "Giles Lamb is an award-winning Glasgow-based composer and sound artist with three decades of work across film, television, games, theatre and immersive spaces. He scored the Bayeux Tapestry at the British Museum and the Book of Kells Experience at Trinity College Dublin, and has released a variety of studio albums. Ùrlar is his first audiovisual solo live work.";
+
+/* Full bio for /press, four paragraphs. Copy as supplied by Giles,
+   1 Oct 2026. */
+export const PRESS_BIO: string[] = [
+  "Giles Lamb is an award-winning composer and sound artist based in Glasgow. For three decades he's written for film, television, animation, games, theatre and immersive spaces, delivering score, sound design and final mix from his own studio, and has released a variety of studio albums under his own name.",
+  "His credits include Nicolas Winding Refn's Valhalla Rising, the VisitScotland global campaign with the RSNO, and The Brilliant World of Tom Gates. His music for the Dead Island announcement trailer won at Cannes and has been streamed more than 20 million times. In museums and heritage sites, he has scored the Bayeux Tapestry at the British Museum, the Book of Kells Experience at Trinity College Dublin and Experience Zephyr at the Museum of Science and Industry in Chicago. His work has won BAFTA Scotland, RTS and Music and Sound awards.",
+  "His own work sits in what he calls unstable systems: the point between control and unpredictability, where human and machine push against each other and the music could go either way. He trained in psychology and neuroscience at the University of Glasgow, with an MPhil in music psychology, and that interest in how music acts on the body runs through everything he makes. He is a co-founder of the Glasgow Improvisers Orchestra.",
+  "Ùrlar, an audiovisual deep-listening performance for quadraphonic sound and multi-screen projection, premieres at House of Toad in Glasgow in December 2026. Alongside it he is developing spatial-score research with the University of Glasgow, exploring how music can live in a place rather than a recording. He writes about music, authorship and AI at gileslamb.com.",
+];
+
+/* Cannes year: 2012 as confirmed by Giles for the press kit (1 Oct 2026).
+   The Dead Island page and the site schema still say 2011. */
 export const AWARDS: { award: string; for: string }[] = [
   { award: "Cannes Lions Gold, 2012", for: "Dead Island trailer" },
   { award: "BAFTA Scotland", for: "The Brilliant World of Tom Gates" },

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import releasesData from "@/data/releases.json";
-import { AWARDS, CREDITS, IMAGE_SLOTS, PRESS_IMAGES } from "@/data/press";
+import { AWARDS, CREDITS, IMAGE_SLOTS, PRESS_BIO, PRESS_IMAGES } from "@/data/press";
 
 /* Press kit: bio, selected credits, awards, releases, images, live work and
    contact. Indexable, linked from the site footer. Credits, awards and images
@@ -66,6 +66,10 @@ export default function PressPage() {
           .press-lede { color:var(--sand); font-size:.9rem; line-height:1.75; margin:1.25rem 0 0; max-width:40rem; }
           .press-section { margin-top:5.5rem; }
           .press-section .section-label { margin-bottom:2rem; }
+          .press-bio { max-width:42rem; }
+          .press-bio p { font-family:${SERIF}; font-size:clamp(1.1rem,1.4vw,1.25rem); line-height:1.65;
+            color:var(--warm); margin:0; }
+          .press-bio p + p { margin-top:1.25rem; }
           .press-slot { border:1px dashed var(--accent-dim); padding:1.5rem; color:var(--fog);
             font-size:.82rem; line-height:1.6; display:flex; flex-direction:column; gap:.5rem; }
           .press-slot-code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.72rem;
@@ -114,7 +118,11 @@ export default function PressPage() {
           <p className="press-lede">Composer and immersive sound artist based in Glasgow.</p>
 
           <Section id="bio" title="Bio">
-            <Slot code="BIO_TBC" note="Biography to come." />
+            <div className="press-bio">
+              {PRESS_BIO.map((p) => (
+                <p key={p.slice(0, 32)}>{p}</p>
+              ))}
+            </div>
           </Section>
 
           <Section id="credits" title="Selected credits">
