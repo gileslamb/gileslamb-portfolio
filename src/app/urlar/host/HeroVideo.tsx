@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import { HERO_MANIFEST as MANIFEST, HERO_POSTER, LOOP_IN, LOOP_OUT } from './hero';
 
-/* Full-width 16:9 hero. At rest it loops a muted section (LOOP_IN to LOOP_OUT)
+/* The three-screen film, full bleed. At rest it loops a muted section (LOOP_IN to LOOP_OUT)
    where the scan system is at full brightness; "Play with sound" runs the whole
    clip from the start with audio, then drops back to the silent loop.
 
@@ -14,16 +14,35 @@ import { HERO_MANIFEST as MANIFEST, HERO_POSTER, LOOP_IN, LOOP_OUT } from './her
    pausing. Same-document playback keeps the click a real gesture.
 
    prefers-reduced-motion never loads the loop: the poster stands in, and the
-   sound button still plays the full clip on request. The box reserves its 16:9
-   height from first paint, so nothing jumps when the video arrives. It sits
-   above the fixed corner plate so the frame never draws across the image. */
+   sound button still plays the full clip on request.
+
+   Layout: a full-viewport black box with the whole 16:9 frame centred in it
+   (never cropped, so the side screens stay in), letterboxed in the page black.
+   The box reserves its height from first paint, so nothing jumps when the
+   video arrives, and sits above the fixed corner plate so the frame never
+   draws across the film.
+
+   Crossfade: the film fades up from black over the first FADE of the viewport
+   as it enters and back to black over the last FADE as it leaves. Two nested
+   layers (in, out) so the two scroll animations multiply rather than fight.
+   CSS scroll-driven (animation-timeline: view()) where supported, otherwise
+   an IntersectionObserver sets the same opacities. */
 
 /* In/out points, poster frame and clip id live in ./hero. */
 
 type Mode = 'poster' | 'loop' | 'full';
 
+/* Crossfade length, as a fraction of the viewport height. */
+const FADE = 0.15;
+const pct = `${FADE * 100}%`;
+const pctOut = `${100 - FADE * 100}%`;
+const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+
 export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const filmRef = useRef<HTMLDivElement>(null);
+  const inRef = useRef<HTMLDivElement>(null);
+  const outRef = useRef<HTMLDivElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const modeRef = useRef<Mode>('poster');
   const [full, setFull] = useState(false);
@@ -74,6 +93,25 @@ export default function HeroVideo() {
     return () => { hlsRef.current?.destroy(); hlsRef.current = null; };
   }, [startLoop]);
 
+  /* Crossfade fallback for browsers without scroll-driven animations. The
+     film is about a viewport tall, so 1% of its own visibility is about 1% of
+     the viewport: fine thresholds give a smooth enough ramp, and the short
+     CSS transition on .uh-io covers the steps. */
+  useEffect(() => {
+    const film = filmRef.current;
+    if (!film || CSS.supports('animation-timeline: view()')) return;
+    film.classList.add('uh-io');
+    const steps = Array.from({ length: 201 }, (_, i) => i / 200);
+    const io = new IntersectionObserver(([e]) => {
+      const vh = e.rootBounds?.height || window.innerHeight;
+      const r = e.boundingClientRect;
+      if (inRef.current) inRef.current.style.opacity = String(clamp01((vh - r.top) / (FADE * vh)));
+      if (outRef.current) outRef.current.style.opacity = String(clamp01(r.bottom / (FADE * vh)));
+    }, { threshold: steps });
+    io.observe(film);
+    return () => io.disconnect();
+  }, []);
+
   const onTime = useCallback(() => {
     const v = videoRef.current;
     if (v && modeRef.current === 'loop' && (v.currentTime >= LOOP_OUT || v.currentTime < LOOP_IN - 1)) {
@@ -122,12 +160,27 @@ export default function HeroVideo() {
   }, [attach, go, startLoop]);
 
   return (
-    <div className="uh-hero">
+    <div className="uh-film" ref={filmRef}>
       <style>{`
-        .uh-hero { position:relative; z-index:3; width:100%; aspect-ratio:16/9; background:var(--black); overflow:hidden; }
-        .uh-hero img, .uh-hero video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-        .uh-hero video { opacity:0; transition:opacity .8s ease; }
-        .uh-hero video.shown { opacity:1; }
+        .uh-film { position:relative; z-index:3; width:100%; height:100vh; height:100svh;
+          background:var(--black); overflow:clip; }
+        /* clip, not hidden: hidden makes this a scroll container, and view()
+           would then track the film inside itself instead of the viewport. */
+        .uh-film-in, .uh-film-out { position:absolute; inset:0; display:grid; place-items:center; }
+        .uh-io .uh-film-in, .uh-io .uh-film-out { transition:opacity .12s linear; }
+        @supports (animation-timeline: view()) {
+          .uh-film-in { animation:uh-fade-in linear both; animation-timeline:view(); animation-range:entry 0% entry ${pct}; }
+          .uh-film-out { animation:uh-fade-out linear both; animation-timeline:view(); animation-range:exit ${pctOut} exit 100%; }
+        }
+        @keyframes uh-fade-in { from { opacity:0; } to { opacity:1; } }
+        @keyframes uh-fade-out { from { opacity:1; } to { opacity:0; } }
+        /* The whole 16:9 frame, as large as the viewport allows. */
+        .uh-frame { position:relative; width:min(100%, 100vh * 16 / 9); width:min(100%, 100svh * 16 / 9); aspect-ratio:16/9; }
+        .uh-frame img, .uh-frame video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+        .uh-frame video { opacity:0; transition:opacity .8s ease; }
+        .uh-frame video.shown { opacity:1; }
+        .uh-frame-edge { position:absolute; inset:-1px 0; z-index:1; pointer-events:none;
+          background:linear-gradient(to bottom, var(--black) 0%, transparent 14%, transparent 86%, var(--black) 100%); }
         .uh-snd { position:absolute; right:clamp(10px,2vw,24px); bottom:clamp(10px,2vw,22px); z-index:2;
           display:inline-flex; align-items:center; gap:.6em; cursor:pointer;
           font-family:'Karla',-apple-system,sans-serif; font-size:calc(var(--u) * 0.6); letter-spacing:.22em;
@@ -138,42 +191,50 @@ export default function HeroVideo() {
         .uh-snd svg { width:1.35em; height:1.35em; flex:none; }
       `}</style>
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={HERO_POSTER} alt="Ùrlar: the audience between three screens of projected light" width={1920} height={1080} fetchPriority="high" />
+      <div className="uh-film-in" ref={inRef}>
+        <div className="uh-film-out" ref={outRef}>
+          <div className="uh-frame">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={HERO_POSTER} alt="Ùrlar: the audience between three screens of projected light" width={1920} height={1080} />
 
-      <video
-        ref={videoRef}
-        className={shown ? 'shown' : undefined}
-        muted
-        playsInline
-        preload="none"
-        poster={HERO_POSTER}
-        aria-hidden={!full}
-        tabIndex={-1}
-        onPlaying={() => setShown(true)}
-        onTimeUpdate={onTime}
-        onEnded={onEnded}
-      />
+            <video
+              ref={videoRef}
+              className={shown ? 'shown' : undefined}
+              muted
+              playsInline
+              preload="none"
+              poster={HERO_POSTER}
+              aria-hidden={!full}
+              tabIndex={-1}
+              onPlaying={() => setShown(true)}
+              onTimeUpdate={onTime}
+              onEnded={onEnded}
+            />
 
-      <button
-        type="button"
-        className="uh-snd"
-        onClick={toggleSound}
-        aria-pressed={full}
-      >
-        {full ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none" />
-            <path d="M16 9.5l5 5M21 9.5l-5 5" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none" />
-            <path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11" />
-          </svg>
-        )}
-        {full ? 'Stop sound' : 'Play with sound'}
-      </button>
+            <div className="uh-frame-edge" aria-hidden="true" />
+
+            <button
+              type="button"
+              className="uh-snd"
+              onClick={toggleSound}
+              aria-pressed={full}
+            >
+              {full ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none" />
+                  <path d="M16 9.5l5 5M21 9.5l-5 5" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none" />
+                  <path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11" />
+                </svg>
+              )}
+              {full ? 'Stop sound' : 'Play with sound'}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

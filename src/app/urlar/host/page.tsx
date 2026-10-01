@@ -6,8 +6,12 @@ import { HERO_OG as OG_IMAGE, STREAM } from "./hero";
    Site design system only: Cormorant Garamond + Karla (loaded globally via
    globals.css @import) and the :root colour tokens. Structure is Tailwind;
    colour stays inline so it reads off the tokens.
-   The hero is the three-screen audience film, full width and ungraded, with
-   its own sound control (./HeroVideo). Everything below sits on var(--black). */
+   It opens on a black hero built from the poster: the cloud still with the
+   wordmark, gloss and premiere line over it. Then the three-screen audience
+   film, full bleed and ungraded, with its own sound control (./HeroVideo).
+   The page black is #000 here (scoped on .uh-page), matching the darkest
+   values of both the film frames and the cloud, so the hero, film and page
+   read as one dark sequence with no visible step. */
 
 const PAGE_URL = "https://www.gileslamb.com/urlar/host";
 const EMAIL = "giles@gileslamb.com";
@@ -23,9 +27,11 @@ const BAND_OVERLAY = 0.7;
 const DESC =
   "Live music in quadraphonic sound. Multi-screen projection. Total immersion.";
 
-/* Premiere poster, above the hero film (web copy of the press pack
-   urlar-poster.png, flattened on #0a0a09, 1400 wide). */
-const POSTER = "/urlar/poster-house-of-toad.jpg";
+/* Cloud still from the poster (urlar_poster_frames/poster 1 scan .png),
+   960x1080, transparent on RGB 0. Drawn with mix-blend-mode: screen, so it has
+   no edge against the black. The cloud itself spans x 15% to 85% and y 29% to
+   72% of the image; the hero CSS sizes and places it from those fractions. */
+const CLOUD = "/urlar/cloud.png";
 
 /* TODO(Giles): replace with the Eventbrite event URL. Until then the tickets
    button points at this placeholder and goes nowhere useful. */
@@ -35,7 +41,7 @@ const EVENTBRITE_URL = "EVENTBRITE_URL_TBC";
 const EVENT: [string, string, string][] = [
   ["When", "Friday 4 December 2026", "Doors 7pm, starts 7.30pm"],
   ["Where", "House of Toad", "Park Circus, Glasgow"],
-  ["Tickets", "£35", "Including a drink on arrival. 50 places."],
+  ["Tickets", "£20", "£15 concessions and House of Toad members. Booking fee applies."],
 ];
 
 export const metadata: Metadata = {
@@ -63,7 +69,6 @@ export const metadata: Metadata = {
 
 const SERIF = "'Cormorant Garamond', Georgia, serif";
 const SANS = "'Karla', -apple-system, sans-serif";
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 /* (2) fact bar */
 const FACTS: [string, string][] = [
@@ -109,13 +114,23 @@ const prose: React.CSSProperties = {
 
 export default function UrlarHostPage() {
   return (
-    <main style={{ background: "var(--black)", color: "var(--warm)" }}>
+    <main className="uh-page" style={{ background: "var(--black)", color: "var(--warm)" }}>
       <style>{`
         /* One fluid unit drives every size on the page. It holds at 16px up to
            1440, grows to 20px by 2200, then stops, so the layout scales as a
            whole on large windows without turning the wordmark into a banner.
            Hairlines stay 1px on purpose. */
         .uh { overflow-x:clip; --u:clamp(16px, .526vw + 8.42px, 20px); }
+        /* This page's black: pure #000, the film's own black. Scoped here so
+           the global --black token is untouched; html and body follow it so
+           overscroll shows the same black. */
+        .uh-page { --black:#000; }
+        html:has(.uh-page), html:has(.uh-page) body { background-color:#000 !important; }
+        /* Under 768px globals.css sets overflow-x:hidden on html and body,
+           which makes body a scroll container that never scrolls, and the
+           film's view() crossfade then tracks body and freezes. clip keeps the
+           sideways guard without the scroll container. */
+        html:has(.uh-page) body { overflow-x:clip; }
         .uh a.back:hover { color: var(--warm); }
         .uh a.cta { transition: background .3s ease, letter-spacing .3s ease; }
         .uh a.cta:hover { background: var(--cream); letter-spacing: .3em; }
@@ -137,14 +152,28 @@ export default function UrlarHostPage() {
           padding:calc(var(--u) * 3) clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2)); overflow:hidden; }
         .uh-band img, .uh-band-wash { position:absolute; inset:0; width:100%; height:100%; }
         .uh-band img { object-fit:cover; object-position:center; display:block; }
-        /* Poster sits centred on black above the film, portrait, never wider
-           than the content column plus a little. */
-        .uh-poster { background:var(--black); padding:clamp(calc(var(--u) * 3.5),8vw,calc(var(--u) * 5)) clamp(16px,5vw,calc(var(--u) * 2)); }
-        .uh-poster img { display:block; width:100%; max-width:calc(var(--u) * 30); height:auto; margin:0 auto; }
+        /* Hero: a full viewport of black, the cloud large in the upper part,
+           the type in the lower third. --ch is the cloud image height: big on
+           tall screens, held by the width on narrow ones so the cloud stays in
+           frame. The top offset puts the cloud's own top edge (29% down the
+           image) at 7svh. Isolated so the screen blend only sees the black. */
+        .uh-top { position:relative; isolation:isolate; overflow:hidden; background:var(--black);
+          min-height:100vh; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
+          --ch:min(112vh, 152vw); --ch:min(112svh, 152vw); }
+        .uh-cloud { position:absolute; left:50%; top:calc(7svh - var(--ch) * 0.29);
+          height:var(--ch); width:auto; max-width:none; transform:translateX(-50%);
+          mix-blend-mode:screen; pointer-events:none; user-select:none;
+          animation:uh-breathe 28s ease-in-out infinite; }
+        @keyframes uh-breathe {
+          0%, 100% { transform:translateX(-50%) scale(1); opacity:.9; }
+          50% { transform:translateX(-50%) translateY(-1.2%) scale(1.035); opacity:1; }
+        }
+        @media (prefers-reduced-motion: reduce) { .uh-cloud { animation:none; } }
         .uh-event + .uh-event { border-top:1px solid var(--ash); }
         @media (min-width:640px){
           .uh-event + .uh-event { border-top:0; border-left:1px solid var(--ash); padding-left:calc(var(--u) * 1.25) !important; }
           .uh-band { min-height:65vh; }
+          .uh-cloud { left:55%; }
           .uh-rider-row { grid-template-columns:calc(var(--u) * 9) 1fr; gap:calc(var(--u) * 1.5); }
         }
         /* Hairline dividers between fact cells: vertical on the row, and on the
@@ -158,17 +187,73 @@ export default function UrlarHostPage() {
       `}</style>
 
       <div className="uh relative">
-        {/* ===== POSTER, above the hero film ===== */}
-        <div className="uh-poster">
+        {/* ===== (1) HERO: the cloud, with the poster's type over it ===== */}
+        <header className="uh-top">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={POSTER}
-            alt="Ùrlar poster. Giles Lamb, live music in quadraphonic sound. Friday 4 December 2026, House of Toad, Park Circus, Glasgow. Doors 7pm, starts 7.30pm. £35 including a drink on arrival, 50 places."
-            width={1400}
-            height={1978}
-            fetchPriority="high"
-          />
-        </div>
+          <img className="uh-cloud" src={CLOUD} alt="" aria-hidden="true" width={960} height={1080} fetchPriority="high" />
+
+          <div
+            className="relative w-full"
+            style={{
+              margin: "0 auto", maxWidth: "calc(var(--u) * 42)",
+              padding:
+                "calc(var(--u) * 6)" +
+                " clamp(calc(var(--u) * 1.5),5vw,calc(var(--u) * 2))" +
+                " clamp(calc(var(--u) * 3),9svh,calc(var(--u) * 5))",
+            }}
+          >
+            <p style={{ ...label, fontSize: "calc(var(--u) * 0.78)", letterSpacing: "0.42em", color: "var(--cream)" }}>
+              Giles Lamb
+            </p>
+
+            <h1
+              style={{
+                fontFamily: SERIF, fontStyle: "italic", fontWeight: 300,
+                fontSize: "clamp(calc(var(--u) * 3.6),11vw,calc(var(--u) * 7))", lineHeight: 0.9,
+                letterSpacing: "-0.02em", color: "var(--cream)", margin: "calc(var(--u) * 0.6) 0 0",
+              }}
+            >
+              <span style={{ color: "var(--accent)" }}>Ù</span>rlar
+            </h1>
+
+            <p
+              style={{
+                fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
+                fontSize: "clamp(calc(var(--u) * 1.15),2vw,calc(var(--u) * 1.4))", lineHeight: 1.4,
+                color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0",
+              }}
+            >
+              Gaelic, the floor. In pibroch, the ground.
+            </p>
+
+            <p
+              style={{
+                fontFamily: SANS, fontWeight: 300, fontSize: "clamp(calc(var(--u) * 0.95),1.3vw,calc(var(--u) * 1.1))",
+                lineHeight: 1.6, letterSpacing: "0.02em", color: "var(--cream)", margin: "calc(var(--u) * 1.5) 0 0",
+              }}
+            >
+              <span className="block">Live music in quadraphonic sound.</span>
+              <span className="block">Multi-screen projection. Total immersion.</span>
+            </p>
+
+            <p style={{ ...label, fontSize: "calc(var(--u) * 0.62)", letterSpacing: "0.2em", lineHeight: 1.9, color: "var(--warm)", margin: "calc(var(--u) * 2.25) 0 0" }}>
+              <span style={{ color: "var(--accent)" }}>Premiere</span> · Friday 4 December 2026 · House of Toad, Glasgow
+            </p>
+
+            <a
+              href={EVENTBRITE_URL}
+              className="cta inline-block no-underline"
+              style={{
+                fontFamily: SANS, fontSize: "calc(var(--u) * 0.72)", fontWeight: 400,
+                letterSpacing: "0.26em", textTransform: "uppercase",
+                background: "var(--accent)", color: "var(--black)",
+                padding: "calc(var(--u) * 1.05) calc(var(--u) * 2.4)", marginTop: "calc(var(--u) * 1.25)",
+              }}
+            >
+              Book tickets
+            </a>
+          </div>
+        </header>
 
         <HeroVideo />
 
@@ -197,38 +282,8 @@ export default function UrlarHostPage() {
               " calc(var(--u) * 6)",
           }}
         >
-          {/* ===== (1) HERO, the only centred block ===== */}
-          <header className="relative text-center">
-            <div style={label}>Giles Lamb · Live</div>
-
-            <h1
-              style={{
-                fontFamily: SERIF, fontStyle: "italic", fontWeight: 300,
-                fontSize: "clamp(calc(var(--u) * 3.6),11vw,calc(var(--u) * 7))", lineHeight: 0.9,
-                letterSpacing: "-0.02em", color: "var(--cream)", margin: "calc(var(--u) * 1.5) 0 0",
-              }}
-            >
-              <span style={{ color: "var(--accent)" }}>Ù</span>rlar
-            </h1>
-
-            <p
-              style={{
-                fontFamily: MONO, fontSize: "calc(var(--u) * 0.72)", letterSpacing: "0.12em",
-                color: "var(--smoke)", margin: "calc(var(--u) * 1) 0 0",
-              }}
-            >
-              [ ˈuːr-lər ]
-            </p>
-
-            <div className="max-w-[46ch]" style={{ margin: "calc(var(--u) * 1.75) auto 0" }}>
-              <p style={{ ...prose, color: "var(--sand)", margin: 0 }}>
-                Live music in quadraphonic sound. Multi-screen projection. Total immersion.
-              </p>
-            </div>
-          </header>
-
           {/* ===== PREMIERE: event details and tickets ===== */}
-          <section style={{ marginTop: "clamp(calc(var(--u) * 3),7vw,calc(var(--u) * 4.5))" }}>
+          <section>
             <h2 style={{ ...label, color: "var(--accent)" }}>Premiere</h2>
             <dl
               className="grid grid-cols-1 sm:grid-cols-3"
