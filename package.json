@@ -33,7 +33,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "passkit-generator": "^3.5.7",
-    "playwright": "^1.61.1",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"

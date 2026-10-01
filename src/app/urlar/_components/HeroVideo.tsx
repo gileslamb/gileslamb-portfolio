@@ -172,8 +172,8 @@ export default function HeroVideo({ prominent = false }: { prominent?: boolean }
     <div className="uh-film" ref={filmRef}>
       <style>{`
         .uh-film { position:relative; z-index:3; width:100%; height:100vh; height:100svh; overflow:clip;
-          --edge:clamp(48px, 10vh, 120px);
-          background:linear-gradient(to bottom, transparent, var(--black) var(--edge),
+          --edge:clamp(48px, 10vh, 120px); --edge-top:var(--edge);
+          background:linear-gradient(to bottom, transparent, var(--black) var(--edge-top),
             var(--black) calc(100% - var(--edge)), transparent); }
         /* clip, not hidden: hidden makes this a scroll container, and view()
            would then track the film inside itself instead of the viewport. */
@@ -212,6 +212,13 @@ export default function HeroVideo({ prominent = false }: { prominent?: boolean }
           .uh-film { height:calc(100vw * 9 / 16 + 30vh); }
           .uh-snd { font-size:calc(var(--u) * 0.55); padding:.7em .9em; }
           .uh-snd.loud { font-size:calc(var(--u) * 0.62); }
+        }
+        /* Phones: only 4vh above the frame, so the film follows the hero
+           closely; 15vh below as before. The plate fade above the frame
+           shortens to match. */
+        @media (orientation: portrait) and (max-width: 767px) {
+          .uh-film { height:calc(100vw * 9 / 16 + 19vh); --edge-top:4vh; }
+          .uh-film-in, .uh-film-out { align-content:start; padding-top:4vh; }
         }
       `}</style>
 

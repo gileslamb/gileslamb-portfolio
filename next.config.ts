@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // 1 Oct 2026: the KCR Barn poster PDF was retired; old links and QR
+        // codes land on the public page instead of a 404.
+        source: "/urlar-poster.pdf",
+        destination: "/urlar",
+        permanent: true,
+      },
+      {
         // 1 Oct 2026: the old tickets/updates capture page; /urlar is now the
         // public page with tickets and the mailing list.
         source: "/urlar/tickets",
