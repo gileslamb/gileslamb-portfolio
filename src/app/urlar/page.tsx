@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import HeroVideo from "./_components/HeroVideo";
-import UrlarHero, { PremiereTickets } from "./_components/UrlarHero";
+import UrlarHero from "./_components/UrlarHero";
 import UrlarSignup from "./_components/UrlarSignup";
 import { DESC, HERO_OG as OG_IMAGE } from "./_components/hero";
 import {
@@ -8,8 +8,9 @@ import {
 } from "./_components/ui";
 
 /* Ùrlar, the public page: the premiere, tickets and the mailing list. Opens
-   on the shared cloud hero and three-screen film (also used by /urlar/host,
-   the venue page). Indexable. */
+   on the shared cloud hero, with the event details and the one Book tickets
+   button in it, then the three-screen film (hero and film are shared with
+   /urlar/host, the venue page). Indexable. */
 
 const PAGE_URL = "https://www.gileslamb.com/urlar";
 
@@ -37,14 +38,12 @@ export const metadata: Metadata = {
 export default function UrlarPublicPage() {
   return (
     <UrlarPage>
-      <UrlarHero below={<PremiereTickets />} />
+      <UrlarHero compact below={<EventDetails style={{ marginTop: "calc(var(--u) * 1.5)" }} />} />
 
       <HeroVideo prominent />
 
       <Column>
-        <EventDetails />
-
-        <RoomParagraph />
+        <RoomParagraph style={{ marginTop: 0 }} />
 
         <PlayedLiveBand />
 

@@ -132,9 +132,9 @@ export function BookTickets({ style }: { style?: React.CSSProperties }) {
 }
 
 /* Premiere: When / Where / Tickets, then Book tickets. */
-export function EventDetails() {
+export function EventDetails({ style }: { style?: React.CSSProperties }) {
   return (
-    <section>
+    <section style={style}>
       <h2 style={{ ...label, color: "var(--accent)" }}>Premiere</h2>
       <dl
         className="grid grid-cols-1 sm:grid-cols-3"

@@ -1,5 +1,5 @@
 import { CLOUD } from "./hero";
-import { BookTickets, SANS, SERIF, label } from "./ui";
+import { SANS, SERIF, label } from "./ui";
 
 /* The opening of both Ùrlar pages, built from the poster: a full viewport of
    black, the cloud large in the upper part, the type in the lower third. The
@@ -7,8 +7,14 @@ import { BookTickets, SANS, SERIF, label } from "./ui";
    small so its black runs straight into the film's top gradient and the two
    read as one opening sequence.
 
-   `below` is what sits under the tagline: <PremiereLine /> on its own on the
-   venue page, or with <BookTickets /> on the public page. */
+   `below` is what sits under the tagline: <PremiereLine /> on the venue
+   page, or the event details with Book tickets (<EventDetails />) on the
+   public page.
+
+   `compact` uses a smaller cloud, for the public page where the event details
+   make the type block taller. Either way the type never starts above the
+   cloud's lower edge (40% down the image, where it thins out), so a tall
+   block pushes the hero taller rather than running into the cloud. */
 
 export function PremiereLine() {
   return (
@@ -18,19 +24,9 @@ export function PremiereLine() {
   );
 }
 
-/* The premiere line with Book tickets under it. */
-export function PremiereTickets() {
+export default function UrlarHero({ below, compact = false }: { below: React.ReactNode; compact?: boolean }) {
   return (
-    <>
-      <PremiereLine />
-      <BookTickets style={{ marginTop: "calc(var(--u) * 1.25)" }} />
-    </>
-  );
-}
-
-export default function UrlarHero({ below }: { below: React.ReactNode }) {
-  return (
-    <header className="uh-top">
+    <header className={compact ? "uh-top uh-top-compact" : "uh-top"}>
       <style>{`
         /* --ch is the cloud image height: big on tall screens, held by the
            width on narrow ones so the cloud stays in frame. The top offset
@@ -39,6 +35,9 @@ export default function UrlarHero({ below }: { below: React.ReactNode }) {
         .uh-top { position:relative; isolation:isolate; overflow:hidden; background:var(--black);
           min-height:100vh; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
           --ch:min(112vh, 152vw); --ch:min(112svh, 152vw); }
+        .uh-top-compact { --ch:min(78vh, 124vw); --ch:min(78svh, 124vw); }
+        .uh-top-type { padding-top:calc(7vh + var(--ch) * 0.4) !important;
+          padding-top:calc(7svh + var(--ch) * 0.4) !important; }
         .uh-cloud { position:absolute; left:50%; top:calc(7svh - var(--ch) * 0.29);
           height:var(--ch); width:auto; max-width:none; transform:translateX(-50%);
           mix-blend-mode:screen; pointer-events:none; user-select:none;
@@ -55,7 +54,7 @@ export default function UrlarHero({ below }: { below: React.ReactNode }) {
       <img className="uh-cloud" src={CLOUD} alt="" aria-hidden="true" width={960} height={1080} fetchPriority="high" />
 
       <div
-        className="relative w-full"
+        className="uh-top-type relative w-full"
         style={{
           margin: "0 auto", maxWidth: "calc(var(--u) * 42)",
           padding:

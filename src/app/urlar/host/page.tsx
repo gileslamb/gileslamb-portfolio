@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import HeroVideo from "../_components/HeroVideo";
 import UrlarHero, { PremiereLine } from "../_components/UrlarHero";
 import { DESC, HERO_OG as OG_IMAGE } from "../_components/hero";
+import { HEADSHOT, SELECTED_CREDITS } from "@/data/press";
 import {
   Column, GAP, PlayedLiveBand, RoomParagraph, SANS, SERIF, UrlarPage, label, prose,
 } from "../_components/ui";
@@ -69,6 +70,14 @@ export default function UrlarHostPage() {
         @media (min-width:640px){
           .uh-rider-row { grid-template-columns:calc(var(--u) * 9) 1fr; gap:calc(var(--u) * 1.5); }
         }
+        /* About: headshot beside the bio and credits from 640px up. */
+        .uh-about { display:grid; grid-template-columns:1fr; gap:calc(var(--u) * 1.75); }
+        @media (min-width:640px){
+          .uh-about { grid-template-columns:calc(var(--u) * 11) 1fr; gap:calc(var(--u) * 2); align-items:start; }
+        }
+        .uh a.press { color:var(--cream); text-decoration:none; border-bottom:1px solid var(--accent-dim);
+          transition:color .2s ease, border-color .2s ease; }
+        .uh a.press:hover { color:var(--accent); border-color:var(--accent); }
         /* Hairline dividers between fact cells: vertical on the row, and on the
            2x2 stack only between columns. */
         .uh-fact + .uh-fact { border-left:1px solid var(--ash); }
@@ -131,6 +140,54 @@ export default function UrlarHostPage() {
             The ground is the theme a piece departs from and returns to.
           </p>
         </blockquote>
+
+        {/* ===== ABOUT: short bio, six credits, headshot, link to /press ===== */}
+        <section style={{ marginTop: GAP }}>
+          <h2 style={label}>About</h2>
+          <div className="uh-about" style={{ marginTop: "calc(var(--u) * 1.5)", borderTop: "1px solid var(--ash)", paddingTop: "calc(var(--u) * 1.5)" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={HEADSHOT.src}
+              alt={HEADSHOT.alt}
+              width={HEADSHOT.width}
+              height={HEADSHOT.height}
+              loading="lazy"
+              decoding="async"
+              style={{ width: "100%", height: "auto", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }}
+            />
+            <div>
+              {/* Short bio to come: a clearly marked slot until it is written. */}
+              <div
+                style={{
+                  border: "1px dashed var(--accent-dim)", padding: "calc(var(--u) * 1)",
+                  fontFamily: SANS, fontSize: "calc(var(--u) * 0.78)", lineHeight: 1.6, color: "var(--fog)",
+                }}
+              >
+                <span style={{ display: "block", fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", letterSpacing: "0.12em", color: "var(--accent)" }}>
+                  BIO_TBC
+                </span>
+                Short bio to come.
+              </div>
+
+              <ul style={{ listStyle: "none", margin: "calc(var(--u) * 1.25) 0 0", padding: 0 }}>
+                {SELECTED_CREDITS.map((c) => (
+                  <li key={c.title} style={{ ...prose, fontSize: "calc(var(--u) * 0.99)", lineHeight: 1.45, padding: "calc(var(--u) * 0.3) 0" }}>
+                    <span style={{ color: "var(--cream)" }}>{c.title}</span>
+                    {c.detail && <span style={{ color: "var(--sand)" }}>, {c.detail}</span>}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="/press"
+                className="press"
+                style={{ display: "inline-block", marginTop: "calc(var(--u) * 1.25)", fontFamily: SANS, fontSize: "calc(var(--u) * 0.66)", letterSpacing: "0.22em", textTransform: "uppercase" }}
+              >
+                Full press kit
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* ===== (5) HOSTING IT ===== */}
         <section style={{ marginTop: GAP }}>
