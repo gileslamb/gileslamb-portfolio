@@ -42,7 +42,9 @@ const pct = `${FADE * 100}%`;
 const pctOut = `${100 - FADE * 100}%`;
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
-export default function HeroVideo() {
+/* prominent: a larger, brighter sound button, for the public page where the
+   film is the first thing most visitors will want to hear. */
+export default function HeroVideo({ prominent = false }: { prominent?: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const filmRef = useRef<HTMLDivElement>(null);
   const inRef = useRef<HTMLDivElement>(null);
@@ -199,12 +201,17 @@ export default function HeroVideo() {
           -webkit-backdrop-filter:blur(6px); transition:border-color .25s ease, background .25s ease, color .25s ease; }
         .uh-snd:hover, .uh-snd:focus-visible { border-color:var(--accent); color:var(--cream); background:rgba(8,8,8,.6); }
         .uh-snd svg { width:1.35em; height:1.35em; flex:none; }
+        .uh-snd.loud { font-size:calc(var(--u) * 0.7); color:var(--cream); background:rgba(8,8,8,.62);
+          border-color:var(--accent-dim); padding:.95em 1.3em; }
+        .uh-snd.loud svg { color:var(--accent); }
+        .uh-snd.loud:hover, .uh-snd.loud:focus-visible { border-color:var(--accent); background:rgba(8,8,8,.75); }
         /* Portrait: the frame is the full width, so the box is its 16:9 height
            plus 15vh above and below. Smaller sound button so it sits well
            inside a phone-sized frame. */
         @media (orientation: portrait) {
           .uh-film { height:calc(100vw * 9 / 16 + 30vh); }
           .uh-snd { font-size:calc(var(--u) * 0.55); padding:.7em .9em; }
+          .uh-snd.loud { font-size:calc(var(--u) * 0.62); }
         }
       `}</style>
 
@@ -232,7 +239,7 @@ export default function HeroVideo() {
 
             <button
               type="button"
-              className="uh-snd"
+              className={prominent ? 'uh-snd loud' : 'uh-snd'}
               onClick={toggleSound}
               aria-pressed={full}
             >

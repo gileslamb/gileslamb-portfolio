@@ -109,34 +109,24 @@ that is now a layout choice, not a constraint.
 
 ---
 
-### `/urlar` — Ùrlar brochure pages
+### `/urlar` — Ùrlar pages
 
-Three routes, all **live and deliberately shared** with the gig's audience and with
-programmers. Not in global nav — reached by direct link, QR, and email.
+Two routes sharing one opening: the cloud hero (`UrlarHero`) and the three-screen film
+(`HeroVideo`, with scroll crossfades and Play with sound), both in
+`src/app/urlar/_components/` with the shared constants (`hero.ts`: clip ids, cloud,
+`EVENT`, `EVENTBRITE_URL`) and blocks (`ui.tsx`).
 
 | Route | Purpose |
 |---|---|
-| `/urlar` | Poster page — full-viewport, crossfading Cloudflare Stream background, audio toggle, PDF poster download |
-| `/urlar/host` | Premiere page and programmer pitch: poster, three-screen film, event details (House of Toad, Fri 4 Dec 2026, £35, 50 places), tickets button (`EVENTBRITE_URL` constant, placeholder until the Eventbrite link exists), rider |
-| `/urlar/tickets` | Ticket/updates capture → `giles-engine` worker, `source: 'urlar'` |
+| `/urlar` | Public page: premiere (House of Toad, Fri 4 Dec 2026, £20 / £15), Book tickets, film, room, played-live band, credits line, mailing list (`/subscribe`, source `urlar`). **Indexable**, canonical `https://www.gileslamb.com/urlar`. |
+| `/urlar/host` | Venue page for programmers: same hero (premiere as plain text, no ticket links) and film, then fact bar, room, band, etymology, Hosting it rider, bookings email. `noindex, nofollow`. |
 
-**Also:** `/resonantbeing` → `/urlar` (permanent redirect, `next.config.ts`).
+**Redirects (`next.config.ts`, permanent):** `/resonantbeing` → `/urlar`, `/urlar/tickets` → `/urlar`.
 
-**Content:** these pages carry the 20 September 2026 date, KCR Academy Barn / Dalgarven
-Mill / KA13 6PL, and the `jane@kcracademy.com` booking mailto. This is intentional and
-correct — the pages exist to be shared with that audience. **Do not remove, redirect,
-unpublish or edit that content.**
+`EVENTBRITE_URL` is a placeholder until the Eventbrite event exists.
 
-**Indexing — `noindex, nofollow` by design (2 Aug 2026).** Reachable by anyone with the
-link; kept out of search results. Set per route via the Next.js metadata API:
-
-- `src/app/urlar/page.tsx` — `robots: { index: false, follow: false }`
-- `src/app/urlar/tickets/page.tsx` — same
-- `src/app/urlar/host/page.tsx` — same (added 2 Aug 2026; the other two already had it)
-
-Deliberately **not** a global rule, so the rest of the site stays indexable. OpenGraph and
-Twitter card metadata on `/urlar/host` is unaffected — link previews still render when the
-page is shared.
+The old KCR Academy Barn poster page (20 September 2026), its tickets capture page and the
+`urlar-poster.pdf` print were retired on 1 Oct 2026.
 
 > No `sitemap.xml` and no `robots.txt` exist in this repo (no `src/app/sitemap.ts`,
 > no `src/app/robots.ts`, nothing in `public/`). Nothing to exclude and nothing that
@@ -346,3 +336,4 @@ Embed URL: `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/00b4dbad6e415
 | 3 Aug 2026 | LIVE → `/live` added to global nav, between INSTALLATION & MUSEUM and LISTEN. Added to both the desktop and mobile-overlay lists in `Nav.jsx`; no restructure, no styling change |
 | 30 Sep 2026 | `/list` rebuilt: name, email and hidden source from `?src=` (default `site`), posting direct to the `giles-engine` worker `POST /subscribe`, which writes the D1 `subscribers` table. Honeypot plus worker rate limit, no third-party scripts. Kit removed entirely (`/api/list` route deleted; `KIT_*` env vars no longer read) |
 | 30 Sep 2026 | `/urlar/host`: premiere poster above the hero film, new one-line copy, event details block with tickets button, piano no longer named as the lead instrument |
+| 1 Oct 2026 | Ùrlar split: `/urlar` is the public page (indexable, tickets, mailing list), `/urlar/host` the venue page (no tickets); shared cloud hero and full-bleed film in `src/app/urlar/_components/`. Old KCR Barn poster page, `UrlarClient`, `/urlar/tickets` (now redirects to `/urlar`), `generate-urlar-pdf` script and `urlar-poster.pdf` removed |

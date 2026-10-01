@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // 1 Oct 2026: the old tickets/updates capture page; /urlar is now the
+        // public page with tickets and the mailing list.
+        source: "/urlar/tickets",
+        destination: "/urlar",
+        permanent: true,
+      },
+      {
         // Moved 3 Sep 2026: the listening room now lives under /releases
         source: "/invisible-threads",
         destination: "/releases/invisible-threads",

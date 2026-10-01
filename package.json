@@ -12,8 +12,7 @@
     "lint": "eslint",
     "fetch-images": "node scripts/fetch-cover-images.js",
     "wallet:placeholders": "node scripts/create-pass-placeholders.js",
-    "wallet:generate": "node scripts/generate-pass.js",
-    "generate:pdf": "node scripts/generate-urlar-pdf.mjs"
+    "wallet:generate": "node scripts/generate-pass.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
