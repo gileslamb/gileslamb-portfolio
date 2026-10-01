@@ -16,11 +16,15 @@ import { HERO_MANIFEST as MANIFEST, HERO_POSTER, LOOP_IN, LOOP_OUT } from './her
    prefers-reduced-motion never loads the loop: the poster stands in, and the
    sound button still plays the full clip on request.
 
-   Layout: a full-viewport black box with the whole 16:9 frame centred in it
-   (never cropped, so the side screens stay in), letterboxed in the page black.
+   Layout: on landscape screens a full-viewport black box with the whole 16:9
+   frame centred in it (never cropped, so the side screens stay in),
+   letterboxed in the page black. On portrait screens the box is the frame
+   plus 15vh of black above and below, so a phone isn't mostly empty black.
    The box reserves its height from first paint, so nothing jumps when the
-   video arrives, and sits above the fixed corner plate so the frame never
-   draws across the film.
+   video arrives, and sits above the fixed corner plate so the plate never
+   draws across the film. The box's own black fades in over its top and
+   bottom edges (and the picture is masked to match), so the plate lines fade
+   out where they meet the film instead of stopping at a hard line.
 
    Crossfade: the film fades up from black over the first FADE of the viewport
    as it enters and back to black over the last FADE as it leaves. Two nested
@@ -94,9 +98,11 @@ export default function HeroVideo() {
   }, [startLoop]);
 
   /* Crossfade fallback for browsers without scroll-driven animations. The
-     film is about a viewport tall, so 1% of its own visibility is about 1% of
-     the viewport: fine thresholds give a smooth enough ramp, and the short
-     CSS transition on .uh-io covers the steps. */
+     film is at most a viewport tall, so fine thresholds on its own visibility
+     give a smooth enough ramp, and the short
+     CSS transition on .uh-io covers the steps. The fade length follows
+     view(): FADE of the viewport, or of the box when the box is shorter
+     (portrait). */
   useEffect(() => {
     const film = filmRef.current;
     if (!film || CSS.supports('animation-timeline: view()')) return;
@@ -105,8 +111,9 @@ export default function HeroVideo() {
     const io = new IntersectionObserver(([e]) => {
       const vh = e.rootBounds?.height || window.innerHeight;
       const r = e.boundingClientRect;
-      if (inRef.current) inRef.current.style.opacity = String(clamp01((vh - r.top) / (FADE * vh)));
-      if (outRef.current) outRef.current.style.opacity = String(clamp01(r.bottom / (FADE * vh)));
+      const len = FADE * Math.min(vh, r.height);
+      if (inRef.current) inRef.current.style.opacity = String(clamp01((vh - r.top) / len));
+      if (outRef.current) outRef.current.style.opacity = String(clamp01(r.bottom / len));
     }, { threshold: steps });
     io.observe(film);
     return () => io.disconnect();
@@ -162,8 +169,10 @@ export default function HeroVideo() {
   return (
     <div className="uh-film" ref={filmRef}>
       <style>{`
-        .uh-film { position:relative; z-index:3; width:100%; height:100vh; height:100svh;
-          background:var(--black); overflow:clip; }
+        .uh-film { position:relative; z-index:3; width:100%; height:100vh; height:100svh; overflow:clip;
+          --edge:clamp(48px, 10vh, 120px);
+          background:linear-gradient(to bottom, transparent, var(--black) var(--edge),
+            var(--black) calc(100% - var(--edge)), transparent); }
         /* clip, not hidden: hidden makes this a scroll container, and view()
            would then track the film inside itself instead of the viewport. */
         .uh-film-in, .uh-film-out { position:absolute; inset:0; display:grid; place-items:center; }
@@ -176,11 +185,12 @@ export default function HeroVideo() {
         @keyframes uh-fade-out { from { opacity:1; } to { opacity:0; } }
         /* The whole 16:9 frame, as large as the viewport allows. */
         .uh-frame { position:relative; width:min(100%, 100vh * 16 / 9); width:min(100%, 100svh * 16 / 9); aspect-ratio:16/9; }
+        .uh-media { position:absolute; inset:0;
+          -webkit-mask-image:linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+          mask-image:linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
         .uh-frame img, .uh-frame video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
         .uh-frame video { opacity:0; transition:opacity .8s ease; }
         .uh-frame video.shown { opacity:1; }
-        .uh-frame-edge { position:absolute; inset:-1px 0; z-index:1; pointer-events:none;
-          background:linear-gradient(to bottom, var(--black) 0%, transparent 14%, transparent 86%, var(--black) 100%); }
         .uh-snd { position:absolute; right:clamp(10px,2vw,24px); bottom:clamp(10px,2vw,22px); z-index:2;
           display:inline-flex; align-items:center; gap:.6em; cursor:pointer;
           font-family:'Karla',-apple-system,sans-serif; font-size:calc(var(--u) * 0.6); letter-spacing:.22em;
@@ -189,29 +199,36 @@ export default function HeroVideo() {
           -webkit-backdrop-filter:blur(6px); transition:border-color .25s ease, background .25s ease, color .25s ease; }
         .uh-snd:hover, .uh-snd:focus-visible { border-color:var(--accent); color:var(--cream); background:rgba(8,8,8,.6); }
         .uh-snd svg { width:1.35em; height:1.35em; flex:none; }
+        /* Portrait: the frame is the full width, so the box is its 16:9 height
+           plus 15vh above and below. Smaller sound button so it sits well
+           inside a phone-sized frame. */
+        @media (orientation: portrait) {
+          .uh-film { height:calc(100vw * 9 / 16 + 30vh); }
+          .uh-snd { font-size:calc(var(--u) * 0.55); padding:.7em .9em; }
+        }
       `}</style>
 
       <div className="uh-film-in" ref={inRef}>
         <div className="uh-film-out" ref={outRef}>
           <div className="uh-frame">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={HERO_POSTER} alt="Ùrlar: the audience between three screens of projected light" width={1920} height={1080} />
+            <div className="uh-media">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={HERO_POSTER} alt="Ùrlar: the audience between three screens of projected light" width={1920} height={1080} />
 
-            <video
-              ref={videoRef}
-              className={shown ? 'shown' : undefined}
-              muted
-              playsInline
-              preload="none"
-              poster={HERO_POSTER}
-              aria-hidden={!full}
-              tabIndex={-1}
-              onPlaying={() => setShown(true)}
-              onTimeUpdate={onTime}
-              onEnded={onEnded}
-            />
-
-            <div className="uh-frame-edge" aria-hidden="true" />
+              <video
+                ref={videoRef}
+                className={shown ? 'shown' : undefined}
+                muted
+                playsInline
+                preload="none"
+                poster={HERO_POSTER}
+                aria-hidden={!full}
+                tabIndex={-1}
+                onPlaying={() => setShown(true)}
+                onTimeUpdate={onTime}
+                onEnded={onEnded}
+              />
+            </div>
 
             <button
               type="button"

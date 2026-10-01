@@ -401,7 +401,7 @@ export default function UrlarHostPage() {
                 color: "var(--cream)", margin: 0,
               }}
             >
-              Ùrlar is the pibroch word for the ground: the theme a piece departs from and returns to.
+              The ground is the theme a piece departs from and returns to.
             </p>
           </blockquote>
 
