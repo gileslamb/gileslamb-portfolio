@@ -28,6 +28,13 @@ const nextConfig: NextConfig = {
         destination: "/releases/invisible-threads",
         permanent: true,
       },
+      {
+        // Renamed 6 Oct 2026: the unlisted listening page for the funding
+        // application; the old link may already be in circulation
+        source: "/listen/ds",
+        destination: "/listen/feedback-memory",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

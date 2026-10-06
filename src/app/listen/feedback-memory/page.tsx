@@ -24,6 +24,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ListenDsPage() {
+export default function ListenFeedbackMemoryPage() {
   return <ListenClient fontClass={sleeveFont.variable} />;
 }
