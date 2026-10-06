@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import styles from "./listen.module.css";
 
-/* 320k MP3s encoded from the Main Album WAV masters, in the
-   dreamscreens-audio R2 bucket under listen-ds/ (public r2.dev URL,
+/* 320k MP3 encoded from the Main Album WAV master (Feedback Memory_Rising),
+   in the dreamscreens-audio R2 bucket under listen-ds/ (public r2.dev URL,
    no expiry). Custom controls only, so there is no download menu. */
-const R2_BASE =
-  "https://pub-62666eef125a449aa31ba8192339a17e.r2.dev/listen-ds/";
-
-const TRACKS = [
-  { title: "Feedback Memory", src: `${R2_BASE}feedback-memory.mp3`, duration: 342 },
-  { title: "Module n5", src: `${R2_BASE}module-n5.mp3`, duration: 314 },
-];
-
+const TRACK = {
+  title: "Feedback Memory",
+  src: "https://pub-62666eef125a449aa31ba8192339a17e.r2.dev/listen-ds/feedback-memory.mp3",
+  duration: 342,
+};
 const SUBTITLE = "From Dream Screens (2026, unreleased)";
+const ARTWORK = "/images/dream-screens.png";
 
 function PlayIcon() {
   return (
@@ -39,28 +39,11 @@ function fmt(s: number): string {
   return `${m}:${r.toString().padStart(2, "0")}`;
 }
 
-function Player({
-  title,
-  src,
-  duration: fallbackDuration,
-  active,
-  onPlay,
-}: {
-  title: string;
-  src: string;
-  duration: number;
-  active: boolean;
-  onPlay: () => void;
-}) {
+export default function ListenClient({ fontClass }: { fontClass: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
-  const [duration, setDuration] = useState(fallbackDuration);
-
-  /* Only one track plays at a time */
-  useEffect(() => {
-    if (!active) audioRef.current?.pause();
-  }, [active]);
+  const [duration, setDuration] = useState(TRACK.duration);
 
   useEffect(() => {
     const a = audioRef.current;
@@ -81,6 +64,24 @@ function Player({
     a.addEventListener("seeked", tick);
     a.addEventListener("loadedmetadata", meta);
     a.addEventListener("ended", ended);
+
+    /* Lock screen / OS media controls, so playback carries on in the
+       background (other tab, phone locked) and can be paused from there */
+    if ("mediaSession" in navigator) {
+      const ms = navigator.mediaSession;
+      ms.metadata = new MediaMetadata({
+        title: TRACK.title,
+        artist: "Giles Lamb",
+        album: "Dream Screens",
+        artwork: [{ src: ARTWORK, sizes: "2398x1538", type: "image/png" }],
+      });
+      ms.setActionHandler("play", () => a.play().catch(() => {}));
+      ms.setActionHandler("pause", () => a.pause());
+      ms.setActionHandler("seekto", (d) => {
+        if (d.seekTime != null) a.currentTime = d.seekTime;
+      });
+    }
+
     return () => {
       a.removeEventListener("play", on);
       a.removeEventListener("pause", off);
@@ -94,12 +95,8 @@ function Player({
   const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
-    if (a.paused) {
-      onPlay();
-      a.play().catch(() => {});
-    } else {
-      a.pause();
-    }
+    if (a.paused) a.play().catch(() => {});
+    else a.pause();
   };
 
   const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,64 +109,70 @@ function Player({
   const pct = duration > 0 ? (time / duration) * 100 : 0;
 
   return (
-    <section className={styles.player} aria-label={title}>
-      <audio
-        ref={audioRef}
-        src={src}
-        preload="metadata"
-        controlsList="nodownload"
-        onContextMenu={(e) => e.preventDefault()}
-      />
-      <button
-        type="button"
-        className={styles.play}
-        onClick={toggle}
-        aria-label={playing ? `Pause ${title}` : `Play ${title}`}
-        aria-pressed={playing}
-      >
-        {playing ? <PauseIcon /> : <PlayIcon />}
-      </button>
-      <div className={styles.body}>
-        <h2 className={`${styles.title} ${playing ? styles.titleOn : ""}`}>{title}</h2>
-        <p className={styles.subtitle}>{SUBTITLE}</p>
-        <div className={styles.scrub}>
-          <input
-            type="range"
-            className={styles.range}
-            min={0}
-            max={duration}
-            step={0.1}
-            value={Math.min(time, duration)}
-            onChange={seek}
-            aria-label={`Seek ${title}`}
-            style={{ "--pct": `${pct}%` } as React.CSSProperties}
-          />
-          <span className={styles.time}>
-            {fmt(time)} / {fmt(duration)}
-          </span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default function ListenClient({ fontClass }: { fontClass: string }) {
-  const [active, setActive] = useState(-1);
-
-  return (
     <main className={`${styles.room} ${fontClass}`}>
+      <header className={styles.top}>
+        <Link href="/" className={styles.brand}>
+          Giles Lamb
+        </Link>
+        <Link href="/releases" className={styles.back}>
+          ← Releases
+        </Link>
+      </header>
+
       <div className={styles.inner}>
-        <p className={styles.artist}>Giles Lamb</p>
-        {TRACKS.map((t, i) => (
-          <Player
-            key={t.src}
-            title={t.title}
-            src={t.src}
-            duration={t.duration}
-            active={active === i}
-            onPlay={() => setActive(i)}
+        <div className={styles.art}>
+          <Image
+            src={ARTWORK}
+            alt="Dream Screens"
+            fill
+            priority
+            sizes="(max-width: 600px) 100vw, 560px"
+            className={styles.artImg}
           />
-        ))}
+        </div>
+
+        <p className={styles.artist}>Giles Lamb · Composer</p>
+
+        <section className={styles.player} aria-label={TRACK.title}>
+          <audio
+            ref={audioRef}
+            src={TRACK.src}
+            preload="metadata"
+            controlsList="nodownload"
+            onContextMenu={(e) => e.preventDefault()}
+          />
+          <button
+            type="button"
+            className={styles.play}
+            onClick={toggle}
+            aria-label={playing ? `Pause ${TRACK.title}` : `Play ${TRACK.title}`}
+            aria-pressed={playing}
+          >
+            {playing ? <PauseIcon /> : <PlayIcon />}
+          </button>
+          <div className={styles.body}>
+            <h1 className={`${styles.title} ${playing ? styles.titleOn : ""}`}>
+              {TRACK.title}
+            </h1>
+            <p className={styles.subtitle}>{SUBTITLE}</p>
+            <div className={styles.scrub}>
+              <input
+                type="range"
+                className={styles.range}
+                min={0}
+                max={duration}
+                step={0.1}
+                value={Math.min(time, duration)}
+                onChange={seek}
+                aria-label={`Seek ${TRACK.title}`}
+                style={{ "--pct": `${pct}%` } as React.CSSProperties}
+              />
+              <span className={styles.time}>
+                {fmt(time)} / {fmt(duration)}
+              </span>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   );

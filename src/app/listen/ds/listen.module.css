@@ -1,6 +1,6 @@
-/* /listen/ds — two plain players in the Invisible Threads listening-room
-   type and palette: Liberation Sans (Arimo) regular, letterspaced artist
-   label, cream titles, the same round play button. */
+/* /listen/ds — one player in the Invisible Threads listening-room type and
+   palette: Liberation Sans (Arimo) regular, cream titles, the same round
+   play button. Site wordmark top left, back to /releases top right. */
 
 .room {
   min-height: 100vh;
@@ -12,7 +12,55 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1rem;
+  padding: 6.5rem 1rem 4rem;
+}
+
+/* Header: the nav wordmark (Cormorant, as .nav-logo) and a back link */
+.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+}
+.brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+}
+.back {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: rgba(212, 201, 184, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.back:hover,
+.brand:hover {
+  color: var(--cream);
+}
+.back:focus-visible,
+.brand:focus-visible {
+  outline: 1px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2398 / 1538;
+  margin-bottom: 2.2rem;
+  box-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
+}
+.artImg {
+  object-fit: cover;
 }
 
 .inner {
@@ -27,7 +75,7 @@
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--sand);
-  margin: 0 0 2.6rem 0.05em;
+  margin: 0 0 0.4rem 0.05em;
 }
 
 .player {
@@ -38,8 +86,8 @@
   padding: 1.8rem 0;
   border-top: 1px solid rgba(237, 229, 216, 0.1);
 }
-.player:last-child {
-  border-bottom: 1px solid rgba(237, 229, 216, 0.1);
+.player {
+  border-top: 0;
 }
 
 .play {
@@ -167,6 +215,16 @@
 }
 
 @media (max-width: 760px) {
+  .room {
+    padding-top: 5rem;
+  }
+  .top {
+    padding: 1.4rem 1rem;
+  }
+  .brand {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
   .player {
     grid-template-columns: 46px 1fr;
     gap: 1.1rem;
