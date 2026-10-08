@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-/* Ticket alert signup on the /live poster. Posts to the giles-engine worker
+/* Mailing list signup on the /live poster. Posts to the giles-engine worker
    (POST /subscribe), which writes the D1 `subscribers` table with
    source "live", the same list as /list. Honeypot plus the worker's rate
    limit; no third-party scripts. The button locks while a request is in
@@ -51,7 +51,7 @@ export function TicketAlertForm() {
   if (state === "done") {
     return (
       <p className="gig-alert-done" role="status">
-        Thanks. You&rsquo;ll hear first when tickets go on sale.
+        Thank you. You&rsquo;re on the list.
       </p>
     );
   }
@@ -59,7 +59,7 @@ export function TicketAlertForm() {
   return (
     <form className="gig-alert" onSubmit={handleSubmit} noValidate>
       <label htmlFor="gig-alert-email" className="gig-alert-label">
-        Be first to hear when tickets go on sale
+        Join the mailing list
       </label>
       {/* Honeypot: hidden from people and screen readers, filled by bots. */}
       <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
@@ -91,7 +91,7 @@ export function TicketAlertForm() {
           className="gig-alert-submit"
           disabled={state === "sending"}
         >
-          {state === "sending" ? "Sending" : "Notify me"}
+          {state === "sending" ? "Sending" : "Sign up"}
         </button>
       </div>
       {error && (

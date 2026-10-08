@@ -77,7 +77,7 @@ Section order (`src/app/page.jsx`):
    >
    > Premiere Friday 4 December, House of Toad, Glasgow.
 
-   Image: Stream `ca96b876b35b1a3278d9f15770b6972f` at 65s (three-screen audience view). Links: Live → `/live`, About Ùrlar → `/urlar/host`. Unstable Systems is no longer on the homepage; it lives on `/live`.
+   Image: Stream `ca96b876b35b1a3278d9f15770b6972f` at 65s (three-screen audience view). Links: Live → `/live`, About Ùrlar → `/urlar`. Unstable Systems is no longer on the homepage; it lives on `/live`.
 6. **Original Projects** (`OriginalProjects.jsx`)
    - **Dream Screens** (`DreamScreensPromo.jsx`): "Dream Screens is a concept album, with music, image and story built together from the start. Out 30 October." / "Where the live work is made in the moment, Dream Screens is composed and fixed, a world you move through." Link "Dream Screens" → `https://dream-screens.vercel.app`. Image `public/images/dream-screens.png`.
    - **Curious Dreamers** (`CuriousDreamersPromo.jsx`): unchanged.
@@ -140,9 +140,9 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
 
 1. **Forthcoming performances**: a single flier section (`.gig-poster`), typography as `/urlar/host`: Cormorant Garamond (italic title, the Ù in `var(--accent)`) with Karla small caps, site colour tokens only.
    - Key image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f` at `URLAR_FRAME` (65s), cropped to the screens and faded into the card (21:9 desktop, 4:3 mobile). All type sits below it.
-   - Order: GILES LAMB (small caps) / *Ùrlar* (large) / blurb ("The ground in pibroch, the theme everything returns to. An hour of live piano and synthesis, with spatial sound and projection across three screens.") / Friday 4 December 2026 · House of Toad, Glasgow (venue on its own line on mobile) / "Limited spaces" / tickets button / ticket alert signup / "About Ùrlar →" `/urlar/host`.
-   - Tickets button: **`TICKETS_URL`** constant at the top of the page. Empty = greyed, disabled "Tickets coming soon". Set it to the Eventbrite link and it becomes a live "Tickets" button (new tab).
-   - Ticket alert signup (`src/app/live/TicketAlertForm.jsx`): "Be first to hear when tickets go on sale". Posts `{ email, source: "live" }` to the `giles-engine` worker `POST /subscribe` (D1 `subscribers`), with a honeypot field.
+   - Order: GILES LAMB (small caps) / *Ùrlar* (large) / blurb ("The ground in pibroch, the theme everything returns to. An hour of live piano and synthesis, with spatial sound and projection across three screens.") / Friday 4 December 2026 · House of Toad, Glasgow (venue on its own line on mobile) / price line (£20, £15 concessions and House of Toad members, drink on arrival. Booking fee applies.) / "Limited spaces" / Book tickets button / mailing list signup / "About Ùrlar →" `/urlar`.
+   - Book tickets button: links to `EVENTBRITE_URL` from `src/app/urlar/_components/hero.ts` (new tab), the same link as `/urlar`.
+   - Mailing list signup (`src/app/live/TicketAlertForm.jsx`): "Join the mailing list". Posts `{ email, source: "live" }` to the `giles-engine` worker `POST /subscribe` (D1 `subscribers`), with a honeypot field.
    - Beneath the flier: "More dates from January 2027."
 2. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
 

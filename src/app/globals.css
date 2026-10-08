@@ -4088,6 +4088,14 @@ body.card-mode .cursor-ring {
 }
 .gig-poster-venue { color: var(--warm); white-space: nowrap; }
 .gig-poster-sep { color: var(--accent-dim); }
+.gig-poster-price {
+  margin-top: 1rem;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--sand);
+}
 .gig-poster-note {
   margin-top: 1rem;
   font-family: 'Karla', sans-serif;

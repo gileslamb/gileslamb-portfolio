@@ -2,11 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { EVENTBRITE_URL } from "../urlar/_components/hero";
 import { TicketAlertForm } from "./TicketAlertForm";
-
-/* Eventbrite link for the 4 Dec premiere. While empty, the button shows
-   "Tickets coming soon" and is disabled; set it and the button goes live. */
-const TICKETS_URL = "";
 
 /* Poster image: TouchDesigner scan visuals, the three-screen audience clip
    from /urlar/host. URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
@@ -59,26 +56,24 @@ export default function LivePage() {
                 <span className="gig-poster-sep" aria-hidden="true"> · </span>
                 <span className="gig-poster-venue">House of Toad, Glasgow</span>
               </p>
+              <p className="gig-poster-price">
+                £20, £15 concessions and House of Toad members, drink on arrival.
+                Booking fee applies.
+              </p>
               <p className="gig-poster-note">Limited spaces</p>
             </div>
 
             <div className="gig-poster-actions">
-              {TICKETS_URL ? (
-                <a
-                  href={TICKETS_URL}
-                  className="gig-tickets"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Tickets
-                </a>
-              ) : (
-                <button type="button" className="gig-tickets" disabled>
-                  Tickets coming soon
-                </button>
-              )}
+              <a
+                href={EVENTBRITE_URL}
+                className="gig-tickets"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book tickets
+              </a>
               <TicketAlertForm />
-              <Link href="/urlar/host" className="gig-poster-about">
+              <Link href="/urlar" className="gig-poster-about">
                 About Ùrlar &rarr;
               </Link>
             </div>

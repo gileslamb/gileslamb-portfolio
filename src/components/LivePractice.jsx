@@ -23,7 +23,7 @@ export function LivePractice() {
           <Link href="/live" className="live-text-cta reveal reveal-delay-2">
             Live &rarr;
           </Link>
-          <Link href="/urlar/host" className="live-text-cta reveal reveal-delay-2">
+          <Link href="/urlar" className="live-text-cta reveal reveal-delay-2">
             About Ùrlar &rarr;
           </Link>
         </div>
