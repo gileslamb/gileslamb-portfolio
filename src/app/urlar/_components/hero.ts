@@ -37,13 +37,13 @@ export const BAND_OVERLAY = 0.7;
 export const DESC =
   'Live music in quadraphonic sound. Multi-screen projection. Total immersion.';
 
-/* TODO(Giles): replace with the Eventbrite event URL. Until then the tickets
-   buttons point at this placeholder and go nowhere useful. */
-export const EVENTBRITE_URL = 'EVENTBRITE_URL_TBC';
+/* Eventbrite event for the House of Toad premiere. */
+export const EVENTBRITE_URL =
+  'https://www.eventbrite.co.uk/e/urlar-giles-lamb-live-at-house-of-toad-tickets-2002672111195';
 
 /* Premiere event details. */
 export const EVENT: [string, string, string][] = [
   ['When', 'Friday 4 December 2026', 'Doors 7pm, starts 7.30pm'],
   ['Where', 'House of Toad', 'Park Circus, Glasgow'],
-  ['Tickets', '£20', '£15 concessions and House of Toad members. Booking fee applies.'],
+  ['Tickets', '£20', '£15 concessions and House of Toad members, drink on arrival. Booking fee applies.'],
 ];

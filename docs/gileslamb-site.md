@@ -156,7 +156,7 @@ Two routes sharing one opening: the cloud hero (`UrlarHero`) and the three-scree
 
 | Route | What it shows |
 |---|---|
-| `/urlar` | Public page: premiere (House of Toad, Fri 4 Dec 2026, £20 / £15) in the hero with one Book tickets button (`EVENTBRITE_URL`), film, room, played-live band, credits line, mailing list (`/subscribe`, source `urlar`). **Indexable**, canonical `https://www.gileslamb.com/urlar` |
+| `/urlar` | Public page: premiere (House of Toad, Fri 4 Dec 2026, £20 / £15) in the hero with one Book tickets button (`EVENTBRITE_URL`, the Eventbrite event), film, room, played-live band, credits line, mailing list (`/subscribe`, source `urlar`). **Indexable**, canonical `https://www.gileslamb.com/urlar` |
 | `/urlar/host` | Venue page for programmers: same hero (premiere as plain text, no ticket links) and film, then fact bar, room, band, etymology, About (bio and credits from `src/data/press.ts`), Hosting it rider, bookings email. `noindex, nofollow` |
 
 **Redirects (`next.config.ts`, permanent):** `/resonantbeing` → `/urlar`, `/urlar/tickets` → `/urlar`, `/urlar-poster.pdf` → `/urlar`.
@@ -247,3 +247,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 30 Sep 2026 | `/urlar/host`: premiere poster above the hero film, new one-line copy, event details block with tickets button, piano no longer named as the lead instrument |
 | 1 Oct 2026 | Ùrlar split: `/urlar` is the public page (indexable, tickets, mailing list), `/urlar/host` the venue page (no tickets); shared cloud hero and full-bleed film in `src/app/urlar/_components/`. Old KCR Barn poster page, `UrlarClient`, `/urlar/tickets` (now redirects to `/urlar`), `generate-urlar-pdf` script and `urlar-poster.pdf` removed |
 | 1 Oct 2026 | `/press` added (indexable, linked from the site footer): bio, credits, awards, releases from `releases.json`, images with IMAGE_TBC slots, Ùrlar card, contact. Data in `src/data/press.ts`, also used by the new About section on `/urlar/host`. `/urlar` event details moved into the hero (one Book tickets) |
+| 8 Oct 2026 | Merged `urlar-host-hero` into main. `EVENTBRITE_URL` set to the House of Toad Eventbrite event; `/urlar` ticket line adds "drink on arrival" |
