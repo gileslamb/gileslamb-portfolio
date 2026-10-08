@@ -29,7 +29,7 @@ Canonical map of gileslamb.com: routes, content, media and conventions, written 
 - **Signal Dreams:** retired. Do not reference it on the site.
 - **No em dashes in new copy.** (Older copy still has some.)
 - **Reels** are linked from the nav (LISTEN) and from `/immersive` and `/animation`, not from individual work pages.
-- **Ùrlar pages** (`/urlar`, `/urlar/host`, `/urlar/tickets`) are `noindex, nofollow` per route by design. There is no `sitemap.xml` or `robots.txt`; if a sitemap is ever added, exclude these three routes.
+- **Ùrlar pages:** `/urlar` is indexable (public page); `/urlar/host` is `noindex, nofollow` per route by design. There is no `sitemap.xml` or `robots.txt`; if a sitemap is ever added, exclude `/urlar/host`.
 
 ---
 
@@ -150,17 +150,18 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
 
 ## `/urlar`: Ùrlar pages
 
-Not in the nav. Reached by direct link, QR and email. All `noindex, nofollow`.
+Not in the nav. Reached by direct link, QR, email, the footer of `/press` and the homepage Live card.
+
+Two routes sharing one opening: the cloud hero (`UrlarHero`) and the three-screen film (`HeroVideo`, with scroll crossfades and Play with sound), both in `src/app/urlar/_components/` with the shared constants (`hero.ts`: clip ids, cloud, `EVENT`, `EVENTBRITE_URL`) and blocks (`ui.tsx`).
 
 | Route | What it shows |
 |---|---|
-| `/urlar` | Poster page (`UrlarClient.tsx`): crossfading Stream background, audio toggle, Oliveros epigraph. Top strip "Ùrlar · 04.12.26 · Glasgow"; date block **Fri 4 Dec 2026, House of Toad · Park Circus · Glasgow**; CTA "Tickets and updates" → `/urlar/tickets`. `?print=1` is the print mode used by `npm run generate:pdf` |
-| `/urlar/host` | Premiere page and programmer pitch: poster, three-screen hero video with sound control, one-line copy, premiere details (Fri 4 Dec 2026, House of Toad, doors 7pm, starts 7.30pm, £35 with a drink, 50 places) with a tickets button on the `EVENTBRITE_URL` placeholder, fact bar, room paragraph, played-live image band, pibroch pull-quote, "Hosting it" rider, footer "Further dates from January 2027." with giles@gileslamb.com |
-| `/urlar/tickets` | Ticket/updates sign-up → `giles-engine` worker, `source: 'urlar'` |
+| `/urlar` | Public page: premiere (House of Toad, Fri 4 Dec 2026, £20 / £15) in the hero with one Book tickets button (`EVENTBRITE_URL`), film, room, played-live band, credits line, mailing list (`/subscribe`, source `urlar`). **Indexable**, canonical `https://www.gileslamb.com/urlar` |
+| `/urlar/host` | Venue page for programmers: same hero (premiere as plain text, no ticket links) and film, then fact bar, room, band, etymology, About (bio and credits from `src/data/press.ts`), Hosting it rider, bookings email. `noindex, nofollow` |
 
-`/resonantbeing` → `/urlar` (permanent redirect).
+**Redirects (`next.config.ts`, permanent):** `/resonantbeing` → `/urlar`, `/urlar/tickets` → `/urlar`, `/urlar-poster.pdf` → `/urlar`.
 
-The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the poster PDF link were removed from `/urlar` on 30 Sep 2026. `public/urlar-poster.pdf` (still the 20 Sept poster) and `public/kcr-academy-logo.png` remain in the repo, no longer linked.
+The old KCR Academy Barn poster page (20 September 2026, `UrlarClient.tsx`), its tickets capture page, the `generate-urlar-pdf` script and `urlar-poster.pdf` were retired on 1 Oct 2026. `public/kcr-academy-logo.png` remains in the repo, no longer linked.
 
 ---
 
@@ -175,6 +176,7 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 | `/reels` + five players | Listening rooms: museum-reel, kids-animation, drama-documentary, tv, cinematics-trailers. `/immersive/museum-reel` → `/reels/museum-reel` |
 | `/reel` | Shareable showreel page, no nav |
 | `/card/[event]` | QR capture card (`annecy-2026`, `direct`) → `giles-engine` D1 `captures` |
+| `/press` | Press kit (indexable, linked from the site footer): bio, credits, awards, releases from `releases.json`, images (IMAGE_TBC slots), Ùrlar card, contact. Data in `src/data/press.ts` |
 | `/list` | Mailing list sign-up → `giles-engine` `POST /subscribe` (D1 `subscribers`), source from `?src=` |
 | `/privacy` | Privacy notice |
 | `/organic-ai` | Organic AI page |
@@ -195,9 +197,9 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 | ID | What | Used on |
 |---|---|---|
 | `00b4dbad6e415e5edbca3b3c3b507dff` | Showreel 2026 | Homepage, `/reel` |
-| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar/host` hero (poster/OG at 65s); homepage Live still and `/live` poster at 65s |
-| `3913fbedb27eed32fd88c6d87eab3448` | Ùrlar studio pilot (playing) | `/urlar/host` image band (51s) |
-| `9510de9cffc769d1720604298dc57895` / `09c888db1acd3ba26fb0f2b8bd28a292` / `68eeb46ea059449e3660d0f785f8367f` | Ùrlar poster loops (clean, 35% ghost, 50% ghost) | `/urlar` |
+| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar` and `/urlar/host` hero film (poster/OG at 65s); homepage Live still and `/live` poster at 65s |
+| `3913fbedb27eed32fd88c6d87eab3448` | Ùrlar studio pilot (playing) | `/urlar` and `/urlar/host` played-live band (51s) |
+| `9510de9cffc769d1720604298dc57895` / `09c888db1acd3ba26fb0f2b8bd28a292` / `68eeb46ea059449e3660d0f785f8367f` | Ùrlar poster loops (clean, 35% ghost, 50% ghost) | Unused since the old `/urlar` poster page was retired (1 Oct 2026) |
 
 ### Local images (`public/images/`)
 
@@ -217,7 +219,7 @@ The KCR Academy 20 Sept 2026 details, the Jane at KCR booking mailto and the pos
 
 ### R2
 
-- `museum-playlist`: `https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev` (reel audio; `Reels/<category>/`; `resonant-beings/` for `/urlar` audio)
+- `museum-playlist`: `https://pub-62329d1c692e4122ba80031b097b5d1b.r2.dev` (reel audio; `Reels/<category>/`; `resonant-beings/`, the old `/urlar` poster audio, now unused)
 - releases bucket: `https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev` (release covers, audio, peaks, `invisible-threads/`)
 
 ---
@@ -243,3 +245,5 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 30 Sep 2026 | `/live` ticket alert now posts to the `giles-engine` worker `POST /subscribe` with `source: "live"` (D1 `subscribers`); Kit tag and `/api/list` route removed on this branch to match `main` |
 | 30 Sep 2026 | `/list` rebuilt: name, email and hidden source from `?src=` (default `site`), posting direct to the `giles-engine` worker `POST /subscribe`, which writes the D1 `subscribers` table. Honeypot plus worker rate limit, no third-party scripts. Kit removed entirely (`/api/list` route deleted; `KIT_*` env vars no longer read) |
 | 30 Sep 2026 | `/urlar/host`: premiere poster above the hero film, new one-line copy, event details block with tickets button, piano no longer named as the lead instrument |
+| 1 Oct 2026 | Ùrlar split: `/urlar` is the public page (indexable, tickets, mailing list), `/urlar/host` the venue page (no tickets); shared cloud hero and full-bleed film in `src/app/urlar/_components/`. Old KCR Barn poster page, `UrlarClient`, `/urlar/tickets` (now redirects to `/urlar`), `generate-urlar-pdf` script and `urlar-poster.pdf` removed |
+| 1 Oct 2026 | `/press` added (indexable, linked from the site footer): bio, credits, awards, releases from `releases.json`, images with IMAGE_TBC slots, Ùrlar card, contact. Data in `src/data/press.ts`, also used by the new About section on `/urlar/host`. `/urlar` event details moved into the hero (one Book tickets) |

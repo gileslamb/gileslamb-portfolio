@@ -9,6 +9,9 @@ export function Footer() {
         <a href="mailto:giles@gileslamb.com" className="footer-email">
           giles@gileslamb.com
         </a>
+        <a href="/press" className="footer-email">
+          Press
+        </a>
         {/* Socials — uncomment and fill in handles when available:
         <a href="https://gileslamb.bandcamp.com" className="footer-social" target="_blank" rel="noopener">Bandcamp</a>
         <a href="https://instagram.com/[handle]" className="footer-social" target="_blank" rel="noopener">Instagram</a>
