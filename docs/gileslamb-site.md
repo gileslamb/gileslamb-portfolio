@@ -19,6 +19,7 @@ Canonical map of gileslamb.com: routes, content, media and conventions, written 
 - **Video:** Cloudflare Stream, `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/<id>`. Stream thumbnails are **not** an allowed `next/image` host, so Stream stills use a plain `<img>` (see `LivePractice.jsx`, `/live`, `/urlar/host`).
 - **Audio / release media:** Cloudflare R2 (two public buckets, see below)
 - **Mailing list:** D1 `subscribers` table, written by the `giles-engine` worker `POST /subscribe` (Kit removed 30 Sep 2026)
+- **Sending to the list:** `npm run send-email -- --file <markdown> --subject "<subject>"` (`scripts/send-email.mjs`), via Resend from giles@gileslamb.com. `--dry-run` previews, `--test` sends one copy to giles@gileslamb.com. One email per person, logged in D1 `email_sends` per campaign (default: the file name) so a re-run never double-sends; stops at Resend's free 100/day and the same command resumes the next day. Unsubscribe links and bounce/complaint webhooks are handled by the `giles-engine` worker (`/unsubscribe`, `/resend/webhook`). Secrets live in `~/.config/resend/` (or `RESEND_API_KEY` / `UNSUBSCRIBE_SECRET` env), never in the repo
 - **Dev:** `npm run dev` on port 4321
 
 ---
