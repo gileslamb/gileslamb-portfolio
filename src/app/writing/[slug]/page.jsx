@@ -10,6 +10,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { buildBlogPostingSchema, buildEssayBreadcrumb } from "@/lib/schema/helpers";
+import EssaySubscribe from "../_components/EssaySubscribe";
 
 function WideImage({ src, alt, portrait }) {
   return (
@@ -24,6 +25,11 @@ function ClosingLine({ children }) {
 }
 
 const mdxComponents = { WideImage, ClosingLine };
+
+/* Subscriber source tag. The worker keeps ^[a-z0-9-]{1,40}$ only. */
+function essaySource(slug) {
+  return `essay-${slug}`.slice(0, 40).replace(/-+$/, "");
+}
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -120,6 +126,8 @@ export default async function WritingPage({ params }) {
           <div className="article-body">
             <MDXRemote source={body} components={mdxComponents} />
           </div>
+
+          <EssaySubscribe source={essaySource(frontmatter.slug)} rule />
         </article>
 
         <div className="writing-back">

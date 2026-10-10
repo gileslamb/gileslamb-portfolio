@@ -4,6 +4,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { buildBlogSchema, buildSectionBreadcrumb } from "@/lib/schema/helpers";
+import EssaySubscribe from "./_components/EssaySubscribe";
 
 export default function WritingPage() {
   const posts = getAllPosts();
@@ -21,6 +22,9 @@ export default function WritingPage() {
           <p className="writing-tagline-sub">
             <Link href="/organic-ai">Organic AI</Link> — a curated reading list on creativity, friction, and working with AI without losing the work.
           </p>
+          <div className="writing-subscribe">
+            <EssaySubscribe source="writing-index" />
+          </div>
         </section>
 
         <ul className="writing-list">

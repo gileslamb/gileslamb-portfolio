@@ -3233,6 +3233,9 @@ footer {
   line-height: 1.6;
   color: var(--fog);
 }
+.writing-subscribe {
+  margin-top: 2.5rem;
+}
 .writing-tagline-sub a {
   color: var(--cream);
   text-decoration: underline;
