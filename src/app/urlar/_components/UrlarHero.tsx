@@ -13,8 +13,8 @@ import { SANS, SERIF, label } from "./ui";
 
    `compact` uses a smaller cloud, for the public page where the event details
    make the type block taller. Either way the type never starts above the
-   cloud's lower edge (40% down the image, where it thins out), so a tall
-   block pushes the hero taller rather than running into the cloud. */
+   scan's bright bottom line (81% down the image) plus a small gap, so a tall
+   block pushes the hero taller rather than running over the line. */
 
 export function PremiereLine() {
   return (
@@ -30,15 +30,17 @@ export default function UrlarHero({ below, compact = false }: { below: React.Rea
       <style>{`
         /* --ch is the cloud image height: big on tall screens, held by the
            width on narrow ones so the cloud stays in frame. The top offset
-           puts the cloud's own top edge (29% down the image) at 7svh.
+           puts the scan's own top edge (17% down the image) at 7svh; the type
+           starts at 0.67 of --ch below that, just clear of the bottom line
+           (0.81 - 0.17 = 0.64, plus a gap that also covers the breathe).
            Isolated so the screen blend only sees the black. */
         .uh-top { position:relative; isolation:isolate; overflow:hidden; background:var(--black);
           min-height:100vh; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
-          --ch:min(112vh, 152vw); --ch:min(112svh, 152vw); }
-        .uh-top-compact { --ch:min(78vh, 124vw); --ch:min(78svh, 124vw); }
-        .uh-top-type { padding-top:calc(7vh + var(--ch) * 0.4) !important;
-          padding-top:calc(7svh + var(--ch) * 0.4) !important; }
-        .uh-cloud { position:absolute; left:50%; top:calc(7svh - var(--ch) * 0.29);
+          --ch:min(78vh, 120vw); --ch:min(78svh, 120vw); }
+        .uh-top-compact { --ch:min(43vh, 76vw); --ch:min(43svh, 76vw); }
+        .uh-top-type { padding-top:calc(7vh + var(--ch) * 0.67) !important;
+          padding-top:calc(7svh + var(--ch) * 0.67) !important; }
+        .uh-cloud { position:absolute; left:50%; top:calc(7svh - var(--ch) * 0.17);
           height:var(--ch); width:auto; max-width:none; transform:translateX(-50%);
           mix-blend-mode:screen; pointer-events:none; user-select:none;
           animation:uh-breathe 28s ease-in-out infinite; }
@@ -51,7 +53,7 @@ export default function UrlarHero({ below, compact = false }: { below: React.Rea
       `}</style>
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="uh-cloud" src={CLOUD} alt="" aria-hidden="true" width={960} height={1080} fetchPriority="high" />
+      <img className="uh-cloud" src={CLOUD} alt="" aria-hidden="true" width={1378} height={1200} fetchPriority="high" />
 
       <div
         className="uh-top-type relative w-full"

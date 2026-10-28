@@ -20,11 +20,12 @@ export const HERO_MANIFEST = `${STREAM}/${HERO_ID}/manifest/video.m3u8`;
 export const HERO_POSTER = `${STREAM}/${HERO_ID}/thumbnails/thumbnail.jpg?time=${POSTER_AT}s&height=1080`;
 export const HERO_OG = `${STREAM}/${HERO_ID}/thumbnails/thumbnail.jpg?time=${POSTER_AT}s&width=1200&height=630&fit=crop`;
 
-/* Cloud still from the poster (urlar_poster_frames/poster 1 scan .png),
-   960x1080, transparent on RGB 0. Drawn with mix-blend-mode: screen, so it has
-   no edge against the black. The cloud itself spans x 15% to 85% and y 29% to
-   72% of the image; the hero CSS sizes and places it from those fractions. */
-export const CLOUD = '/urlar/cloud.png';
+/* Ground scan (Urlar/New scan and site image/ground.jpg), 1378x1200, on pure
+   black. Drawn with mix-blend-mode: screen, so it has no edge against the
+   black. The scan itself spans x 18% to 78% and y 17% to 81% of the image, and
+   its bottom edge is a bright horizontal line that must stay clear of the
+   type; the hero CSS sizes and places it from those fractions. */
+export const CLOUD = '/urlar/ground.jpg';
 
 /* Image band behind the "played live" line: a still of the playing (studio
    pilot, 2:50). PLAYING_ID is the clip; BAND_AT picks the frame (51s is both
