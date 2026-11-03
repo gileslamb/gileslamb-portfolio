@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-/* Catalogue goes live 16 Oct 2026: flip to true to show it in the nav. */
-const SHOW_CATALOGUE = false;
+/* Catalogue live 3 Nov 2026; /catalogue redirects to catalogue.gileslamb.com. */
+const SHOW_CATALOGUE = true;
 
 const NAV_ITEMS = [
   { href: "/work", label: "Work" },
@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { href: "/reels", label: "Listen" },
   { href: "/releases", label: "Releases" },
   ...(SHOW_CATALOGUE
-    ? [{ href: "https://catalogue.gileslamb.com", label: "Catalogue", external: true }]
+    ? [{ href: "/catalogue", label: "Catalogue", external: true }]
     : []),
   { href: "/writing", label: "Essays" },
   { href: "/#contact", label: "Contact" },

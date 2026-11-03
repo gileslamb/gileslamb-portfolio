@@ -49,6 +49,23 @@ const nextConfig: NextConfig = {
         destination: "/listen/feedback-memory",
         permanent: true,
       },
+      {
+        // 3 Nov 2026: the public catalogue lives on its own subdomain.
+        // Redirect only; serving it under /catalogue is planned for later.
+        source: "/catalogue/:path*",
+        destination: "https://catalogue.gileslamb.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/catalog/:path*",
+        destination: "https://catalogue.gileslamb.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/cat",
+        destination: "https://catalogue.gileslamb.com",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
