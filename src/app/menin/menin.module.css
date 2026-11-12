@@ -78,25 +78,13 @@
 }
 
 /* Images inside the page */
-.wideImg,
 .sectionImg {
   display: block;
 }
-.wideImg img,
 .sectionImg img {
   display: block;
   width: 100%;
   height: auto;
-}
-/* Engraved names under the montage: edge to edge on a phone, up to its
-   native 920px on a wide screen */
-.wideImg {
-  width: 100vw;
-  max-width: 920px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 2.6rem;
 }
 .sectionImg {
   margin-bottom: 2rem;

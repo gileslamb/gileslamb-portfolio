@@ -258,11 +258,6 @@ export default function MeninClient() {
       <section className={`${styles.section} ${styles.montage}`} aria-label={MONTAGE.title}>
         <AudioPlayer item={MONTAGE} />
         <p className={styles.note}>{MONTAGE.note}</p>
-        <Picture
-          img={MONTAGE.image}
-          sizes="(max-width: 760px) 100vw, 920px"
-          className={styles.wideImg}
-        />
       </section>
 
       {SECTIONS.map((s) => (

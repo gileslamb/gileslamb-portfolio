@@ -74,7 +74,7 @@ export const HERO: Img = {
   alt: "Inside the Menin Gate, Ypres, looking out through the arch",
 };
 
-export const MONTAGE: AudioItem & { note: string; image: Img } = {
+export const MONTAGE: AudioItem & { note: string } = {
   kind: "audio",
   title: "Demo montage",
   line: "",
@@ -82,13 +82,6 @@ export const MONTAGE: AudioItem & { note: string; image: Img } = {
   duration: 149,
   note:
     "A demo assembly to give a feeling of how the piece could sound. The music is from my existing work, not written for this, chosen because it has the right feel. In the installation the arch carries music alone and the voices play on visitors' phones; here they're heard together. Archive voices courtesy of IWM, for illustration only.",
-  image: {
-    name: "engraved-names",
-    widths: [640, 920],
-    w: 920,
-    h: 380,
-    alt: "Names of the missing engraved in the stone of the Menin Gate",
-  },
 };
 
 export const SECTIONS: Section[] = [
