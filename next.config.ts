@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         source: "/listen/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      {
+        // Unlisted Menin Gate 100 tender page (QR code in the concept book)
+        source: "/menin",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
   async redirects() {

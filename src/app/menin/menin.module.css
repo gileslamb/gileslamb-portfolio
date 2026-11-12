@@ -1,0 +1,237 @@
+/* /menin — dark, quiet, lots of space. Site palette (globals.css :root) and
+   the site's own faces: Cormorant Garamond for titles, Karla for text.
+   No transitions or animation on purpose. */
+
+.page {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--black);
+  color: var(--warm);
+  font-family: "Karla", sans-serif;
+  font-weight: 300;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 5.5rem 1rem 4rem;
+}
+
+/* Header */
+.header {
+  margin-bottom: 4.5rem;
+}
+.pageTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(2.1rem, 7vw, 2.9rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: var(--cream);
+}
+.byline {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+/* Sections */
+.section {
+  margin-bottom: 4rem;
+}
+.heading {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fog);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(237, 229, 216, 0.1);
+}
+.list > * + * {
+  border-top: 1px solid rgba(237, 229, 216, 0.06);
+}
+
+.note {
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--sand);
+}
+.montage .player {
+  padding-top: 0;
+}
+
+/* Audio player */
+.player {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 1.1rem;
+  align-items: start;
+  padding: 1.6rem 0;
+}
+
+.play {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(237, 229, 216, 0.28);
+  background: transparent;
+  color: var(--cream);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.play svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+.play:hover {
+  border-color: rgba(237, 229, 216, 0.6);
+}
+.play:focus-visible {
+  outline: 1px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.body {
+  min-width: 0;
+}
+
+.title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--sand);
+  margin-top: 0.1rem;
+}
+.titleOn {
+  color: var(--cream);
+}
+
+.line {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--fog);
+}
+
+.scrub {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.9rem;
+}
+.time {
+  flex: none;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Thin scrub line: played portion in cream, rest faint */
+.range {
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--cream) 0 var(--pct, 0%),
+    rgba(237, 229, 216, 0.16) var(--pct, 0%) 100%
+  );
+}
+.range::-moz-range-track {
+  height: 2px;
+  background: rgba(237, 229, 216, 0.16);
+}
+.range::-moz-range-progress {
+  height: 2px;
+  background: var(--cream);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 0;
+}
+.range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 0;
+}
+.range:focus-visible {
+  outline: 1px solid var(--cream);
+  outline-offset: 3px;
+}
+
+/* Film */
+.videos {
+  padding-top: 1.6rem;
+}
+.video {
+  margin: 0 0 2.6rem;
+}
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.caption {
+  margin-top: 0.9rem;
+}
+
+/* Footer */
+/* Overrides the site-wide `footer` element rule (flex, wide padding) */
+.footer {
+  display: block;
+  margin-top: 5rem;
+  padding: 1.4rem 0 0;
+  border-top: 1px solid rgba(237, 229, 216, 0.1);
+  font-size: 0.78rem;
+  line-height: 1.8;
+  color: var(--fog);
+}
+.footer a {
+  color: var(--sand);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212, 201, 184, 0.3);
+}
+.footer a:hover {
+  color: var(--cream);
+}
+
+@media (min-width: 761px) {
+  .page {
+    padding: 8rem 2rem 5rem;
+  }
+  .player {
+    grid-template-columns: 52px 1fr;
+    gap: 1.4rem;
+  }
+  .play {
+    width: 52px;
+    height: 52px;
+  }
+}
