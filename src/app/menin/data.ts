@@ -95,13 +95,24 @@ export const SECTIONS: Section[] = [
       alt: "A violinist playing at the Dead Island orchestral recording session",
     },
     items: [
+      /* Movement Two, Losing Friends, Cloud Flotation and Cirrus: 320k from
+         the current masters in R2 catalogue-masters (12 Nov 2026). Copies
+         only; the page is not linked to the catalogue. */
       {
         kind: "audio",
-        title: "Timeless Horizon",
-        line: "Score for VisitScotland's global campaign, recorded by the Royal Scottish National Orchestra.",
-        src: `${BASE}/timeless-horizon.mp3`,
-        duration: 212,
-        download: `${BASE}/dl/timeless-horizon.mp3`,
+        title: "Movement Two",
+        line: "",
+        src: `${BASE}/movement-two.mp3`,
+        duration: 452,
+        download: `${BASE}/dl/movement-two.mp3`,
+      },
+      {
+        kind: "audio",
+        title: "Losing Friends",
+        line: "",
+        src: `${BASE}/losing-friends.mp3`,
+        duration: 264,
+        download: `${BASE}/dl/losing-friends.mp3`,
       },
       {
         kind: "audio",
@@ -113,11 +124,27 @@ export const SECTIONS: Section[] = [
       },
       {
         kind: "audio",
+        title: "Cloud Flotation",
+        line: "",
+        src: `${BASE}/cloud-flotation.mp3`,
+        duration: 296,
+        download: `${BASE}/dl/cloud-flotation.mp3`,
+      },
+      {
+        kind: "audio",
         title: "Cello Moment",
         line: "",
         src: `${BASE}/cello-moment.mp3`,
         duration: 225,
         download: `${BASE}/dl/cello-moment.mp3`,
+      },
+      {
+        kind: "audio",
+        title: "Cirrus",
+        line: "",
+        src: `${BASE}/cirrus.mp3`,
+        duration: 425,
+        download: `${BASE}/dl/cirrus.mp3`,
       },
     ],
   },
@@ -156,7 +183,7 @@ export const SECTIONS: Section[] = [
       {
         kind: "video",
         title: "Scotland. A Spirit of Its Own",
-        line: "VisitScotland's global campaign, scored for the Royal Scottish National Orchestra.",
+        line: "A theme written to carry VisitScotland's global campaign, recorded with the Royal Scottish National Orchestra.",
         src: `${BASE}/visitscotland-spirit-of-scotland.mp4`,
         poster: `${BASE}/visitscotland-spirit-of-scotland-poster.jpg`,
         aspect: "1920 / 720",
