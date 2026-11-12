@@ -76,12 +76,12 @@ export const HERO: Img = {
 
 export const MONTAGE: AudioItem & { note: string } = {
   kind: "audio",
-  title: "Demo montage",
-  line: "",
+  title: "Archive voices and music",
+  line: "An illustration of how the two can work together.",
   src: `${BASE}/demo-montage-2.mp3`,
   duration: 149,
   note:
-    "A demo assembly to give a feeling of how the piece could sound. The music is from my existing work, not written for this, chosen because it has the right feel. In the installation the arch carries music alone and the voices play on visitors' phones; here they're heard together. Archive voices courtesy of IWM, for illustration only.",
+    "Archive recordings combined with music, to give a real sense of how the two can work together. The music is from my previous work, used here for illustration only: it wasn't written for this, but it has the right emotional feel. In the installation the arch carries music alone and the voices play on visitors' phones; here they're heard together. Archive voices courtesy of IWM, for illustration only.",
 };
 
 export const SECTIONS: Section[] = [

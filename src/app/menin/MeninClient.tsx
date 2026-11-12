@@ -58,7 +58,11 @@ function AudioPlayer({ item }: { item: AudioItem }) {
       }
     };
     const off = () => setPlaying(false);
-    const tick = () => setTime(a.currentTime);
+    /* Ignore the reset to 0 when the page has released this track's
+       download (see MeninClient); the listener's place is kept. */
+    const tick = () => {
+      if (a.getAttribute("src")) setTime(a.currentTime);
+    };
     const meta = () => {
       if (isFinite(a.duration)) setDuration(a.duration);
     };
@@ -85,15 +89,35 @@ function AudioPlayer({ item }: { item: AudioItem }) {
   const toggle = () => {
     const a = ref.current;
     if (!a) return;
-    if (a.paused) a.play().catch(() => {});
-    else a.pause();
+    if (!a.paused) {
+      a.pause();
+      return;
+    }
+    /* Released while another track played: reattach and pick up where the
+       listener left off. */
+    if (!a.getAttribute("src")) {
+      const resume = Number(a.dataset.resume || 0);
+      a.src = item.src;
+      if (resume > 0) {
+        a.addEventListener(
+          "loadedmetadata",
+          () => {
+            a.currentTime = resume;
+          },
+          { once: true }
+        );
+      }
+    }
+    a.play().catch(() => {});
   };
 
   const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const a = ref.current;
     if (!a) return;
-    a.currentTime = Number(e.target.value);
-    setTime(a.currentTime);
+    const v = Number(e.target.value);
+    if (a.getAttribute("src")) a.currentTime = v;
+    else a.dataset.resume = String(v);
+    setTime(v);
   };
 
   const pct = duration > 0 ? (Math.min(time, duration) / duration) * 100 : 0;
@@ -222,7 +246,23 @@ export default function MeninClient() {
       const t = e.target;
       if (!(t instanceof HTMLMediaElement)) return;
       document.querySelectorAll<HTMLMediaElement>("audio, video").forEach((m) => {
-        if (m !== t && !m.paused) m.pause();
+        if (m === t) return;
+        if (!m.paused) m.pause();
+        /* r2.dev serves HTTP/1.1, so a browser gets about six connections to
+           it, and a paused track keeps buffering. Sampling several tracks in a
+           row would starve the next one (Chrome reports a paused track as
+           idle but keeps its connection open). Release any other audio that
+           has started loading; its place is kept in data-resume (see
+           AudioPlayer). */
+        if (
+          m instanceof HTMLAudioElement &&
+          m.getAttribute("src") &&
+          (m.readyState > 0 || m.networkState === HTMLMediaElement.NETWORK_LOADING)
+        ) {
+          m.dataset.resume = String(m.currentTime);
+          m.removeAttribute("src");
+          m.load();
+        }
       });
     };
     document.addEventListener("play", onPlay, true);
