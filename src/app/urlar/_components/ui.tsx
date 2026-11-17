@@ -1,6 +1,6 @@
 import { BAND_IMAGE, BAND_OVERLAY, EVENT, EVENTBRITE_URL } from "./hero";
 
-/* Shared building blocks for /urlar (public) and /urlar/host (venues).
+/* Shared building blocks for /urlar (public) and /urlar/venues (venues).
    Site design system only: Cormorant Garamond + Karla (loaded globally via
    globals.css @import) and the :root colour tokens. Structure is Tailwind;
    colour stays inline so it reads off the tokens. */

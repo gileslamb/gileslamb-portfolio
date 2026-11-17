@@ -4008,7 +4008,7 @@ body.card-mode .cursor-ring {
   background: var(--black);
 }
 
-/* Gig poster: one key image, big type, in the /urlar/host typography
+/* Gig poster: one key image, big type, in the /urlar/venues typography
    (Cormorant Garamond italic title with the accent Ù, Karla small caps).
    The image is cropped to the three screens and fades into the card; all type
    sits below it, never over the busy part of the image. */

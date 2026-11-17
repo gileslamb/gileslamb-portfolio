@@ -1,4 +1,4 @@
-/* Ùrlar constants shared by /urlar and /urlar/host: the film clip (used by the
+/* Ùrlar constants shared by /urlar and /urlar/venues: the film clip (used by the
    pages for metadata and the OG image, and by the client player), the cloud
    still, the band still and the premiere details. Kept out of HeroVideo.tsx:
    a 'use client' module's exports arrive on the server as client references,

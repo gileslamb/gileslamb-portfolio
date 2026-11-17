@@ -6,7 +6,7 @@ import { EVENTBRITE_URL } from "../urlar/_components/hero";
 import { TicketAlertForm } from "./TicketAlertForm";
 
 /* Poster image: TouchDesigner scan visuals, the three-screen audience clip
-   from /urlar/host. URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
+   from /urlar/venues. URLAR_FRAME picks the second. Stream thumbnails are not a next/image remote
    host, so this is a plain img. */
 const STREAM = "https://customer-3aa0vwfgpylhsylu.cloudflarestream.com";
 const URLAR_FRAME = 65;

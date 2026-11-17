@@ -14,9 +14,9 @@ Canonical map of gileslamb.com: routes, content, media and conventions, written 
 ## Stack
 
 - **Framework:** Next.js 16 (App Router), React 19
-- **Styling:** `src/app/globals.css` (design tokens as CSS variables, Cormorant Garamond + Karla), Tailwind for layout on some pages (`/urlar/host`)
+- **Styling:** `src/app/globals.css` (design tokens as CSS variables, Cormorant Garamond + Karla), Tailwind for layout on some pages (`/urlar/venues`)
 - **Images:** Cloudflare Images, `https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/<id>/public`, or `public/images/`. Both work with `next/image`.
-- **Video:** Cloudflare Stream, `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/<id>`. Stream thumbnails are **not** an allowed `next/image` host, so Stream stills use a plain `<img>` (see `LivePractice.jsx`, `/live`, `/urlar/host`).
+- **Video:** Cloudflare Stream, `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/<id>`. Stream thumbnails are **not** an allowed `next/image` host, so Stream stills use a plain `<img>` (see `LivePractice.jsx`, `/live`, `/urlar/venues`).
 - **Audio / release media:** Cloudflare R2 (two public buckets, see below)
 - **Mailing list:** D1 `subscribers` table, written by the `giles-engine` worker `POST /subscribe` (Kit removed 30 Sep 2026)
 - **Dev:** `npm run dev` on port 4321
@@ -29,7 +29,7 @@ Canonical map of gileslamb.com: routes, content, media and conventions, written 
 - **Signal Dreams:** retired. Do not reference it on the site.
 - **No em dashes in new copy.** (Older copy still has some.)
 - **Reels** are linked from the nav (LISTEN) and from `/immersive` and `/animation`, not from individual work pages.
-- **Ùrlar pages:** `/urlar` is indexable (public page); `/urlar/host` is `noindex, nofollow` per route by design. There is no `sitemap.xml` or `robots.txt`; if a sitemap is ever added, exclude `/urlar/host`.
+- **Ùrlar pages:** `/urlar` is indexable (public page); `/urlar/venues` is `noindex, nofollow` per route by design. There is no `sitemap.xml` or `robots.txt`; if a sitemap is ever added, exclude `/urlar/venues`.
 
 ---
 
@@ -138,7 +138,7 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
 
 `src/app/live/page.jsx`. Top to bottom:
 
-1. **Forthcoming performances**: a single flier section (`.gig-poster`), typography as `/urlar/host`: Cormorant Garamond (italic title, the Ù in `var(--accent)`) with Karla small caps, site colour tokens only.
+1. **Forthcoming performances**: a single flier section (`.gig-poster`), typography as `/urlar/venues`: Cormorant Garamond (italic title, the Ù in `var(--accent)`) with Karla small caps, site colour tokens only.
    - Key image: TouchDesigner scan visuals, Stream `ca96b876b35b1a3278d9f15770b6972f` at `URLAR_FRAME` (65s), cropped to the screens and faded into the card (21:9 desktop, 4:3 mobile). All type sits below it.
    - Order: GILES LAMB (small caps) / *Ùrlar* (large) / blurb ("The ground in pibroch, the theme everything returns to. An hour of live piano and synthesis, with spatial sound and projection across three screens.") / Friday 4 December 2026 · House of Toad, Glasgow (venue on its own line on mobile) / price line (£20, £15 concessions and House of Toad members, drink on arrival. Booking fee applies.) / "Limited spaces" / Book tickets button / mailing list signup / "About Ùrlar →" `/urlar`.
    - Book tickets button: links to `EVENTBRITE_URL` from `src/app/urlar/_components/hero.ts` (new tab), the same link as `/urlar`.
@@ -146,7 +146,7 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
    - Beneath the flier: "More dates from January 2027."
 2. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
 
-> **Font note:** the Google Fonts `@import` at the top of `globals.css` (Cormorant Garamond upright + italic, Karla 300/400) does not survive the build, so the only Cormorant face on the site is the italic 300 from `next/font` (`--font-hero-name`). All Cormorant text therefore renders italic site-wide, including `/urlar/host` prose and the flier blurb.
+> **Font note:** the Google Fonts `@import` at the top of `globals.css` (Cormorant Garamond upright + italic, Karla 300/400) does not survive the build, so the only Cormorant face on the site is the italic 300 from `next/font` (`--font-hero-name`). All Cormorant text therefore renders italic site-wide, including `/urlar/venues` prose and the flier blurb.
 
 ## `/urlar`: Ùrlar pages
 
@@ -157,9 +157,9 @@ Two routes sharing one opening: the cloud hero (`UrlarHero`) and the three-scree
 | Route | What it shows |
 |---|---|
 | `/urlar` | Public page: premiere (House of Toad, Fri 4 Dec 2026, £20 / £15) in the hero with one Book tickets button (`EVENTBRITE_URL`, the Eventbrite event), film, room, played-live band, credits line, mailing list (`/subscribe`, source `urlar`). **Indexable**, canonical `https://www.gileslamb.com/urlar` |
-| `/urlar/host` | Venue page for programmers: same hero (premiere as plain text, no ticket links) and film, then fact bar, room, band, etymology, About (bio and credits from `src/data/press.ts`), Hosting it rider, bookings email. `noindex, nofollow` |
+| `/urlar/venues` | Venue page for programmers: same hero (premiere as plain text, no ticket links) and film, then fact bar, room, band, etymology, About (bio and credits from `src/data/press.ts`), Hosting it rider, bookings email. `noindex, nofollow` |
 
-**Redirects (`next.config.ts`, permanent):** `/resonantbeing` → `/urlar`, `/urlar/tickets` → `/urlar`, `/urlar-poster.pdf` → `/urlar`.
+**Redirects (`next.config.ts`):** permanent: `/resonantbeing` → `/urlar`, `/urlar/tickets` → `/urlar`, `/urlar-poster.pdf` → `/urlar`. Temporary (`permanent: false`): `/urlar/host` → `/urlar`, the old venue page path, used as the booking link in the 11 Nov 2026 mailing list email.
 
 The old KCR Academy Barn poster page (20 September 2026, `UrlarClient.tsx`), its tickets capture page, the `generate-urlar-pdf` script and `urlar-poster.pdf` were retired on 1 Oct 2026. `public/kcr-academy-logo.png` remains in the repo, no longer linked.
 
@@ -197,8 +197,8 @@ The old KCR Academy Barn poster page (20 September 2026, `UrlarClient.tsx`), its
 | ID | What | Used on |
 |---|---|---|
 | `00b4dbad6e415e5edbca3b3c3b507dff` | Showreel 2026 | Homepage, `/reel` |
-| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar` and `/urlar/host` hero film (poster/OG at 65s); homepage Live still and `/live` poster at 65s |
-| `3913fbedb27eed32fd88c6d87eab3448` | Ùrlar studio pilot (playing) | `/urlar` and `/urlar/host` played-live band (51s) |
+| `ca96b876b35b1a3278d9f15770b6972f` | Ùrlar, three-screen audience view with TouchDesigner scan visuals (90s). Clearest point-cloud frames: 78s, 82s, 86s | `/urlar` and `/urlar/venues` hero film (poster/OG at 65s); homepage Live still and `/live` poster at 65s |
+| `3913fbedb27eed32fd88c6d87eab3448` | Ùrlar studio pilot (playing) | `/urlar` and `/urlar/venues` played-live band (51s) |
 | `9510de9cffc769d1720604298dc57895` / `09c888db1acd3ba26fb0f2b8bd28a292` / `68eeb46ea059449e3660d0f785f8367f` | Ùrlar poster loops (clean, 35% ghost, 50% ghost) | Unused since the old `/urlar` poster page was retired (1 Oct 2026) |
 
 ### Local images (`public/images/`)
@@ -248,3 +248,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 1 Oct 2026 | Ùrlar split: `/urlar` is the public page (indexable, tickets, mailing list), `/urlar/host` the venue page (no tickets); shared cloud hero and full-bleed film in `src/app/urlar/_components/`. Old KCR Barn poster page, `UrlarClient`, `/urlar/tickets` (now redirects to `/urlar`), `generate-urlar-pdf` script and `urlar-poster.pdf` removed |
 | 1 Oct 2026 | `/press` added (indexable, linked from the site footer): bio, credits, awards, releases from `releases.json`, images with IMAGE_TBC slots, Ùrlar card, contact. Data in `src/data/press.ts`, also used by the new About section on `/urlar/host`. `/urlar` event details moved into the hero (one Book tickets) |
 | 8 Oct 2026 | Merged `urlar-host-hero` into main. `EVENTBRITE_URL` set to the House of Toad Eventbrite event; `/urlar` ticket line adds "drink on arrival" |
+| 17 Nov 2026 | Venue page moved from `/urlar/host` to `/urlar/venues` (still `noindex, nofollow`); `/urlar/host` now redirects to `/urlar` (`permanent: false`) because the 11 Nov mailing list email used it as the booking link |

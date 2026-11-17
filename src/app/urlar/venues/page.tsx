@@ -12,7 +12,7 @@ import {
    as a plain line and no ticket links; then what the show is, what it needs
    and how to book it. */
 
-const PAGE_URL = "https://www.gileslamb.com/urlar/host";
+const PAGE_URL = "https://www.gileslamb.com/urlar/venues";
 const EMAIL = "giles@gileslamb.com";
 
 export const metadata: Metadata = {

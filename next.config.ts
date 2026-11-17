@@ -42,6 +42,14 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // 17 Nov 2026: the venue page moved to /urlar/venues. The 11 Nov
+        // mailing list email used /urlar/host as the booking link, so it
+        // lands on the public page.
+        source: "/urlar/host",
+        destination: "/urlar",
+        permanent: false,
+      },
+      {
         // Moved 3 Sep 2026: the listening room now lives under /releases
         source: "/invisible-threads",
         destination: "/releases/invisible-threads",

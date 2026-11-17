@@ -10,7 +10,7 @@ import {
 /* Ùrlar, the public page: the premiere, tickets and the mailing list. Opens
    on the shared cloud hero, with the event details and the one Book tickets
    button in it, then the three-screen film (hero and film are shared with
-   /urlar/host, the venue page). Indexable. */
+   /urlar/venues, the venue page). Indexable. */
 
 const PAGE_URL = "https://www.gileslamb.com/urlar";
 

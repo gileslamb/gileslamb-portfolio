@@ -1,4 +1,4 @@
-/* Press kit data, shared by /press and the About section on /urlar/host.
+/* Press kit data, shared by /press and the About section on /urlar/venues.
 
    Credits: only credits already on the site or approved for the press kit
    (1 Oct 2026). Never list Halo 4 or Brave. `href` points at the credit's own
@@ -46,7 +46,7 @@ export const CREDITS: { group: string; items: Credit[] }[] = [
   },
 ];
 
-/* Six for short-form use (the About section on /urlar/host). */
+/* Six for short-form use (the About section on /urlar/venues). */
 export const SELECTED_CREDITS: Credit[] = [
   { title: "Bayeux Tapestry", detail: "British Museum" },
   { title: "Book of Kells Experience", detail: "Trinity College Dublin" },
@@ -56,7 +56,7 @@ export const SELECTED_CREDITS: Credit[] = [
   { title: "The Brilliant World of Tom Gates", detail: "BAFTA Scotland" },
 ];
 
-/* Short bio, for the About section on /urlar/host. Copy as supplied by
+/* Short bio, for the About section on /urlar/venues. Copy as supplied by
    Giles, 1 Oct 2026. */
 export const SHORT_BIO =
   "Giles Lamb is an award-winning Glasgow-based composer and sound artist with three decades of work across film, television, games, theatre and immersive spaces. He scored the Bayeux Tapestry at the British Museum and the Book of Kells Experience at Trinity College Dublin, and has released a variety of studio albums. Ùrlar is his first audiovisual solo live work.";

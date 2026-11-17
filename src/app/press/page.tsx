@@ -6,7 +6,7 @@ import { AWARDS, CREDITS, IMAGE_SLOTS, PRESS_BIO, PRESS_IMAGES } from "@/data/pr
 
 /* Press kit: bio, selected credits, awards, releases, images, live work and
    contact. Indexable, linked from the site footer. Credits, awards and images
-   live in src/data/press.ts (shared with /urlar/host); releases come from
+   live in src/data/press.ts (shared with /urlar/venues); releases come from
    src/data/releases.json, the same list as /releases. */
 
 const PAGE_URL = "https://www.gileslamb.com/press";
