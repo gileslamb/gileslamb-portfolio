@@ -5,8 +5,10 @@ import { BAND_IMAGE, BAND_OVERLAY, EVENT, EVENTBRITE_URL } from "./hero";
    globals.css @import) and the :root colour tokens. Structure is Tailwind;
    colour stays inline so it reads off the tokens. */
 
-export const SERIF = "'Cormorant Garamond', Georgia, serif";
-export const SANS = "'Karla', -apple-system, sans-serif";
+export const SERIF = "var(--font)";
+/* The Ùrlar wordmark keeps its own face. */
+export const URLAR_SERIF = "var(--urlar-serif)";
+export const SANS = "var(--font)";
 
 export const label: React.CSSProperties = {
   fontFamily: SANS,
@@ -47,11 +49,11 @@ export function UrlarPage({ children }: { children: React.ReactNode }) {
            whole on large windows without turning the wordmark into a banner.
            Hairlines stay 1px on purpose. */
         .uh { overflow-x:clip; --u:clamp(16px, .526vw + 8.42px, 20px); }
-        /* This page's black: pure #000, the film's own black. Scoped here so
+        /* This page's black: pure var(--paper), the film's own black. Scoped here so
            the global --black token is untouched; html and body follow it so
            overscroll shows the same black. */
-        .uh-page { --black:#000; }
-        html:has(.uh-page), html:has(.uh-page) body { background-color:#000 !important; }
+        .uh-page { --black:var(--paper); }
+        html:has(.uh-page), html:has(.uh-page) body { background-color:var(--paper) !important; }
         /* Under 768px globals.css sets overflow-x:hidden on html and body,
            which makes body a scroll container that never scrolls, and the
            film's view() crossfade then tracks body and freezes. clip keeps the
@@ -59,11 +61,11 @@ export function UrlarPage({ children }: { children: React.ReactNode }) {
         html:has(.uh-page) body { overflow-x:clip; }
         .uh a.back:hover, .uh a.home:hover { color: var(--warm); }
         .uh a.cta { transition: background .3s ease, letter-spacing .3s ease; }
-        .uh a.cta:hover { background: var(--cream); letter-spacing: .3em; }
+        .uh a.cta:hover { background: var(--cream); letter-spacing: .04em; }
         .uh-plate { position:fixed; z-index:2; pointer-events:none;
-          inset:clamp(calc(var(--u) * 0.75),1.8vw,calc(var(--u) * 1.35)); border:1px solid #1c1915; }
+          inset:clamp(calc(var(--u) * 0.75),1.8vw,calc(var(--u) * 1.35)); border:1px solid var(--ink); }
         .uh-plate span { position:absolute; width:9px; height:9px; }
-        .uh-plate span::before, .uh-plate span::after { content:''; position:absolute; background:#3b352d; }
+        .uh-plate span::before, .uh-plate span::after { content:''; position:absolute; background:var(--ink); }
         .uh-plate span::before { left:0; top:0; width:9px; height:1px; }
         .uh-plate span::after  { left:0; top:0; width:1px; height:9px; }
         .uh-plate .tl { left:-1px; top:-1px; }
@@ -93,7 +95,7 @@ export function UrlarPage({ children }: { children: React.ReactNode }) {
           className="back fixed left-7 top-6 z-10 no-underline"
           style={{
             fontFamily: SANS, fontSize: "calc(var(--u) * 0.72)", letterSpacing: "0.06em",
-            color: "rgba(212,201,184,0.5)", transition: "color .2s ease",
+            color: "var(--ink3)", transition: "color .2s ease",
           }}
         >
           ← gileslamb.com
@@ -154,7 +156,7 @@ export function EventDetails({ style }: { style?: React.CSSProperties }) {
               </span>
               <span
                 style={{
-                  display: "block", fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)",
+                  display: "block", fontFamily: SANS, fontWeight: 450, fontSize: "calc(var(--u) * 0.82)",
                   lineHeight: 1.55, color: "var(--sand)", marginTop: "calc(var(--u) * 0.3)",
                 }}
               >
@@ -190,14 +192,13 @@ export function PlayedLiveBand() {
         aria-hidden="true"
         className="uh-band-wash"
         style={{
-          background:
-            "linear-gradient(to bottom, var(--black) 0%, transparent 22%, transparent 78%, var(--black) 100%)," +
-            ` rgba(8,8,8,${BAND_OVERLAY})`,
+          background: "none",
         }}
       />
       <p
         style={{
-          position: "relative", fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
+          position: "relative", fontFamily: SERIF, fontWeight: 500,
+          background: "var(--paper)", padding: "calc(var(--u) * 1) calc(var(--u) * 1.2)",
           fontSize: "clamp(calc(var(--u) * 1.3),2.5vw,calc(var(--u) * 1.65))", lineHeight: 1.4,
           color: "var(--cream)", maxWidth: "32ch", margin: 0, textAlign: "center",
         }}

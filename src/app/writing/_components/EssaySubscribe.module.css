@@ -9,17 +9,18 @@
 .rule {
   margin-top: 4rem;
   padding-top: 2.5rem;
-  border-top: 1px solid rgba(201, 169, 110, 0.12);
+  border-top: 1px solid rgba(10,10,10,0.12);
 }
 
 .heading {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font);
   font-size: 1.35rem;
-  font-weight: 300;
-  font-style: italic;
+  
+  
   line-height: 1.3;
   color: var(--cream);
-}
+
+  font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .95;}
 
 .line {
   margin-top: 0.4rem;
@@ -41,11 +42,11 @@
   min-width: 0;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(212, 201, 184, 0.3);
+  border-bottom: 1px solid rgba(10,10,10,0.3);
   border-radius: 0;
   color: var(--cream);
-  font-family: 'Karla', sans-serif;
-  font-weight: 300;
+  font-family: var(--font);
+  font-weight: 450;
   font-size: 16px; /* 16px stops iOS zooming on focus */
   letter-spacing: 0.02em;
   padding: 0.45rem 0;
@@ -61,10 +62,10 @@
   border: none;
   padding: 0.45rem 0;
   color: var(--accent);
-  font-family: 'Karla', sans-serif;
+  font-family: var(--font);
   font-weight: 400;
   font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  letter-spacing: .04em;
   text-transform: uppercase;
   cursor: pointer;
   transition: color 0.2s ease;

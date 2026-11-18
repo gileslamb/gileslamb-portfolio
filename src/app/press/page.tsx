@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: { type: "website", url: PAGE_URL, siteName: "Giles Lamb", title: "Press · Giles Lamb", description: DESC },
 };
 
-const SERIF = "'Cormorant Garamond', Georgia, serif";
+const SERIF = "var(--font)";
 
 type Release = {
   slug: string; title: string; subtitle?: string; year: number; date: string; cover: string;
@@ -61,8 +61,8 @@ export default function PressPage() {
         <style>{`
           .press-page { min-height:100vh; padding:9rem 3.5rem 5rem; background:var(--black); color:var(--warm); }
           .press-inner { max-width:68rem; margin:0 auto; }
-          .press-title { font-family:${SERIF}; font-style:italic; font-weight:300; color:var(--cream);
-            font-size:clamp(2.6rem,6vw,4.5rem); line-height:1; margin:0; }
+          .press-title { font-family:${SERIF}; font-weight:800; text-transform:uppercase; letter-spacing:-.035em; color:var(--cream);
+            font-size:clamp(2.6rem,6vw,4.5rem); line-height:.95; margin:0; }
           .press-lede { color:var(--sand); font-size:.9rem; line-height:1.75; margin:1.25rem 0 0; max-width:40rem; }
           .press-section { margin-top:5.5rem; }
           .press-section .section-label { margin-bottom:2rem; }
@@ -73,9 +73,9 @@ export default function PressPage() {
           .press-slot { border:1px dashed var(--accent-dim); padding:1.5rem; color:var(--fog);
             font-size:.82rem; line-height:1.6; display:flex; flex-direction:column; gap:.5rem; }
           .press-slot-code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.72rem;
-            letter-spacing:.12em; color:var(--accent); }
+            letter-spacing: .04em; color:var(--accent); }
           .press-credits { display:grid; grid-template-columns:repeat(auto-fit,minmax(14rem,1fr)); gap:2.5rem 3rem; }
-          .press-group { font-size:.6rem; letter-spacing:.24em; text-transform:uppercase; color:var(--fog);
+          .press-group { font-size:.6rem; letter-spacing: .04em; text-transform:uppercase; color:var(--fog);
             margin:0 0 1rem; padding-bottom:.75rem; border-bottom:1px solid var(--ash); }
           .press-list { list-style:none; margin:0; padding:0; }
           .press-list li { padding:.45rem 0; line-height:1.4; }
@@ -87,15 +87,15 @@ export default function PressPage() {
           .press-awards li:first-child { border-top:1px solid var(--ash); }
           .press-releases { display:grid; grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr)); gap:2rem 1.5rem; }
           .press-release { text-decoration:none; color:inherit; display:block; }
-          .press-release img { width:100%; aspect-ratio:1; object-fit:cover; display:block; background:#0f0e0c;
+          .press-release img { width:100%; aspect-ratio:1; object-fit:cover; display:block; background:var(--paper);
             transition:opacity .25s ease; }
           .press-release:hover img { opacity:.8; }
           .press-release-title { font-family:${SERIF}; font-size:1.05rem; color:var(--cream); margin:.75rem 0 0; line-height:1.3; }
-          .press-release-year { font-size:.7rem; letter-spacing:.12em; color:var(--fog); margin:.2rem 0 0; }
+          .press-release-year { font-size:.7rem; letter-spacing: .04em; color:var(--fog); margin:.2rem 0 0; }
           .press-images { display:grid; grid-template-columns:repeat(auto-fill,minmax(17rem,1fr)); gap:2rem 1.5rem; }
           .press-image img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
           .press-image figcaption { display:flex; justify-content:space-between; gap:1rem; margin-top:.75rem;
-            font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fog); }
+            font-size:.7rem; letter-spacing: .04em; text-transform:uppercase; color:var(--fog); }
           .press-link { color:var(--cream); text-decoration:none; border-bottom:1px solid var(--accent-dim);
             transition:color .2s ease, border-color .2s ease; }
           .press-link:hover { color:var(--accent); border-color:var(--accent); }
@@ -103,7 +103,7 @@ export default function PressPage() {
           .press-live { display:block; text-decoration:none; color:inherit; border:1px solid var(--ash);
             padding:2rem; max-width:34rem; transition:border-color .25s ease; }
           .press-live:hover { border-color:var(--accent-dim); }
-          .press-live-title { font-family:${SERIF}; font-style:italic; font-weight:300; font-size:2.6rem; line-height:1;
+          .press-live-title { font-family:var(--urlar-serif); font-style:italic; font-weight:300; font-size:2.6rem; line-height:1;
             color:var(--cream); margin:0; }
           @media (max-width:767px){
             .press-page { padding:5rem 1.5rem 4rem; }
@@ -205,12 +205,12 @@ export default function PressPage() {
           <Section id="live" title="Live work">
             <a href="/urlar" className="press-live">
               <p className="press-live-title">
-                <span style={{ color: "var(--accent)" }}>Ù</span>rlar
+                <span style={{ color: "var(--urlar)" }}>Ù</span>rlar
               </p>
               <p style={{ color: "var(--sand)", fontSize: ".9rem", lineHeight: 1.7, margin: "1rem 0 0" }}>
                 Live music in quadraphonic sound. Multi-screen projection. Total immersion.
               </p>
-              <p style={{ fontSize: ".65rem", letterSpacing: ".24em", textTransform: "uppercase", color: "var(--accent)", margin: "1.5rem 0 0" }}>
+              <p style={{ fontSize: ".65rem", letterSpacing: ".04em", textTransform: "uppercase", color: "var(--accent)", margin: "1.5rem 0 0" }}>
                 Premiere · Friday 4 December 2026 · House of Toad, Glasgow
               </p>
             </a>

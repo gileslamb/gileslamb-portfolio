@@ -1,5 +1,5 @@
 import { CLOUD } from "./hero";
-import { SANS, SERIF, label } from "./ui";
+import { SANS, SERIF, URLAR_SERIF, label } from "./ui";
 
 /* The opening of both Ùrlar pages, built from the poster: a full viewport of
    black, the cloud large in the upper part, the type in the lower third. The
@@ -38,11 +38,14 @@ export default function UrlarHero({ below, compact = false }: { below: React.Rea
           min-height:100vh; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
           --ch:min(78vh, 120vw); --ch:min(78svh, 120vw); }
         .uh-top-compact { --ch:min(43vh, 76vw); --ch:min(43svh, 76vw); }
-        .uh-top-type { padding-top:calc(7vh + var(--ch) * 0.67) !important;
-          padding-top:calc(7svh + var(--ch) * 0.67) !important; }
+        .uh-top-type { padding-top:calc(7vh + var(--ch) * 0.86) !important;
+          padding-top:calc(7svh + var(--ch) * 0.86) !important; }
+        /* On paper the cloud is a plain black print: the type starts below it
+           instead of over it, and it holds still. */
+        .uh-cloud { animation:none !important; }
         .uh-cloud { position:absolute; left:50%; top:calc(7svh - var(--ch) * 0.17);
           height:var(--ch); width:auto; max-width:none; transform:translateX(-50%);
-          mix-blend-mode:screen; pointer-events:none; user-select:none;
+          mix-blend-mode: normal; pointer-events:none; user-select:none;
           animation:uh-breathe 28s ease-in-out infinite; }
         @keyframes uh-breathe {
           0%, 100% { transform:translateX(-50%) scale(1); opacity:.9; }
@@ -71,17 +74,17 @@ export default function UrlarHero({ below, compact = false }: { below: React.Rea
 
         <h1
           style={{
-            fontFamily: SERIF, fontStyle: "italic", fontWeight: 300,
+            fontFamily: URLAR_SERIF, fontStyle: "italic", fontWeight: 300,
             fontSize: "clamp(calc(var(--u) * 3.6),11vw,calc(var(--u) * 7))", lineHeight: 0.9,
             letterSpacing: "-0.02em", color: "var(--cream)", margin: "calc(var(--u) * 0.6) 0 0",
           }}
         >
-          <span style={{ color: "var(--accent)" }}>Ù</span>rlar
+          <span style={{ color: "var(--urlar)" }}>Ù</span>rlar
         </h1>
 
         <p
           style={{
-            fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
+            fontFamily: SERIF, fontWeight: 500,
             fontSize: "clamp(calc(var(--u) * 1.15),2vw,calc(var(--u) * 1.4))", lineHeight: 1.4,
             color: "var(--sand)", margin: "calc(var(--u) * 1) 0 0",
           }}
@@ -91,7 +94,7 @@ export default function UrlarHero({ below, compact = false }: { below: React.Rea
 
         <p
           style={{
-            fontFamily: SANS, fontWeight: 300, fontSize: "clamp(calc(var(--u) * 0.95),1.3vw,calc(var(--u) * 1.1))",
+            fontFamily: SANS, fontWeight: 450, fontSize: "clamp(calc(var(--u) * 0.95),1.3vw,calc(var(--u) * 1.1))",
             lineHeight: 1.6, letterSpacing: "0.02em", color: "var(--cream)", margin: "calc(var(--u) * 1.5) 0 0",
           }}
         >

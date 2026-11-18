@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
 import CardClient from './CardClient';
 import { CAPTURE_ENDPOINT } from '@/lib/capture';
+import { Cormorant_Garamond, Karla } from 'next/font/google';
+
+/* The card keeps its original dark design and faces; the rest of the site
+   moved to paper and Inter Tight (design-refresh), so its fonts load here. */
+const cardSerif = Cormorant_Garamond({ subsets: ['latin'], weight: ['300', '400'], style: ['normal', 'italic'], display: 'swap', variable: '--font-hero-name' });
+const cardSans = Karla({ subsets: ['latin'], weight: ['300', '400'], display: 'swap', variable: '--font-karla' });
 
 export const CARD_EVENTS: Record<string, { name: string; accent: string; stingUrl: string | null }> = {
   'annecy-2026': { name: 'Annecy 2026', accent: '#c9a96e', stingUrl: '/audio/resonant-being-part-2.mp3' },
@@ -23,6 +29,7 @@ export default async function CardPage({ params }: Props) {
   const resolvedSlug = known ? event : 'unknown';
 
   return (
+    <div className={`${cardSerif.variable} ${cardSans.variable}`}>
     <CardClient
       event={resolvedSlug}
       eventName={cfg.name}
@@ -31,5 +38,6 @@ export default async function CardPage({ params }: Props) {
       captureEndpoint={CAPTURE_ENDPOINT}
       turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY ?? ''}
     />
+    </div>
   );
 }

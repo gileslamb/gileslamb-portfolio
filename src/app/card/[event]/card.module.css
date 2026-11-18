@@ -8,7 +8,10 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  font-family: 'Karla', sans-serif;
+  /* the card keeps the original dark palette (pinned here; the site moved to paper) */
+  --black: #080808; --deep: #0f0e0c; --carbon: #1a1916; --ash: #2e2c28; --smoke: #4a4640;
+  --fog: #8a8278; --sand: #b8ad9e; --warm: #d4c9b8; --cream: #ede5d8; --accent: #c9a96e; --accent-dim: #8a6f42;
+  font-family: var(--font-karla), 'Karla', sans-serif;
   font-weight: 300;
   color: var(--cream);
   background: var(--black);
@@ -268,7 +271,7 @@
   background: rgba(237, 229, 216, 0.13);
   border: 1px solid rgba(237, 229, 216, 0.40);
   color: var(--cream);
-  font-family: 'Karla', sans-serif;
+  font-family: var(--font-karla), 'Karla', sans-serif;
   font-size: 13px;
   padding: 13px 14px;
   border-radius: 2px;
@@ -293,7 +296,7 @@
   background: var(--card-accent);
   color: var(--black);
   border: none;
-  font-family: 'Karla', sans-serif;
+  font-family: var(--font-karla), 'Karla', sans-serif;
   font-weight: 400;
   font-size: 11.5px;
   letter-spacing: 0.22em;
@@ -384,7 +387,7 @@
   color: var(--smoke);
   background: none;
   border: none;
-  font-family: 'Karla', sans-serif;
+  font-family: var(--font-karla), 'Karla', sans-serif;
   font-size: 10px;
   letter-spacing: 0.24em;
   text-transform: uppercase;

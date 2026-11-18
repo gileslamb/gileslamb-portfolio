@@ -137,7 +137,7 @@ export default function UrlarHostPage() {
         >
           <p
             style={{
-              fontFamily: SERIF, fontStyle: "italic", fontWeight: 400,
+              fontFamily: SERIF, fontWeight: 500,
               fontSize: "clamp(calc(var(--u) * 1.3),2.5vw,calc(var(--u) * 1.65))", lineHeight: 1.4,
               color: "var(--cream)", margin: 0,
             }}
@@ -217,7 +217,7 @@ export default function UrlarHostPage() {
             <div style={{ ...label, fontSize: "calc(var(--u) * 0.58)", letterSpacing: "0.2em" }}>Bookings</div>
             <p
               style={{
-                fontFamily: SANS, fontWeight: 300, fontSize: "calc(var(--u) * 0.82)", lineHeight: 1.55,
+                fontFamily: SANS, fontWeight: 450, fontSize: "calc(var(--u) * 0.82)", lineHeight: 1.55,
                 color: "var(--sand)", margin: "calc(var(--u) * 0.6) 0 0",
               }}
             >

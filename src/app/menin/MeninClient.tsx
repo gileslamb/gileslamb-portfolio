@@ -280,7 +280,7 @@ export default function MeninClient() {
             the page's stone grey (no black edges on overscroll). */}
       <style>
         {
-          "html,body{background-color:#25231f!important}body{cursor:auto}.cursor,.cursor-ring{display:none!important}"
+          "html,body{background-color:#D6D5D1!important}body{cursor:auto}.cursor,.cursor-ring{display:none!important}"
         }
       </style>
 

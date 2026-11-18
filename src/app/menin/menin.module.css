@@ -4,14 +4,14 @@
    No transitions, animation or parallax on purpose. */
 
 .page {
-  --stone: #25231f;
-  --stone-line: rgba(237, 229, 216, 0.12);
+  --stone: var(--paper);
+  --stone-line: rgba(10,10,10,0.12);
   min-height: 100vh;
   min-height: 100svh;
   background: var(--stone);
   color: var(--warm);
-  font-family: "Karla", sans-serif;
-  font-weight: 300;
+  font-family: var(--font);
+  font-weight: 450;
 }
 
 .inner {
@@ -40,13 +40,7 @@
 .heroShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(37, 35, 31, 0.5) 0%,
-    rgba(37, 35, 31, 0.58) 45%,
-    rgba(37, 35, 31, 0.86) 78%,
-    var(--stone) 100%
-  );
+  background: none;
 }
 .heroText {
   position: relative;
@@ -54,20 +48,28 @@
   max-width: 640px;
   margin: 0 auto;
   padding: 0 1rem 2.6rem;
-  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
+  text-shadow: none;
+}
+/* title and lines sit on a paper block over the photo */
+.heroText > * {
+  background: var(--paper);
+  width: fit-content;
+  padding: .3rem .6rem;
+  margin-left: -.6rem;
 }
 .pageTitle {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 300;
+  font-family: var(--font);
+  
   font-size: clamp(2.3rem, 8vw, 3.4rem);
   line-height: 1.05;
-  letter-spacing: 0.01em;
+  
   color: var(--cream);
-}
+
+  font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .95;}
 .byline {
   margin-top: 0.8rem;
   font-size: 0.74rem;
-  letter-spacing: 0.3em;
+  letter-spacing: .04em;
   text-transform: uppercase;
   color: var(--cream);
 }
@@ -104,14 +106,14 @@
 .heading {
   font-size: 0.68rem;
   font-weight: 400;
-  letter-spacing: 0.3em;
+  letter-spacing: .04em;
   text-transform: uppercase;
   color: var(--fog);
   padding-bottom: 0.9rem;
   border-bottom: 1px solid var(--stone-line);
 }
 .list > * + * {
-  border-top: 1px solid rgba(237, 229, 216, 0.06);
+  border-top: 1px solid rgba(10,10,10,0.06);
 }
 
 .note {
@@ -139,8 +141,8 @@
 .play {
   width: 46px;
   height: 46px;
-  border-radius: 50%;
-  border: 1px solid rgba(237, 229, 216, 0.28);
+  border-radius: 0;
+  border: 1px solid rgba(10,10,10,0.28);
   background: transparent;
   color: var(--cream);
   display: grid;
@@ -154,7 +156,7 @@
   fill: currentColor;
 }
 .play:hover {
-  border-color: rgba(237, 229, 216, 0.6);
+  border-color: rgba(10,10,10,0.6);
 }
 .play:focus-visible {
   outline: 1px solid var(--cream);
@@ -174,10 +176,10 @@
 .dl {
   flex: none;
   font-size: 0.6rem;
-  letter-spacing: 0.16em;
+  letter-spacing: .04em;
   color: var(--fog);
   text-decoration: none;
-  border-bottom: 1px solid rgba(138, 130, 120, 0.4);
+  border-bottom: 1px solid rgba(10,10,10,0.4);
   padding: 0.5rem 0 0.1rem;
 }
 .dl:hover {
@@ -189,13 +191,14 @@
 }
 
 .title {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font);
   font-size: 1.35rem;
-  font-weight: 400;
+  
   line-height: 1.2;
   color: var(--sand);
   margin-top: 0.1rem;
-}
+
+  font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .95;}
 .titleOn {
   color: var(--cream);
 }
@@ -234,15 +237,11 @@
 }
 .range::-webkit-slider-runnable-track {
   height: 2px;
-  background: linear-gradient(
-    to right,
-    var(--cream) 0 var(--pct, 0%),
-    rgba(237, 229, 216, 0.16) var(--pct, 0%) 100%
-  );
+  background: none;
 }
 .range::-moz-range-track {
   height: 2px;
-  background: rgba(237, 229, 216, 0.16);
+  background: rgba(10,10,10,0.16);
 }
 .range::-moz-range-progress {
   height: 2px;
@@ -253,14 +252,14 @@
   width: 10px;
   height: 10px;
   margin-top: -4px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--cream);
   border: 0;
 }
 .range::-moz-range-thumb {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--cream);
   border: 0;
 }
@@ -279,14 +278,14 @@
 .frame {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: #000;
+  background: var(--paper);
 }
 .frame video {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #000;
+  background: var(--paper);
 }
 .caption {
   margin-top: 0.9rem;
@@ -299,7 +298,7 @@
   background: transparent;
   margin-top: 5rem;
   padding: 1.4rem 0 0;
-  border-top: 1px solid rgba(237, 229, 216, 0.1);
+  border-top: 1px solid rgba(10,10,10,0.1);
   font-size: 0.78rem;
   line-height: 1.8;
   color: var(--fog);
@@ -307,7 +306,7 @@
 .footer a {
   color: var(--sand);
   text-decoration: none;
-  border-bottom: 1px solid rgba(212, 201, 184, 0.3);
+  border-bottom: 1px solid rgba(10,10,10,0.3);
 }
 .footer a:hover {
   color: var(--cream);

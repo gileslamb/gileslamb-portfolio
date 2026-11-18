@@ -27,18 +27,19 @@
   padding: 2rem 3rem;
 }
 .brand {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font);
   font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 0.2em;
+  
+  
   text-transform: uppercase;
   color: var(--cream);
   text-decoration: none;
-}
+
+  font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .95;}
 .back {
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-  color: rgba(212, 201, 184, 0.55);
+  color: rgba(10,10,10,0.55);
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -57,7 +58,7 @@
   width: 100%;
   aspect-ratio: 2398 / 1538;
   margin-bottom: 2.2rem;
-  box-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: none;
 }
 .artImg {
   object-fit: cover;
@@ -72,7 +73,7 @@
 
 .artist {
   font-size: 0.72rem;
-  letter-spacing: 0.3em;
+  letter-spacing: .04em;
   text-transform: uppercase;
   color: var(--sand);
   margin: 0 0 0.4rem 0.05em;
@@ -84,7 +85,7 @@
   gap: 1.4rem;
   align-items: start;
   padding: 1.8rem 0;
-  border-top: 1px solid rgba(237, 229, 216, 0.1);
+  border-top: 1px solid rgba(10,10,10,0.1);
 }
 .player {
   border-top: 0;
@@ -93,9 +94,9 @@
 .play {
   width: 52px;
   height: 52px;
-  border-radius: 50%;
-  border: 1px solid rgba(237, 229, 216, 0.28);
-  background: rgba(8, 8, 8, 0.28);
+  border-radius: 0;
+  border: 1px solid rgba(10,10,10,0.28);
+  background: rgba(214,213,209,0.28);
   color: var(--cream);
   display: grid;
   place-items: center;
@@ -108,8 +109,8 @@
   fill: currentColor;
 }
 .play:hover {
-  border-color: rgba(237, 229, 216, 0.6);
-  background: rgba(237, 229, 216, 0.06);
+  border-color: rgba(10,10,10,0.6);
+  background: rgba(10,10,10,0.06);
 }
 .play:focus-visible {
   outline: 1px solid var(--cream);
@@ -168,15 +169,11 @@
 }
 .range::-webkit-slider-runnable-track {
   height: 2px;
-  background: linear-gradient(
-    to right,
-    var(--cream) 0 var(--pct, 0%),
-    rgba(237, 229, 216, 0.16) var(--pct, 0%) 100%
-  );
+  background: none;
 }
 .range::-moz-range-track {
   height: 2px;
-  background: rgba(237, 229, 216, 0.16);
+  background: rgba(10,10,10,0.16);
 }
 .range::-moz-range-progress {
   height: 2px;
@@ -187,14 +184,14 @@
   width: 10px;
   height: 10px;
   margin-top: -4px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--cream);
   border: 0;
 }
 .range::-moz-range-thumb {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--cream);
   border: 0;
 }
@@ -223,7 +220,7 @@
   }
   .brand {
     font-size: 0.75rem;
-    letter-spacing: 0.15em;
+    letter-spacing: .04em;
   }
   .player {
     grid-template-columns: 46px 1fr;

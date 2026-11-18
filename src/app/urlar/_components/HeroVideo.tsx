@@ -188,23 +188,23 @@ export default function HeroVideo({ prominent = false }: { prominent?: boolean }
         /* The whole 16:9 frame, as large as the viewport allows. */
         .uh-frame { position:relative; width:min(100%, 100vh * 16 / 9); width:min(100%, 100svh * 16 / 9); aspect-ratio:16/9; }
         .uh-media { position:absolute; inset:0;
-          -webkit-mask-image:linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
-          mask-image:linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
+          
+           }
         .uh-frame img, .uh-frame video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
         .uh-frame video { opacity:0; transition:opacity .8s ease; }
         .uh-frame video.shown { opacity:1; }
         .uh-snd { position:absolute; right:clamp(10px,2vw,24px); bottom:clamp(10px,2vw,22px); z-index:2;
           display:inline-flex; align-items:center; gap:.6em; cursor:pointer;
-          font-family:'Karla',-apple-system,sans-serif; font-size:calc(var(--u) * 0.6); letter-spacing:.22em;
-          text-transform:uppercase; color:var(--warm); background:rgba(8,8,8,.42);
-          border:1px solid rgba(212,201,184,.22); padding:.85em 1.15em; backdrop-filter:blur(6px);
-          -webkit-backdrop-filter:blur(6px); transition:border-color .25s ease, background .25s ease, color .25s ease; }
-        .uh-snd:hover, .uh-snd:focus-visible { border-color:var(--accent); color:var(--cream); background:rgba(8,8,8,.6); }
+          font-family: var(--font); font-size:calc(var(--u) * 0.6); letter-spacing: .04em;
+          text-transform:uppercase; color:var(--warm); background:rgba(214,213,209,.42);
+          border:1px solid rgba(10,10,10,.22); padding:.85em 1.15em; 
+           transition:border-color .25s ease, background .25s ease, color .25s ease; }
+        .uh-snd:hover, .uh-snd:focus-visible { border-color:var(--accent); color:var(--cream); background:rgba(214,213,209,.6); }
         .uh-snd svg { width:1.35em; height:1.35em; flex:none; }
-        .uh-snd.loud { font-size:calc(var(--u) * 0.7); color:var(--cream); background:rgba(8,8,8,.62);
+        .uh-snd.loud { font-size:calc(var(--u) * 0.7); color:var(--cream); background:rgba(214,213,209,.62);
           border-color:var(--accent-dim); padding:.95em 1.3em; }
         .uh-snd.loud svg { color:var(--accent); }
-        .uh-snd.loud:hover, .uh-snd.loud:focus-visible { border-color:var(--accent); background:rgba(8,8,8,.75); }
+        .uh-snd.loud:hover, .uh-snd.loud:focus-visible { border-color:var(--accent); background:rgba(214,213,209,.75); }
         /* Portrait: the frame is the full width, so the box is its 16:9 height
            plus 15vh above and below. Smaller sound button so it sits well
            inside a phone-sized frame. */

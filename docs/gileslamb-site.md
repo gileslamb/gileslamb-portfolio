@@ -14,7 +14,7 @@ Canonical map of gileslamb.com: routes, content, media and conventions, written 
 ## Stack
 
 - **Framework:** Next.js 16 (App Router), React 19
-- **Styling:** `src/app/globals.css` (design tokens as CSS variables, Cormorant Garamond + Karla), Tailwind for layout on some pages (`/urlar/venues`)
+- **Styling:** `src/app/globals.css` (design tokens as CSS variables), Tailwind for layout on some pages (`/urlar/venues`). Since the Nov 2026 design refresh the site matches catalogue.gileslamb.com: pale grey paper `--paper #D6D5D1`, black ink `--ink #0A0A0A` (`--ink2`, `--ink3`, `--faint`), Inter Tight self-hosted from `public/fonts/` (copied from catalogue-site), static film grain (`body::before`), thin black rules, square corners, underlined links, heavy all-caps headings. The old token names (`--black`, `--warm`, `--accent`…) are kept and remapped onto paper/ink. Overrides live in the PAPER LAYER block at the end of `globals.css`. Exceptions: the Ùrlar wordmark keeps Cormorant Garamond italic 300 (`--urlar-serif`, next/font in `layout.tsx`) with the yellow Ù in `--urlar #c9a96e`; `/card/[event]` keeps its original dark palette and faces (pinned in `card.module.css`, fonts loaded in its page); the Invisible Threads sleeve keeps its Liberation Sans/Arimo face.
 - **Images:** Cloudflare Images, `https://imagedelivery.net/GhryEtlvYEhygxHE3JS6Bg/<id>/public`, or `public/images/`. Both work with `next/image`.
 - **Video:** Cloudflare Stream, `https://customer-3aa0vwfgpylhsylu.cloudflarestream.com/<id>`. Stream thumbnails are **not** an allowed `next/image` host, so Stream stills use a plain `<img>` (see `LivePractice.jsx`, `/live`, `/urlar/venues`).
 - **Audio / release media:** Cloudflare R2 (two public buckets, see below)
@@ -146,7 +146,7 @@ Each card links to `/immersive/<slug>`. Most pages render `ImmersiveCaseStudy` f
    - Beneath the flier: "More dates from January 2027."
 2. **The method: Unstable Systems**: one paragraph, "Releases →". Image: black-and-white photo of Giles playing, Cloudflare Images `8cd73992-0209-4125-16d2-5a81f67fb200`.
 
-> **Font note:** the Google Fonts `@import` at the top of `globals.css` (Cormorant Garamond upright + italic, Karla 300/400) does not survive the build, so the only Cormorant face on the site is the italic 300 from `next/font` (`--font-hero-name`). All Cormorant text therefore renders italic site-wide, including `/urlar/venues` prose and the flier blurb.
+> **Font note (superseded Nov 2026, kept for history):** the Google Fonts `@import` at the top of `globals.css` (Cormorant Garamond upright + italic, Karla 300/400) does not survive the build, so the only Cormorant face on the site is the italic 300 from `next/font` (`--font-hero-name`). All Cormorant text therefore renders italic site-wide, including `/urlar/venues` prose and the flier blurb.
 
 ## `/urlar`: Ùrlar pages
 
@@ -249,3 +249,4 @@ Structure in `wallet/pass.model/`, scripts `scripts/generate-pass.js` and `scrip
 | 1 Oct 2026 | `/press` added (indexable, linked from the site footer): bio, credits, awards, releases from `releases.json`, images with IMAGE_TBC slots, Ùrlar card, contact. Data in `src/data/press.ts`, also used by the new About section on `/urlar/host`. `/urlar` event details moved into the hero (one Book tickets) |
 | 8 Oct 2026 | Merged `urlar-host-hero` into main. `EVENTBRITE_URL` set to the House of Toad Eventbrite event; `/urlar` ticket line adds "drink on arrival" |
 | 17 Nov 2026 | Venue page moved from `/urlar/host` to `/urlar/venues` (still `noindex, nofollow`); `/urlar/host` now redirects to `/urlar` (`permanent: false`) because the 11 Nov mailing list email used it as the booking link |
+| 18 Nov 2026 | Design refresh (branch `design-refresh`): catalogue look across the site (paper, ink, Inter Tight, grain, rules, square corners, underlined links, heavy caps headings); text over full-bleed images set on paper blocks; Ùrlar wordmark + yellow Ù unchanged; `/card` unchanged. Content, routes and layout unchanged |

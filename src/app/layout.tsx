@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CustomCursor } from "@/components/CustomCursor";
-import { Cormorant_Garamond } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
-import { buildGlobalSchemas } from "@/lib/schema/helpers";
+import { Cormorant_Garamond } from "next/font/google";
 
-/** Homepage hero only: load on server to avoid client-bundle font work in dev */
-const heroNameFont = Cormorant_Garamond({
+/* The Ùrlar wordmark's face (italic 300). Nothing else on the site uses it:
+   everything else is Inter Tight, self-hosted in globals.css. */
+const urlarFont = Cormorant_Garamond({
   subsets: ["latin"],
   weight: "300",
   style: "italic",
   display: "swap",
-  variable: "--font-hero-name",
+  variable: "--font-urlar",
 });
+import { buildGlobalSchemas } from "@/lib/schema/helpers";
 
 export const metadata: Metadata = {
   title: "Giles Lamb · Composer · Immersive Sound Artist",
@@ -28,13 +29,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={heroNameFont.variable}
-      style={{ backgroundColor: "#080808" }}
+      className={urlarFont.variable}
+      style={{ backgroundColor: "#D6D5D1" }}
     >
       <body
         style={{
-          backgroundColor: "#080808",
-          color: "#d4c9b8",
+          backgroundColor: "#D6D5D1",
+          color: "#0A0A0A",
           minHeight: "100%",
         }}
       >
