@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { JsonLd } from "@/components/JsonLd";
+import { PrintMarks } from "@/components/PrintMarks";
 import { Cormorant_Garamond } from "next/font/google";
 
 /* The Ùrlar wordmark's face (italic 300). Nothing else on the site uses it:
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         <JsonLd schema={buildGlobalSchemas()} />
         {children}
+        <PrintMarks />
       </body>
     </html>
   );

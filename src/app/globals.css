@@ -4350,7 +4350,7 @@ nav { background: var(--paper); }
 
 /* Home hero: the photo full-bleed, a solid paper column cut into its left
    third with a hard ink edge, the type set inside the column on the
-   catalogue's gutter. The face sits at ~50% across and ~26% down the photo;
+   catalogue's gutter, blurb and buttons straight under the name. The face sits at ~50% across and ~26% down the photo;
    anchoring the crop at 35% 25% keeps it in the open two thirds whether the
    window is wide (photo cropped top/bottom) or narrow (cropped at the sides).
    Under 900px the column stacks above the photo. */
@@ -4367,7 +4367,7 @@ nav { background: var(--paper); }
   position: relative; z-index: 1;
   width: 33.333%; min-height: 100vh; min-height: 100svh;
   background: var(--paper); border-right: 1px solid var(--ink);
-  display: flex; flex-direction: column; justify-content: space-between; gap: 3rem;
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 2.4rem;
   padding: 7.5rem var(--gut) var(--gut);
 }
 .hero-eyebrow { margin-bottom: 1.4rem; }
@@ -4405,4 +4405,50 @@ nav { background: var(--paper); }
 @media (max-width: 767px) {
   .article-hero-content { padding: 1.2rem 1.5rem 1.2rem; }
   .gig-poster-body { margin-top: 0; padding-top: 1.4rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROOF-SHEET PRINT FEEL (after catalogue-site print.js and .sechead)
+   Fixed, never animated. Headings, margins and dividers only.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ink streak through a display heading (PrintMarks, seeded per heading) */
+.print-streak {
+  position: absolute; display: block; pointer-events: none;
+  background: linear-gradient(to right, rgba(10,10,10,0), var(--ink) 12%, var(--ink) 70%, rgba(10,10,10,0));
+  filter: blur(.4px);
+}
+/* marks layer: document coordinates, above content, below the grain */
+.print-marks { position: absolute; top: 0; left: 0; width: 100%; height: 0; overflow: visible; pointer-events: none; z-index: 50; }
+.print-marks i { position: absolute; display: block; }
+.pm-crop { border-left: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.pm-rule { height: 1px; background: var(--ink); opacity: .7; }
+.pm-streak { background: linear-gradient(to right, rgba(10,10,10,0), var(--ink) 12%, var(--ink) 70%, rgba(10,10,10,0)); filter: blur(.4px); }
+
+/* off-centre display headings: set big, nowrap, pushed so they run off one
+   edge and get cropped by their section, like the catalogue's .sechead */
+.work, .contact, .writing-page, .reels-index-page { overflow-x: clip; }
+@media (min-width: 900px) {
+  /* "Some projects": pushed right, cropped at the right edge */
+  .work-intro { grid-template-columns: 1fr 1fr; row-gap: 2rem; }
+  .work-intro > div:first-child { grid-column: 1 / -1; }
+  .work-intro-note { grid-column: 2; max-width: 34rem; }
+  .work-intro-headline {
+    font-size: clamp(64px, 11vw, 190px); line-height: .8; letter-spacing: -.048em;
+    white-space: nowrap; text-align: right; margin-right: calc(-3.5rem - .42em);
+  }
+  /* "Commission serious work": pulled left, cropped at the left edge */
+  .contact-headline {
+    font-size: clamp(64px, 9vw, 150px); line-height: .82; letter-spacing: -.048em;
+    white-space: nowrap; margin-left: calc(-3.5rem - .2em);
+  }
+  /* essays index and reels: one runs off the right, one off the left */
+  .writing-headline {
+    font-size: clamp(64px, 11vw, 190px); line-height: .82; letter-spacing: -.048em;
+    white-space: nowrap; text-align: right; margin-right: calc(-3.5rem - .42em);
+  }
+  .reels-index-title {
+    font-size: clamp(64px, 12vw, 200px); line-height: .82; letter-spacing: -.048em;
+    white-space: nowrap; margin-left: calc(-3.5rem - .3em);
+  }
 }

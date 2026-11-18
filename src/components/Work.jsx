@@ -81,16 +81,14 @@ export function Work() {
         <div>
           <p className="section-label reveal">Selected Work</p>
           <h2 className="work-intro-headline reveal reveal-delay-1">
-            Not a credits list.<br />
-            <em>each project explored</em>
-            <br />
-            in depth
+            Some projects
           </h2>
         </div>
         <p className="work-intro-note reveal reveal-delay-2">
-          Process, context, decisions. The brief, the material, what the work
-          became. A small number of projects, chosen because they represent
-          something, not everything.
+          These are some of the projects I&rsquo;ve learned the most from.
+          I&rsquo;ve written a bit about how each one came about, what I was
+          trying to do and where it ended up, which wasn&rsquo;t always where I
+          expected.
         </p>
       </div>
 
