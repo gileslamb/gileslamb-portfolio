@@ -15,6 +15,9 @@
   --font: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --urlar-serif: var(--font-urlar), 'Cormorant Garamond', Georgia, serif;
   --urlar: #c9a96e; /* the yellow Ù */
+  /* the catalogue's intensity-strip greys and grain tile */
+  --tone1: #C4C3BF; --tone2: #A3A29E; --tone3: #7B7A77; --tone4: #4C4B49; --tone5: #1C1C1B;
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.6 1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   /* the old dark/gold tokens, remapped onto paper and ink */
   --black: var(--paper);
   --deep: var(--paper);
@@ -1731,15 +1734,15 @@ p.immersive-reel-foot {
   height: 0;
   border-style: solid;
   border-width: 8px 0 8px 13px;
-  border-color: transparent transparent transparent var(--accent);
+  border-color: transparent transparent transparent var(--ink);
 }
+/* playing: a solid ink square, the same size and weight as the triangle (stop, not pause) */
 .museum-reel-play-lg.is-playing::before {
-  width: 4px;
-  height: 15px;
+  width: 13px;
+  height: 13px;
   border: none;
-  background: transparent;
-  box-shadow: none;
-  transform: translate(-55%, -50%);
+  background: var(--ink);
+  transform: translate(-50%, -50%);
 }
 .museum-reel-progress-hit-lg {
   width: 100%;
@@ -4452,3 +4455,18 @@ nav { background: var(--paper); }
     white-space: nowrap; margin-left: calc(-3.5rem - .3em);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   INTENSITY STRIP (reel players), copied from catalogue-site main:
+   flat printed tone bar, five greys, grain on top, square corners;
+   played portion = 1px ink rule under it, playhead = 1px ink line.
+   ═══════════════════════════════════════════════════════════════ */
+.tone{position:relative;display:block;height:22px;background:var(--tone1);cursor:pointer;touch-action:none;user-select:none}
+.tone i{position:absolute;top:0;bottom:0}
+.tone .t1{background:var(--tone1)}.tone .t2{background:var(--tone2)}.tone .t3{background:var(--tone3)}.tone .t4{background:var(--tone4)}.tone .t5{background:var(--tone5)}
+.tone::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;background-image:var(--noise);background-size:160px 160px}
+.tone .ph{position:absolute;top:-3px;bottom:-3px;left:0;width:1px;background:var(--ink);box-shadow:1px 0 0 var(--paper);z-index:2;display:none}
+.tone .pl{position:absolute;left:0;bottom:-4px;height:1px;width:0;background:var(--ink)}
+.tone.on .ph{display:block}
+.tone:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.museum-reel-strip{padding:.35rem 0 4px}

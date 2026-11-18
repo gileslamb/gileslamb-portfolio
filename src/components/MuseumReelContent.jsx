@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { IntensityStrip } from "@/components/IntensityStrip";
 
 const TRACKS = [
   {
@@ -129,11 +130,13 @@ export function MuseumReelContent({ sideImages = [] }) {
     };
   }, [trackIndex, bump]);
 
+  // Play / stop (no pause): stop halts and rewinds, so the next play starts from the top.
   const togglePlay = useCallback(() => {
     const a = audioRef.current;
     if (!a) return;
     if (!a.paused) {
       a.pause();
+      a.currentTime = 0;
       bump();
       return;
     }
@@ -141,23 +144,11 @@ export function MuseumReelContent({ sideImages = [] }) {
     bump();
   }, [bump]);
 
-  const onSeek = useCallback(
-    (clientX, barEl) => {
-      const a = audioRef.current;
-      if (!a || !Number.isFinite(a.duration) || a.duration <= 0) return;
-      const rect = barEl.getBoundingClientRect();
-      const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-      a.currentTime = pct * a.duration;
-      bump();
-    },
-    [bump],
-  );
 
   const audio = audioRef.current;
   const cur = audio?.currentTime ?? 0;
   const dur = audio?.duration;
   const durSafe = Number.isFinite(dur) && dur > 0 ? dur : 0;
-  const pct = durSafe > 0 ? Math.min(100, (cur / durSafe) * 100) : 0;
   const isPlaying = Boolean(audio && !audio.paused);
   const current = TRACKS[trackIndex];
 
@@ -204,7 +195,7 @@ export function MuseumReelContent({ sideImages = [] }) {
                   type="button"
                   className={`museum-reel-play-lg ${isPlaying ? "is-playing" : ""}`}
                   onClick={togglePlay}
-                  aria-label={isPlaying ? "Pause" : "Play"}
+                  aria-label={isPlaying ? "Stop" : "Play"}
                 />
                 <button
                   type="button"
@@ -214,32 +205,10 @@ export function MuseumReelContent({ sideImages = [] }) {
                 />
               </div>
 
-              <div
-                className="museum-reel-progress-hit-lg"
-                role="slider"
-                tabIndex={0}
-                aria-valuemin={0}
-                aria-valuemax={durSafe > 0 ? durSafe : 0}
-                aria-valuenow={durSafe > 0 ? cur : 0}
-                aria-label="Seek"
-                onClick={(e) => onSeek(e.clientX, e.currentTarget)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    const el = e.currentTarget;
-                    onSeek(
-                      el.getBoundingClientRect().left + el.offsetWidth / 2,
-                      el,
-                    );
-                  }
-                }}
-              >
-                <span className="museum-reel-progress-lg">
-                  <span
-                    className="museum-reel-progress-fill-lg"
-                    style={{ width: `${pct}%` }}
-                  />
-                </span>
+              <div className="museum-reel-strip">
+
+                <IntensityStrip src={current.src} audioRef={audioRef} title={current.title} />
+
               </div>
               <div className="museum-reel-times-lg" aria-live="polite">
                 <span>{formatTime(cur)}</span>
