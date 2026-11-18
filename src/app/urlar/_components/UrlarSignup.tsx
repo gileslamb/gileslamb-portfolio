@@ -34,8 +34,6 @@ export default function UrlarSignup() {
   const [error, setError] = useState('');
   const inFlight = useRef(false);
 
-  /* Site cursor is a custom dot; restore the real one while over the form. */
-  const realCursor = (on: boolean) => document.body.classList.toggle('list-mode', on);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,8 +69,6 @@ export default function UrlarSignup() {
   return (
     <div
       style={{ maxWidth: 'calc(var(--u) * 24)' }}
-      onMouseEnter={() => realCursor(true)}
-      onMouseLeave={() => realCursor(false)}
     >
       <p className={styles.lede} style={{ marginTop: 'calc(var(--u) * 1.25)' }}>
         Occasional emails about live dates and new releases. Dates go out here first.

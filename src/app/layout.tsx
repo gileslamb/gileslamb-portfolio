@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { CustomCursor } from "@/components/CustomCursor";
 import { JsonLd } from "@/components/JsonLd";
 import { Cormorant_Garamond } from "next/font/google";
 
@@ -40,7 +39,6 @@ export default function RootLayout({
         }}
       >
         <JsonLd schema={buildGlobalSchemas()} />
-        <CustomCursor />
         {children}
       </body>
     </html>

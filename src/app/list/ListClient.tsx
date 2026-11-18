@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './list.module.css';
 
 /* Mailing list. Posts straight to the giles-engine worker, which writes the
@@ -31,12 +31,6 @@ export default function ListClient({ source }: { source: string }) {
   const [state, setState] = useState<State>('idle');
   const [error, setError] = useState('');
   const inFlight = useRef(false);
-
-  /* Site cursor is a custom dot; restore the real one over the form. */
-  useEffect(() => {
-    document.body.classList.add('list-mode');
-    return () => document.body.classList.remove('list-mode');
-  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

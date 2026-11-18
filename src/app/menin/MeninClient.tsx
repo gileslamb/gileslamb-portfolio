@@ -274,13 +274,11 @@ export default function MeninClient() {
   return (
     <main className={styles.page}>
       {/* Page-only overrides, present only while this page is mounted:
-          - the site-wide custom cursor (dot + trailing ring) is animation, so
-            use the normal pointer;
-          - the root layout paints html/body near-black inline, so lift them to
-            the page's stone grey (no black edges on overscroll). */}
+          the root layout paints html/body inline, so pin them to the page's
+          paper (no odd edges on overscroll). */}
       <style>
         {
-          "html,body{background-color:#D6D5D1!important}body{cursor:auto}.cursor,.cursor-ring{display:none!important}"
+          "html,body{background-color:#D6D5D1!important}"
         }
       </style>
 

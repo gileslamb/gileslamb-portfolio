@@ -43,30 +43,7 @@ body {
   font-size: 14px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
   overflow-x: hidden;
-}
-
-@media (hover: none) {
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
-}
-
-.cursor {
-  position: fixed; width: 8px; height: 8px;
-  background: var(--accent); border-radius: 0;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .3s ease, height .3s ease;
-  mix-blend-mode: normal;
-}
-
-.cursor-ring {
-  position: fixed; width: 36px; height: 36px;
-  border: 1px solid rgba(10,10,10,.35); border-radius: 0;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width .4s ease, height .4s ease;
 }
 
 body::before {
@@ -719,7 +696,7 @@ nav::after {
 .project-card {
   background: var(--black); position: relative;
   overflow: hidden; transition: background .5s ease, border-color .4s ease;
-  cursor: none; text-decoration: none; display: flex; color: inherit;
+  text-decoration: none; display: flex; color: inherit;
   border-left: 3px solid transparent;
 }
 .project-card::before {
@@ -4038,14 +4015,9 @@ body {
   .privacy-page { padding: 9rem 1.5rem 6rem; }
 }
 
-/* /card pages: full-screen experience, no site cursor */
+/* /card pages: full-screen experience, no page scroll */
 body.card-mode {
   overflow: hidden;
-  cursor: auto;
-}
-body.card-mode .cursor,
-body.card-mode .cursor-ring {
-  display: none !important;
 }
 
 /* ===== /live: gig poster, then the method ===== */
@@ -4314,10 +4286,6 @@ a.gig-tickets:hover { background: var(--cream); border-color: var(--cream); }
 }
 
 /* ===== /list — mailing list signup ===== */
-/* Same cursor handling as .card-mode, without the scroll lock. */
-body.list-mode { cursor: auto; }
-body.list-mode .cursor,
-body.list-mode .cursor-ring { display: none !important; }
 
 /* ═══════════════════════════════════════════════════════════════
    WORK INDEX (/work): reuses .immersive-landing, .work-tier2 and
@@ -4376,21 +4344,54 @@ p a, li a, .article-body a, .cta-secondary, .nav-links a, .live-text-cta, .gig-p
 .nav-links a::after { display: none; }
 .nav-links a:hover, .cta-secondary:hover { text-decoration-thickness: 2px; }
 
-/* the cursor keeps its round dot, now in ink */
-.cursor, .cursor-ring { border-radius: 50%; }
 
 /* nav: plain ink on a paper bar so it reads over images */
 nav { background: var(--paper); }
 
-/* text over a full-bleed image sits on paper blocks, the way the
-   catalogue sets its orienting lines over the sphere */
-.hero-eyebrow, .hero-name, .hero-descriptor, .hero-cta {
-  background: var(--paper); width: fit-content; padding: .5rem .8rem; margin-left: -.8rem;
+/* Home hero: the photo full-bleed, a solid paper column cut into its left
+   third with a hard ink edge, the type set inside the column on the
+   catalogue's gutter. The face sits at ~50% across and ~26% down the photo;
+   anchoring the crop at 35% 25% keeps it in the open two thirds whether the
+   window is wide (photo cropped top/bottom) or narrow (cropped at the sides).
+   Under 900px the column stacks above the photo. */
+.hero {
+  --gut: clamp(24px, 2.6vw, 40px);
+  display: block; padding: 0; min-height: 100vh; min-height: 100svh;
+  position: relative; overflow: hidden;
 }
-.hero-eyebrow { margin-bottom: 1.2rem; }
-.hero-name { padding: .9rem .8rem .55rem; }
-.hero-descriptor { margin-top: 1.2rem; }
-.hero-cta { margin-top: 1.2rem; }
+.hero-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 35% 25%; display: block; z-index: 0;
+}
+.hero-col {
+  position: relative; z-index: 1;
+  width: 33.333%; min-height: 100vh; min-height: 100svh;
+  background: var(--paper); border-right: 1px solid var(--ink);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 3rem;
+  padding: 7.5rem var(--gut) var(--gut);
+}
+.hero-eyebrow { margin-bottom: 1.4rem; }
+.hero-eyebrow::before { width: 1.5rem; }
+/* the name fills the column width: ~3.1em is the width of "GILES" set tight */
+.hero-name { font-size: calc((33.333vw - 2 * var(--gut)) / 3.15); margin: 0; }
+.hero-descriptor { margin-top: 0; max-width: 34rem; }
+.hero-descriptor p + p { margin-top: .9rem; }
+.hero-cta { margin-top: 1.8rem; gap: 2rem; }
+
+@media (max-width: 899px) {
+  .hero { --gut: 16px; min-height: 0; overflow: visible; display: flex; flex-direction: column; }
+  .hero-col { order: 0; }
+  .hero-photo { order: 1; }
+  .hero-col {
+    width: 100%; min-height: 0; border-right: none; border-bottom: 1px solid var(--ink);
+    padding: 6.5rem var(--gut) 2rem; gap: 2.2rem;
+  }
+  .hero-name { font-size: calc((100vw - 2 * var(--gut)) / 3.15); }
+  /* the photo follows the column, whole and uncropped */
+  .hero-photo { position: relative; inset: auto; height: auto; aspect-ratio: 3 / 2; object-position: 50% 25%; }
+  .hero-cta { flex-direction: row; width: auto; gap: 1.5rem; }
+  .cta-primary, .cta-secondary { width: auto; }
+}
 .article-hero-img { filter: none; }
 .article-hero-content { background: var(--paper); padding: 1.6rem 3.5rem 1.4rem; }
 .gig-poster-body { margin-top: 0; padding-top: 2rem; }
@@ -4402,7 +4403,6 @@ nav { background: var(--paper); }
 }
 
 @media (max-width: 767px) {
-  .hero-eyebrow, .hero-name, .hero-descriptor, .hero-cta { margin-left: -.6rem; padding-left: .6rem; padding-right: .6rem; }
   .article-hero-content { padding: 1.2rem 1.5rem 1.2rem; }
   .gig-poster-body { margin-top: 0; padding-top: 1.4rem; }
 }

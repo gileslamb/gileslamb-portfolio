@@ -1,6 +1,5 @@
 /* Sits in the essay column: Karla body, Cormorant heading, site tokens.
-   No box, no filled button. The site hides the real cursor on body (custom
-   dot); give the field and button their own cursors back. */
+   No box, no filled button. */
 
 .box {
   max-width: 680px;

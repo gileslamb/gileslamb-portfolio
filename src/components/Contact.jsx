@@ -13,8 +13,8 @@ export function Contact() {
           work
         </h2>
         <p className="contact-sub reveal reveal-delay-2">
-          Music and sound design for moving image. Score, sound design, and
-          final mix delivered from a resourced studio. Based in Glasgow, UK.
+          Music, sound design and final mix for moving image, from my studio
+          in Glasgow.
         </p>
         <div className="contact-portrait reveal reveal-delay-2">
           {/* TODO: replace hero portrait */}

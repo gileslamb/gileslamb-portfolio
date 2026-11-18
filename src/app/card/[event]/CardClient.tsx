@@ -106,7 +106,7 @@ export default function CardClient({
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'done'>('idle');
   const [formError, setFormError] = useState('');
 
-  /* ---- Suppress site cursor + lock scroll on body ---- */
+  /* ---- Lock scroll on body ---- */
   useEffect(() => {
     document.body.classList.add('card-mode');
     return () => document.body.classList.remove('card-mode');
