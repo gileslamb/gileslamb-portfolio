@@ -6,20 +6,50 @@ import styles from "./challenger.module.css";
 /* Media lives in the music-releases R2 bucket under time-loop/.
    The stems are one 5.1 AAC file so voice and music share one media
    element and one decoder: sample-aligned by construction through play,
-   pause and seek, with no drift to correct. Channel use:
-     0/1 = music L/R (stored 2 dB down, restored below)
-     2/3 = silent (centre, LFE)
-     4/5 = voice L/R
+   pause and seek, with no drift to correct. File channels (5.1):
+     L/R   = music L/R (stored 2 dB down, restored below)
+     C     = marker: a -20 dBFS 997 Hz sine, never routed to the output
+     LFE   = silent
+     Ls/Rs = voice L/R
    Stereo copies of each stem sit beside it (challenger_voice.m4a,
    challenger_music.m4a) for reference. The stems are AI-separated
    (Demucs htdemucs_ft); music = master minus voice, so voice + music at
    full level is the released master. */
 const R2_BASE = "https://pub-1c42ac5be9844cb9bd9cf16ce1ef9b94.r2.dev/time-loop/";
-const STEMS_SRC = `${R2_BASE}challenger_stems_6ch.m4a`;
+const STEMS_SRC = `${R2_BASE}challenger_stems_6ch_v2.m4a`;
 const LOOP_SRC = `${R2_BASE}challenger_loop.mp4`;
 
-const CH = { musicL: 0, musicR: 1, voiceL: 4, voiceR: 5 };
+/* Browsers hand the six channels to Web Audio in different orders.
+   Chrome uses the standard order (L R C LFE Ls Rs); Safari and every iOS
+   browser (WebKit) use AAC's native order (C L R Ls Rs LFE), measured on
+   iOS 18 / Safari 26 on 22 Nov 2026. The page starts with a guess from the
+   user agent, listens for the marker tone, and switches if the guess was
+   wrong. Output stays muted until the order is confirmed. */
+type ChannelMap = { musicL: number; musicR: number; voiceL: number; voiceR: number; marker: number };
+const STANDARD_ORDER: ChannelMap = { musicL: 0, musicR: 1, voiceL: 4, voiceR: 5, marker: 2 };
+const AAC_ORDER: ChannelMap = { musicL: 1, musicR: 2, voiceL: 3, voiceR: 4, marker: 0 };
+const MARKER_HZ = 997;
 const MUSIC_TRIM = Math.pow(10, 2 / 20); // undo the 2 dB stored headroom
+
+function guessOrder(): ChannelMap {
+  const ua = navigator.userAgent;
+  const ios = /iPhone|iPad|iPod/.test(ua);
+  const safari = /Safari/.test(ua) && !/Chrome|Chromium|Edg|OPR|Firefox/.test(ua);
+  return ios || safari ? AAC_ORDER : STANDARD_ORDER;
+}
+
+/* A channel is the marker if it holds a strong 997 Hz line and next to
+   nothing in the low band. Music channels always carry low-band energy
+   when they carry any 997 Hz energy at all. */
+function isMarker(an: AnalyserNode, buf: Float32Array<ArrayBuffer>, sampleRate: number) {
+  an.getFloatFrequencyData(buf);
+  const bin = (hz: number) => Math.round((hz * an.fftSize) / sampleRate);
+  let peak = -Infinity;
+  for (let i = bin(MARKER_HZ) - 2; i <= bin(MARKER_HZ) + 2; i++) peak = Math.max(peak, buf[i]);
+  let low = -Infinity;
+  for (let i = bin(60); i <= bin(500); i++) low = Math.max(low, buf[i]);
+  return peak > -50 && low < -95;
+}
 
 /* The film is a seamless 8-bar loop at 123 BPM: 468 frames at 30 fps */
 const LOOP_SECONDS = 15.6;
@@ -31,6 +61,12 @@ const ALBUM_URL = "";
 type Graph = {
   ctx: AudioContext;
   voice: GainNode;
+  out: GainNode;
+  route: (m: ChannelMap) => void;
+  map: ChannelMap;
+  confirmed: boolean;
+  probes: AnalyserNode[]; // one per splitter output
+  heard: number; // seconds of playback spent listening for the marker
 };
 
 /* Equal-power curve on the voice stem only; music stays at unity */
@@ -63,6 +99,7 @@ export default function ChallengerClient({ fontClass }: { fontClass: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const graphRef = useRef<Graph | null>(null);
+  const startAt = useRef<number | null>(null); // position when play was first pressed
   const voiceRef = useRef(1);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
@@ -104,10 +141,29 @@ export default function ChallengerClient({ fontClass }: { fontClass: string }) {
 
     const musicBus = ctx.createChannelMerger(2);
     const voiceBus = ctx.createChannelMerger(2);
-    split.connect(musicBus, CH.musicL, 0);
-    split.connect(musicBus, CH.musicR, 1);
-    split.connect(voiceBus, CH.voiceL, 0);
-    split.connect(voiceBus, CH.voiceR, 1);
+    const route = (m: ChannelMap) => {
+      try {
+        split.disconnect(musicBus);
+      } catch {}
+      try {
+        split.disconnect(voiceBus);
+      } catch {}
+      split.connect(musicBus, m.musicL, 0);
+      split.connect(musicBus, m.musicR, 1);
+      split.connect(voiceBus, m.voiceL, 0);
+      split.connect(voiceBus, m.voiceR, 1);
+    };
+    const map = guessOrder();
+    route(map);
+
+    /* Probes on every splitter output, to find the marker channel */
+    const probes = [0, 1, 2, 3, 4, 5].map((i) => {
+      const an = ctx.createAnalyser();
+      an.fftSize = 8192;
+      an.smoothingTimeConstant = 0;
+      split.connect(an, i);
+      return an;
+    });
 
     const music = ctx.createGain();
     music.gain.value = MUSIC_TRIM;
@@ -127,10 +183,74 @@ export default function ChallengerClient({ fontClass }: { fontClass: string }) {
     limiter.release.value = 0.1;
     music.connect(limiter);
     voiceGain.connect(limiter);
-    limiter.connect(ctx.destination);
 
-    graphRef.current = { ctx, voice: voiceGain };
+    /* Held at zero until the channel order is confirmed */
+    const out = ctx.createGain();
+    out.gain.value = 0;
+    limiter.connect(out);
+    out.connect(ctx.destination);
+
+    graphRef.current = {
+      ctx,
+      voice: voiceGain,
+      out,
+      route,
+      map,
+      confirmed: false,
+      probes,
+      heard: 0,
+    };
     return graphRef.current;
+  }, []);
+
+  /* Confirm the channel order from the marker tone, then unmute. If no
+     marker shows within two seconds of playback, keep the guess. */
+  useEffect(() => {
+    const STEP = 60;
+    let buf: Float32Array<ArrayBuffer> | null = null;
+    const id = window.setInterval(() => {
+      const g = graphRef.current;
+      const a = audioRef.current;
+      if (!g || !a || g.confirmed || a.paused || g.ctx.state !== "running") return;
+      if (!buf) buf = new Float32Array(g.probes[0].frequencyBinCount);
+      g.heard += STEP / 1000;
+      const found: number[] = [];
+      g.probes.forEach((an, i) => {
+        if (isMarker(an, buf!, g.ctx.sampleRate)) found.push(i);
+      });
+      const other = g.map === STANDARD_ORDER ? AAC_ORDER : STANDARD_ORDER;
+      let done = false;
+      if (found.length === 1 && found[0] === g.map.marker) {
+        done = true;
+      } else if (found.length === 1 && found[0] === other.marker) {
+        g.route(other);
+        g.map = other;
+        done = true;
+      } else if (g.heard > 2) {
+        done = true;
+      }
+      if (!done) return;
+      g.confirmed = true;
+      g.probes.forEach((an) => an.disconnect());
+      const fadeIn = () => {
+        const now = g.ctx.currentTime;
+        g.out.gain.cancelScheduledValues(now);
+        g.out.gain.setValueAtTime(0, now);
+        g.out.gain.linearRampToValueAtTime(1, now + 0.03);
+      };
+      /* The listen took a moment of muted playback: go back to where play
+         was pressed (unless the listener has seeked since) before fading in */
+      const from = startAt.current;
+      if (from !== null && Math.abs(a.currentTime - from) < 3) {
+        a.addEventListener("seeked", fadeIn, { once: true });
+        a.currentTime = from;
+      } else {
+        fadeIn();
+      }
+      (window as unknown as { __challengerOrder?: string }).__challengerOrder =
+        g.map === STANDARD_ORDER ? "standard" : "aac";
+    }, STEP);
+    return () => window.clearInterval(id);
   }, []);
 
   /* Mirror the audio element's state */
@@ -212,6 +332,7 @@ export default function ChallengerClient({ fontClass }: { fontClass: string }) {
     const g = ensureGraph();
     if (g && g.ctx.state !== "running") g.ctx.resume().catch(() => {});
     if (a.paused) {
+      if (g && !g.confirmed && startAt.current === null) startAt.current = a.currentTime;
       a.play().catch(() => {});
     } else {
       a.pause();
