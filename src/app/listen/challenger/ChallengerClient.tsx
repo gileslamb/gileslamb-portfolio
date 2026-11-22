@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./challenger.module.css";
 
@@ -57,6 +58,7 @@ const FRAME = 1 / 30;
 
 /* Time Loop on Spotify, confirmed by Giles 22 Nov 2026 */
 const ALBUM_URL = "https://open.spotify.com/album/2ppa68fjsou5FzN06YiM1f";
+const BANDCAMP_URL = "https://gileslamb.bandcamp.com/album/timeloop";
 
 type Graph = {
   ctx: AudioContext;
@@ -437,13 +439,21 @@ export default function ChallengerClient({ fontClass }: { fontClass: string }) {
 
         <p className={styles.hint}>Move the slider to take the voice in and out.</p>
 
-        {ALBUM_URL ? (
-          <p className={styles.album}>
-            <a href={ALBUM_URL} target="_blank" rel="noopener noreferrer">
-              Listen to Time Loop
+        <ul className={styles.album}>
+          <li>
+            <a href={BANDCAMP_URL} target="_blank" rel="noopener noreferrer">
+              Buy Time Loop on Bandcamp
             </a>
-          </p>
-        ) : null}
+          </li>
+          <li>
+            <a href={ALBUM_URL} target="_blank" rel="noopener noreferrer">
+              Stream on Spotify
+            </a>
+          </li>
+          <li>
+            <Link href="/releases">Back to releases</Link>
+          </li>
+        </ul>
       </div>
     </main>
   );
