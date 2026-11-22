@@ -1,0 +1,239 @@
+/* Challenger listening page. Same language as the Invisible Threads
+   listening room: one face (--font-sleeve), regular weight, letterspaced
+   artist line, quiet controls, slow settle-in. The square film sits framed
+   on the paper ground rather than filling the viewport. */
+
+.room {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  background: var(--black);
+  font-family: var(--font-sleeve), "Liberation Sans", Arimo, Arial, sans-serif;
+  font-weight: 400;
+  color: var(--warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: 3rem;
+}
+
+.frame {
+  flex: none;
+  width: min(78vh, 56vw);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  box-shadow: 0 2px 22px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  animation: settle 1.9s ease 0.2s forwards;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text {
+  flex: none;
+  width: min(300px, 30vw);
+  opacity: 0;
+  animation: rise 1.6s ease 0.9s forwards;
+}
+
+.artist {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin: 0 0 0.55rem 0.05em;
+}
+
+.title {
+  font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--cream);
+  margin: 0;
+}
+
+.from {
+  font-size: 0.86rem;
+  color: var(--sand);
+  margin: 0.6rem 0 0;
+}
+.from a,
+.album a {
+  color: inherit;
+}
+
+.transport {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.play {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: var(--cream);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.play svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.play:hover {
+  background: rgba(10, 10, 10, 0.06);
+}
+.play:focus-visible {
+  outline: 1px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.seekWrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--fog);
+  margin: 0.35rem 0 0;
+}
+
+/* Thin line slider: ink fill to the left of the thumb, faint rule after */
+.range {
+  --fill: 0%;
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+.range::-webkit-slider-runnable-track {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--cream) 0%,
+    var(--cream) var(--fill),
+    rgba(10, 10, 10, 0.22) var(--fill)
+  );
+}
+.range::-moz-range-track {
+  height: 1px;
+  background: rgba(10, 10, 10, 0.22);
+}
+.range::-moz-range-progress {
+  height: 1px;
+  background: var(--cream);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  margin-top: -6px;
+  border: 0;
+  border-radius: 0;
+  background: var(--cream);
+}
+.range::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  border-radius: 0;
+  background: var(--cream);
+}
+.range:focus-visible {
+  outline: 1px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.voice {
+  display: block;
+  margin-top: 1.6rem;
+}
+.voiceLabel {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.hint {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--sand);
+  margin: 0.4rem 0 0;
+}
+
+.album {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 2rem 0 0;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes settle {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .room {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1.6rem;
+    padding: 1.4rem 1.4rem 2.4rem;
+  }
+  .frame {
+    width: min(100%, 58vh);
+  }
+  .text {
+    width: min(100%, 420px);
+  }
+  .transport {
+    margin-top: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .text {
+    animation: none;
+    opacity: 1;
+  }
+}
