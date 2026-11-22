@@ -2,6 +2,18 @@
   "_comment": "Releases data for gileslamb.com. One flat list; the Releases page sorts newest first on `date`. Links: `room` (internal listening room), `streaming` and `bandcamp` (external). Leave a link empty (\"\") and the card renders nothing for it. Covers are hotlinked from R2 / Bandcamp's CDN for now; migrate to local /public assets in a future pass if desired.",
   "releases": [
     {
+      "slug": "time-loop",
+      "title": "Time Loop",
+      "year": 2026,
+      "date": "2026-11-20",
+      "type": "Album",
+      "cover": "/releases/time-loop/cover.jpg",
+      "room": "/listen/challenger",
+      "streaming": "https://open.spotify.com/album/2ppa68fjsou5FzN06YiM1f",
+      "bandcamp": "https://gileslamb.bandcamp.com/album/timeloop",
+      "description": "Eight tracks from 2001 to 2005, never released until now. Challenger has its own listening room, where you can take Reagan's voice in and out."
+    },
+    {
       "slug": "invisible-threads",
       "title": "Invisible Threads",
       "year": 2026,
