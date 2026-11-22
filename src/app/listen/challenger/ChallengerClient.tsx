@@ -55,8 +55,8 @@ function isMarker(an: AnalyserNode, buf: Float32Array<ArrayBuffer>, sampleRate: 
 const LOOP_SECONDS = 15.6;
 const FRAME = 1 / 30;
 
-/* Set when the Time Loop album link is confirmed */
-const ALBUM_URL = "";
+/* Time Loop on Spotify, confirmed by Giles 22 Nov 2026 */
+const ALBUM_URL = "https://open.spotify.com/album/2ppa68fjsou5FzN06YiM1f";
 
 type Graph = {
   ctx: AudioContext;
